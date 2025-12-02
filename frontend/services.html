@@ -6,7 +6,7 @@
     <title>AJFSES - Engineering Services</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta content="" name=description>
 
     <link href="img/favicon.ico" rel="icon">
 
@@ -24,6 +24,34 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <link href="css/style.css" rel="stylesheet">
+    <style>
+        #services .col-md-6,
+        #services .col-lg-4 {
+            display: flex;
+        }
+
+        .service-item {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background: #fff;
+            border-radius: 8px;
+        }
+
+        .service-item p {
+            flex-grow: 1;
+            /* pushes button to bottom */
+        }
+
+        .service-item img {
+            width: 100%;
+            height: 200px;
+            /* fixed image height */
+            object-fit: cover;
+            /* keeps cropping nice */
+            border-radius: 6px;
+        }
+    </style>
 </head>
 
 <body>
@@ -33,11 +61,14 @@
             <span class="sr-only">Loading...</span>
         </div>
     </div>
+
     <!-- Navbar start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow border-top border-5 border-primary sticky-top p-0">
-        <a href="index.html" class="navbar-brand bg-primary d-flex align-items-center px-4 px-lg-5">
-            <h2 class="mb-2 text-white">AJFSES</h2>
+        <a href="index.html" class="navbar-brand d-flex align-items-center">
+            <img src="img/logo.png" class="nav-logo" alt="psstudio logo">
         </a>
+
+
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -54,6 +85,7 @@
         </div>
     </nav>
     <!-- Navbar end -->
+
     <div class="container-fluid page-header py-5" style="margin-bottom: 6rem;">
         <div class="container py-5">
             <h1 class="display-3 text-white mb-3 animated slideInDown">Services</h1>
@@ -71,40 +103,8 @@
                 <h6 class="text-secondary text-uppercase">Our Services</h6>
                 <h1 class="mb-5">Engineering & Safety Solutions</h1>
             </div>
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item p-4">
-                        <div class="overflow-hidden mb-4">
-                            <img class="img-fluid" src="img/service-1.jpg" alt="">
-                        </div>
-                        <h4 class="mb-3">Fire Safety Plan</h4>
-                        <p>Complete design and approval of Fire Detection & Protection Systems ensuring compliance with
-                            BNBC.</p>
-                        <a class="btn-slide mt-2" href=""><i class="fa fa-arrow-right"></i><span>Read More</span></a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="service-item p-4">
-                        <div class="overflow-hidden mb-4">
-                            <img class="img-fluid" src="img/service-2.jpg" alt="">
-                        </div>
-                        <h4 class="mb-3">Electrical Design</h4>
-                        <p>“Expert in drawing Double Line Diagrams (DLD), Electrical Layouts (ELD), and Lightning
-                            Protection Systems (LPS).</p>
-                        <a class="btn-slide mt-2" href=""><i class="fa fa-arrow-right"></i><span>Read More</span></a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.7s">
-                    <div class="service-item p-4">
-                        <div class="overflow-hidden mb-4">
-                            <img class="img-fluid" src="img/service-3.jpg" alt="">
-                        </div>
-                        <h4 class="mb-3">Structural Assessment</h4>
-                        <p>Detailed Engineering Assessment (DEA), load testing, and retrofitting design for factory
-                            safety.</p>
-                        <a class="btn-slide mt-2" href=""><i class="fa fa-arrow-right"></i><span>Read More</span></a>
-                    </div>
-                </div>
+            <div id="services" class="row g-4">
+                <!-- Updated dynamically by JS -->
             </div>
         </div>
     </div>
@@ -163,7 +163,7 @@
         </div>
     </div>
     <!-- Footer end -->
-     
+
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-0 back-to-top"><i class="bi bi-arrow-up"></i></a>
 
 
@@ -176,6 +176,148 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
     <script src="js/main.js"></script>
+
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            // Fetch services info from backend
+            const services = [
+                {
+                    title: "UL & NON-UL Listed Curtains, Fire Pump Set (Split-Case, End-Suction & Vertical Turbine) Supply & Installation",
+                    description: "We supply and install UL and non-UL listed fire pump sets, including split-case, end-suction, and vertical turbine models to ensure reliable water delivery for fire protection systems.",
+                    image: "img/product-1.jpg"
+                },
+                {
+                    title: "UL & NON-UL Listed Fire Pump Accessories Supply & Installations",
+                    description: "Complete range of high-quality fire pump accessories including controllers, valves, fittings, and gauges, installed and configured for optimal performance.",
+                    image: "img/product-1.jpg"
+                },
+                {
+                    title: "Fire Standpipe, Fire Hydrant & Sprinkler System Supply & Installations",
+                    description: "Professional installation of standpipes, hydrants, and sprinkler systems designed to provide rapid and effective fire suppression in any facility.",
+                    image: "img/product-1.jpg"
+                },
+                {
+                    title: "UL Listed Addressable & Conventional Automatic Fire Alarm System Supply & Installations",
+                    description: "Advanced fire alarm systems, both addressable and conventional, installed for early detection and accurate emergency response.",
+                    image: "img/product-1.jpg"
+                },
+                {
+                    title: "UL Listed Fire Rated Cable Supply & Installations",
+                    description: "Durable UL-listed fire-rated cables ensuring continuous power and signal integrity during fire emergencies.",
+                    image: "img/product-1.jpg"
+                },
+                {
+                    title: "UL Listed Fire Rated Door & Door Accessories Supply & Installations",
+                    description: "High-performance UL-listed fire doors and accessories installed to enhance structural fire resistance and life safety.",
+                    image: "img/product-1.jpg"
+                },
+                {
+                    title: "Local Fire Door Manufacturer Supply & Installations",
+                    description: "Locally manufactured fire-rated doors supplied and installed to meet national safety standards.",
+                    image: "img/product-1.jpg"
+                },
+                {
+                    title: "Fire Extinguisher System, Portable Fire Extinguisher Supply & Refilling",
+                    description: "Comprehensive supply, installation, and refilling services for all types of fire extinguishers ensuring readiness at all times.",
+                    image: "img/product-1.jpg"
+                },
+                {
+                    title: "Fire & Safety Equipment's Supply",
+                    description: "Supply of essential fire and safety equipment including detectors, alarms, emergency lights, and protective gear.",
+                    image: "img/product-1.jpg"
+                },
+                {
+                    title: "Fire Safety Plan Approval From Fire Service & Civil Defence",
+                    description: "Expert assistance in preparing, submitting, and securing fire safety plan approvals from regulatory authorities.",
+                    image: "img/product-1.jpg"
+                },
+                {
+                    title: "Automatic Smoke Control System Supply & Installations",
+                    description: "Advanced smoke control systems installed to manage smoke movement and ensure safe evacuation during fire incidents.",
+                    image: "img/product-1.jpg"
+                },
+                {
+                    title: "Fire Aspiration System",
+                    description: "Highly sensitive aspirating smoke detection systems designed for early warning in critical environments.",
+                    image: "img/product-1.jpg"
+                },
+                {
+                    title: "Sub-Station Full Package",
+                    description: "Complete electrical sub-station solutions including supply, installation, and commissioning for reliable power distribution.",
+                    image: "img/product-1.jpg"
+                },
+                {
+                    title: "Solar Panel System",
+                    description: "Energy-efficient solar power systems designed and installed for sustainable and cost-effective energy solutions.",
+                    image: "img/product-1.jpg"
+                },
+                {
+                    title: "Gas Suppression System",
+                    description: "Environment-friendly and efficient gas-based fire suppression solutions for sensitive and critical environments.",
+                    image: "img/product-1.jpg"
+                },
+                {
+                    title: "Foam Suppression System",
+                    description: "High-performance foam suppression systems designed for flammable liquid fire protection in industrial facilities.",
+                    image: "img/product-1.jpg"
+                },
+                {
+                    title: "Water Spray System",
+                    description: "Automatic and manual water spray fire protection systems installed for effective cooling and suppression.",
+                    image: "img/product-1.jpg"
+                },
+                {
+                    title: "FM 200 & HFC 227EA System Supply, Refilling & Servicing",
+                    description: "Clean agent fire suppression systems supplied, refilled, and serviced to protect critical assets without residue.",
+                    image: "img/product-1.jpg"
+                },
+                {
+                    title: "Public Address System",
+                    description: "Reliable public address and voice evacuation systems ensuring clear communication during emergencies.",
+                    image: "img/product-1.jpg"
+                },
+                {
+                    title: "Heating, Ventilation & Air Conditioning System (HVAC)",
+                    description: "HVAC systems installed and maintained to ensure proper air circulation, comfort, and environmental control.",
+                    image: "img/product-1.jpg"
+                },
+                {
+                    title: "Power Solution",
+                    description: "Complete power backup and distribution solutions including generators, UPS, and electrical infrastructure.",
+                    image: "img/product-1.jpg"
+                },
+                {
+                    title: "CCTV, Security & Surveillance System",
+                    description: "Advanced CCTV and surveillance systems installed for comprehensive security monitoring and threat detection.",
+                    image: "img/product-1.jpg"
+                }
+            ]
+
+
+            const container = document.getElementById("services");
+
+            services.forEach((service, index) => {
+                const delay = 0.3 + index * 0.2;
+
+                const div = document.createElement("div");
+                div.className = `col-md-6 col-lg-4 wow fadeInUp`;
+                div.setAttribute("data-wow-delay", `${delay}s`);
+
+                div.innerHTML = `
+                    <div class="service-item p-4">
+                        <div class="overflow-hidden mb-4">
+                            <img class="img-fluid" src="${service.image}" alt="${service.title}">
+                        </div>
+                        <h4 class="mb-3">${service.title}</h4>
+                        <p>${service.description}</p>
+                        <a class="btn-slide mt-2" href=""><i class="fa fa-arrow-right"></i><span>Read More</span></a>
+                    </div>
+                `;
+
+                container.appendChild(div);
+            });
+        })
+    </script>
 </body>
 
 </html>

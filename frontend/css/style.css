@@ -474,3 +474,39 @@
 .footer .copyright a {
     color: var(--light);
 }
+
+/* Pixel-perfect logo sizing for navbar */
+.navbar-brand {
+  height: 64px; /* navbar brand container height */
+  display: flex;
+  align-items: center;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+/* Make the brand area left-aligned */
+.navbar-brand {
+  display: flex;
+  justify-content: flex-start; /* forces logo to the left */
+  align-items: center;
+  padding-right: 0; /* remove any right extra spacing */
+}
+
+/* Logo default size */
+.nav-logo {
+  width: 96px;
+  height: 72px;
+  object-fit: contain;
+  display: block;
+  margin-left: 10px; /* remove any auto margin */
+}
+
+/* Slightly smaller on tablet/mobile */
+@media (max-width: 992px) {
+  .navbar-brand { height: 56px; }
+  .nav-logo { width: 84px; height: 56px; }
+}
+@media (max-width: 576px) {
+  .navbar-brand { height: 48px; padding-left: 0.5rem; padding-right: 0.5rem; }
+  .nav-logo { width: 72px; height: 48px; }
+}
