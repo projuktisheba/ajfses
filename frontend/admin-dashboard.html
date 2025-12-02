@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJFSES - Admin Dashboard</title>
+    
+    <!-- Fonts (Same as Public Site) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Tailwind CSS (for rapid, clean styling) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuration to match specific brand colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Roboto', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#0d6efd', // Bootstrap Primary Blue match
+                        secondary: '#6c757d',
+                        dark: '#1e293b',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+
+        /* Sidebar Transition */
+        .sidebar {
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        /* Table Row Hover */
+        .table-row-hover:hover td {
+            background-color: #f8fafc;
+        }
+
+        /* Hide logic for SPA sections */
+        .section-view {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .section-view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Sidebar active state indicator */
+        .nav-item.active {
+            background-color: #1f2937; /* gray-800 */
+            color: #ffffff;
+            border-left-color: #0d6efd;
+        }
+        .nav-item {
+            border-left-width: 4px;
+            border-left-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <div class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-50 text-gray-800">
+        
+        <!-- Header / Top Navigation (Updated Color Scheme) -->
+        <div class="fixed w-full flex items-center justify-between h-16 text-gray-800 z-20 bg-white shadow-md px-6 border-t-4 border-primary">
+            <div class="flex items-center gap-4">
+                <button id="mobile-menu-btn" class="lg:hidden text-gray-600 hover:text-primary focus:outline-none transition">
+                    <i class="fa fa-bars text-2xl"></i>
+                </button>
+                <div class="flex items-center gap-2 font-heading font-bold text-xl tracking-wider text-primary">
+                    <i class="fa fa-shield-alt"></i>
+                    <span>AJFSES ADMIN</span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <!-- Notifications -->
+                <button class="relative p-2 text-gray-600 hover:text-primary transition">
+                    <i class="fa fa-bell"></i>
+                    <span class="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full border border-white"></span>
+                </button>
+                
+                <!-- Profile Dropdown (Updated) -->
+                <div class="relative ml-2">
+                    <button onclick="toggleProfileMenu()" class="flex items-center gap-2 focus:outline-none hover:bg-gray-100 p-2 rounded-lg transition">
+                        <img src="https://ui-avatars.com/api/?name=Admin+User&background=0d6efd&color=fff" alt="Admin" class="h-8 w-8 rounded-full border-2 border-gray-100 shadow-sm">
+                        <span class="hidden md:block font-medium text-sm text-gray-700">Administrator</span>
+                        <i class="fa fa-chevron-down text-xs hidden md:block text-gray-500"></i>
+                    </button>
+                    
+                    <!-- Dropdown Menu -->
+                    <div id="profile-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 ring-1 ring-black ring-opacity-5 origin-top-right">
+                        <div class="px-4 py-3 border-b border-gray-100">
+                            <p class="text-sm">Signed in as</p>
+                            <p class="text-sm font-bold text-gray-900 truncate">admin@ajfses.com</p>
+                        </div>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i class="fa fa-user mr-2 text-gray-400"></i> Your Profile</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i class="fa fa-cog mr-2 text-gray-400"></i> Settings</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i class="fa fa-list mr-2 text-gray-400"></i> Activity Log</a>
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100"><i class="fa fa-sign-out-alt mr-2"></i> Sign out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar fixed flex flex-col top-16 left-0 w-64 bg-slate-900 h-full border-r border-gray-800 z-10 transform -translate-x-full lg:translate-x-0">
+            <div class="overflow-y-auto overflow-x-hidden flex-grow">
+                <ul class="flex flex-col py-4 space-y-1">
+                    <li class="px-5">
+                        <div class="flex flex-row items-center h-8">
+                            <div class="text-sm font-light tracking-wide text-gray-400">Menu</div>
+                        </div>
+                    </li>
+                    
+                    <!-- Dashboard Link -->
+                    <li>
+                        <a href="#" onclick="showSection('dashboard', this)" class="nav-item active relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-800 text-gray-300 hover:text-white pr-6 cursor-pointer">
+                            <span class="inline-flex justify-center items-center ml-4">
+                                <i class="fa fa-tachometer-alt"></i>
+                            </span>
+                            <span class="ml-2 text-sm tracking-wide truncate">Dashboard</span>
+                        </a>
+                    </li>
+
+                    <!-- Inquiries / Quotes -->
+                    <li>
+                        <a href="#" onclick="showSection('inquiries', this)" class="nav-item relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-800 text-gray-300 hover:text-white pr-6 cursor-pointer transition">
+                            <span class="inline-flex justify-center items-center ml-4">
+                                <i class="fa fa-envelope-open-text"></i>
+                            </span>
+                            <span class="ml-2 text-sm tracking-wide truncate">Inquiries</span>
+                            <span class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-primary bg-blue-100 rounded-full">New</span>
+                        </a>
+                    </li>
+
+                    <!-- Services Management -->
+                    <li>
+                        <a href="#" onclick="showSection('services', this)" class="nav-item relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-800 text-gray-300 hover:text-white pr-6 cursor-pointer transition">
+                            <span class="inline-flex justify-center items-center ml-4">
+                                <i class="fa fa-hard-hat"></i>
+                            </span>
+                            <span class="ml-2 text-sm tracking-wide truncate">Services</span>
+                        </a>
+                    </li>
+
+                    <!-- Products -->
+                    <li>
+                        <a href="#" onclick="showSection('products', this)" class="nav-item relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-800 text-gray-300 hover:text-white pr-6 cursor-pointer transition">
+                            <span class="inline-flex justify-center items-center ml-4">
+                                <i class="fa fa-box-open"></i>
+                            </span>
+                            <span class="ml-2 text-sm tracking-wide truncate">Products</span>
+                        </a>
+                    </li>
+
+                    <li class="px-5 mt-4">
+                        <div class="flex flex-row items-center h-8">
+                            <div class="text-sm font-light tracking-wide text-gray-400">Settings</div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="#" class="nav-item relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-800 text-gray-300 hover:text-white pr-6 cursor-pointer transition">
+                            <span class="inline-flex justify-center items-center ml-4">
+                                <i class="fa fa-user"></i>
+                            </span>
+                            <span class="ml-2 text-sm tracking-wide truncate">Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-800 text-gray-300 hover:text-white pr-6 cursor-pointer transition">
+                            <span class="inline-flex justify-center items-center ml-4">
+                                <i class="fa fa-sign-out-alt"></i>
+                            </span>
+                            <span class="ml-2 text-sm tracking-wide truncate">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Content Wrapper -->
+        <div class="h-full ml-0 lg:ml-64 mt-16 p-6 transition-all duration-300">
+            
+            <!-- Global Date Header -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+                <div>
+                    <h2 id="page-title" class="text-2xl font-bold font-heading text-gray-800">Dashboard Overview</h2>
+                    <p id="page-desc" class="text-sm text-gray-500">Welcome back, Admin. Here's what's happening today.</p>
+                </div>
+                <div class="mt-4 md:mt-0 bg-white shadow-sm px-4 py-2 rounded-lg border border-gray-200 text-sm text-gray-600 font-medium">
+                    <i class="far fa-calendar-alt mr-2 text-primary"></i> <span id="current-date"></span>
+                </div>
+            </div>
+
+            <!-- =========================
+                 DASHBOARD / INQUIRIES VIEW 
+                 ========================= -->
+            <div id="dashboard-section" class="section-view active">
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <!-- Card 1 -->
+                    <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-blue-500 hover:shadow-md transition">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <p class="text-sm text-gray-500 font-medium uppercase">Total Requests</p>
+                                <h3 class="text-2xl font-bold text-gray-800">1,245</h3>
+                            </div>
+                            <div class="bg-blue-100 p-3 rounded-full text-blue-600">
+                                <i class="fa fa-users text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="text-xs text-green-500 font-medium">
+                            <i class="fa fa-arrow-up"></i> +12% from last month
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-yellow-500 hover:shadow-md transition">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <p class="text-sm text-gray-500 font-medium uppercase">Pending Audit</p>
+                                <h3 class="text-2xl font-bold text-gray-800">18</h3>
+                            </div>
+                            <div class="bg-yellow-100 p-3 rounded-full text-yellow-600">
+                                <i class="fa fa-clock text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-500 font-medium">
+                            Requires attention
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-green-500 hover:shadow-md transition">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <p class="text-sm text-gray-500 font-medium uppercase">Services Active</p>
+                                <h3 class="text-2xl font-bold text-gray-800">42</h3>
+                            </div>
+                            <div class="bg-green-100 p-3 rounded-full text-green-600">
+                                <i class="fa fa-check-circle text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-500 font-medium">
+                            Currently running projects
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-purple-500 hover:shadow-md transition">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <p class="text-sm text-gray-500 font-medium uppercase">Products Listed</p>
+                                <h3 class="text-2xl font-bold text-gray-800">156</h3>
+                            </div>
+                            <div class="bg-purple-100 p-3 rounded-full text-purple-600">
+                                <i class="fa fa-boxes text-xl"></i>
+                            </div>
+                        </div>
+                        <div class="text-xs text-blue-500 font-medium">
+                            New inventory added
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Inquiries Table -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 mb-8">
+                    <div class="p-5 border-b border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                        <h3 class="font-bold text-lg text-gray-800">Recent Quote Requests</h3>
+                        <div class="flex gap-2">
+                            <div class="relative">
+                                <input type="text" placeholder="Search..." class="pl-9 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-full md:w-64">
+                                <i class="fa fa-search absolute left-3 top-3 text-gray-400 text-xs"></i>
+                            </div>
+                            <button class="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-blue-700 transition">
+                                <i class="fa fa-download mr-1"></i> Export
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50 text-gray-600 text-sm uppercase tracking-wider">
+                                    <th class="p-4 font-semibold border-b">ID</th>
+                                    <th class="p-4 font-semibold border-b">Client</th>
+                                    <th class="p-4 font-semibold border-b">Service Needed</th>
+                                    <th class="p-4 font-semibold border-b">Date</th>
+                                    <th class="p-4 font-semibold border-b">Status</th>
+                                    <th class="p-4 font-semibold border-b text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm text-gray-700">
+                                <!-- Row 1 -->
+                                <tr class="table-row-hover border-b border-gray-100 transition">
+                                    <td class="p-4">#req-2024</td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-primary font-bold text-xs">RK</div>
+                                            <div>
+                                                <div class="font-medium text-gray-900">Rahim Karim</div>
+                                                <div class="text-xs text-gray-500">rahim@example.com</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-4">Fire Safety Plan</td>
+                                    <td class="p-4">Oct 24, 2023</td>
+                                    <td class="p-4">
+                                        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">Completed</span>
+                                    </td>
+                                    <td class="p-4 text-center">
+                                        <button class="text-gray-500 hover:text-primary mx-1" title="View"><i class="fa fa-eye"></i></button>
+                                        <button class="text-gray-500 hover:text-red-500 mx-1" title="Delete"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Row 2 -->
+                                <tr class="table-row-hover border-b border-gray-100 transition">
+                                    <td class="p-4">#req-2025</td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="h-8 w-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold text-xs">GF</div>
+                                            <div>
+                                                <div class="font-medium text-gray-900">Garments Factory Ltd</div>
+                                                <div class="text-xs text-gray-500">admin@gfltd.com</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-4">Electrical Design (SLD)</td>
+                                    <td class="p-4">Oct 25, 2023</td>
+                                    <td class="p-4">
+                                        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">Pending</span>
+                                    </td>
+                                    <td class="p-4 text-center">
+                                        <button class="text-gray-500 hover:text-primary mx-1" title="View"><i class="fa fa-eye"></i></button>
+                                        <button class="text-gray-500 hover:text-red-500 mx-1" title="Delete"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 3 -->
+                                <tr class="table-row-hover border-b border-gray-100 transition">
+                                    <td class="p-4">#req-2026</td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-bold text-xs">SI</div>
+                                            <div>
+                                                <div class="font-medium text-gray-900">Saiful Islam</div>
+                                                <div class="text-xs text-gray-500">017XXXXXXXX</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-4">Structural Audit</td>
+                                    <td class="p-4">Oct 26, 2023</td>
+                                    <td class="p-4">
+                                        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">In Progress</span>
+                                    </td>
+                                    <td class="p-4 text-center">
+                                        <button class="text-gray-500 hover:text-primary mx-1" title="View"><i class="fa fa-eye"></i></button>
+                                        <button class="text-gray-500 hover:text-red-500 mx-1" title="Delete"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                 <!-- Row 4 -->
+                                 <tr class="table-row-hover transition">
+                                    <td class="p-4">#req-2027</td>
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="h-8 w-8 rounded-full bg-red-100 flex items-center justify-center text-red-600 font-bold text-xs">TC</div>
+                                            <div>
+                                                <div class="font-medium text-gray-900">Textile Corp</div>
+                                                <div class="text-xs text-gray-500">info@textile.com</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-4">Digital Survey</td>
+                                    <td class="p-4">Oct 26, 2023</td>
+                                    <td class="p-4">
+                                        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">Pending</span>
+                                    </td>
+                                    <td class="p-4 text-center">
+                                        <button class="text-gray-500 hover:text-primary mx-1" title="View"><i class="fa fa-eye"></i></button>
+                                        <button class="text-gray-500 hover:text-red-500 mx-1" title="Delete"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================
+                 SERVICES VIEW (New) 
+                 ========================= -->
+            <div id="services-section" class="section-view">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+                    <div class="p-5 border-b border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                        <h3 class="font-bold text-lg text-gray-800">Manage Services</h3>
+                        <button class="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-blue-700 transition">
+                            <i class="fa fa-plus mr-1"></i> Add New Service
+                        </button>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50 text-gray-600 text-sm uppercase tracking-wider">
+                                    <th class="p-4 font-semibold border-b">Icon</th>
+                                    <th class="p-4 font-semibold border-b">Service Name</th>
+                                    <th class="p-4 font-semibold border-b">Description</th>
+                                    <th class="p-4 font-semibold border-b">Status</th>
+                                    <th class="p-4 font-semibold border-b text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm text-gray-700">
+                                <!-- Service 1 -->
+                                <tr class="table-row-hover border-b border-gray-100 transition">
+                                    <td class="p-4">
+                                        <div class="w-10 h-10 bg-red-100 text-red-600 rounded-lg flex items-center justify-center">
+                                            <i class="fa fa-fire-extinguisher"></i>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 font-medium">Fire Protection</td>
+                                    <td class="p-4 text-gray-500 truncate max-w-xs">Fire Safety Plans, Fire Detection & Protection System Design.</td>
+                                    <td class="p-4"><span class="px-2 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">Active</span></td>
+                                    <td class="p-4 text-center">
+                                        <button class="text-gray-400 hover:text-primary mx-1"><i class="fa fa-edit"></i></button>
+                                        <button class="text-gray-400 hover:text-red-500 mx-1"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <!-- Service 2 -->
+                                <tr class="table-row-hover border-b border-gray-100 transition">
+                                    <td class="p-4">
+                                        <div class="w-10 h-10 bg-yellow-100 text-yellow-600 rounded-lg flex items-center justify-center">
+                                            <i class="fa fa-bolt"></i>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 font-medium">Electrical Design</td>
+                                    <td class="p-4 text-gray-500 truncate max-w-xs">Single Line Diagram (SLD), ELD, Lightning Protection System.</td>
+                                    <td class="p-4"><span class="px-2 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">Active</span></td>
+                                    <td class="p-4 text-center">
+                                        <button class="text-gray-400 hover:text-primary mx-1"><i class="fa fa-edit"></i></button>
+                                        <button class="text-gray-400 hover:text-red-500 mx-1"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <!-- Service 3 -->
+                                <tr class="table-row-hover transition">
+                                    <td class="p-4">
+                                        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center">
+                                            <i class="fa fa-building"></i>
+                                        </div>
+                                    </td>
+                                    <td class="p-4 font-medium">Structural Audit</td>
+                                    <td class="p-4 text-gray-500 truncate max-w-xs">Detailed Engineering Assessment (DEA) & Retrofitting.</td>
+                                    <td class="p-4"><span class="px-2 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-600">Draft</span></td>
+                                    <td class="p-4 text-center">
+                                        <button class="text-gray-400 hover:text-primary mx-1"><i class="fa fa-edit"></i></button>
+                                        <button class="text-gray-400 hover:text-red-500 mx-1"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================
+                 PRODUCTS VIEW (New) 
+                 ========================= -->
+            <div id="products-section" class="section-view">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                    <!-- Stat 1 -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
+                            <i class="fa fa-box text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="text-gray-500 text-sm">Total Items</div>
+                            <div class="text-xl font-bold">156</div>
+                        </div>
+                    </div>
+                    <!-- Stat 2 -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center text-red-600">
+                            <i class="fa fa-exclamation-triangle text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="text-gray-500 text-sm">Low Stock</div>
+                            <div class="text-xl font-bold">5</div>
+                        </div>
+                    </div>
+                     <!-- Stat 3 -->
+                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                            <i class="fa fa-dollar-sign text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="text-gray-500 text-sm">Total Value</div>
+                            <div class="text-xl font-bold">$42,000</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+                    <div class="p-5 border-b border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                        <h3 class="font-bold text-lg text-gray-800">Product Inventory</h3>
+                        <div class="flex gap-2">
+                             <input type="text" placeholder="Search products..." class="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-primary w-full md:w-48">
+                            <button class="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-blue-700 transition">
+                                <i class="fa fa-plus mr-1"></i> Add Product
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50 text-gray-600 text-sm uppercase tracking-wider">
+                                    <th class="p-4 font-semibold border-b">Product</th>
+                                    <th class="p-4 font-semibold border-b">Category</th>
+                                    <th class="p-4 font-semibold border-b">Stock</th>
+                                    <th class="p-4 font-semibold border-b">Price</th>
+                                    <th class="p-4 font-semibold border-b text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm text-gray-700">
+                                <!-- Product 1 -->
+                                <tr class="table-row-hover border-b border-gray-100 transition">
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 bg-gray-100 rounded-md flex items-center justify-center text-gray-400">
+                                                <i class="fa fa-image"></i>
+                                            </div>
+                                            <div>
+                                                <div class="font-medium">Fire Hydrant Valve</div>
+                                                <div class="text-xs text-gray-500">SKU: FH-001</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-4">Fire Safety</td>
+                                    <td class="p-4"><span class="text-green-600 font-bold">45</span> Units</td>
+                                    <td class="p-4">$120.00</td>
+                                    <td class="p-4 text-center">
+                                        <button class="text-gray-400 hover:text-primary mx-1"><i class="fa fa-edit"></i></button>
+                                        <button class="text-gray-400 hover:text-red-500 mx-1"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <!-- Product 2 -->
+                                <tr class="table-row-hover border-b border-gray-100 transition">
+                                    <td class="p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 bg-gray-100 rounded-md flex items-center justify-center text-gray-400">
+                                                <i class="fa fa-image"></i>
+                                            </div>
+                                            <div>
+                                                <div class="font-medium">Smoke Detector</div>
+                                                <div class="text-xs text-gray-500">SKU: SD-202</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-4">Detection</td>
+                                    <td class="p-4"><span class="text-red-500 font-bold">3</span> Units</td>
+                                    <td class="p-4">$25.00</td>
+                                    <td class="p-4 text-center">
+                                        <button class="text-gray-400 hover:text-primary mx-1"><i class="fa fa-edit"></i></button>
+                                        <button class="text-gray-400 hover:text-red-500 mx-1"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="w-full text-center text-gray-500 text-sm pb-4 mt-8">
+                &copy; <script>document.write(new Date().getFullYear())</script> AJFSES Admin Panel. Designed by Projuktisheba.
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Set Current Date
+        const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', dateOptions);
+
+        // Sidebar Toggle for Mobile
+        const btn = document.getElementById('mobile-menu-btn');
+        const sidebar = document.getElementById('sidebar');
+
+        btn.addEventListener('click', () => {
+            // Tailwind toggle classes for transformation
+            if(sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+            }
+        });
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth < 1024) { // Only on mobile/tablet
+                if (!sidebar.contains(e.target) && !btn.contains(e.target) && !sidebar.classList.contains('-translate-x-full')) {
+                    sidebar.classList.add('-translate-x-full');
+                }
+            }
+        });
+
+        // Profile Menu Toggle
+        function toggleProfileMenu() {
+            const menu = document.getElementById('profile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Close Profile Menu when clicking outside
+        window.addEventListener('click', function(e) {
+            const menu = document.getElementById('profile-menu');
+            const button = e.target.closest('button');
+            const menuContainer = e.target.closest('#profile-menu');
+            
+            // If the click is not on the button and not inside the menu, hide it
+            if (!button && !menuContainer && !menu.classList.contains('hidden')) {
+                 // Check if the button was the profile button (using aria logic or simple structure check)
+                 // The easiest way here is to ensure the click wasn't on the toggle button
+                 // We added onclick to the button directly, so we need to be careful.
+                 // Actually, checking if e.target is NOT inside the 'relative' container is safer:
+                 if (!e.target.closest('.relative.ml-2')) {
+                    menu.classList.add('hidden');
+                 }
+            }
+        });
+
+        // SPA Navigation Logic
+        function showSection(sectionId, element) {
+            // 1. Hide all sections
+            document.querySelectorAll('.section-view').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // 2. Show target section
+            // Inquiries uses dashboard layout for this demo
+            const targetId = (sectionId === 'inquiries') ? 'dashboard-section' : sectionId + '-section';
+            const targetSection = document.getElementById(targetId);
+            if(targetSection) targetSection.classList.add('active');
+
+            // 3. Update Titles
+            const titles = {
+                'dashboard': 'Dashboard Overview',
+                'inquiries': 'Inquiry Management',
+                'services': 'Service Management',
+                'products': 'Product Inventory'
+            };
+            const descs = {
+                'dashboard': "Welcome back, Admin. Here's what's happening today.",
+                'inquiries': "Review and manage recent quote requests.",
+                'services': "Add, edit, or remove engineering services.",
+                'products': "Track stock levels and manage product listings."
+            }
+            document.getElementById('page-title').innerText = titles[sectionId] || 'Dashboard';
+            document.getElementById('page-desc').innerText = descs[sectionId] || '';
+
+            // 4. Update Sidebar Active State
+            document.querySelectorAll('.nav-item').forEach(nav => {
+                nav.classList.remove('active');
+            });
+            if(element) element.classList.add('active');
+
+            // 5. Close sidebar on mobile after selection
+            if (window.innerWidth < 1024) {
+                sidebar.classList.add('-translate-x-full');
+            }
+        }
+    </script>
+</body>
+</html>

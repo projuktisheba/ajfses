@@ -10,7 +10,7 @@
  * @author David Deutsch
  * @license The MIT License (MIT)
  * @todo Lazy Load Icon
- * @todo prevent animationend bubling
+ * @todo prevent animationend bubbling
  * @todo itemsScaleUp
  * @todo Test Zepto
  * @todo stagePadding calculate wrong active classes
@@ -57,7 +57,7 @@
 		this._plugins = {};
 
 		/**
-		 * Currently suppressed events to prevent them from beeing retriggered.
+		 * Currently suppressed events to prevent them from being retriggered.
 		 * @protected
 		 */
 		this._supress = {};
@@ -76,7 +76,7 @@
 
 		/**
 		 * Coordinates of all items in pixel.
-		 * @todo The name of this member is missleading.
+		 * @todo The name of this member is misleading.
 		 * @protected
 		 */
 		this._coordinates = [];
