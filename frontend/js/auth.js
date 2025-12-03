@@ -9,3 +9,10 @@ function isAuthenticated() {
 
     return !!(token && user);
 }
+function getToken() {
+    const token =
+        localStorage.getItem("auth_token") ||
+        sessionStorage.getItem("auth_token") || "";
+    return token;
+}
+

@@ -1,0 +1,2 @@
+    psql -U postgres -d mydatabase -h localhost -p 5432 < my_script.sql
+    postgres://ajfses_test_user:58yubDDQ6EeVvnXxeAU8GXwiP3j8xtjx@localhost:5432/ajfses_tes_db?sslmode=disable

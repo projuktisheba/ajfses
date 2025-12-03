@@ -7,11 +7,13 @@ import (
 // DBRepository contains all individual repositories
 type DBRepository struct {
 	UserRepo    *UserRepo
+	InquiryRepo *InquiryRepository
 }
 
 // NewDBRepository initializes all repositories with a shared connection pool
 func NewDBRepository(db *pgxpool.Pool) *DBRepository {
 	return &DBRepository{
-		UserRepo:    NewUserRepo(db),
+		UserRepo:    newUserRepo(db),
+		InquiryRepo: newInquiryRepository(db),
 	}
 }

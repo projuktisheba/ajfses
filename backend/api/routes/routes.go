@@ -61,5 +61,8 @@ func Routes(host, env string, db *dbrepo.DBRepository, jwt models.JWTConfig, inf
 	// Mount services handler routes
 	// mux.Mount("/api/v1/ssl", serviceHandlersRoutes())
 
+	// Mount inquiries handler routes
+	mux.Mount("/api/v1/inquiry", inquiryRoutes())
+
 	return mux
 }

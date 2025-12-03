@@ -17,7 +17,6 @@
 
     <!-- Tailwind CSS (for rapid, clean styling) -->
     <script src="https://cdn.tailwindcss.com"></script>
-
     <!-- Configuration to match specific brand colors -->
     <script>
         tailwind.config = {
@@ -102,7 +101,7 @@
             border-left-color: transparent;
         }
     </style>
-     <!-- Load auth check BEFORE anything else -->
+    <!-- Load auth check BEFORE anything else -->
     <script src="js/auth.js"></script>
     <script>
         if (!isAuthenticated()) {
@@ -241,6 +240,15 @@
                         </a>
                     </li>
                     <li>
+                        <a href="index.html"
+                            class="nav-item relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-800 text-gray-300 hover:text-white pr-6 cursor-pointer transition">
+                            <span class="inline-flex justify-center items-center ml-4">
+                                <i class="fa fa-globe"></i>
+                            </span>
+                            <span class="ml-2 text-sm tracking-wide truncate">Visit Website</span>
+                        </a>
+                    </li>
+                    <li>
                         <button type="button" onclick="signout()"
                             class="nav-item relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-800 text-gray-300 hover:text-white pr-6 cursor-pointer transition">
                             <span class="inline-flex justify-center items-center ml-4">
@@ -274,21 +282,21 @@
                  ========================= -->
             <div id="dashboard-section" class="section-view active">
                 <!-- Stats Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 mb-8">
                     <!-- Card 1 -->
                     <div
                         class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-blue-500 hover:shadow-md transition">
                         <div class="flex items-center justify-between mb-4">
                             <div>
-                                <p class="text-sm text-gray-500 font-medium uppercase">Total Requests</p>
-                                <h3 class="text-2xl font-bold text-gray-800">1,245</h3>
+                                <p class="text-sm text-gray-500 font-medium uppercase">Total Inquiries</p>
+                                <h3 id="total-inquiries" class="text-2xl font-bold text-gray-800">0</h3>
                             </div>
                             <div class="bg-blue-100 p-3 rounded-full text-blue-600">
                                 <i class="fa fa-users text-xl"></i>
                             </div>
                         </div>
-                        <div class="text-xs text-green-500 font-medium">
-                            <i class="fa fa-arrow-up"></i> +12% from last month
+                        <div class="text-xs text-blue-500 font-medium">
+                            <i class="fa fa-arrow-down"></i> Total incoming queries
                         </div>
                     </div>
 
@@ -297,15 +305,15 @@
                         class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-yellow-500 hover:shadow-md transition">
                         <div class="flex items-center justify-between mb-4">
                             <div>
-                                <p class="text-sm text-gray-500 font-medium uppercase">Pending Audit</p>
-                                <h3 class="text-2xl font-bold text-gray-800">18</h3>
+                                <p class="text-sm text-gray-500 font-medium uppercase">Pending Inquiries</p>
+                                <h3 id="pending-inquiries" class="text-2xl font-bold text-gray-800">0</h3>
                             </div>
                             <div class="bg-yellow-100 p-3 rounded-full text-yellow-600">
                                 <i class="fa fa-clock text-xl"></i>
                             </div>
                         </div>
-                        <div class="text-xs text-gray-500 font-medium">
-                            Requires attention
+                        <div class="text-xs text-yellow-500 font-medium">
+                            <i class="fa fa-info-circle"></i> Requires attention
                         </div>
                     </div>
 
@@ -314,32 +322,15 @@
                         class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-green-500 hover:shadow-md transition">
                         <div class="flex items-center justify-between mb-4">
                             <div>
-                                <p class="text-sm text-gray-500 font-medium uppercase">Services Active</p>
-                                <h3 class="text-2xl font-bold text-gray-800">42</h3>
+                                <p class="text-sm text-gray-500 font-medium uppercase">Resolved Inquiries</p>
+                                <h3 id="resolved-inquiries" class="text-2xl font-bold text-gray-800">0</h3>
                             </div>
                             <div class="bg-green-100 p-3 rounded-full text-green-600">
                                 <i class="fa fa-check-circle text-xl"></i>
                             </div>
                         </div>
-                        <div class="text-xs text-gray-500 font-medium">
-                            Currently running projects
-                        </div>
-                    </div>
-
-                    <!-- Card 4 -->
-                    <div
-                        class="bg-white rounded-xl shadow-sm p-5 border-l-4 border-purple-500 hover:shadow-md transition">
-                        <div class="flex items-center justify-between mb-4">
-                            <div>
-                                <p class="text-sm text-gray-500 font-medium uppercase">Products Listed</p>
-                                <h3 class="text-2xl font-bold text-gray-800">156</h3>
-                            </div>
-                            <div class="bg-purple-100 p-3 rounded-full text-purple-600">
-                                <i class="fa fa-boxes text-xl"></i>
-                            </div>
-                        </div>
-                        <div class="text-xs text-blue-500 font-medium">
-                            New inventory added
+                        <div class="text-xs text-green-500 font-medium">
+                            <i class="fa-solid fa-circle-check"></i> Inquiries resolved successfully
                         </div>
                     </div>
                 </div>
@@ -355,7 +346,7 @@
                                     class="pl-9 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-full md:w-64">
                                 <i class="fa fa-search absolute left-3 top-3 text-gray-400 text-xs"></i>
                             </div>
-                            <button
+                            <button onclick="exportInquiries()"
                                 class="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-blue-700 transition">
                                 <i class="fa fa-download mr-1"></i> Export
                             </button>
@@ -368,126 +359,104 @@
                                 <tr class="bg-gray-50 text-gray-600 text-sm uppercase tracking-wider">
                                     <th class="p-4 font-semibold border-b">ID</th>
                                     <th class="p-4 font-semibold border-b">Client</th>
-                                    <th class="p-4 font-semibold border-b">Service Needed</th>
-                                    <th class="p-4 font-semibold border-b">Date</th>
+                                    <th class="p-4 font-semibold border-b">Subject</th>
+                                    <th class="p-4 font-semibold border-b">Message</th>
                                     <th class="p-4 font-semibold border-b">Status</th>
                                     <th class="p-4 font-semibold border-b text-center">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody class="text-sm text-gray-700">
-                                <!-- Row 1 -->
-                                <tr class="table-row-hover border-b border-gray-100 transition">
-                                    <td class="p-4">#req-2024</td>
-                                    <td class="p-4">
-                                        <div class="flex items-center gap-3">
-                                            <div
-                                                class="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-primary font-bold text-xs">
-                                                RK</div>
-                                            <div>
-                                                <div class="font-medium text-gray-900">Rahim Karim</div>
-                                                <div class="text-xs text-gray-500">rahim@example.com</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="p-4">Fire Safety Plan</td>
-                                    <td class="p-4">Oct 24, 2023</td>
-                                    <td class="p-4">
-                                        <span
-                                            class="px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">Completed</span>
-                                    </td>
-                                    <td class="p-4 text-center">
-                                        <button class="text-gray-500 hover:text-primary mx-1" title="View"><i
-                                                class="fa fa-eye"></i></button>
-                                        <button class="text-gray-500 hover:text-red-500 mx-1" title="Delete"><i
-                                                class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
-
-                                <!-- Row 2 -->
-                                <tr class="table-row-hover border-b border-gray-100 transition">
-                                    <td class="p-4">#req-2025</td>
-                                    <td class="p-4">
-                                        <div class="flex items-center gap-3">
-                                            <div
-                                                class="h-8 w-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold text-xs">
-                                                GF</div>
-                                            <div>
-                                                <div class="font-medium text-gray-900">Garments Factory Ltd</div>
-                                                <div class="text-xs text-gray-500">admin@gfltd.com</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="p-4">Electrical Design (SLD)</td>
-                                    <td class="p-4">Oct 25, 2023</td>
-                                    <td class="p-4">
-                                        <span
-                                            class="px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">Pending</span>
-                                    </td>
-                                    <td class="p-4 text-center">
-                                        <button class="text-gray-500 hover:text-primary mx-1" title="View"><i
-                                                class="fa fa-eye"></i></button>
-                                        <button class="text-gray-500 hover:text-red-500 mx-1" title="Delete"><i
-                                                class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
-
-                                <!-- Row 3 -->
-                                <tr class="table-row-hover border-b border-gray-100 transition">
-                                    <td class="p-4">#req-2026</td>
-                                    <td class="p-4">
-                                        <div class="flex items-center gap-3">
-                                            <div
-                                                class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-bold text-xs">
-                                                SI</div>
-                                            <div>
-                                                <div class="font-medium text-gray-900">Saiful Islam</div>
-                                                <div class="text-xs text-gray-500">017XXXXXXXX</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="p-4">Structural Audit</td>
-                                    <td class="p-4">Oct 26, 2023</td>
-                                    <td class="p-4">
-                                        <span
-                                            class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">In
-                                            Progress</span>
-                                    </td>
-                                    <td class="p-4 text-center">
-                                        <button class="text-gray-500 hover:text-primary mx-1" title="View"><i
-                                                class="fa fa-eye"></i></button>
-                                        <button class="text-gray-500 hover:text-red-500 mx-1" title="Delete"><i
-                                                class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <!-- Row 4 -->
-                                <tr class="table-row-hover transition">
-                                    <td class="p-4">#req-2027</td>
-                                    <td class="p-4">
-                                        <div class="flex items-center gap-3">
-                                            <div
-                                                class="h-8 w-8 rounded-full bg-red-100 flex items-center justify-center text-red-600 font-bold text-xs">
-                                                TC</div>
-                                            <div>
-                                                <div class="font-medium text-gray-900">Textile Corp</div>
-                                                <div class="text-xs text-gray-500">info@textile.com</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="p-4">Digital Survey</td>
-                                    <td class="p-4">Oct 26, 2023</td>
-                                    <td class="p-4">
-                                        <span
-                                            class="px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">Pending</span>
-                                    </td>
-                                    <td class="p-4 text-center">
-                                        <button class="text-gray-500 hover:text-primary mx-1" title="View"><i
-                                                class="fa fa-eye"></i></button>
-                                        <button class="text-gray-500 hover:text-red-500 mx-1" title="Delete"><i
-                                                class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
+                            <tbody id="inquiry-table-body" class="text-sm text-gray-700">
+                                <!-- Updated dynamically by jS -->
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inquiry details -->
+            <div id="viewInquiryModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title"
+                role="dialog" aria-modal="true">
+                <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"
+                        onclick="closeViewModal()"></div>
+
+                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                    <div
+                        class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full">
+
+                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 border-b border-gray-100">
+                            <div class="sm:flex sm:items-start justify-between">
+                                <div class="mt-3 text-center sm:mt-0 sm:ml-0 sm:text-left w-full">
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                                        <i class="fa fa-file-alt text-primary mr-2"></i>Inquiry Details
+                                    </h3>
+                                    <p class="text-sm text-gray-500 mt-1">
+                                        ID: <span id="view-id" class="font-mono font-bold text-gray-700"></span>
+                                    </p>
+                                </div>
+                                <button onclick="closeViewModal()"
+                                    class="text-gray-400 hover:text-gray-600 focus:outline-none">
+                                    <i class="fa fa-times text-xl"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bg-white px-4 py-5 sm:p-6">
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label
+                                        class="block text-xs font-medium text-gray-500 uppercase tracking-wider">Client
+                                        Name</label>
+                                    <div id="view-name" class="mt-1 text-sm text-gray-900 font-semibold"></div>
+                                </div>
+                                <div>
+                                    <label
+                                        class="block text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</label>
+                                    <div id="view-contact" class="mt-1 text-sm text-gray-900"></div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label
+                                    class="block text-xs font-medium text-gray-500 uppercase tracking-wider">Subject</label>
+                                <div id="view-subject"
+                                    class="mt-1 text-sm text-gray-900 border-l-4 border-primary pl-3 bg-gray-50 py-1">
+                                </div>
+                            </div>
+
+                            <div class="mb-5">
+                                <label
+                                    class="block text-xs font-medium text-gray-500 uppercase tracking-wider">Message</label>
+                                <div class="mt-1 p-3 bg-gray-50 rounded-md border border-gray-100 text-sm text-gray-700 whitespace-pre-wrap h-32 overflow-y-auto custom-scrollbar"
+                                    id="view-message"></div>
+                            </div>
+
+                            <div
+                                class="bg-gray-50 -mx-6 -mb-6 px-6 py-4 border-t border-gray-100 grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-500">Current Status</label>
+                                    <div id="view-status" class="mt-1"></div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-xs text-gray-500">Created: <span id="view-created"
+                                            class="text-gray-700 font-medium"></span></div>
+                                    <div class="text-xs text-gray-500">Updated: <span id="view-updated"
+                                            class="text-gray-700 font-medium"></span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-gray-200">
+
+                            <button type="button" onclick="closeViewModal()"
+                                class="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                                Close
+                            </button>
+                            <button type="button" onclick="markAsResolved()"
+                                class="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-primary text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                                Mark As Done
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -712,6 +681,11 @@
             </footer>
         </div>
     </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="lib/xlsx/xlsx.full.min.js"></script>
+    <!-- Default script -->
     <script>
         // Set Current Date
         const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -803,11 +777,323 @@
             document.querySelectorAll('.nav-item').forEach(nav => {
                 nav.classList.remove('active');
             });
-            if (element) element.classList.add('active');
+            if (element) {
+                element.classList.add('active');
+                //set loading and fetch data from backend
+
+            }
 
             // 5. Close sidebar on mobile after selection
             if (window.innerWidth < 1024) {
                 sidebar.classList.add('-translate-x-full');
+            }
+        }
+    </script>
+
+    <!-- Inquiries script -->
+    <script>
+        // --- Global Variables ---
+        let fetchedInquiries = []; // Store data here to access it in the modal
+        const inquiryTableBody = document.getElementById('inquiry-table-body');
+        const viewModal = document.getElementById('viewInquiryModal');
+
+        // --- Date Formatter ---
+        function formatDateTime(dateString) {
+            if (!dateString) return 'N/A';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric', month: 'short', day: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            });
+        }
+
+        // --- Fetch Inquiries ---
+        async function fetchInquiries() {
+            const API_URL = `${window.env.API_URL}/inquiry`;
+
+            // Loader
+            inquiryTableBody.innerHTML = `<tr><td colspan="6" class="text-center p-8 text-gray-500"><i class="fa fa-spinner fa-spin fa-2x mb-2"></i><br>Loading...</td></tr>`;
+
+            try {
+                const token = getToken();
+                const response = await fetch(API_URL, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
+                });
+
+                const result = await response.json();
+
+                // 1. Extract Inquiries and store globally
+                // The API now returns { inquiries: [...], counts: {...} }
+                fetchedInquiries = result.inquiries || [];
+
+                // 2. Extract Counts and update UI
+                const counts = result.counts || {};
+                updateDashboardStats(fetchedInquiries, counts);
+
+                renderTable(fetchedInquiries);
+
+            } catch (error) {
+                console.error('Error:', error);
+                inquiryTableBody.innerHTML = `<tr><td colspan="6" class="text-center p-8 text-red-500">Failed to load data.</td></tr>`;
+            }
+        }
+
+        // --- New Helper Function to Update Stats ---
+        function updateDashboardStats(inquiries, counts) {
+            // Update DOM elements by ID
+            // Note: Keys in 'counts' match the DB values ('NEW', 'RESOLVED')
+
+            const newCount = counts['NEW'] || 0;
+            const resolvedCount = counts['RESOLVED'] || 0;
+            const totalCount = inquiries.length; // Calculate total from the array length
+
+            // Animate numbers (optional, or just set textContent)
+            document.getElementById('pending-inquiries').textContent = newCount;
+            document.getElementById('resolved-inquiries').textContent = resolvedCount;
+            document.getElementById('total-inquiries').textContent = totalCount;
+        }
+        // --- Render Table ---
+        function renderTable(inquiries) {
+            if (inquiries.length === 0) {
+                inquiryTableBody.innerHTML = `<tr><td colspan="6" class="text-center p-6 text-gray-500">No inquiries found.</td></tr>`;
+                return;
+            }
+
+            let html = '';
+            inquiries.forEach(item => {
+                const initials = (item.name || 'U').substring(0, 2).toUpperCase();
+
+                html += `
+            <tr class="table-row-hover border-b border-gray-100 transition">
+                <td class="p-4 text-gray-500">#${item.id}</td>
+                <td class="p-4">
+                    <div class="flex items-center gap-3">
+                        <div class="h-8 w-8 rounded-full bg-blue-100 text-primary flex items-center justify-center font-bold text-xs">${initials}</div>
+                        <div>
+                            <div class="font-medium text-gray-900">${item.name}</div>
+                            <div class="text-xs text-gray-500">${item.contact || item.email}</div>
+                        </div>
+                    </div>
+                </td>
+                <td class="p-4 font-medium">${item.subject}</td>
+                <td class="p-4 text-gray-500 text-sm max-w-xs truncate">${item.message}</td>
+                <td class="p-4">${getStatusBadge(item.status)}</td>
+                <td class="p-4 text-center">
+                    <button onclick="viewInquiry(${item.id})" class="text-gray-500 hover:text-primary mx-1"><i class="fa fa-eye"></i></button>
+                    <button onclick="deleteInquiry(${item.id})" class="text-gray-500 hover:text-red-500 mx-1"><i class="fa fa-trash"></i></button>
+                </td>
+            </tr>`;
+            });
+            inquiryTableBody.innerHTML = html;
+        }
+
+        // --- EXPORT TO EXCEL LOGIC ---
+        function exportInquiries() {
+            // 1. Check if data exists
+            if (!fetchedInquiries || fetchedInquiries.length === 0) {
+                alert("No data available to export.");
+                return;
+            }
+
+            // 2. Format the data for Excel
+            // We map the raw data to a cleaner format (renaming headers, formatting dates)
+            const dataToExport = fetchedInquiries.map(item => ({
+                "ID": item.id,
+                "Client Name": item.name,
+                "Contact Info": item.contact || item.email,
+                "Subject": item.subject,
+                "Message": item.message,
+                "Status": item.status,
+                "Date Received": new Date(item.created_at).toLocaleString(), // Readable Date
+                "Last Updated": new Date(item.updated_at).toLocaleString()
+            }));
+
+            // 3. Create a Worksheet
+            const worksheet = XLSX.utils.json_to_sheet(dataToExport);
+
+            // Optional: Adjust column widths automatically
+            const wscols = [
+                { wch: 5 },  // ID
+                { wch: 20 }, // Name
+                { wch: 25 }, // Contact
+                { wch: 20 }, // Subject
+                { wch: 40 }, // Message
+                { wch: 10 }, // Status
+                { wch: 20 }  // Date
+            ];
+            worksheet['!cols'] = wscols;
+
+            // 4. Create a Workbook and append the worksheet
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Inquiries");
+
+            // 5. Trigger Download
+            // Generates filename like: Inquiries_Export_2023-10-25.xlsx
+            const fileName = `Inquiries_Export_${new Date().toISOString().split('T')[0]}.xlsx`;
+            XLSX.writeFile(workbook, fileName);
+        }
+        
+        let currentInquiryId = null;
+        // --- VIEW INQUIRY LOGIC (MODAL) ---
+        function viewInquiry(id) {
+            currentInquiryId = id;
+            // 1. Find the specific object from our global array
+            const inquiry = fetchedInquiries.find(item => item.id == id);
+
+            if (!inquiry) {
+                alert("Details not found.");
+                return;
+            }
+
+            // 2. Populate Modal Fields
+            document.getElementById('view-id').textContent = inquiry.id || 'N/A';
+            document.getElementById('view-name').textContent = inquiry.name || 'N/A';
+            document.getElementById('view-contact').textContent = inquiry.contact || inquiry.email || 'N/A';
+            document.getElementById('view-subject').textContent = inquiry.subject || 'No Subject';
+            document.getElementById('view-message').textContent = inquiry.message || 'No message content.';
+
+            // 3. Handle Status HTML
+            document.getElementById('view-status').innerHTML = getStatusBadge(inquiry.status);
+
+            // 4. Handle Dates
+            document.getElementById('view-created').textContent = formatDateTime(inquiry.created_at);
+            document.getElementById('view-updated').textContent = formatDateTime(inquiry.updated_at);
+
+            // 5. Show Modal
+            viewModal.classList.remove('hidden');
+        }
+
+        function closeViewModal() {
+            viewModal.classList.add('hidden');
+        }
+
+        // --- MARK AS RESOLVED LOGIC ---
+        async function markAsResolved() {
+            // 1. Validation
+            if (!currentInquiryId) {
+                alert("No inquiry selected.");
+                return;
+            }
+
+            // 2. Confirmation
+            if (!confirm("Are you sure you want to mark this inquiry as resolved?")) {
+                return;
+            }
+
+            const UPDATE_URL = `${window.env.API_URL}/inquiry/update-status?id=${currentInquiryId}`;
+            const btn = event.target; // Reference to the clicked button
+            const originalText = btn.innerText;
+
+            try {
+                // 3. UI Loading State
+                btn.innerText = "Updating...";
+                btn.disabled = true;
+
+                const token = getToken();
+
+                // 4. API Request
+                // We assume your backend accepts a PUT request with the new status
+                const response = await fetch(UPDATE_URL, {
+                    method: 'PATCH', // or 'PATCH' depending on your Go router
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ status: 'RESOLVED' })
+                });
+
+                // 5. Handle Response
+                if (response.ok) {
+                    // Close the modal
+                    closeViewModal();
+
+                    // Refresh the table and stats to show the new status
+                    await fetchInquiries();
+
+                    alert("Inquiry marked as resolved successfully!");
+                } else {
+                    const data = await response.json();
+                    alert(data.message || 'Failed to update status.');
+                }
+
+            } catch (error) {
+                console.error('Update Error:', error);
+                alert('Network error. Please try again.');
+            } finally {
+                // 6. Reset Button
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
+        }
+        // --- DELETE INQUIRY LOGIC ---
+        async function deleteInquiry(id) {
+            // 1. Confirm User Action
+            // using native confirm for simplicity, or you can build a custom modal like the view one
+            if (!confirm('Are you sure you want to permanently delete this inquiry?')) {
+                return;
+            }
+
+            const DELETE_URL = `${window.env.API_URL}/inquiry?id=${id}`;
+
+            try {
+                // 2. Get Token
+                const token = getToken();
+
+                // 3. Send API Request
+                const response = await fetch(DELETE_URL, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                // 4. Handle Response
+                if (response.ok) {
+                    // Option A: Simple Alert
+                    // alert('Inquiry deleted successfully.');
+
+                    // Option B: Refresh Data
+                    // Reload the table to reflect changes (removes the row from UI)
+                    await fetchInquiries();
+                } else {
+                    // Handle Server Errors
+                    const data = await response.json();
+                    alert(data.message || 'Failed to delete inquiry. Please try again.');
+                }
+
+            } catch (error) {
+                console.error('Delete Error:', error);
+                alert('A network error occurred while trying to delete.');
+            }
+        }
+        // --- Helper: Status Badge ---
+        function getStatusBadge(status) {
+            const s = status ? status.toLowerCase() : 'pending';
+            if (s === 'completed' || s === 'resolved') return '<span class="px-2 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">Completed</span>';
+            if (s === 'progress') return '<span class="px-2 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">In Progress</span>';
+            return '<span class="px-2 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">Pending</span>';
+        }
+
+        // --- Navigation Integration (Same as before) ---
+        window.showSection = function (sectionId, element) {
+            document.querySelectorAll('.section-view').forEach(s => s.classList.remove('active'));
+            const targetId = (sectionId === 'inquiries') ? 'dashboard-section' : sectionId + '-section';
+            document.getElementById(targetId)?.classList.add('active');
+
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            if (element) element.classList.add('active');
+
+            // Close mobile sidebar
+            if (window.innerWidth < 1024) document.getElementById('sidebar').classList.add('-translate-x-full');
+
+            // Logic
+            if (sectionId === 'inquiries') {
+                document.getElementById('page-title').innerText = 'Inquiry Management';
+                fetchInquiries();
+            } else {
+                document.getElementById('page-title').innerText = sectionId.charAt(0).toUpperCase() + sectionId.slice(1);
             }
         }
     </script>

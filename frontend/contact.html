@@ -82,41 +82,41 @@
     <!-- Page Header End -->
 
     <!-- Contact Info Quick Cards Start -->
-<div class="container-fluid bg-light py-4">
-    <div class="container">
-        <div class="row g-4 text-center">
+    <div class="container-fluid bg-light py-4">
+        <div class="container">
+            <div class="row g-4 text-center">
 
-            <!-- Mobile -->
-            <div class="col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="p-4 bg-white shadow-sm rounded h-100">
-                    <i class="fa fa-phone fa-2x text-primary mb-3"></i>
-                    <h5 class="mb-1">Phone</h5>
-                    <p class="mb-0">+09611-699282</p>
+                <!-- Mobile -->
+                <div class="col-md-4 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="p-4 bg-white shadow-sm rounded h-100">
+                        <i class="fa fa-phone fa-2x text-primary mb-3"></i>
+                        <h5 class="mb-1">Phone</h5>
+                        <p class="mb-0">+09611-699282</p>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Email -->
-            <div class="col-md-4 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="p-4 bg-white shadow-sm rounded h-100">
-                    <i class="fa fa-envelope fa-2x text-primary mb-3"></i>
-                    <h5 class="mb-1">Email</h5>
-                    <p class="mb-0">ajfiresolutions@hotmail.com</p>
+                <!-- Email -->
+                <div class="col-md-4 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="p-4 bg-white shadow-sm rounded h-100">
+                        <i class="fa fa-envelope fa-2x text-primary mb-3"></i>
+                        <h5 class="mb-1">Email</h5>
+                        <p class="mb-0">ajfiresolutions@hotmail.com</p>
+                    </div>
                 </div>
-            </div>
 
-            <!-- WhatsApp -->
-            <div class="col-md-4 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="p-4 bg-white shadow-sm rounded h-100">
-                    <i class="fab fa-whatsapp fa-2x text-success mb-3"></i>
-                    <h5 class="mb-1">WhatsApp</h5>
-                    <p class="mb-0">+8809611-699282</p>
+                <!-- WhatsApp -->
+                <div class="col-md-4 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="p-4 bg-white shadow-sm rounded h-100">
+                        <i class="fab fa-whatsapp fa-2x text-success mb-3"></i>
+                        <h5 class="mb-1">WhatsApp</h5>
+                        <p class="mb-0">+8809611-699282</p>
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
-</div>
-<!-- Contact Info Quick Cards End -->
+    <!-- Contact Info Quick Cards End -->
 
 
     <!-- Contact Start -->
@@ -127,18 +127,21 @@
                     <h6 class="text-secondary text-uppercase">Get In Touch</h6>
                     <h1 class="mb-4">Contact For Any Query</h1>
                     <div class="bg-light p-4">
-                        <form>
+                        <form id="contactForm">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="name" placeholder="Your Name">
-                                        <label for="name">Your Name</label>
+                                        <input type="text" class="form-control" id="name" placeholder="Your Name"
+                                            required>
+                                        <label for="name">Your Name <span class="text-danger">*</span></label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                        <label for="email">Your Email</label>
+                                        <input type="text" class="form-control" id="contact"
+                                            placeholder="Email or Mobile No" required>
+                                        <label for="contact">Email or Mobile No <span
+                                                class="text-danger">*</span></label>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -155,7 +158,8 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
+                                    <button class="btn btn-primary w-100 py-3" type="submit" id="submitBtn">Send
+                                        Message</button>
                                 </div>
                             </div>
                         </form>
@@ -233,7 +237,24 @@
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-0 back-to-top"><i class="bi bi-arrow-up"></i></a>
 
-
+    <!-- Modal for show message to the user -->
+    <div class="modal fade" id="statusModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-0">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center pb-5">
+                    <div class="mb-3">
+                        <i id="modalIcon" class="fa fa-5x"></i>
+                    </div>
+                    <h3 class="mb-3" id="modalTitle"></h3>
+                    <p class="mb-4 text-secondary" id="modalMessage"></p>
+                    <button type="button" class="btn btn-primary py-2 px-5" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -245,6 +266,88 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/modal.js"></script>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', async function (event) {
+            event.preventDefault(); // Stop page reload
+
+            // 1. Get References to elements
+            const nameInput = document.getElementById('name');
+            const contactInput = document.getElementById('contact');
+            const subjectInput = document.getElementById('subject');
+            const messageInput = document.getElementById('message');
+            const submitBtn = document.getElementById('submitBtn');
+
+            // 2. Get Values
+            const formData = {
+                name: nameInput.value.trim(),
+                contact: contactInput.value.trim(), // Can be email or phone
+                subject: subjectInput.value.trim(),
+                message: messageInput.value.trim()
+            };
+
+            // Client-Side Validation
+            if (!formData.name) {
+                showStatusModal('Missing Info', 'Please enter your name.', 'error');
+                return;
+            }
+            if (!formData.contact) {
+                showStatusModal('Missing Info', 'Please enter your email or mobile number.', 'error');
+                return;
+            }
+
+            // 4. API Configuration
+            const apiURL = `${window.env.API_URL}/inquiry`;
+            const BEARER_TOKEN = getToken();
+
+            try {
+                // UI: Set loading state
+                const originalBtnText = submitBtn.innerText;
+                submitBtn.innerText = "Sending...";
+                submitBtn.disabled = true;
+
+                // 5. Send Request
+                const response = await fetch(apiURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${BEARER_TOKEN}`
+                    },
+                    body: JSON.stringify(formData)
+                });
+                // Parse the JSON response
+                const result = await response.json();
+
+                // Check HTTP Status
+                if (response.ok) {
+                    // Success: Use the message from the API, or a fallback
+                    const successMessage = result.message || 'Your message has been sent successfully.';
+
+                    showStatusModal('Thank You!', successMessage, 'success');
+                    document.getElementById('contactForm').reset();
+                } else {
+                    // Server Error (400, 422, 500): Use the error message from API
+                    // Adjust 'result.message' or 'result.error' based on your specific API structure
+                    const errorMessage = result.message || result.error || 'Failed to send message. Please try again.';
+
+                    showStatusModal('Submission Failed', errorMessage, 'error');
+                    console.error('Server Error Detail:', result);
+                }
+
+            } catch (error) {
+                // Error Modal (Network)
+                showStatusModal('Network Error', 'Unable to connect to the server. Please check your internet connection.', 'error');
+                console.error('Network Error:', error);
+            } finally {
+                // Reset Button
+                submitBtn.innerText = "Send Message";
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
 </body>
 
 </html>
