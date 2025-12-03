@@ -15,14 +15,15 @@
 
 
 -- (Run as a PostgreSQL superuser, e.g. 'postgres')
-CREATE USER ajfses_sudo_user WITH PASSWORD '58yubDDQ6EeVvnXxeAU8GXwiP3j8xtjx';
+CREATE USER ajfses_main_user WITH PASSWORD 'U90ubD0O6EeVgnXxeA5RewwiP3j8xtjx';
 
 -- Create a new database owned by that user
-CREATE DATABASE ajfses_main_db OWNER ajfses_sudo_user;
+CREATE DATABASE ajfses_main_db OWNER ajfses_main_user;
 
 -- Grant all privileges on the database to the user
-GRANT ALL PRIVILEGES ON DATABASE ajfses_main_db TO ajfses_sudo_user;
+GRANT ALL PRIVILEGES ON DATABASE ajfses_main_db TO ajfses_main_user;
 
 -- (Optional) Verify ownership later:
 --   \l   → list databases
 --   \du  → list roles/users
+-- postgresql://ajfses_main_user:U90ubD0O6EeVgnXxeA5RewwiP3j8xtjx@localhost:5432/ajfses_main_db?sslmode=disable
