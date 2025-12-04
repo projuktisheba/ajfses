@@ -933,7 +933,7 @@
             const fileName = `Inquiries_Export_${new Date().toISOString().split('T')[0]}.xlsx`;
             XLSX.writeFile(workbook, fileName);
         }
-        
+
         let currentInquiryId = null;
         // --- VIEW INQUIRY LOGIC (MODAL) ---
         function viewInquiry(id) {

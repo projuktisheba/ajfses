@@ -33,10 +33,69 @@
             <span class="sr-only">Loading...</span>
         </div>
     </div>
+
+
+    <!-- Top Contact Bar Start -->
+    <div class="bg-dark text-light py-1">
+        <div class="container">
+
+            <div class="row align-items-center">
+
+                <!-- Left Section -->
+                <div
+                    class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start align-items-center flex-wrap py-1">
+
+                    <span class="d-flex align-items-center mx-3">
+                        <a href="tel:+880 9611-699 282" class="text-light py-2 px-2 fw-bold">
+                            <i class="fa fa-headphones text-primary me-2"></i>+880 9611-699 282
+                        </a>
+                    </span>
+                    <span class="d-flex align-items-center mx-3">
+                        <a href="mailto:ajfiresolutions@hotmail.com" class="text-light py-2 px-2 fw-bold">
+                            <i class="fa fa-envelope text-primary me-2"></i>ajfiresolutions@hotmail.com
+                        </a>
+                    </span>
+                </div>
+
+                <!-- Right Section -->
+                <div
+                    class="col-12 col-md-6 d-flex justify-content-center justify-content-md-end align-items-center py-1">
+                    <a class="btn btn-outline-light btn-social mx-1 social-btn"
+                        href="https://www.facebook.com/ajfses.com.bd" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+
+                    <a class="btn btn-outline-light btn-social mx-1 social-btn" href="https://wa.me/1676267377"
+                        target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a class="btn btn-outline-light btn-social mx-1 social-btn" href="https://x.com/AJFIRESOLUTIONS"
+                        target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+
+                    <a class="btn btn-outline-light btn-social mx-1 social-btn" href="https://www.youtube.com/%40ajfses"
+                        target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+
+                    <a class="btn btn-outline-light btn-social mx-1 social-btn"
+                        href="https://www.linkedin.com/company/ajfire" target="_blank">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- Top Contact Bar End -->
+
+
     <!-- Navbar start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow border-top border-5 border-primary sticky-top p-0">
         <a href="index.html" class="navbar-brand d-flex align-items-center">
-            <img src="img/logo.png" class="nav-logo" alt="psstudio logo">
+            <img src="img/logo.png" class="nav-logo" style="transition: opacity 0.5s ease-in-out;" id="navLogo" alt="psstudio logo">
         </a>
 
 
@@ -46,12 +105,20 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href="index.html" class="nav-item nav-link">Home</a>
-                <a href="about.html" class="nav-item nav-link">About</a>
                 <a href="services.html" class="nav-item nav-link">Services</a>
                 <a href="products.html" class="nav-item nav-link active">Products</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">About</a>
+                    <div class="dropdown-menu fade-up m-0">
+                        <a href="chairman_message.html" class="dropdown-item">Chairman's Message</a>
+                        <a href="management.html" class="dropdown-item">Management</a>
+                        <a href="department.html" class="dropdown-item">Department</a>
+                        <a href="gallary.html" class="dropdown-item">Gallery</a>
+                    </div>
+                </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
             </div>
-            <h4 class="m-0 pe-lg-5 d-none d-lg-block"><i class="fa fa-headphones text-primary me-3"></i>+09611-699282
+            <!-- <h4 class="m-0 pe-lg-5 d-none d-lg-block"><i class="fa fa-headphones text-primary me-3"></i>+880 9611-699282 (24/7) -->
             </h4>
         </div>
     </nav>
@@ -116,56 +183,109 @@
     <!-- Products end -->
 
     <!-- Footer start -->
-    <div class="container-fluid bg-dark text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s">
-        <div class="container py-4">
-            <div class="row g-5 justify-content-between">
-                <!-- Address Column -->
-                <div class="col-lg-5 col-md-6">
-                    <h4 class="text-light mb-4">Address</h4>
-                    <p class="mb-2">
-                        <i class="fa fa-map-marker-alt me-3"></i>
-                        <span>SRA Centre (6th Floor), Pllibidyut Bus Stand, Ashulia</span><br>
-                        <span class="px-4">Savar, Dhaka, Bangladesh</span>
-                    </p>
-                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+09611-699282</p>
-                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>ajfiresolutions@hotmail.com</p>
-                    <div class="d-flex pt-2 gap-2 flex-wrap">
-                        <a class="btn btn-outline-light btn-social" href="https://www.facebook.com/ajfses.com.bd"><i
-                                class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-outline-light btn-social" href="https://x.com/AJFIRESOLUTIONS"><i
-                                class="fab fa-twitter"></i></a>
-                        <a class="btn btn-outline-light btn-social" href="https://www.youtube.com/%40ajfses"><i
-                                class="fab fa-youtube"></i></a>
-                        <a class="btn btn-outline-light btn-social" href="https://www.linkedin.com/company/ajfire"><i
-                                class="fab fa-linkedin-in"></i></a>
+
+    <!-- Footer start -->
+    <div class="container-fluid text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s"
+        style="margin-top: 6rem; background-color: #0b1221;">
+        <div class="container py-4 text-center">
+            <h2 class="text-white mb-3">CONTACT US FOR YOUR PROJECT</h2>
+            <p class="text-white-50 mb-4">We are specialized in design, supply, installation, testing, service and
+                maintenance
+            </p>
+            <a href="tel:+880 9611-699 282" class="btn btn-light rounded-pill py-2 px-4 fw-bold">
+                <i class="fa fa-phone-alt me-2"></i>+880 9611-699 282
+            </a>
+        </div>
+
+        <div class="w-100" style="height: 2px; background-color: #dc3545;"></div>
+
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <div class="d-flex align-items-center mb-4">
+                        <img src="img/logo.jpg" alt="Logo 1" class="img-fluid me-3"
+                            style="max-height: 60px; width: auto;">
+                        <img src="img/logo-circle.jpg" alt="Logo 2" class="img-fluid"
+                            style="max-height: 60px; width: auto;">
+                    </div>
+                    <p>AJ Fire Safety & Engineering Solutions is a leading supplier of the latest technology and fire &
+                        safety engineering solutions in Bangladesh.</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-outline-light btn-social" href="https://www.facebook.com/ajfses.com.bd"
+                            target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social" href="https://www.linkedin.com/company/ajfire"
+                            target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-outline-light btn-social" href="https://wa.me/1676267377" target="_blank"><i
+                                class="fab fa-whatsapp"></i></a>
+                        <a class="btn btn-outline-light btn-social" href="https://x.com/AJFIRESOLUTIONS"
+                            target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-social" href="https://www.youtube.com/%40ajfses"
+                            target="_blank"><i class="fab fa-youtube"></i></a>
+
                     </div>
                 </div>
 
-                <!-- Quick Links Column -->
-                <div class="col-lg-5 col-md-6">
-                    <h4 class="text-light mb-4">Quick Links</h4>
-                    <div class="d-flex flex-column gap-2">
-                        <a class="btn btn-link text-light ps-0" href="about.html">About Us</a>
-                        <a class="btn btn-link text-light ps-0" href="contact.html">Contact Us</a>
-                        <a class="btn btn-link text-light ps-0" href="services.html">Our Services</a>
-                        <a class="btn btn-link text-light ps-0" href="admin_panel.html">Go to Panel</a>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-light mb-4 text-uppercase border-bottom pb-2 d-inline-block border-secondary">Quick
+                        Links</h5>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-light mb-2 text-decoration-none" href="index.html"><i
+                                class="bi bi-chevron-right me-2"></i>Home</a>
+                        <a class="text-light mb-2 text-decoration-none" href="about.html"><i
+                                class="bi bi-chevron-right me-2"></i>About Us</a>
+                        <a class="text-light mb-2 text-decoration-none" href="services.html"><i
+                                class="bi bi-chevron-right me-2"></i>Our Services</a>
+                        <a class="text-light mb-2 text-decoration-none" href="contact.html"><i
+                                class="bi bi-chevron-right me-2"></i>Contact us</a>
+                        <a class="text-light mb-2 text-decoration-none" href="admin_panel.html"><i
+                                class="bi bi-chevron-right me-2"></i>Login</a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-light mb-4 text-uppercase border-bottom pb-2 d-inline-block border-secondary">
+                        Contact Information</h5>
+                    <div class="d-flex mb-3">
+                        <i class="fa fa-map-marker-alt text-light me-3 mt-1"></i>
+                        <p class="mb-0">Plot# 13 (3rd Floor), Road #1, DOHS, Savar Cant:- 1344, Ashulia, Savar,
+                            Dhaka</a></p>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <i class="fa fa-phone-alt text-light me-3 mt-1"></i>
+                        <div>
+                            <p class="mb-1"><a href="tel:+880 1958-605 251" class="text-light">+880 1958-605 251 </a>
+                            </p>
+
+                            <p class="mb-0"><a href="tel:+880 9611-699 282" class="text-light">+880 1944-428 593 </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <i class="fa fa-envelope text-light me-3 mt-1"></i>
+                        <div>
+                            <p class="mb-1"><a class="text-light"
+                                    href="mailto:ajfiresolutions@hotmail.com">ajfiresolutions@hotmail.com
+                                </a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-light mb-4 text-uppercase border-bottom pb-2 d-inline-block border-secondary">Reach
+                        Us</h5>
+                    <div class="position-relative w-100 h-100 rounded overflow-hidden" style="min-height: 200px;">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1823.480936864552!2d90.26288219163555!3d23.92640412253763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755e96538f7bbf1%3A0xb21307b107bb0366!2sAJ%20FIRE%20SAFETY%20%26%20ENGINEERING%20SOLUTIONS!5e0!3m2!1sen!2sbd!4v1764861128047!5m2!1sen!2sbd"
+                            style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy=""></iframe>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Footer Bottom -->
-        <div class="container">
-            <div class="copyright py-3">
-                <div class="row">
-                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a class="border-bottom text-light" href="#">AJFSES</a>, All Rights Reserved.
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        Designed By <a class="border-bottom text-light" target="_blank"
-                            href="https://projuktisheba.com/">Projuktisheba</a>
-                    </div>
-                </div>
+        <div class="container-fluid copyright bg-dark py-4" style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
+            <div class="container text-center">
+                <p class="mb-0">© 2025 All Rights Reserved By <a class="text-light border-bottom" href="#">AJ Fire
+                        Safety & Engineering Solutions</a></p>
             </div>
         </div>
     </div>
@@ -182,6 +302,7 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
     <script src="js/main.js"></script>
+    <script src="js/common.js"></script>
 </body>
 
 </html>
