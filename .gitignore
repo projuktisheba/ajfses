@@ -2,3 +2,4 @@ backend/.env
 backend/initGoProject.sh
 backend/database.sql
 backend/app
+backend/data

@@ -152,12 +152,12 @@
                             <p class="text-sm">Signed in as</p>
                             <p class="text-sm font-bold text-gray-900 truncate">admin@ajfses.com</p>
                         </div>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i
+                        <!-- <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i
                                 class="fa fa-user mr-2 text-gray-400"></i> Your Profile</a>
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i
                                 class="fa fa-cog mr-2 text-gray-400"></i> Settings</a>
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i
-                                class="fa fa-list mr-2 text-gray-400"></i> Activity Log</a>
+                                class="fa fa-list mr-2 text-gray-400"></i> Activity Log</a> -->
                         <div class="border-t border-gray-100 my-1"></div>
                         <button type="button" onclick="signout()"
                             class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100"><i
@@ -178,66 +178,32 @@
                         </div>
                     </li>
 
-                    <!-- Dashboard Link -->
-                    <li>
-                        <a href="#" onclick="showSection('dashboard', this)"
-                            class="nav-item active relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-800 text-gray-300 hover:text-white pr-6 cursor-pointer">
-                            <span class="inline-flex justify-center items-center ml-4">
-                                <i class="fa fa-tachometer-alt"></i>
-                            </span>
-                            <span class="ml-2 text-sm tracking-wide truncate">Dashboard</span>
-                        </a>
-                    </li>
-
                     <!-- Inquiries / Quotes -->
                     <li>
                         <a href="#" onclick="showSection('inquiries', this)"
-                            class="nav-item relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-800 text-gray-300 hover:text-white pr-6 cursor-pointer transition">
+                            class="active nav-item relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-800 text-gray-300 hover:text-white pr-6 cursor-pointer transition">
                             <span class="inline-flex justify-center items-center ml-4">
                                 <i class="fa fa-envelope-open-text"></i>
                             </span>
                             <span class="ml-2 text-sm tracking-wide truncate">Inquiries</span>
-                            <span
-                                class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-primary bg-blue-100 rounded-full">New</span>
                         </a>
                     </li>
 
-                    <!-- Services Management -->
+                    <!-- Team Members -->
                     <li>
-                        <a href="#" onclick="showSection('services', this)"
+                        <a href="#" onclick="showSection('team-members', this)"
                             class="nav-item relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-800 text-gray-300 hover:text-white pr-6 cursor-pointer transition">
                             <span class="inline-flex justify-center items-center ml-4">
-                                <i class="fa fa-hard-hat"></i>
+                                <i class="fa-solid fa-users"></i>
                             </span>
-                            <span class="ml-2 text-sm tracking-wide truncate">Services</span>
-                        </a>
-                    </li>
-
-                    <!-- Products -->
-                    <li>
-                        <a href="#" onclick="showSection('products', this)"
-                            class="nav-item relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-800 text-gray-300 hover:text-white pr-6 cursor-pointer transition">
-                            <span class="inline-flex justify-center items-center ml-4">
-                                <i class="fa fa-box-open"></i>
-                            </span>
-                            <span class="ml-2 text-sm tracking-wide truncate">Products</span>
+                            <span class="ml-2 text-sm tracking-wide truncate">Team Members</span>
                         </a>
                     </li>
 
                     <li class="px-5 mt-4">
                         <div class="flex flex-row items-center h-8">
-                            <div class="text-sm font-light tracking-wide text-gray-400">Settings</div>
+                            <div class="text-sm font-light tracking-wide text-gray-400">Others</div>
                         </div>
-                    </li>
-
-                    <li>
-                        <a href="#"
-                            class="nav-item relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-800 text-gray-300 hover:text-white pr-6 cursor-pointer transition">
-                            <span class="inline-flex justify-center items-center ml-4">
-                                <i class="fa fa-user"></i>
-                            </span>
-                            <span class="ml-2 text-sm tracking-wide truncate">Profile</span>
-                        </a>
                     </li>
                     <li>
                         <a href="index.html"
@@ -267,8 +233,8 @@
             <!-- Global Date Header -->
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
                 <div>
-                    <h2 id="page-title" class="text-2xl font-bold font-heading text-gray-800">Dashboard Overview</h2>
-                    <p id="page-desc" class="text-sm text-gray-500">Welcome back, Admin. Here's what's happening today.
+                    <h2 id="page-title" class="text-2xl font-bold font-heading text-gray-800">Inquiry Management</h2>
+                    <p id="page-desc" class="text-sm text-gray-500">Review and manage recent quote requests.
                     </p>
                 </div>
                 <div
@@ -278,9 +244,9 @@
             </div>
 
             <!-- =========================
-                 DASHBOARD / INQUIRIES VIEW 
+                 INQUIRIES VIEW 
                  ========================= -->
-            <div id="dashboard-section" class="section-view active">
+            <div id="inquiries-section" class="section-view active">
                 <!-- Stats Cards -->
                 <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 mb-8">
                     <!-- Card 1 -->
@@ -342,9 +308,9 @@
                         <h3 class="font-bold text-lg text-gray-800">Recent Quote Requests</h3>
                         <div class="flex gap-2">
                             <div class="relative">
-                                <input type="text" placeholder="Search..."
+                                <!-- <input type="text" placeholder="Search..."
                                     class="pl-9 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-full md:w-64">
-                                <i class="fa fa-search absolute left-3 top-3 text-gray-400 text-xs"></i>
+                                <i class="fa fa-search absolute left-3 top-3 text-gray-400 text-xs"></i> -->
                             </div>
                             <button onclick="exportInquiries()"
                                 class="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-blue-700 transition">
@@ -377,8 +343,7 @@
             <div id="viewInquiryModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title"
                 role="dialog" aria-modal="true">
                 <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"
-                        onclick="closeViewModal()"></div>
+                    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
 
                     <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
                     <div
@@ -462,148 +427,20 @@
             </div>
 
             <!-- =========================
-                 SERVICES VIEW (New) 
+                 TEAM MEMBERS VIEW
                  ========================= -->
-            <div id="services-section" class="section-view">
+            <div id="team-members-section" class="section-view">
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200">
                     <div
                         class="p-5 border-b border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
-                        <h3 class="font-bold text-lg text-gray-800">Manage Services</h3>
-                        <button class="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-blue-700 transition">
-                            <i class="fa fa-plus mr-1"></i> Add New Service
-                        </button>
-                    </div>
-
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-gray-50 text-gray-600 text-sm uppercase tracking-wider">
-                                    <th class="p-4 font-semibold border-b">Icon</th>
-                                    <th class="p-4 font-semibold border-b">Service Name</th>
-                                    <th class="p-4 font-semibold border-b">Description</th>
-                                    <th class="p-4 font-semibold border-b">Status</th>
-                                    <th class="p-4 font-semibold border-b text-center">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-sm text-gray-700">
-                                <!-- Service 1 -->
-                                <tr class="table-row-hover border-b border-gray-100 transition">
-                                    <td class="p-4">
-                                        <div
-                                            class="w-10 h-10 bg-red-100 text-red-600 rounded-lg flex items-center justify-center">
-                                            <i class="fa fa-fire-extinguisher"></i>
-                                        </div>
-                                    </td>
-                                    <td class="p-4 font-medium">Fire Protection</td>
-                                    <td class="p-4 text-gray-500 truncate max-w-xs">Fire Safety Plans, Fire Detection &
-                                        Protection System Design.</td>
-                                    <td class="p-4"><span
-                                            class="px-2 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">Active</span>
-                                    </td>
-                                    <td class="p-4 text-center">
-                                        <button class="text-gray-400 hover:text-primary mx-1"><i
-                                                class="fa fa-edit"></i></button>
-                                        <button class="text-gray-400 hover:text-red-500 mx-1"><i
-                                                class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <!-- Service 2 -->
-                                <tr class="table-row-hover border-b border-gray-100 transition">
-                                    <td class="p-4">
-                                        <div
-                                            class="w-10 h-10 bg-yellow-100 text-yellow-600 rounded-lg flex items-center justify-center">
-                                            <i class="fa fa-bolt"></i>
-                                        </div>
-                                    </td>
-                                    <td class="p-4 font-medium">Electrical Design</td>
-                                    <td class="p-4 text-gray-500 truncate max-w-xs">Single Line Diagram (SLD), ELD,
-                                        Lightning Protection System.</td>
-                                    <td class="p-4"><span
-                                            class="px-2 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">Active</span>
-                                    </td>
-                                    <td class="p-4 text-center">
-                                        <button class="text-gray-400 hover:text-primary mx-1"><i
-                                                class="fa fa-edit"></i></button>
-                                        <button class="text-gray-400 hover:text-red-500 mx-1"><i
-                                                class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <!-- Service 3 -->
-                                <tr class="table-row-hover transition">
-                                    <td class="p-4">
-                                        <div
-                                            class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center">
-                                            <i class="fa fa-building"></i>
-                                        </div>
-                                    </td>
-                                    <td class="p-4 font-medium">Structural Audit</td>
-                                    <td class="p-4 text-gray-500 truncate max-w-xs">Detailed Engineering Assessment
-                                        (DEA) & Retrofitting.</td>
-                                    <td class="p-4"><span
-                                            class="px-2 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-600">Draft</span>
-                                    </td>
-                                    <td class="p-4 text-center">
-                                        <button class="text-gray-400 hover:text-primary mx-1"><i
-                                                class="fa fa-edit"></i></button>
-                                        <button class="text-gray-400 hover:text-red-500 mx-1"><i
-                                                class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- =========================
-                 PRODUCTS VIEW (New) 
-                 ========================= -->
-            <div id="products-section" class="section-view">
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-                    <!-- Stat 1 -->
-                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex items-center gap-4">
-                        <div
-                            class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
-                            <i class="fa fa-box text-xl"></i>
-                        </div>
-                        <div>
-                            <div class="text-gray-500 text-sm">Total Items</div>
-                            <div class="text-xl font-bold">156</div>
-                        </div>
-                    </div>
-                    <!-- Stat 2 -->
-                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center text-red-600">
-                            <i class="fa fa-exclamation-triangle text-xl"></i>
-                        </div>
-                        <div>
-                            <div class="text-gray-500 text-sm">Low Stock</div>
-                            <div class="text-xl font-bold">5</div>
-                        </div>
-                    </div>
-                    <!-- Stat 3 -->
-                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex items-center gap-4">
-                        <div
-                            class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600">
-                            <i class="fa fa-dollar-sign text-xl"></i>
-                        </div>
-                        <div>
-                            <div class="text-gray-500 text-sm">Total Value</div>
-                            <div class="text-xl font-bold">$42,000</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200">
-                    <div
-                        class="p-5 border-b border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
-                        <h3 class="font-bold text-lg text-gray-800">Product Inventory</h3>
+                        <h3 class="font-bold text-lg text-gray-800">Team Member</h3>
                         <div class="flex gap-2">
-                            <input type="text" placeholder="Search products..."
-                                class="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-primary w-full md:w-48">
+                            <!-- <input type="text" placeholder="Search team members..."
+                                class="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-primary w-full md:w-48"> -->
                             <button
-                                class="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-blue-700 transition">
-                                <i class="fa fa-plus mr-1"></i> Add Product
+                                class="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-blue-700 transition"
+                                onclick="openMemberModal()">
+                                <i class="fa fa-plus mr-1"></i> Add Team Member
                             </button>
                         </div>
                     </div>
@@ -612,60 +449,17 @@
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-gray-50 text-gray-600 text-sm uppercase tracking-wider">
-                                    <th class="p-4 font-semibold border-b">Product</th>
-                                    <th class="p-4 font-semibold border-b">Category</th>
-                                    <th class="p-4 font-semibold border-b">Stock</th>
-                                    <th class="p-4 font-semibold border-b">Price</th>
+                                    <th class="p-4 font-semibold border-b">Member Profile</th>
+                                    <th class="p-4 font-semibold border-b">Contact Info</th>
+                                    <th class="p-4 font-semibold border-b">Team</th>
+                                    <th class="p-4 font-semibold border-b">Note</th>
                                     <th class="p-4 font-semibold border-b text-center">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody class="text-sm text-gray-700">
-                                <!-- Product 1 -->
-                                <tr class="table-row-hover border-b border-gray-100 transition">
-                                    <td class="p-4">
-                                        <div class="flex items-center gap-3">
-                                            <div
-                                                class="w-10 h-10 bg-gray-100 rounded-md flex items-center justify-center text-gray-400">
-                                                <i class="fa fa-image"></i>
-                                            </div>
-                                            <div>
-                                                <div class="font-medium">Fire Hydrant Valve</div>
-                                                <div class="text-xs text-gray-500">SKU: FH-001</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="p-4">Fire Safety</td>
-                                    <td class="p-4"><span class="text-green-600 font-bold">45</span> Units</td>
-                                    <td class="p-4">$120.00</td>
-                                    <td class="p-4 text-center">
-                                        <button class="text-gray-400 hover:text-primary mx-1"><i
-                                                class="fa fa-edit"></i></button>
-                                        <button class="text-gray-400 hover:text-red-500 mx-1"><i
-                                                class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <!-- Product 2 -->
-                                <tr class="table-row-hover border-b border-gray-100 transition">
-                                    <td class="p-4">
-                                        <div class="flex items-center gap-3">
-                                            <div
-                                                class="w-10 h-10 bg-gray-100 rounded-md flex items-center justify-center text-gray-400">
-                                                <i class="fa fa-image"></i>
-                                            </div>
-                                            <div>
-                                                <div class="font-medium">Smoke Detector</div>
-                                                <div class="text-xs text-gray-500">SKU: SD-202</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="p-4">Detection</td>
-                                    <td class="p-4"><span class="text-red-500 font-bold">3</span> Units</td>
-                                    <td class="p-4">$25.00</td>
-                                    <td class="p-4 text-center">
-                                        <button class="text-gray-400 hover:text-primary mx-1"><i
-                                                class="fa fa-edit"></i></button>
-                                        <button class="text-gray-400 hover:text-red-500 mx-1"><i
-                                                class="fa fa-trash"></i></button>
+                            <tbody id="members-table-body" class="text-sm text-gray-700">
+                                <tr>
+                                    <td colspan="5" class="text-center p-8 text-gray-500">
+                                        <i class="fa fa-spinner fa-spin fa-2x mb-2"></i><br>Loading members...
                                     </td>
                                 </tr>
                             </tbody>
@@ -673,17 +467,163 @@
                     </div>
                 </div>
             </div>
+            <!-- Add Team Member -->
+            <div id="memberModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title"
+                role="dialog" aria-modal="true">
+                <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
 
+                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+                    <div
+                        class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full">
+                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6">
+                            <div class="sm:flex sm:items-start">
+                                <div class="w-full">
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modal-title">
+                                        <i class="fa fa-user-plus text-primary mr-2"></i>Add Team Member
+                                    </h3>
+
+                                    <form id="memberForm">
+                                        <div class="mb-4">
+                                            <label for="memberName" class="block text-sm font-medium text-gray-700">Full
+                                                Name</label>
+                                            <input type="text" id="memberName" name="name" required
+                                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label for="memberTeam"
+                                                class="block text-sm font-medium text-gray-700">Team</label>
+                                            <select id="memberTeam" name="team" required
+                                                class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                                <option value="">Loading teams...</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label for="memberDesignation"
+                                                class="block text-sm font-medium text-gray-700">Designation/Role</label>
+                                            <input type="text" id="memberDesignation" name="designation"
+                                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="memberContact"
+                                                class="block text-sm font-medium text-gray-700">Contact Number</label>
+                                            <input type="text" id="memberContact" name="contact"
+                                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label for="memberNote" class="block text-sm font-medium text-gray-700">Note
+                                                / Bio</label>
+                                            <textarea id="memberNote" name="note" rows="3"
+                                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label class="block text-sm font-medium text-gray-700">Profile
+                                                Picture</label>
+                                            <div
+                                                class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md relative">
+                                                <div class="space-y-1 text-center w-full flex flex-col items-center">
+
+                                                    <i id="uploadPlaceholder"
+                                                        class="fa fa-image text-gray-400 text-5xl mb-3"></i>
+
+                                                    <img id="previewImage" src="#" alt="Preview"
+                                                        class="hidden h-32 w-32 object-cover rounded-full border-4 border-gray-100 shadow-sm mb-3">
+
+                                                    <div class="flex text-sm text-gray-600 justify-center">
+                                                        <label for="memberImage"
+                                                            class="relative cursor-pointer bg-white rounded-md font-medium text-primary hover:text-red-500 focus-within:outline-none">
+                                                            <span>Upload a file</span>
+                                                            <input id="memberImage" name="profileImage" type="file"
+                                                                class="sr-only" accept="image/*">
+                                                        </label>
+                                                    </div>
+
+                                                    <p class="text-xs text-gray-500">PNG, JPG, GIF up to 5MB</p>
+                                                    <p id="fileNameDisplay"
+                                                        class="text-xs text-green-600 mt-2 font-semibold"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                            <button type="button" onclick="submitMemberForm()" id="btnSaveMember"
+                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-medium text-white hover:bg-red-600 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
+                                Save Member
+                            </button>
+                            <button type="button" onclick="closeMemberModal()"
+                                class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal for show message to the user -->
+            <div id="statusModal" class="relative z-50 hidden" aria-labelledby="modalTitle" role="dialog"
+                aria-modal="true">
+
+                <div id="modalBackdrop"
+                    class="fixed inset-0 bg-gray-900 bg-opacity-50 transition-opacity duration-300 ease-out opacity-0"
+                    aria-hidden="true"></div>
+
+                <div class="fixed inset-0 z-10 overflow-y-auto">
+                    <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+
+                        <div id="modalPanel"
+                            class="relative transform overflow-hidden bg-white text-left shadow-xl transition-all duration-300 ease-out opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95 rounded-none sm:w-full sm:max-w-md">
+
+                            <div class="absolute right-0 top-0 pt-4 pr-4 block">
+                                <button type="button" onclick="closeStatusModal()"
+                                    class="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none">
+                                    <span class="sr-only">Close</span>
+                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                        stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div class="px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                                <div class="text-center pb-8 mt-4">
+                                    <div class="mb-4">
+                                        <i id="modalIcon" class="fa fa-5x"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-semibold leading-6 text-gray-900 mb-4" id="modalTitle">
+                                    </h3>
+                                    <div class="mt-2">
+                                        <p class="text-sm text-gray-500 mb-6" id="modalMessage"></p>
+                                    </div>
+                                    <button type="button" onclick="closeStatusModal()"
+                                        class="inline-flex w-auto justify-center rounded bg-blue-600 px-10 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
+                                        OK
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Footer -->
             <footer class="w-full text-center text-gray-500 text-sm pb-4 mt-8">
                 &copy;
-                <script>document.write(new Date().getFullYear())</script> AJFSES Admin Panel. Designed by Projuktisheba.
+                <script>document.write(new Date().getFullYear())</script> AJFSES Admin Panel. Designed by <a
+                    href="https://projuktisheba.com/" target="_blank">Projuktisheba</a>
             </footer>
         </div>
     </div>
 
     <script src="js/config.js"></script>
-    <script src="js/modal.js"></script>
+    <script src="js/admin-modal.js"></script>
     <script src="lib/xlsx/xlsx.full.min.js"></script>
     <!-- Default script -->
     <script>
@@ -719,6 +659,10 @@
             menu.classList.toggle('hidden');
         }
 
+        window.addEventListener('DOMContentLoaded', () => {
+            fetchInquiries();
+        });
+
         // Close Profile Menu when clicking outside
         window.addEventListener('click', function (e) {
             const menu = document.getElementById('profile-menu');
@@ -737,13 +681,6 @@
             }
         });
 
-        //signout handler
-        function signout() {
-            localStorage.clear();
-            sessionStorage.clear();
-            window.location.href = "signin.html"
-        }
-
         // SPA Navigation Logic
         function showSection(sectionId, element) {
             // 1. Hide all sections
@@ -751,51 +688,61 @@
                 section.classList.remove('active');
             });
 
-            // 2. Show target section
-            // Inquiries uses dashboard layout for this demo
-            const targetId = (sectionId === 'inquiries') ? 'dashboard-section' : sectionId + '-section';
+            // 2. Determine and show the target section
+            const targetId = sectionId + '-section';
+
             const targetSection = document.getElementById(targetId);
             if (targetSection) targetSection.classList.add('active');
 
             // 3. Update Titles
             const titles = {
-                'dashboard': 'Dashboard Overview',
                 'inquiries': 'Inquiry Management',
                 'services': 'Service Management',
-                'products': 'Product Inventory'
+                'team-members': 'Team Members'
             };
             const descs = {
-                'dashboard': "Welcome back, Admin. Here's what's happening today.",
                 'inquiries': "Review and manage recent quote requests.",
                 'services': "Add, edit, or remove engineering services.",
-                'products': "Track stock levels and manage product listings."
-            }
-            document.getElementById('page-title').innerText = titles[sectionId] || 'Dashboard';
+                'team-members': "Manage team members."
+            };
+
+            document.getElementById('page-title').innerText = titles[sectionId] || 'Inquiries';
             document.getElementById('page-desc').innerText = descs[sectionId] || '';
 
             // 4. Update Sidebar Active State
             document.querySelectorAll('.nav-item').forEach(nav => {
                 nav.classList.remove('active');
             });
+
             if (element) {
                 element.classList.add('active');
-                //set loading and fetch data from backend
-
             }
 
-            // 5. Close sidebar on mobile after selection
+            // 5. Close sidebar on mobile
             if (window.innerWidth < 1024) {
                 sidebar.classList.add('-translate-x-full');
             }
-        }
-    </script>
 
-    <!-- Inquiries script -->
-    <script>
-        // --- Global Variables ---
-        let fetchedInquiries = []; // Store data here to access it in the modal
-        const inquiryTableBody = document.getElementById('inquiry-table-body');
-        const viewModal = document.getElementById('viewInquiryModal');
+            const callbacks = {
+                'inquiries': fetchInquiries,      // reference only
+                // 'services': loadServices,
+                'team-members': fetchMembers
+            };
+
+            const callbackFn = callbacks[sectionId];
+
+            if (typeof callbackFn === 'function') {
+                // If the callback returns a promise, handle errors
+                try {
+                    const maybePromise = callbackFn();
+                    if (maybePromise && typeof maybePromise.then === 'function') {
+                        maybePromise.catch(err => console.error('Section callback error:', err));
+                    }
+                } catch (err) {
+                    console.error('Section callback threw:', err);
+                }
+            }
+        }
 
         // --- Date Formatter ---
         function formatDateTime(dateString) {
@@ -806,6 +753,23 @@
                 hour: '2-digit', minute: '2-digit'
             });
         }
+
+        //signout handler
+        function signout() {
+            localStorage.clear();
+            sessionStorage.clear();
+            window.location.href = "signin.html"
+        }
+
+
+    </script>
+
+    <!-- Inquiries script -->
+    <script>
+        // --- Global Variables ---
+        let fetchedInquiries = []; // Store data here to access it in the modal
+        const inquiryTableBody = document.getElementById('inquiry-table-body');
+        const viewModal = document.getElementById('viewInquiryModal');
 
         // --- Fetch Inquiries ---
         async function fetchInquiries() {
@@ -853,6 +817,7 @@
             document.getElementById('resolved-inquiries').textContent = resolvedCount;
             document.getElementById('total-inquiries').textContent = totalCount;
         }
+
         // --- Render Table ---
         function renderTable(inquiries) {
             if (inquiries.length === 0) {
@@ -892,7 +857,7 @@
         function exportInquiries() {
             // 1. Check if data exists
             if (!fetchedInquiries || fetchedInquiries.length === 0) {
-                alert("No data available to export.");
+                showStatusModal('Ops', 'No data available to export.', 'warning');
                 return;
             }
 
@@ -942,7 +907,7 @@
             const inquiry = fetchedInquiries.find(item => item.id == id);
 
             if (!inquiry) {
-                alert("Details not found.");
+                showStatusModal('Error', 'Details not found', 'error');
                 return;
             }
 
@@ -972,7 +937,7 @@
         async function markAsResolved() {
             // 1. Validation
             if (!currentInquiryId) {
-                alert("No inquiry selected.");
+                showStatusModal('Error', 'No inquiry selected', 'error');
                 return;
             }
 
@@ -1011,21 +976,22 @@
                     // Refresh the table and stats to show the new status
                     await fetchInquiries();
 
-                    alert("Inquiry marked as resolved successfully!");
+                    showStatusModal('Congratulations', 'Inquiry marked as resolved successfully!', 'success');
                 } else {
                     const data = await response.json();
-                    alert(data.message || 'Failed to update status.');
+                    showStatusModal('Error', data.message || 'Failed to update status.', 'error');
                 }
 
             } catch (error) {
                 console.error('Update Error:', error);
-                alert('Network error. Please try again.');
+                showStatusModal('Error', 'Failed to update status.', 'error');
             } finally {
                 // 6. Reset Button
                 btn.innerText = originalText;
                 btn.disabled = false;
             }
         }
+
         // --- DELETE INQUIRY LOGIC ---
         async function deleteInquiry(id) {
             // 1. Confirm User Action
@@ -1051,23 +1017,22 @@
 
                 // 4. Handle Response
                 if (response.ok) {
-                    // Option A: Simple Alert
-                    // alert('Inquiry deleted successfully.');
 
-                    // Option B: Refresh Data
+                    //Refresh Data
                     // Reload the table to reflect changes (removes the row from UI)
                     await fetchInquiries();
                 } else {
                     // Handle Server Errors
                     const data = await response.json();
-                    alert(data.message || 'Failed to delete inquiry. Please try again.');
+                    showStatusModal('Error', data.message || 'Failed to delete inquiry. Please try again.', 'error');
                 }
 
             } catch (error) {
                 console.error('Delete Error:', error);
-                alert('A network error occurred while trying to delete.');
+                showStatusModal('Error', data.message || 'Failed to delete inquiry. Please try again.', 'error');
             }
         }
+
         // --- Helper: Status Badge ---
         function getStatusBadge(status) {
             const s = status ? status.toLowerCase() : 'pending';
@@ -1075,28 +1040,291 @@
             if (s === 'progress') return '<span class="px-2 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">In Progress</span>';
             return '<span class="px-2 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">Pending</span>';
         }
+    </script>
 
-        // --- Navigation Integration (Same as before) ---
-        window.showSection = function (sectionId, element) {
-            document.querySelectorAll('.section-view').forEach(s => s.classList.remove('active'));
-            const targetId = (sectionId === 'inquiries') ? 'dashboard-section' : sectionId + '-section';
-            document.getElementById(targetId)?.classList.add('active');
+    <!-- Team Members script -->
+    <script>
+        const memberModal = document.getElementById('memberModal');
 
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            if (element) element.classList.add('active');
+        // 1. OPEN MODAL & FETCH DATA
+        function openMemberModal() {
+            memberModal.classList.remove('hidden');
+            fetchTeams(); // Load dropdown data every time modal opens
+        }
 
-            // Close mobile sidebar
-            if (window.innerWidth < 1024) document.getElementById('sidebar').classList.add('-translate-x-full');
+        // 2. FETCH TEAMS (Dynamic Dropdown)
+        async function fetchTeams() {
+            const select = document.getElementById('memberTeam');
+            const API_URL = `${window.env.API_URL}/team/list`; // Ensure this endpoint exists
 
-            // Logic
-            if (sectionId === 'inquiries') {
-                document.getElementById('page-title').innerText = 'Inquiry Management';
-                fetchInquiries();
-            } else {
-                document.getElementById('page-title').innerText = sectionId.charAt(0).toUpperCase() + sectionId.slice(1);
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error('Failed to fetch');
+
+                const teams = await response.json();
+                // Assuming response is like: [{id: 1, title: "Manager"}, {id: 2, title: "Engineer"}]
+
+                let html = '<option value="">Select Team</option>';
+                teams.forEach(d => {
+                    // Use d.title or d.name depending on your API
+                    html += `<option value="${d.id}">${d.title}</option>`;
+                });
+
+                select.innerHTML = html;
+
+            } catch (error) {
+                console.error("Error loading teams:", error);
+                select.innerHTML = '<option value="">Error loading options</option>';
             }
         }
+
+        // 3. FILE INPUT UX (Show selected filename)
+        // --- 1. HANDLE FILE SELECTION & PREVIEW ---
+        document.getElementById('memberImage').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('previewImage');
+            const placeholder = document.getElementById('uploadPlaceholder');
+            const fileNameDisplay = document.getElementById('fileNameDisplay');
+
+            if (file) {
+                // 1. Show Filename
+                fileNameDisplay.innerText = 'Selected: ' + file.name;
+
+                // 2. Generate Preview
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result;      // Set image source
+                    preview.classList.remove('hidden'); // Show image
+                    placeholder.classList.add('hidden');// Hide icon
+                }
+
+                reader.readAsDataURL(file); // Trigger the reader
+            } else {
+                // Reset if user cancels selection
+                resetPreview();
+            }
+        });
+
+        // --- 2. HELPER TO RESET PREVIEW ---
+        function resetPreview() {
+            const preview = document.getElementById('previewImage');
+            const placeholder = document.getElementById('uploadPlaceholder');
+            const fileNameDisplay = document.getElementById('fileNameDisplay');
+            const fileInput = document.getElementById('memberImage');
+
+            fileInput.value = ''; // Clear input
+            fileNameDisplay.innerText = '';
+
+            preview.src = '#';
+            preview.classList.add('hidden');      // Hide image
+            placeholder.classList.remove('hidden'); // Show icon
+        }
+
+        // --- 3. UPDATE CLOSE FUNCTION ---
+        function closeMemberModal() {
+            const memberModal = document.getElementById('memberModal');
+            memberModal.classList.add('hidden');
+
+            document.getElementById('memberForm').reset();
+
+
+        }
+
+        // 4. SUBMIT FORM (Multipart/Form-Data)
+        async function submitMemberForm() {
+            const btn = document.getElementById('btnSaveMember');
+            const form = document.getElementById('memberForm');
+
+            // Basic Validation
+            const name = document.getElementById('memberName').value;
+            const team = document.getElementById('memberTeam').value;
+
+            if (!name || !team) {
+                showStatusModal('Wrong Input', 'Please fill in Name and Team.', 'error');
+                return;
+            }
+
+            const API_URL = `${window.env.API_URL}/member`; // POST Endpoint
+
+            try {
+                btn.innerText = "Saving...";
+                btn.disabled = true;
+
+                // Create FormData object automatically from the form element
+                const formData = new FormData(form);
+
+                // Get Token
+                const token = getToken();
+
+                // Send Request
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        // NOTE: Do NOT set 'Content-Type': 'multipart/form-data' manually.
+                        // The browser sets it automatically with the correct boundary when using FormData.
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formData
+                });
+
+                if (response.ok) {
+                    showStatusModal('Congratulations', 'Member added successfully', 'success');
+                    closeMemberModal();
+                    fetchMembers(); 
+                } else {
+                    const result = await response.json();
+                    showStatusModal('Error', result.message || "Failed to save member.", 'error');
+                }
+
+            } catch (error) {
+                console.error("Submit Error:", error);
+                showStatusModal('Error', "Failed to save member.", 'error');
+            } finally {
+                btn.innerText = "Save Member";
+                btn.disabled = false;
+            }
+        }
+
+        //team member listing
+        // --- FETCH & RENDER MEMBERS ---
+        async function fetchMembers() {
+            const tableBody = document.getElementById('members-table-body');
+            const API_URL = `${window.env.API_URL}/member/list`;
+
+            try {
+                // Show Loading State
+                tableBody.innerHTML = `<tr><td colspan="5" class="text-center p-8 text-gray-500"><i class="fa fa-spinner fa-spin fa-2x mb-2"></i><br>Loading...</td></tr>`;
+
+                const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+
+                const response = await fetch(API_URL, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) throw new Error("Failed to fetch members");
+
+                const data = await response.json();
+                const members = Array.isArray(data) ? data : (data.members || []);
+
+                renderMembersTable(members);
+
+            } catch (error) {
+                console.error('Error:', error);
+                tableBody.innerHTML = `<tr><td colspan="5" class="text-center p-8 text-red-500">Failed to load member list.</td></tr>`;
+            }
+        }
+
+        function renderMembersTable(members) {
+            const tableBody = document.getElementById('members-table-body');
+
+            if (members.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="5" class="text-center p-6 text-gray-500">No team members found.</td></tr>`;
+                return;
+            }
+
+            let html = '';
+
+            members.forEach(member => {
+                // 1. Handle Profile Picture (Fallback to initials if no image)
+                let avatarHtml;
+                if (member.image_link) {
+                    const imgUrl = `${window.env.API_URL}/images/${member.image_link}`;
+
+                    avatarHtml = `<img src="${imgUrl}" alt="${member.name}" class="w-10 h-10 rounded-full object-cover border border-gray-200">`;
+                } else {
+                    const initials = (member.name || 'U').substring(0, 2).toUpperCase();
+                    avatarHtml = `<div class="w-10 h-10 bg-primary bg-opacity-10 text-primary rounded-full flex items-center justify-center font-bold text-xs">${initials}</div>`;
+                }
+
+                // 2. Build Row
+                html += `
+                    <tr class="table-row-hover border-b border-gray-100 transition hover:bg-gray-50">
+                        <td class="p-4">
+                            <div class="flex items-center gap-3">
+                                ${avatarHtml}
+                                <div>
+                                    <div class="font-medium text-gray-900"><strong>${member.name}</strong></div>
+                                    <div class="text-xs text-gray-500 uppercase tracking-wide"><small>${member.designation || 'N/A'}<small></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="p-4">
+                            <div class="text-gray-700"><i class="fa fa-phone text-gray-400 mr-2 text-xs"></i>${member.contact || 'N/A'}</div>
+                        </td>
+                        <td class="p-4">
+                            <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs font-semibold">
+                                ${member.team_name || ""}
+                            </span>
+                        </td>
+                        <td class="p-4 text-gray-500 text-sm max-w-xs truncate" title="${member.note || ''}">
+                            ${member.note || '-'}
+                        </td>
+                        <td class="p-4 text-center">
+                            <button onclick="editMember(${member.id})" class="text-gray-400 hover:text-primary mx-1 transition" title="Edit">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            <button onclick="deleteMember(${member.id})" class="text-gray-400 hover:text-red-500 mx-1 transition" title="Delete">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>`;
+            });
+
+            tableBody.innerHTML = html;
+        }
+
+        // Placeholder functions for actions
+        function editMember(id) {
+            showStatusModal('Warning', "Edit functionality coming soon", 'warning');
+        }
+
+        // --- DELETE MEMBER LOGIC ---
+        async function deleteMember(id) {
+            // 1. Confirm User Action
+            // using native confirm for simplicity, or you can build a custom modal like the view one
+            if (!confirm(`Are you sure you want to permanently delete this member: ${id}?`)) {
+                return;
+            }
+
+            const DELETE_URL = `${window.env.API_URL}/member?id=${id}`;
+
+            try {
+                // 2. Get Token
+                const token = getToken();
+
+                // 3. Send API Request
+                const response = await fetch(DELETE_URL, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                // 4. Handle Response
+                if (response.ok) {
+                    // Option B: Refresh Data
+                    // Reload the table to reflect changes (removes the row from UI)
+                    await fetchMembers();
+                } else {
+                    // Handle Server Errors
+                    const data = await response.json();
+                    showStatusModal('Error', data.message || 'Failed to delete member. Please try again.', 'error');
+                }
+
+            } catch (error) {
+                console.error('Delete Error:', error);
+                showStatusModal('Error', 'Failed to delete member. Please try again.', 'error');
+            }
+        }
+
     </script>
+
+
 </body>
 
 </html>
