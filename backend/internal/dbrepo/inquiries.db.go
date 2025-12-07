@@ -23,12 +23,12 @@ func newInquiryRepository(db *pgxpool.Pool) *InquiryRepository {
 // Note: created_at, updated_at, and inquiry_date are handled by DB defaults unless specified otherwise.
 func (r *InquiryRepository) Create(ctx context.Context, i *models.Inquiry) (int64, error) {
 	sql := `
-		INSERT INTO inquiries (name, contact, subject, message)
-		VALUES ($1, $2, $3, $4)
+		INSERT INTO inquiries (name, mobile, email, subject, message)
+		VALUES ($1, $2, $3, $4, $5)
 		RETURNING id, inquiry_date, created_at, updated_at
 	`
 
-	err := r.DB.QueryRow(ctx, sql, i.Name, i.Contact, i.Subject, i.Message).
+	err := r.DB.QueryRow(ctx, sql, i.Name, i.Mobile, i.Email, i.Subject, i.Message).
 		Scan(&i.ID, &i.InquiryDate, &i.CreatedAt, &i.UpdatedAt)
 
 	if err != nil {
@@ -41,7 +41,7 @@ func (r *InquiryRepository) Create(ctx context.Context, i *models.Inquiry) (int6
 // GetByID retrieves a single inquiry by its ID.
 func (r *InquiryRepository) GetByID(ctx context.Context, id int64) (*models.Inquiry, error) {
 	sql := `
-		SELECT id, inquiry_date, name, contact, subject, message, status, created_at, updated_at
+		SELECT id, inquiry_date, name, mobile, email, subject, message, status, created_at, updated_at
 		FROM inquiries
 		WHERE id = $1
 	`
@@ -51,7 +51,8 @@ func (r *InquiryRepository) GetByID(ctx context.Context, id int64) (*models.Inqu
 		&i.ID,
 		&i.InquiryDate,
 		&i.Name,
-		&i.Contact,
+		&i.Mobile,
+		&i.Email,
 		&i.Subject,
 		&i.Message,
 		&i.Status,
@@ -72,7 +73,7 @@ func (r *InquiryRepository) GetByID(ctx context.Context, id int64) (*models.Inqu
 // GetAll retrieves all inquiries, ordered by inquiry_date descending.
 func (r *InquiryRepository) GetAll(ctx context.Context) ([]models.Inquiry, error) {
 	sql := `
-		SELECT id, inquiry_date, name, contact, subject, message, status, created_at, updated_at
+		SELECT id, inquiry_date, name, mobile, email, subject, message, status, created_at, updated_at
 		FROM inquiries
 		ORDER BY inquiry_date DESC
 	`
@@ -91,7 +92,8 @@ func (r *InquiryRepository) GetAll(ctx context.Context) ([]models.Inquiry, error
 			&i.ID,
 			&i.InquiryDate,
 			&i.Name,
-			&i.Contact,
+			&i.Mobile,
+			&i.Email,
 			&i.Subject,
 			&i.Message,
 			&i.Status,
@@ -110,6 +112,7 @@ func (r *InquiryRepository) GetAll(ctx context.Context) ([]models.Inquiry, error
 
 	return inquiries, nil
 }
+
 // GetStatusCounts retrieves the count of inquiries for specific statuses.
 func (r *InquiryRepository) GetStatusCounts(ctx context.Context) (map[string]int, error) {
     // 1. Define SQL to count grouped by status
@@ -151,12 +154,12 @@ func (r *InquiryRepository) GetStatusCounts(ctx context.Context) (map[string]int
 func (r *InquiryRepository) Update(ctx context.Context, i *models.Inquiry) error {
 	sql := `
 		UPDATE inquiries
-		SET name = $1, contact = $2, subject = $3, message = $4, status = $5, updated_at = CURRENT_TIMESTAMP
-		WHERE id = $6
+		SET name = $1, mobile = $2, email=$3, subject = $4, message = $5, status = $6, updated_at = CURRENT_TIMESTAMP
+		WHERE id = $7
 		RETURNING updated_at
 	`
 
-	err := r.DB.QueryRow(ctx, sql, i.Name, i.Contact, i.Subject, i.Message, i.Status, i.ID).
+	err := r.DB.QueryRow(ctx, sql, i.Name, i.Mobile, i.Email, i.Subject, i.Message, i.Status, i.ID).
 		Scan(&i.UpdatedAt)
 
 	if err != nil {

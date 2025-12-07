@@ -13,7 +13,6 @@
         rel="stylesheet">
 
     <!-- Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
     <!-- Tailwind CSS (for rapid, clean styling) -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -387,7 +386,8 @@
                                 <div>
                                     <label
                                         class="block text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</label>
-                                    <div id="view-contact" class="mt-1 text-sm text-gray-900"></div>
+                                    <div id="view-mobile" class="mt-1 text-sm text-gray-900 font-semibold"></div>
+                                    <div id="view-email" class="mt-1 text-sm text-gray-900 font-semibold"></div>
                                 </div>
                             </div>
 
@@ -961,7 +961,8 @@
                                 <div class="h-8 w-8 rounded-full bg-blue-100 text-primary flex items-center justify-center font-bold text-xs">${initials}</div>
                                 <div>
                                     <div class="font-medium text-gray-900">${item.name}</div>
-                                    <div class="text-xs text-gray-500">${item.contact || item.email}</div>
+                                    <div class="text-xs text-gray-500">${item.mobile || ''}</div>
+                                    <div class="text-xs text-gray-500">${item.email || ''}</div>
                                 </div>
                             </div>
                         </td>
@@ -1038,7 +1039,8 @@
             // 2. Populate Modal Fields
             document.getElementById('view-id').textContent = inquiry.id || 'N/A';
             document.getElementById('view-name').textContent = inquiry.name || 'N/A';
-            document.getElementById('view-contact').textContent = inquiry.contact || inquiry.email || 'N/A';
+            document.getElementById('view-mobile').innerHTML = inquiry.mobile || '';
+            document.getElementById('view-email').innerHTML = inquiry.email || '';
             document.getElementById('view-subject').textContent = inquiry.subject || 'No Subject';
             document.getElementById('view-message').textContent = inquiry.message || 'No message content.';
 

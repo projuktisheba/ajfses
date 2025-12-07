@@ -39,11 +39,13 @@ func (h *InquiryHandler) CreateInquiry(w http.ResponseWriter, r *http.Request) {
 
 	// Basic Validation
 	req.Name = strings.TrimSpace(req.Name)
-	req.Contact = strings.TrimSpace(req.Contact)
+	req.Mobile = strings.TrimSpace(req.Mobile)
+	req.Email = strings.TrimSpace(req.Email)
+	req.Subject = strings.TrimSpace(req.Subject)
 	req.Message = strings.TrimSpace(req.Message)
-
-	if req.Name == "" || req.Contact == "" {
-		utils.BadRequest(w, errors.New("name, contact are required"))
+	fmt.Println("Inq Data: ", req)
+	if req.Name == "" || req.Mobile == "" || req.Email == "" || req.Subject == "" || req.Message == "" {
+		utils.BadRequest(w, errors.New("All fields are required"))
 		return
 	}
 
@@ -71,40 +73,41 @@ func (h *InquiryHandler) CreateInquiry(w http.ResponseWriter, r *http.Request) {
 
 	utils.WriteJSON(w, http.StatusCreated, resp)
 }
+
 // GetAllInquiries retrieves a list of all inquiries AND status counts (Admin only).
 func (h *InquiryHandler) GetAllInquiries(w http.ResponseWriter, r *http.Request) {
-    ctx := r.Context()
+	ctx := r.Context()
 
-    // 1. Fetch the List
-    inquiries, err := h.DB.InquiryRepo.GetAll(ctx)
-    if err != nil {
-        h.errorLog.Println("ERROR_01_GetAllInquiries: db error (list):", err)
-        utils.ServerError(w, errors.New("failed to retrieve inquiries"))
-        return
-    }
+	// 1. Fetch the List
+	inquiries, err := h.DB.InquiryRepo.GetAll(ctx)
+	if err != nil {
+		h.errorLog.Println("ERROR_01_GetAllInquiries: db error (list):", err)
+		utils.ServerError(w, errors.New("failed to retrieve inquiries"))
+		return
+	}
 
-    // 2. Fetch the Counts
-    counts, err := h.DB.InquiryRepo.GetStatusCounts(ctx)
-    if err != nil {
-        h.errorLog.Println("ERROR_02_GetAllInquiries: db error (counts):", err)
-        // Note: Depending on logic, you might not want to fail the whole request 
-        // if just counts fail, but usually, it's safer to return error.
-        utils.ServerError(w, errors.New("failed to retrieve inquiry stats"))
-        return
-    }
+	// 2. Fetch the Counts
+	counts, err := h.DB.InquiryRepo.GetStatusCounts(ctx)
+	if err != nil {
+		h.errorLog.Println("ERROR_02_GetAllInquiries: db error (counts):", err)
+		// Note: Depending on logic, you might not want to fail the whole request
+		// if just counts fail, but usually, it's safer to return error.
+		utils.ServerError(w, errors.New("failed to retrieve inquiry stats"))
+		return
+	}
 
-    // 3. Construct the Combined Response
-    // We define an anonymous struct here to shape the JSON
-    resp := struct {
-        Inquiries []models.Inquiry `json:"inquiries"`
-        Counts    map[string]int   `json:"counts"`
-    }{
-        Inquiries: inquiries,
-        Counts:    counts,
-    }
+	// 3. Construct the Combined Response
+	// We define an anonymous struct here to shape the JSON
+	resp := struct {
+		Inquiries []models.Inquiry `json:"inquiries"`
+		Counts    map[string]int   `json:"counts"`
+	}{
+		Inquiries: inquiries,
+		Counts:    counts,
+	}
 
-    // 4. Send JSON
-    utils.WriteJSON(w, http.StatusOK, resp)
+	// 4. Send JSON
+	utils.WriteJSON(w, http.StatusOK, resp)
 }
 
 // GetInquiry retrieves a single inquiry by ID.
@@ -158,8 +161,11 @@ func (h *InquiryHandler) UpdateInquiry(w http.ResponseWriter, r *http.Request) {
 	if req.Name != "" {
 		existing.Name = req.Name
 	}
-	if req.Contact != "" {
-		existing.Contact = req.Contact
+	if req.Mobile != "" {
+		existing.Mobile = req.Mobile
+	}
+	if req.Email != "" {
+		existing.Email = req.Email
 	}
 	if req.Subject != "" {
 		existing.Subject = req.Subject

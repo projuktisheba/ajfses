@@ -4,7 +4,8 @@ CREATE TABLE inquiries (
     inquiry_date TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     name VARCHAR(100) NOT NULL,
-    contact VARCHAR(255) NOT NULL DEFAULT '',
+    mobile VARCHAR(255) NOT NULL DEFAULT '',
+    email VARCHAR(255) NOT NULL DEFAULT '',
     subject TEXT DEFAULT '',
     message TEXT DEFAULT '',
 
@@ -24,5 +25,6 @@ CREATE TABLE inquiries (
 -- Indexes 
 CREATE INDEX idx_inquiries_inquiry_date ON inquiries(inquiry_date);
 CREATE INDEX idx_inquiries_name ON inquiries(name);
-CREATE INDEX idx_inquiries_contact ON inquiries(contact);
+CREATE INDEX idx_inquiries_mobile ON inquiries(mobile);
+CREATE INDEX idx_inquiries_email ON inquiries(email);
 CREATE INDEX idx_inquiries_status ON inquiries(status);
