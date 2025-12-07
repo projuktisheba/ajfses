@@ -22,88 +22,63 @@
 
     <!-- CUSTOM STYLES -->
     <style>
-        /* PRINCIPALS GRID STYLES */
-        .principals-section-area {
+        /* --- brands BRAND SLIDER STYLES --- */
+        .brands-section-area {
             background: #ffffff;
-            padding: 60px 0;
+            padding: 80px 0;
+            overflow: hidden;
+        }
+
+        .brands-carousel .owl-stage {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-top: 1px solid #eee;
             border-bottom: 1px solid #eee;
         }
 
-        #uc_logo_grid_elementor_cca2d9f {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            /* Mobile default */
-            gap: 20px;
-        }
-
-        /* Responsive Columns */
-        @media (min-width: 768px) {
-            #uc_logo_grid_elementor_cca2d9f {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        @media (min-width: 1024px) {
-            #uc_logo_grid_elementor_cca2d9f {
-                grid-template-columns: repeat(5, 1fr);
-            }
-        }
-
-        #uc_logo_grid_elementor_cca2d9f .ue-logo-title {
-            width: 100%;
-            position: absolute;
-            bottom: 0;
-            text-align: center;
-            left: 0;
-        }
-
-        #uc_logo_grid_elementor_cca2d9f div.logo-grid-item {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
-            transition: 0.3s;
-            height: 150px;
-            border: 1px solid #f0f0f0;
+        .brands-carousel .logo-item {
             background: #fff;
-            padding: 10px;
+            padding: 20px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            opacity: 0.5;
+            /* Fade out non-centered items */
+            transform: scale(0.9);
+            /* Shrink non-centered items */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 150px;
         }
 
-        #uc_logo_grid_elementor_cca2d9f div.logo-grid-item:hover {
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
+        .brands-carousel .logo-item img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto !important;
+            /* Override owl carousel inline width */
+            transition: all 0.3s ease;
+            /* filter: grayscale(100%); */
+        }
+
+        /* Center Focus Styles */
+        .brands-carousel .owl-item.center .logo-item {
+            opacity: 1;
+            transform: scale(1.1);
+            /* Scale up centered item */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-color: transparent;
             z-index: 2;
         }
 
-        #uc_logo_grid_elementor_cca2d9f div.logo-grid-item img {
-            width: 100%;
-            object-fit: contain;
-            display: block;
-            mix-blend-mode: normal;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            height: 100%;
-            transition: 0.3s;
-            padding: 20px;
+        .brands-carousel .owl-item.center .logo-item img {
+            filter: grayscale(0%);
         }
 
-        #uc_logo_grid_elementor_cca2d9f a {
+        .separator-img {
+            max-width: 100px;
+            margin: 10px auto 30px;
             display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         /* NEW PORTFOLIO BANNER STYLES (Based on Reference) */
@@ -272,6 +247,7 @@
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">About Us</a>
                     <div class="dropdown-menu fade-up m-0">
+                        <a href="about.html" class="dropdown-item">Company Overview</a>
                         <a href="chairman_message.html" class="dropdown-item">Chairman's Message</a>
                         <a href="team.html" class="dropdown-item">Team</a>
                         <a href="gallery.html" class="dropdown-item">Gallery</a>
@@ -307,7 +283,7 @@
                                     facilities.
                                 </p>
 
-                                <a href="services.html"
+                                <a href="products.html"
                                     class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Our
                                     Services</a>
                                 <a href="contact.html"
@@ -332,7 +308,7 @@
                                 <p class="fs-5 fw-medium text-white mb-4 pb-2">We provide complete engineering
                                     consultancy including Fire Safety Plans, Electrical Designs, and Structural
                                     Assessments for industrial and commercial compliance.</p>
-                                <a href="services.html"
+                                <a href="products.html"
                                     class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Our
                                     Services</a>
                                 <a href="contact.html"
@@ -357,7 +333,7 @@
                                 <p class="fs-5 fw-medium text-white mb-4 pb-2">Expert solutions for Factory Remediation,
                                     CAP Management, and Environmental Consultancy to ensure your business meets national
                                     and international standards.</p>
-                                <a href="services.html"
+                                <a href="products.html"
                                     class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Our
                                     Services</a>
                                 <a href="contact.html"
@@ -384,7 +360,7 @@
                                     energy efficiency, safety compliance, and seamless operational workflow.
                                 </p>
 
-                                <a href="services.html"
+                                <a href="products.html"
                                     class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Our
                                     Services</a>
                                 <a href="contact.html"
@@ -399,211 +375,40 @@
     </div>
     <!-- Carousel end -->
 
-    <!-- About start -->
+    <!-- About Start -->
     <div class="container-fluid overflow-hidden py-5 px-lg-0">
         <div class="container about py-5 px-lg-0">
             <div class="row g-5 mx-lg-0">
                 <div class="col-lg-6 ps-lg-0 wow fadeInLeft" data-wow-delay="0.1s" style="min-height: 400px;">
                     <div class="position-relative h-100">
-                        <img class="position-absolute img-fluid w-100 h-100" src="img/about.jpg"
-                            style="object-fit: cover;" alt="">
+                        <img class="position-absolute img-fluid w-100 h-100" src="img/about.jpg" style="object-fit: cover;" alt="">
                     </div>
                 </div>
                 <div class="col-lg-6 about-text wow fadeInUp" data-wow-delay="0.3s">
-                    <h6 class="text-secondary text-uppercase mb-3">About AJFSES</h6>
-                    <h1 class="mb-5">Your Partner for Engineering Excellence</h1>
-                    <p class="mb-5">AJFSES is a premier consultancy firm dedicated to providing top-tier Engineering,
-                        Safety, and Environmental solutions. We specialize in helping factories and commercial
-                        establishments achieve full compliance through rigorous design, assessment, and implementation.
-                    </p>
+                    <h6 class="text-secondary text-uppercase mb-3">About Us</h6>
+                    <h1 class="mb-5">Your Trusted Fire Safety & Engineering Partner</h1>
+                    <p class="mb-5">AJ FIRE SAFETY & ENGINEERING SOLUTIONS (AJFSES) is a premier engineering consultancy firm in Bangladesh. We are dedicated to providing comprehensive Fire Safety, Electrical, and Structural engineering solutions to help businesses achieve full compliance with national (BNBC) and international (NFPA) standards.</p>
+                    <p class="mb-5">With a team of qualified engineers and safety experts, we specialize in Factory Remediation, CAP Management, and advanced Fire Protection System design. Our goal is to ensure the safety of your property and employees through innovative engineering.</p>
+                    
                     <div class="row g-4 mb-5">
                         <div class="col-sm-6 wow fadeIn" data-wow-delay="0.5s">
-                            <i class="fa-solid fa-hard-hat fa-3x text-primary mb-3"></i>
-                            <h5>Safety First</h5>
-                            <p class="m-0">Comprehensive Fire and Electrical safety audits and design implementation.
-                            </p>
+                            <i class="fa fa-certificate text-primary fa-3x mb-3"></i>
+                            <h5>ISO 9001:2015</h5>
+                            <p class="m-0">Certified for Quality Management Systems.</p>
                         </div>
                         <div class="col-sm-6 wow fadeIn" data-wow-delay="0.7s">
-                            <i class="fa-solid fa-drafting-compass fa-3x text-primary mb-3"></i>
-                            <h5>Expert Design</h5>
-                            <p class="m-0">Structural Analysis, Retrofitting, and Architectural designs by certified
-                                engineers.</p>
+                            <i class="fa fa-users-gear text-primary fa-3x mb-3"></i>
+                            <h5>Expert Team</h5>
+                            <p class="m-0">Led by IEB certified engineers and safety professionals.</p>
                         </div>
                     </div>
-                    <a href="products.html" class="btn btn-primary py-3 px-5">Explore Products</a>
+                    <a href="about.html" class="btn btn-secondary py-3 px-5">More</a>
+                    <a href="contact.html" class="btn btn-primary py-3 px-5">Contact Us</a>
                 </div>
             </div>
         </div>
     </div>
-    <!-- About end -->
-
-    <!-- BRAND LOGO STRIP SECTION START -->
-    <div class="principals-section-area wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container">
-            <!-- Header -->
-            <div class="text-center mb-4">
-                <h2 class="elementor-heading-title elementor-size-default" style="font-weight: 800;">OUR VALUED<span
-                        style="color: red;"> PRINCIPALS </span> </h2>
-                <div class="mt-2">
-                    <img loading="lazy" decoding="async" width="86" height="9"
-                        src="https://www.radius-bd.com/wp-content/uploads/2023/02/Screenshot_1-1.png"
-                        class="attachment-large size-large wp-image-1414" alt="">
-                </div>
-            </div>
-
-            <!-- Grid -->
-            <div id="uc_logo_grid_elementor_cca2d9f" class="ue-logo-grid">
-                <div class="logo-grid-item">
-                    <a href="https://www.radius-bd.com/product-category/brand/advanced-brand/" target="_blank">
-                        <img loading="lazy" decoding="async"
-                            src="https://www.radius-bd.com/wp-content/uploads/2023/04/1.png" title="Default Title"
-                            alt="1" width="400" height="250">
-                    </a>
-                </div>
-                <div class="logo-grid-item">
-                    <a href="https://www.radius-bd.com/product-category/brand/argus-brand/" target="_blank">
-                        <img loading="lazy" decoding="async"
-                            src="https://www.radius-bd.com/wp-content/uploads/2023/04/24.jpg" title="Default Title"
-                            alt="24" width="400" height="250">
-                    </a>
-                </div>
-                <div class="logo-grid-item">
-                    <a href="https://www.radius-bd.com/product-category/brand/cooper-brand/" target="_blank">
-                        <img loading="lazy" decoding="async"
-                            src="https://www.radius-bd.com/wp-content/uploads/2023/04/3.png" title="Default Title"
-                            alt="3" width="400" height="250">
-                    </a>
-                </div>
-                <div class="logo-grid-item">
-                    <a href="https://www.radius-bd.com/product-category/brand/eaton-brand/" target="_blank">
-                        <img loading="lazy" decoding="async"
-                            src="https://www.radius-bd.com/wp-content/uploads/2023/04/4.png" title="Default Title"
-                            alt="4" width="400" height="250">
-                    </a>
-                </div>
-                <div class="logo-grid-item">
-                    <a href="https://www.radius-bd.com/product-category/brand/naffco-brand/" target="_blank">
-                        <img loading="lazy" decoding="async"
-                            src="https://www.radius-bd.com/wp-content/uploads/2023/04/5.png" title="Default Title"
-                            alt="5" width="400" height="250">
-                    </a>
-                </div>
-                <div class="logo-grid-item">
-                    <a href="https://www.radius-bd.com/product-category/brand/bristol-brand/" target="_blank">
-                        <img loading="lazy" decoding="async"
-                            src="https://www.radius-bd.com/wp-content/uploads/2023/04/7.png" title="Default Title"
-                            alt="7" width="400" height="250">
-                    </a>
-                </div>
-                <div class="logo-grid-item">
-                    <a href="https://www.radius-bd.com/product-category/brand/potter-brand/" target="_blank">
-                        <img loading="lazy" decoding="async"
-                            src="https://www.radius-bd.com/wp-content/uploads/2023/04/6.png" title="Default Title"
-                            alt="6" width="400" height="250">
-                    </a>
-                </div>
-                <div class="logo-grid-item">
-                    <a href="https://www.radius-bd.com/product-category/brand/ebitt-brand/" target="_blank">
-                        <img loading="lazy" decoding="async"
-                            src="https://www.radius-bd.com/wp-content/uploads/2023/04/8.png" title="Default Title"
-                            alt="8" width="400" height="250">
-                    </a>
-                </div>
-                <div class="logo-grid-item">
-                    <a href="https://www.radius-bd.com/product-category/brand/hochiki-brand/" target="_blank">
-                        <img loading="lazy" decoding="async"
-                            src="https://www.radius-bd.com/wp-content/uploads/2023/04/9.png" title="Default Title"
-                            alt="9" width="400" height="250">
-                    </a>
-                </div>
-                <div class="logo-grid-item">
-                    <a href="https://www.radius-bd.com/product-category/brand/rapidrop-brand/" target="_blank">
-                        <img loading="lazy" decoding="async"
-                            src="https://www.radius-bd.com/wp-content/uploads/2023/04/10.png" title="Default Title"
-                            alt="10" width="400" height="250">
-                    </a>
-                </div>
-                <div class="logo-grid-item">
-                    <a href="https://www.radius-bd.com/product-category/brand/shield-brand/" target="_blank">
-                        <img loading="lazy" decoding="async"
-                            src="https://www.radius-bd.com/wp-content/uploads/2023/04/11.png" title="Default Title"
-                            alt="11" width="400" height="250">
-                    </a>
-                </div>
-                <div class="logo-grid-item">
-                    <a href="https://www.radius-bd.com/product-category/brand/tornatech-brand/" target="_blank">
-                        <img loading="lazy" decoding="async"
-                            src="https://www.radius-bd.com/wp-content/uploads/2023/04/12.png" title="Default Title"
-                            alt="12" width="400" height="250">
-                    </a>
-                </div>
-                <div class="logo-grid-item">
-                    <a href="https://www.radius-bd.com/product-category/brand/ble-brand/" target="_blank">
-                        <img loading="lazy" decoding="async"
-                            src="https://www.radius-bd.com/wp-content/uploads/2023/04/13.png" title="Default Title"
-                            alt="13" width="400" height="250">
-                    </a>
-                </div>
-                <div class="logo-grid-item">
-                    <a href="https://www.radius-bd.com/product-category/brand/asico-brand/" target="_blank">
-                        <img loading="lazy" decoding="async"
-                            src="https://www.radius-bd.com/wp-content/uploads/2023/04/14.png" title="Default Title"
-                            alt="14" width="400" height="250">
-                    </a>
-                </div>
-                <div class="logo-grid-item">
-                    <a href="https://www.radius-bd.com/product-category/brand/aux-brand/" target="_blank">
-                        <img loading="lazy" decoding="async"
-                            src="https://www.radius-bd.com/wp-content/uploads/2023/04/15.png" title="Default Title"
-                            alt="15" width="400" height="250">
-                    </a>
-                </div>
-                <div class="logo-grid-item">
-                    <a href="https://www.radius-bd.com/product-category/brand/daikin-brand/" target="_blank">
-                        <img loading="lazy" decoding="async"
-                            src="https://www.radius-bd.com/wp-content/uploads/2023/04/16.png" title="Default Title"
-                            alt="16" width="400" height="250">
-                    </a>
-                </div>
-                <div class="logo-grid-item">
-                    <a href="https://www.radius-bd.com/product-category/brand/york-brand/" target="_blank">
-                        <img loading="lazy" decoding="async"
-                            src="https://www.radius-bd.com/wp-content/uploads/2023/04/17.png" title="Default Title"
-                            alt="17" width="400" height="250">
-                    </a>
-                </div>
-                <div class="logo-grid-item">
-                    <a href="https://www.radius-bd.com/product-category/brand/kentec-brand/" target="_blank">
-                        <img loading="lazy" decoding="async"
-                            src="https://www.radius-bd.com/wp-content/uploads/2023/04/19-2.jpg" title="Default Title"
-                            alt="19 (2)" width="400" height="250">
-                    </a>
-                </div>
-                <div class="logo-grid-item">
-                    <a href="https://www.radius-bd.com/product-category/brand/gala-brand/" target="_blank">
-                        <img loading="lazy" decoding="async"
-                            src="https://www.radius-bd.com/wp-content/uploads/2023/04/21-2.jpg" title="Default Title"
-                            alt="21 (2)" width="400" height="250">
-                    </a>
-                </div>
-                <div class="logo-grid-item">
-                    <a href="https://www.radius-bd.com/product-category/brand/bosch-brand/" target="_blank">
-                        <img loading="lazy" decoding="async"
-                            src="https://www.radius-bd.com/wp-content/uploads/2023/04/22-2.jpg" title="Default Title"
-                            alt="22 (2)" width="400" height="250">
-                    </a>
-                </div>
-                <div class="logo-grid-item">
-                    <a href="https://www.radius-bd.com/product-category/brand/ayzo-brand/" target="_blank">
-                        <img loading="lazy" decoding="async"
-                            src="https://www.radius-bd.com/wp-content/uploads/2023/04/23-2.jpg" title="Default Title"
-                            alt="23 (2)" width="400" height="250">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- BRAND LOGO STRIP SECTION END -->
+    <!-- About End -->
 
     <!-- Products start -->
     <div id="products" class="container-xxl py-5">
@@ -675,50 +480,86 @@
 
                 <!-- Right Image Grid (3x2 Layout) -->
                 <div class="col-lg-7">
-                    <div class="row g-2">
-                        <!-- Item 1 -->
-                        <div class="col-4">
-                            <div class="portfolio-grid-img">
-                                <img src="https://placehold.co/400x300/png?text=Work+1" alt="Portfolio 1">
-                            </div>
-                        </div>
-                        <!-- Item 2 -->
-                        <div class="col-4">
-                            <div class="portfolio-grid-img">
-                                <img src="https://placehold.co/400x300/png?text=Work+2" alt="Portfolio 2">
-                            </div>
-                        </div>
-                        <!-- Item 3 -->
-                        <div class="col-4">
-                            <div class="portfolio-grid-img">
-                                <img src="https://placehold.co/400x300/png?text=Work+3" alt="Portfolio 3">
-                            </div>
-                        </div>
-                        <!-- Item 4 -->
-                        <div class="col-4">
-                            <div class="portfolio-grid-img">
-                                <img src="https://placehold.co/400x300/png?text=Work+4" alt="Portfolio 4">
-                            </div>
-                        </div>
-                        <!-- Item 5 -->
-                        <div class="col-4">
-                            <div class="portfolio-grid-img">
-                                <img src="https://placehold.co/400x300/png?text=Work+5" alt="Portfolio 5">
-                            </div>
-                        </div>
-                        <!-- Item 6 -->
-                        <div class="col-4">
-                            <div class="portfolio-grid-img">
-                                <img src="https://placehold.co/400x300/png?text=Work+6" alt="Portfolio 6">
-                            </div>
-                        </div>
+                    <div class="row g-2" id="photo_gallery">
+                        <!-- updated by js -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- PROJECT GALLERY SECTION END -->
+<!-- BRAND LOGO SLIDER start -->
+    <div class="container-fluid overflow-hidden py-5 px-lg-0">
+        <div class="brands-section-area wow fadeInUp" data-wow-delay="0.1s">
+            <div class="container">
+                <!-- Header -->
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="text-secondary text-uppercase">Our Brands</h6>
+                <h1 class="mb-5">Our valued principles</h1>
+            </div>
 
+                <!-- Slider -->
+                <div class="owl-carousel brands-carousel">
+                    <div class="logo-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/advanced-brand/" target="_blank">
+                            <img src="https://www.radius-bd.com/wp-content/uploads/2023/04/1.png" alt="Advanced">
+                        </a>
+                    </div>
+                    <div class="logo-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/argus-brand/" target="_blank">
+                            <img src="https://www.radius-bd.com/wp-content/uploads/2023/04/24.jpg" alt="Argus">
+                        </a>
+                    </div>
+                    <div class="logo-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/cooper-brand/" target="_blank">
+                            <img src="https://www.radius-bd.com/wp-content/uploads/2023/04/3.png" alt="Cooper">
+                        </a>
+                    </div>
+                    <div class="logo-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/eaton-brand/" target="_blank">
+                            <img src="https://www.radius-bd.com/wp-content/uploads/2023/04/4.png" alt="Eaton">
+                        </a>
+                    </div>
+                    <div class="logo-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/naffco-brand/" target="_blank">
+                            <img src="https://www.radius-bd.com/wp-content/uploads/2023/04/5.png" alt="Naffco">
+                        </a>
+                    </div>
+                    <div class="logo-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/bristol-brand/" target="_blank">
+                            <img src="https://www.radius-bd.com/wp-content/uploads/2023/04/7.png" alt="Bristol">
+                        </a>
+                    </div>
+                    <div class="logo-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/potter-brand/" target="_blank">
+                            <img src="https://www.radius-bd.com/wp-content/uploads/2023/04/6.png" alt="Potter">
+                        </a>
+                    </div>
+                    <div class="logo-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/ebitt-brand/" target="_blank">
+                            <img src="https://www.radius-bd.com/wp-content/uploads/2023/04/8.png" alt="Ebitt">
+                        </a>
+                    </div>
+                    <div class="logo-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/hochiki-brand/" target="_blank">
+                            <img src="https://www.radius-bd.com/wp-content/uploads/2023/04/9.png" alt="Hochiki">
+                        </a>
+                    </div>
+                    <div class="logo-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/rapidrop-brand/" target="_blank">
+                            <img src="https://www.radius-bd.com/wp-content/uploads/2023/04/10.png" alt="Rapidrop">
+                        </a>
+                    </div>
+                    <div class="logo-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/shield-brand/" target="_blank">
+                            <img src="https://www.radius-bd.com/wp-content/uploads/2023/04/11.png" alt="Shield">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BRAND LOGO SLIDER end -->
     <!-- Features start -->
     <div class="container-fluid overflow-hidden py-5 px-lg-0">
         <div class="container feature py-5 px-lg-0">
@@ -907,9 +748,7 @@
                 </div>
             </div>
         </div>
-
     </div>
-
     <!-- Footer end -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-0 back-to-top"><i class="fa fa-arrow-up"></i></a>
 
@@ -923,7 +762,79 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
     <script src="js/main.js"></script>
+    <script src="js/config.js"></script>
     <script src="js/common.js"></script>
+    <script>
+        // Initialize brands Slider
+        $(document).ready(function(){
+            $('.brands-carousel').owlCarousel({
+                loop: true,
+                margin: 30,
+                nav: false,
+                dots: true,
+                autoplay: true,
+                autoplayTimeout: 3000,
+                center: true, // Enables the center focus effect
+                responsive:{
+                    0:{
+                        items: 1
+                    },
+                    576:{
+                        items: 3
+                    },
+                    992:{
+                        items: 5
+                    }
+                }
+            });
+        });
+    
+        //fetch gallery photos
+        // Gallery Fetch Logic
+        async function fetchGallery() {
+            const container = document.getElementById('gallery-container');
+            // Safe access to window.env to prevent crashes if config.js fails to load
+            const apiUrl = (window.env && window.env.API_URL) ? window.env.API_URL : '';
+
+            try {
+                // If API_URL is undefined or empty, throw error immediately to trigger mock data
+                if (!apiUrl) throw new Error("API configuration missing");
+
+                const response = await fetch(`${apiUrl}/gallery?max_limit=12`);
+
+                if (!response.ok) {
+                    throw new Error("Gallery fetch failed");
+                }
+
+                const result = await response.json();
+                const items = Array.isArray(result) ? result : (result.data || result.gallery || []);
+
+                if (items.length === 0) {
+                    // If API returns empty, load mock data instead of showing empty screen
+                    throw new Error("No images found");
+                }
+
+                const photoGallery = document.getElementById('photo_gallery');
+                items.forEach(item => {
+
+                    photoGallery.innerHTML += `
+                        <div class="col-3">
+                            <div class="portfolio-grid-img">
+                                <img src="${apiUrl}/images/gallery/${item.image_link}" alt="${item.title}">
+                            </div>
+                        </div>
+                    `
+                    
+                    // renderGallery(items, container, apiUrl);
+                });
+
+            } catch (error) {
+                console.warn('API fetch failed or config missing, loading mock data:', error);
+            }
+        }
+
+        window.addEventListener("DOMContentLoaded", fetchGallery)
+    </script>
 </body>
 
 </html>

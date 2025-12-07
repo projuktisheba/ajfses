@@ -72,7 +72,7 @@ func (m *GalleryRepository) UpdateImageLink(ctx context.Context, id int64, image
 }
 
 // GetAll retrieves all gallery items, ordered by created_at descending.
-func (m *GalleryRepository) GetAll(ctx context.Context) ([]models.GalleryItem, error) {
+func (m *GalleryRepository) GetAll(ctx context.Context, maxLimit int) ([]models.GalleryItem, error) {
 	ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
 	defer cancel()
 
@@ -81,7 +81,9 @@ func (m *GalleryRepository) GetAll(ctx context.Context) ([]models.GalleryItem, e
 		FROM gallery
 		ORDER BY created_at DESC
 	`
-
+	if maxLimit > 0 {
+		stmt += fmt.Sprintf("LIMIT %d", maxLimit)
+	}
 	rows, err := m.DB.Query(ctx, stmt)
 	if err != nil {
 		return nil, fmt.Errorf("failed to query gallery: %w", err)

@@ -19,6 +19,92 @@
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        /* PRINCIPALS GRID STYLES */
+        .principals-section-area {
+            background: #ffffff;
+            padding: 60px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        #brand_catalog {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            /* Mobile default */
+            gap: 20px;
+        }
+
+        /* Responsive Columns */
+        @media (min-width: 768px) {
+            #brand_catalog {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            #brand_catalog {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        #brand_catalog .ue-logo-title {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            text-align: center;
+            left: 0;
+        }
+
+        #brand_catalog div.logo-grid-item {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            transition: 0.3s;
+            height: 150px;
+            border: 1px solid #f0f0f0;
+            background: #fff;
+            padding: 10px;
+        }
+
+        #brand_catalog div.logo-grid-item:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            z-index: 2;
+        }
+
+        #brand_catalog div.logo-grid-item img {
+            width: 100%;
+            object-fit: contain;
+            display: block;
+            mix-blend-mode: normal;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 100%;
+            transition: 0.3s;
+            padding: 20px;
+        }
+
+        #brand_catalog a {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -106,6 +192,7 @@
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">About Us</a>
                     <div class="dropdown-menu fade-up m-0">
+                        <a href="about.html" class="dropdown-item">Company Overview</a>
                         <a href="chairman_message.html" class="dropdown-item">Chairman's Message</a>
                         <a href="team.html" class="dropdown-item">Team</a>
                         <a href="gallery.html" class="dropdown-item">Gallery</a>
@@ -132,7 +219,7 @@
             </nav>
         </div>
     </div>
-    <!-- Products start -->
+    <!-- BRAND LOGO STRIP SECTION start -->
     <div id="products" class="container-xxl py-5">
         <div class="container py-5">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -140,13 +227,159 @@
                 <h1 class="mb-5">Our Valued Principles</h1>
             </div>
             <div class="row g-4">
-                <h1>Coming soon...</h1>
+                <div id="brand_catalog" class="ue-logo-grid">
+                    <div class="logo-grid-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/advanced-brand/" target="_blank">
+                            <img loading="lazy" decoding="async"
+                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/1.png" title="Default Title"
+                                alt="1" width="400" height="250">
+                        </a>
+                    </div>
+                    <div class="logo-grid-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/argus-brand/" target="_blank">
+                            <img loading="lazy" decoding="async"
+                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/24.jpg" title="Default Title"
+                                alt="24" width="400" height="250">
+                        </a>
+                    </div>
+                    <div class="logo-grid-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/cooper-brand/" target="_blank">
+                            <img loading="lazy" decoding="async"
+                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/3.png" title="Default Title"
+                                alt="3" width="400" height="250">
+                        </a>
+                    </div>
+                    <div class="logo-grid-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/eaton-brand/" target="_blank">
+                            <img loading="lazy" decoding="async"
+                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/4.png" title="Default Title"
+                                alt="4" width="400" height="250">
+                        </a>
+                    </div>
+                    <div class="logo-grid-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/naffco-brand/" target="_blank">
+                            <img loading="lazy" decoding="async"
+                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/5.png" title="Default Title"
+                                alt="5" width="400" height="250">
+                        </a>
+                    </div>
+                    <div class="logo-grid-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/bristol-brand/" target="_blank">
+                            <img loading="lazy" decoding="async"
+                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/7.png" title="Default Title"
+                                alt="7" width="400" height="250">
+                        </a>
+                    </div>
+                    <div class="logo-grid-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/potter-brand/" target="_blank">
+                            <img loading="lazy" decoding="async"
+                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/6.png" title="Default Title"
+                                alt="6" width="400" height="250">
+                        </a>
+                    </div>
+                    <div class="logo-grid-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/ebitt-brand/" target="_blank">
+                            <img loading="lazy" decoding="async"
+                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/8.png" title="Default Title"
+                                alt="8" width="400" height="250">
+                        </a>
+                    </div>
+                    <div class="logo-grid-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/hochiki-brand/" target="_blank">
+                            <img loading="lazy" decoding="async"
+                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/9.png" title="Default Title"
+                                alt="9" width="400" height="250">
+                        </a>
+                    </div>
+                    <div class="logo-grid-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/rapidrop-brand/" target="_blank">
+                            <img loading="lazy" decoding="async"
+                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/10.png" title="Default Title"
+                                alt="10" width="400" height="250">
+                        </a>
+                    </div>
+                    <div class="logo-grid-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/shield-brand/" target="_blank">
+                            <img loading="lazy" decoding="async"
+                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/11.png" title="Default Title"
+                                alt="11" width="400" height="250">
+                        </a>
+                    </div>
+                    <div class="logo-grid-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/tornatech-brand/" target="_blank">
+                            <img loading="lazy" decoding="async"
+                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/12.png" title="Default Title"
+                                alt="12" width="400" height="250">
+                        </a>
+                    </div>
+                    <div class="logo-grid-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/ble-brand/" target="_blank">
+                            <img loading="lazy" decoding="async"
+                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/13.png" title="Default Title"
+                                alt="13" width="400" height="250">
+                        </a>
+                    </div>
+                    <div class="logo-grid-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/asico-brand/" target="_blank">
+                            <img loading="lazy" decoding="async"
+                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/14.png" title="Default Title"
+                                alt="14" width="400" height="250">
+                        </a>
+                    </div>
+                    <div class="logo-grid-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/aux-brand/" target="_blank">
+                            <img loading="lazy" decoding="async"
+                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/15.png" title="Default Title"
+                                alt="15" width="400" height="250">
+                        </a>
+                    </div>
+                    <div class="logo-grid-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/daikin-brand/" target="_blank">
+                            <img loading="lazy" decoding="async"
+                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/16.png" title="Default Title"
+                                alt="16" width="400" height="250">
+                        </a>
+                    </div>
+                    <div class="logo-grid-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/york-brand/" target="_blank">
+                            <img loading="lazy" decoding="async"
+                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/17.png" title="Default Title"
+                                alt="17" width="400" height="250">
+                        </a>
+                    </div>
+                    <div class="logo-grid-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/kentec-brand/" target="_blank">
+                            <img loading="lazy" decoding="async"
+                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/19-2.jpg"
+                                title="Default Title" alt="19 (2)" width="400" height="250">
+                        </a>
+                    </div>
+                    <div class="logo-grid-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/gala-brand/" target="_blank">
+                            <img loading="lazy" decoding="async"
+                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/21-2.jpg"
+                                title="Default Title" alt="21 (2)" width="400" height="250">
+                        </a>
+                    </div>
+                    <div class="logo-grid-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/bosch-brand/" target="_blank">
+                            <img loading="lazy" decoding="async"
+                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/22-2.jpg"
+                                title="Default Title" alt="22 (2)" width="400" height="250">
+                        </a>
+                    </div>
+                    <div class="logo-grid-item">
+                        <a href="https://www.radius-bd.com/product-category/brand/ayzo-brand/" target="_blank">
+                            <img loading="lazy" decoding="async"
+                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/23-2.jpg"
+                                title="Default Title" alt="23 (2)" width="400" height="250">
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <!-- Products end -->
-
-    <!-- Footer start -->
+    <!-- BRAND LOGO STRIP SECTION end -->
 
     <!-- Footer start -->
     <div class="container-fluid text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s"

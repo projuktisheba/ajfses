@@ -288,7 +288,9 @@ func (h *GalleryHandler) DeleteGallery(w http.ResponseWriter, r *http.Request) {
 
 // GetAllGallery retrieves all items.
 func (h *GalleryHandler) GetAllGallery(w http.ResponseWriter, r *http.Request) {
-	items, err := h.DB.GalleryRepo.GetAll(r.Context())
+	limit := 0
+	limit, _ = strconv.Atoi(r.URL.Query().Get("max_limit"))
+	items, err := h.DB.GalleryRepo.GetAll(r.Context(), limit)
 	if err != nil {
 		h.errorLog.Println("ERROR_GetAllGallery: db query:", err)
 		utils.ServerError(w, errors.New("failed to fetch gallery"))

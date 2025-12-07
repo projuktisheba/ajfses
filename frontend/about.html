@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>AJFSES - Engineering & Compliance</title>
+    <title>AJFSES - About Us</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -14,20 +14,845 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Roboto:wght@500;700&display=swap"
         rel="stylesheet">
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="lib/animate/animate.min.css" rel="stylesheet">
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
     <link href="css/bootstrap.min.css" rel="stylesheet">
+
     <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        /* Custom Styles for Mission/Vision Section */
+        .mission-vision-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-vision-item {
+            position: relative;
+            padding: 50px;
+            background: #fff;
+            box-shadow: 0 0 45px rgba(0, 0, 0, 0.08);
+            transition: .5s;
+            height: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            border-bottom: 5px solid transparent;
+        }
+
+        .mission-vision-item:hover {
+            transform: translateY(-10px);
+            border-bottom: 5px solid #ff3e41;
+            /* Highlight color */
+        }
+
+        .mission-vision-item .icon-box {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(214, 51, 132, 0.1);
+            border-radius: 50%;
+            margin-bottom: 25px;
+            transition: .5s;
+        }
+
+        .mission-vision-item:hover .icon-box {
+            background: #d63235;
+        }
+
+        .mission-vision-item .icon-box i {
+            color: #ff3e41;
+            font-size: 32px;
+            transition: .5s;
+        }
+
+        .mission-vision-item:hover .icon-box i {
+            color: #ffffff;
+        }
+
+        .mission-vision-item h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #0b1221;
+        }
+
+        .mission-vision-item p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 0;
+            font-size: 16px;
+        }
+
+        /* Background decorative circle */
+        .mission-vision-item::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(214, 51, 132, 0.05);
+            transition: .5s;
+        }
+
+        .mission-vision-item:hover::before {
+            transform: scale(5);
+        }
+
+        /* --- CORE VALUES CIRCULAR LAYOUT STYLES --- */
+        .core-values-section {
+            background: #f8f9fa;
+            padding: 80px 0;
+            overflow: hidden;
+        }
+
+        .core-values-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            /* Reduced for tighter layout */
+            height: 600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Center Hub */
+        .core-center {
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            background: #ff3e41;
+            /* Primary color */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            z-index: 10;
+            box-shadow: 0 0 40px #51cfed;
+            border: 8px solid #fff;
+            animation: pulse-center 3s infinite ease-in-out;
+        }
+
+        .core-center h2 {
+            color: #fff;
+            font-size: 22px;
+            font-weight: 800;
+            margin: 0;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        /* Orbit Path (Visual Aid) */
+        .orbit-path {
+            position: absolute;
+            width: 450px;
+            /* Diameter of the circle path */
+            height: 450px;
+            border: 2px dashed #cc0003;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        /* Core Value Items */
+        .core-item {
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            z-index: 5;
+            padding: 15px;
+            cursor: pointer;
+
+            /* Center the item initially so transforms are relative to center */
+            top: 50%;
+            left: 50%;
+            margin-top: -65px;
+            /* Half height */
+            margin-left: -65px;
+            /* Half width */
+        }
+
+        .core-item i {
+            font-size: 24px;
+            color: #ff3e41;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .core-item h5 {
+            font-size: 13px;
+            font-weight: 700;
+            margin: 0;
+            color: #0b1221;
+            transition: all 0.3s ease;
+        }
+
+        /* Hover Effects */
+        .core-item:hover {
+            transform: scale(1.15) !important;
+            /* Override positioning transform on hover slightly */
+            background: #ff3e41;
+            z-index: 20;
+            box-shadow: 0 15px 35px rgba(214, 51, 132, 0.4);
+        }
+
+        .core-item:hover i,
+        .core-item:hover h5 {
+            color: #fff;
+        }
+
+        /* Accurate Positioning on the Circle (Radius ~225px) */
+        /* TranslateX/Y moves them from the center point to the circle edge */
+
+        .pos-1 {
+            transform: translate(0, -225px);
+        }
+
+        /* Top (Teamwork) */
+        .pos-2 {
+            transform: translate(195px, -112px);
+        }
+
+        /* Top Right (Excellence) */
+        .pos-3 {
+            transform: translate(195px, 112px);
+        }
+
+        /* Bottom Right (Safety) */
+        .pos-4 {
+            transform: translate(0, 225px);
+        }
+
+        /* Bottom (Customer Centric) */
+        .pos-5 {
+            transform: translate(-195px, 112px);
+        }
+
+        /* Bottom Left (Innovation) */
+        .pos-6 {
+            transform: translate(-195px, -112px);
+        }
+
+        /* Top Left (Integrity) */
+
+        /* Entrance Animations */
+        .core-item {
+            animation: fade-in-scale 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .pos-1 {
+            animation-delay: 0.1s;
+        }
+
+        .pos-2 {
+            animation-delay: 0.2s;
+        }
+
+        .pos-3 {
+            animation-delay: 0.3s;
+        }
+
+        .pos-4 {
+            animation-delay: 0.4s;
+        }
+
+        .pos-5 {
+            animation-delay: 0.5s;
+        }
+
+        .pos-6 {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes fade-in-scale {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            100% {
+                opacity: 1;
+            }
+
+            /* Transforms defined in classes persist */
+        }
+
+        /* Restore transform values in animation final state - CSS requires re-stating for 'forwards' to work with existing transforms? 
+           Actually, combining animation with static transforms can be tricky. 
+           Let's use a wrapper or a specific keyframe for each position for maximum accuracy.
+        */
+
+        @keyframes enter-1 {
+            from {
+                opacity: 0;
+                transform: translate(0, -100px) scale(0.5);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(0, -225px) scale(1);
+            }
+        }
+
+        @keyframes enter-2 {
+            from {
+                opacity: 0;
+                transform: translate(80px, -40px) scale(0.5);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(195px, -112px) scale(1);
+            }
+        }
+
+        @keyframes enter-3 {
+            from {
+                opacity: 0;
+                transform: translate(80px, 40px) scale(0.5);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(195px, 112px) scale(1);
+            }
+        }
+
+        @keyframes enter-4 {
+            from {
+                opacity: 0;
+                transform: translate(0, 100px) scale(0.5);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(0, 225px) scale(1);
+            }
+        }
+
+        @keyframes enter-5 {
+            from {
+                opacity: 0;
+                transform: translate(-80px, 40px) scale(0.5);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-195px, 112px) scale(1);
+            }
+        }
+
+        @keyframes enter-6 {
+            from {
+                opacity: 0;
+                transform: translate(-80px, -40px) scale(0.5);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-195px, -112px) scale(1);
+            }
+        }
+
+        .pos-1 {
+            animation: enter-1 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.2s;
+        }
+
+        .pos-2 {
+            animation: enter-2 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.3s;
+        }
+
+        .pos-3 {
+            animation: enter-3 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.4s;
+        }
+
+        .pos-4 {
+            animation: enter-4 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.5s;
+        }
+
+        .pos-5 {
+            animation: enter-5 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.6s;
+        }
+
+        .pos-6 {
+            animation: enter-6 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.7s;
+        }
+
+        @keyframes pulse-center {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 40px rgba(214, 51, 132, 0.5);
+            }
+
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 60px rgba(214, 51, 132, 0.7);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 40px rgba(214, 51, 132, 0.5);
+            }
+        }
+
+        /* Hover interaction for hover state maintenance */
+        .pos-1:hover {
+            transform: translate(0, -225px) scale(1.15) !important;
+        }
+
+        .pos-2:hover {
+            transform: translate(195px, -112px) scale(1.15) !important;
+        }
+
+        .pos-3:hover {
+            transform: translate(195px, 112px) scale(1.15) !important;
+        }
+
+        .pos-4:hover {
+            transform: translate(0, 225px) scale(1.15) !important;
+        }
+
+        .pos-5:hover {
+            transform: translate(-195px, 112px) scale(1.15) !important;
+        }
+
+        .pos-6:hover {
+            transform: translate(-195px, -112px) scale(1.15) !important;
+        }
+
+
+        /* Responsive Mobile Layout - Maintaining Circular Design */
+        @media (max-width: 991px) {
+            .core-values-section {
+                padding: 40px 0;
+            }
+
+            .core-values-container {
+                height: 400px;
+                /* Reduced height for mobile circle */
+                max-width: 400px;
+                /* IMPORTANT: Override previous flex display to maintain relative/absolute positioning context */
+                display: block;
+            }
+
+            .orbit-path {
+                /* Make visible again */
+                display: block;
+                width: 280px;
+                /* Smaller orbit path */
+                height: 280px;
+            }
+
+            .core-center {
+                /* Reset to absolute center */
+                position: absolute;
+                top: 37%;
+                left: 37%;
+                transform: translate(-50%, -50%);
+                width: 100px;
+                /* Smaller center circle */
+                height: 100px;
+                border-width: 5px;
+                margin-bottom: 0;
+                /* Re-enable animation */
+                animation: pulse-center 3s infinite ease-in-out;
+            }
+
+            .core-center h2 {
+                font-size: 14px;
+            }
+
+            .core-item {
+                /* Reset to absolute positioning */
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-top: -40px;
+                /* Half height of 80px */
+                margin-left: -40px;
+                /* Half width of 80px */
+                width: 80px;
+                /* Smaller item circles */
+                height: 80px;
+                padding: 5px;
+                /* Ensure transitions work */
+                transition: all 0.4s ease;
+                opacity: 0;
+                /* Hidden initially for animation */
+            }
+
+            .core-item i {
+                font-size: 18px;
+                margin-bottom: 3px;
+            }
+
+            .core-item h5 {
+                font-size: 10px;
+            }
+
+            /* Recalculate positions for smaller radius (Radius ~140px) */
+            /* Using !important to force override any previous mobile stack styles */
+            .pos-1 {
+                transform: translate(0, -140px);
+            }
+
+            .pos-2 {
+                transform: translate(121px, -70px);
+            }
+
+            .pos-3 {
+                transform: translate(121px, 70px);
+            }
+
+            .pos-4 {
+                transform: translate(0, 140px);
+            }
+
+            .pos-5 {
+                transform: translate(-121px, 70px);
+            }
+
+            .pos-6 {
+                transform: translate(-121px, -70px);
+            }
+
+            /* Recalculate Animations for smaller screen */
+            @keyframes enter-1-mobile {
+                from {
+                    opacity: 0;
+                    transform: translate(0, -50px) scale(0.5);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translate(0, -140px) scale(1);
+                }
+            }
+
+            @keyframes enter-2-mobile {
+                from {
+                    opacity: 0;
+                    transform: translate(40px, -25px) scale(0.5);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translate(121px, -70px) scale(1);
+                }
+            }
+
+            @keyframes enter-3-mobile {
+                from {
+                    opacity: 0;
+                    transform: translate(40px, 25px) scale(0.5);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translate(121px, 70px) scale(1);
+                }
+            }
+
+            @keyframes enter-4-mobile {
+                from {
+                    opacity: 0;
+                    transform: translate(0, 50px) scale(0.5);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translate(0, 140px) scale(1);
+                }
+            }
+
+            @keyframes enter-5-mobile {
+                from {
+                    opacity: 0;
+                    transform: translate(-40px, 25px) scale(0.5);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translate(-121px, 70px) scale(1);
+                }
+            }
+
+            @keyframes enter-6-mobile {
+                from {
+                    opacity: 0;
+                    transform: translate(-40px, -25px) scale(0.5);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translate(-121px, -70px) scale(1);
+                }
+            }
+
+            /* Apply mobile animations */
+            .pos-1 {
+                animation: enter-1-mobile 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.2s;
+            }
+
+            .pos-2 {
+                animation: enter-2-mobile 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.3s;
+            }
+
+            .pos-3 {
+                animation: enter-3-mobile 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.4s;
+            }
+
+            .pos-4 {
+                animation: enter-4-mobile 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.5s;
+            }
+
+            .pos-5 {
+                animation: enter-5-mobile 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.6s;
+            }
+
+            .pos-6 {
+                animation: enter-6-mobile 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.7s;
+            }
+
+            /* Hover States for mobile */
+            .pos-1:hover {
+                transform: translate(0, -140px) scale(1.15) !important;
+            }
+
+            .pos-2:hover {
+                transform: translate(121px, -70px) scale(1.15) !important;
+            }
+
+            .pos-3:hover {
+                transform: translate(121px, 70px) scale(1.15) !important;
+            }
+
+            .pos-4:hover {
+                transform: translate(0, 140px) scale(1.15) !important;
+            }
+
+            .pos-5:hover {
+                transform: translate(-121px, 70px) scale(1.15) !important;
+            }
+
+            .pos-6:hover {
+                transform: translate(-121px, -70px) scale(1.15) !important;
+            }
+        }
+
+        /* Extra small mobile adjustments (<400px) */
+        @media (max-width: 400px) {
+            .core-values-container {
+                height: 320px;
+                max-width: 320px;
+            }
+
+            .orbit-path {
+                width: 220px;
+                height: 220px;
+            }
+
+            .core-center {
+                width: 80px;
+                height: 80px;
+            }
+
+            .core-item {
+                width: 70px;
+                height: 70px;
+                margin-top: -35px;
+                margin-left: -35px;
+            }
+
+            .core-item i {
+                font-size: 16px;
+            }
+
+            .core-item h5 {
+                font-size: 9px;
+            }
+
+            /* Tighter radius (~110px) */
+            .pos-1 {
+                transform: translate(0, -110px);
+            }
+
+            .pos-2 {
+                transform: translate(95px, -55px);
+            }
+
+            .pos-3 {
+                transform: translate(95px, 55px);
+            }
+
+            .pos-4 {
+                transform: translate(0, 110px);
+            }
+
+            .pos-5 {
+                transform: translate(-95px, 55px);
+            }
+
+            .pos-6 {
+                transform: translate(-95px, -55px);
+            }
+
+            /* Recalculate Animations for xs screen */
+            @keyframes enter-1-xs {
+                from {
+                    opacity: 0;
+                    transform: translate(0, -30px) scale(0.5);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translate(0, -110px) scale(1);
+                }
+            }
+
+            @keyframes enter-2-xs {
+                from {
+                    opacity: 0;
+                    transform: translate(30px, -15px) scale(0.5);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translate(95px, -55px) scale(1);
+                }
+            }
+
+            @keyframes enter-3-xs {
+                from {
+                    opacity: 0;
+                    transform: translate(30px, 15px) scale(0.5);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translate(95px, 55px) scale(1);
+                }
+            }
+
+            @keyframes enter-4-xs {
+                from {
+                    opacity: 0;
+                    transform: translate(0, 30px) scale(0.5);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translate(0, 110px) scale(1);
+                }
+            }
+
+            @keyframes enter-5-xs {
+                from {
+                    opacity: 0;
+                    transform: translate(-30px, 15px) scale(0.5);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translate(-95px, 55px) scale(1);
+                }
+            }
+
+            @keyframes enter-6-xs {
+                from {
+                    opacity: 0;
+                    transform: translate(-30px, -15px) scale(0.5);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translate(-95px, -55px) scale(1);
+                }
+            }
+
+            .pos-1 {
+                animation-name: enter-1-xs;
+            }
+
+            .pos-2 {
+                animation-name: enter-2-xs;
+            }
+
+            .pos-3 {
+                animation-name: enter-3-xs;
+            }
+
+            .pos-4 {
+                animation-name: enter-4-xs;
+            }
+
+            .pos-5 {
+                animation-name: enter-5-xs;
+            }
+
+            .pos-6 {
+                animation-name: enter-6-xs;
+            }
+
+            /* Hover States for xs */
+            .pos-1:hover {
+                transform: translate(0, -110px) scale(1.15) !important;
+            }
+
+            .pos-2:hover {
+                transform: translate(95px, -55px) scale(1.15) !important;
+            }
+
+            .pos-3:hover {
+                transform: translate(95px, 55px) scale(1.15) !important;
+            }
+
+            .pos-4:hover {
+                transform: translate(0, 110px) scale(1.15) !important;
+            }
+
+            .pos-5:hover {
+                transform: translate(-95px, 55px) scale(1.15) !important;
+            }
+
+            .pos-6:hover {
+                transform: translate(-95px, -55px) scale(1.15) !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Spinner Start -->
     <div id="spinner"
         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="sr-only">Loading...</span>
         </div>
     </div>
+    <!-- Spinner End -->
 
     <!-- Top Contact Bar Start -->
     <div class="bg-dark text-light py-1">
@@ -38,7 +863,7 @@
                     class="col-sm-12 col-md-8 d-flex justify-content-center justify-content-start align-items-center flex-wrap py-1">
                     <span class="d-flex align-items-center mx-3">
                         <a href="tel:+8809611699282" class="text-light py-2 px-2">
-                            <i class="fa-solid fa-headphones text-primary me-2"></i>+880 9611-699 282 (24/7)
+                            <i class="fa-solid fa-headphones text-primary me-2"></i>+880 9611-699 282 (24x7)
                         </a>
                     </span>
                     <span class="d-flex align-items-center mx-3">
@@ -104,7 +929,8 @@
                 <a href="index.html" class="nav-item nav-link">Home</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">About Us</a>
-                    <div class="dropdown-menu fade-up m-0">
+                    <div class="dropdown-menu fade-up m-0">                        
+                        <a href="about.html" class="dropdown-item active">Company Overview</a>
                         <a href="chairman_message.html" class="dropdown-item">Chairman's Message</a>
                         <a href="team.html" class="dropdown-item">Team</a>
                         <a href="gallery.html" class="dropdown-item">Gallery</a>
@@ -114,22 +940,30 @@
                 <a href="brands.html" class="nav-item nav-link">Brands</a>
                 <a href="contact.html" class="nav-item nav-link">Contact Us</a>
             </div>
-            <!-- <h4 class="m-0 pe-lg-5 d-none d-lg-block"><i class="fa fa-headphones text-primary me-3"></i>+880 9611-699282 (24/7) -->
+            <!-- <h4 class="m-0 pe-lg-5 d-none d-lg-block"><i class="fa-solid fa-headphones text-primary me-3"></i>+880 9611-699282 (24/7) -->
             </h4>
         </div>
     </nav>
     <!-- Navbar end -->
-    <div class="container-fluid page-header py-5" style="margin-bottom: 2rem;">>
+
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5" style="margin-bottom: 6rem;">
         <div class="container py-5">
             <h1 class="display-3 text-white mb-3 animated slideInDown">About Us</h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="#">About Us</a></li>
                     <li class="breadcrumb-item text-white active" aria-current="page">About</li>
                 </ol>
             </nav>
         </div>
     </div>
+    <!-- Page Header End -->
+
+
+    <!-- About Start -->
     <div class="container-fluid overflow-hidden py-5 px-lg-0">
         <div class="container about py-5 px-lg-0">
             <div class="row g-5 mx-lg-0">
@@ -140,99 +974,178 @@
                     </div>
                 </div>
                 <div class="col-lg-6 about-text wow fadeInUp" data-wow-delay="0.3s">
-                    <h6 class="text-secondary text-uppercase mb-3">About AJFSES</h6>
-                    <h1 class="mb-5">Your Partner for Engineering Excellence</h1>
-                    <p class="mb-5">AJFSES is a premier consultancy firm dedicated to providing top-tier Engineering,
-                        Safety, and Environmental solutions. We specialize in helping factories and commercial
-                        establishments achieve full compliance through rigorous design, assessment, and implementation.
-                    </p>
+                    <h6 class="text-secondary text-uppercase mb-3">About Us</h6>
+                    <h1 class="mb-5">Your Trusted Fire Safety & Engineering Partner</h1>
+                    <p class="mb-5">AJ FIRE SAFETY & ENGINEERING SOLUTIONS (AJFSES) is a premier engineering consultancy
+                        firm in Bangladesh. We are dedicated to providing comprehensive Fire Safety, Electrical, and
+                        Structural engineering solutions to help businesses achieve full compliance with national (BNBC)
+                        and international (NFPA) standards.</p>
+                    <p class="mb-5">With a team of qualified engineers and safety experts, we specialize in Factory
+                        Remediation, CAP Management, and advanced Fire Protection System design. Our goal is to ensure
+                        the safety of your property and employees through innovative engineering.</p>
+
                     <div class="row g-4 mb-5">
                         <div class="col-sm-6 wow fadeIn" data-wow-delay="0.5s">
-                            <i class="fa fa-hard-hat fa-3x text-primary mb-3"></i>
-                            <h5>Safety First</h5>
-                            <p class="m-0">Comprehensive Fire and Electrical safety audits and design implementation.
-                            </p>
+                            <i class="fa fa-certificate text-primary fa-3x mb-3"></i>
+                            <h5>ISO 9001:2015</h5>
+                            <p class="m-0">Certified for Quality Management Systems.</p>
                         </div>
                         <div class="col-sm-6 wow fadeIn" data-wow-delay="0.7s">
-                            <i class="fa fa-drafting-compass fa-3x text-primary mb-3"></i>
-                            <h5>Expert Design</h5>
-                            <p class="m-0">Structural Analysis, Retrofitting, and Architectural designs by certified
-                                engineers.</p>
+                            <i class="fa fa-users-gear text-primary fa-3x mb-3"></i>
+                            <h5>Expert Team</h5>
+                            <p class="m-0">Led by IEB certified engineers and safety professionals.</p>
                         </div>
                     </div>
-                    <a href="" class="btn btn-primary py-3 px-5">Explore Solutions</a>
+                    <a href="contact.html" class="btn btn-primary py-3 px-5">Contact Us</a>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container-xxl py-5">
+    <!-- About End -->
+
+
+    <!-- Mission & Vision Start (Redesigned) -->
+    <div class="container-xxl py-5 mission-vision-section">
         <div class="container py-5">
-            <div class="row g-5">
+            <div class="row g-4">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <h6 class="text-secondary text-uppercase mb-3">Key Facts</h6>
-                    <h1 class="mb-5">Ensuring Compliance, Ensuring Safety</h1>
-                    <p class="mb-5">With a team of experienced engineers and consultants, AJFSES has successfully guided
-                        numerous industries through Accord, Alliance, and RSC inspections. We are committed to technical
-                        precision and regulatory adherence.</p>
-                    <div class="d-flex align-items-center">
-                        <i class="fa fa-headphones fa-2x flex-shrink-0 bg-primary p-3 text-white"></i>
-                        <div class="ps-4">
-                            <h6>Call for any query!</h6>
-                            <h3 class="text-primary m-0">+09611-699282</h3>
+                    <div class="mission-vision-item">
+                        <div class="icon-box">
+                            <i class="fa fa-bullseye"></i>
                         </div>
+                        <h3>Our Mission</h3>
+                        <p>To provide innovative engineering solutions that enhance safety, security, and efficiency,
+                            empowering businesses and communities across Bangladesh.</p>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="row g-4 align-items-center">
-                        <div class="col-sm-6">
-                            <div class="bg-primary p-4 mb-4 wow fadeIn" data-wow-delay="0.3s">
-                                <i class="fa fa-building fa-2x text-white mb-3"></i>
-                                <h2 class="text-white mb-2" data-toggle="counter-up">500</h2>
-                                <p class="text-white mb-0">Projects Done</p>
-                            </div>
-                            <div class="bg-secondary p-4 wow fadeIn" data-wow-delay="0.5s">
-                                <i class="fa fa-check-double fa-2x text-white mb-3"></i>
-                                <h2 class="text-white mb-2" data-toggle="counter-up">300</h2>
-                                <p class="text-white mb-0">Safety Audits</p>
-                            </div>
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="mission-vision-item">
+                        <div class="icon-box">
+                            <i class="fa fa-eye"></i>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="bg-success p-4 wow fadeIn" data-wow-delay="0.7s">
-                                <i class="fa fa-users fa-2x text-white mb-3"></i>
-                                <h2 class="text-white mb-2" data-toggle="counter-up">150</h2>
-                                <p class="text-white mb-0">Happy Clients</p>
-                            </div>
-                        </div>
+                        <h3>Our Vision</h3>
+                        <p>To be the leading and most trusted engineering solutions provider in Bangladesh, driving
+                            excellence in safety, technology, and customer satisfaction.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Mission & Vision End -->
+
+
+    <!-- Core Values Start (Circular Design - Enhanced) -->
+    <div class="container-fluid overflow-hidden py-5 px-lg-0 core-values-section">
+        <div class="container feature py-5 px-lg-0">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="text-secondary text-uppercase">Our Principles</h6>
+                <h1 class="mb-5">Our Core Values</h1>
+            </div>
+
+            <div class="core-values-container wow fadeInUp" data-wow-delay="0.3s">
+                <!-- Orbit visual aid -->
+                <div class="orbit-path"></div>
+
+                <!-- Center Hub -->
+                <div class="core-center">
+                    <h2>Core<br>Values</h2>
+                </div>
+
+                <!-- Surrounding Items -->
+                <!-- 1. Teamwork (Top) -->
+                <div class="core-item pos-1">
+                    <i class="fa fa-users"></i>
+                    <h5>Teamwork</h5>
+                </div>
+
+                <!-- 2. Excellence (Top Right) -->
+                <div class="core-item pos-2">
+                    <i class="fa fa-medal"></i>
+                    <h5>Excellence</h5>
+                </div>
+
+                <!-- 3. Safety (Bottom Right) -->
+                <div class="core-item pos-3">
+                    <i class="fa fa-shield-halved"></i>
+                    <h5>Safety</h5>
+                </div>
+
+                <!-- 4. Customer Centric (Bottom) -->
+                <div class="core-item pos-4">
+                    <i class="fa fa-headset"></i>
+                    <h5>Customer<br>Centric</h5>
+                </div>
+
+                <!-- 5. Innovation (Bottom Left) -->
+                <div class="core-item pos-5">
+                    <i class="fa fa-lightbulb"></i>
+                    <h5>Innovation</h5>
+                </div>
+
+                <!-- 6. Integrity (Top Left) -->
+                <div class="core-item pos-6">
+                    <i class="fa fa-handshake"></i>
+                    <h5>Integrity</h5>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Core Values End -->
+
+
+    <!-- Why Choose Us Start (Reused from Index) -->
     <div class="container-fluid overflow-hidden py-5 px-lg-0">
         <div class="container feature py-5 px-lg-0">
             <div class="row g-5 mx-lg-0">
                 <div class="col-lg-6 feature-text wow fadeInUp" data-wow-delay="0.1s">
                     <h6 class="text-secondary text-uppercase mb-3">Why Choose Us</h6>
-                    <h1 class="mb-5">Expert Engineering Solutions Since 2010</h1>
-                    <div class="d-flex mb-5 wow fadeInUp" data-wow-delay="0.3s">
-                        <i class="fa fa-certificate text-primary fa-3x flex-shrink-0"></i>
+                    <h1 class="mb-5">AJ FIRE SAFETY & ENGINEERING SOLUTIONS</h1>
+
+                    <div class="d-flex mb-4 wow fadeInUp" data-wow-delay="0.3s">
+                        <i class="fa-solid fa-screwdriver-wrench text-primary fa-3x flex-shrink-0"></i>
                         <div class="ms-4">
-                            <h5>Certified Engineers</h5>
-                            <p class="mb-0">Our team consists of IEB certified engineers and safety experts.</p>
+                            <h5>Trusted Expertise</h5>
+                            <p class="mb-0">With a wealth of experience, we are dedicated to providing the highest
+                                quality of service and the most innovative fire protection solutions.</p>
                         </div>
                     </div>
-                    <div class="d-flex mb-5 wow fadeIn" data-wow-delay="0.5s">
-                        <i class="fa fa-tools text-primary fa-3x flex-shrink-0"></i>
+
+                    <div class="d-flex mb-4 wow fadeInUp" data-wow-delay="0.4s">
+                        <i class="fa-solid fa-atom text-primary fa-3x flex-shrink-0"></i>
                         <div class="ms-4">
-                            <h5>Advanced Technology</h5>
-                            <p class="mb-0">We use modern equipment for load testing, scanning, and thermal imaging.</p>
+                            <h5>Customized Solutions</h5>
+                            <p class="mb-0">Our experienced professionals collaborate with you to develop tailor-made
+                                fire protection plans that not only meet regulatory standards but exceed expectations.
+                            </p>
                         </div>
                     </div>
+
+                    <div class="d-flex mb-4 wow fadeInUp" data-wow-delay="0.5s">
+                        <i class="fa-solid fa-microchip text-primary fa-3x flex-shrink-0"></i>
+                        <div class="ms-4">
+                            <h5>Innovation at the Core</h5>
+                            <p class="mb-0">We are at the forefront of technological advancements in the field, ensuring
+                                that our solutions are not only effective but also incorporate the latest industry
+                                innovations.</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex mb-4 wow fadeInUp" data-wow-delay="0.6s">
+                        <i class="fa-solid fa-headset text-primary fa-3x flex-shrink-0"></i>
+                        <div class="ms-4">
+                            <h5>24/7 Support: +880 9611 699 282</h5>
+                            <p class="mb-0">Your peace of mind is our priority. Our team is available around the clock
+                                to answer your questions and address concerns promptly.</p>
+                        </div>
+                    </div>
+
                     <div class="d-flex mb-0 wow fadeInUp" data-wow-delay="0.7s">
-                        <i class="fa fa-headset text-primary fa-3x flex-shrink-0"></i>
+                        <i class="fa-solid fa-bahai text-primary fa-3x flex-shrink-0"></i>
                         <div class="ms-4">
-                            <h5>Dedicated Support</h5>
-                            <p class="mb-0">Continuous support for CAP management and regulatory approvals.</p>
+                            <h5>Comprehensive Range</h5>
+                            <p class="mb-0">We offer a wide array of fire protection solutions, addressing the diverse
+                                needs of businesses of all sizes.</p>
                         </div>
                     </div>
                 </div>
@@ -245,86 +1158,8 @@
             </div>
         </div>
     </div>
-    <div class="container-xxl py-5">
-        <div class="container py-5">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="text-secondary text-uppercase">Our Team</h6>
-                <h1 class="mb-5">Expert Engineers</h1>
-            </div>
-            <div class="row g-4">
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="team-item p-4">
-                        <div class="overflow-hidden mb-4">
-                            <img class="img-fluid" src="img/team-1.jpg" alt="">
-                        </div>
-                        <h5 class="mb-0">Engr. Name</h5>
-                        <p>Structural Consultant</p>
-                        <div class="btn-slide mt-1">
-                            <i class="fa fa-share"></i>
-                            <span>
-                                <a href=""><i class="fa-brands fa-facebook-f"></i></a>
-                                <a href=""><i class="fa-brands fa-twitter"></i></a>
-                                <a href=""><i class="fa-brands fa-instagram"></i></a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="team-item p-4">
-                        <div class="overflow-hidden mb-4">
-                            <img class="img-fluid" src="img/team-2.jpg" alt="">
-                        </div>
-                        <h5 class="mb-0">Engr. Name</h5>
-                        <p>Electrical Engineer</p>
-                        <div class="btn-slide mt-1">
-                            <i class="fa fa-share"></i>
-                            <span>
-                                <a href=""><i class="fa-brands fa-facebook-f"></i></a>
-                                <a href=""><i class="fa-brands fa-twitter"></i></a>
-                                <a href=""><i class="fa-brands fa-instagram"></i></a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                    <div class="team-item p-4">
-                        <div class="overflow-hidden mb-4">
-                            <img class="img-fluid" src="img/team-3.jpg" alt="">
-                        </div>
-                        <h5 class="mb-0">Engr. Name</h5>
-                        <p>Fire Safety Expert</p>
-                        <div class="btn-slide mt-1">
-                            <i class="fa fa-share"></i>
-                            <span>
-                                <a href=""><i class="fa-brands fa-facebook-f"></i></a>
-                                <a href=""><i class="fa-brands fa-twitter"></i></a>
-                                <a href=""><i class="fa-brands fa-instagram"></i></a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.9s">
-                    <div class="team-item p-4">
-                        <div class="overflow-hidden mb-4">
-                            <img class="img-fluid" src="img/team-4.jpg" alt="">
-                        </div>
-                        <h5 class="mb-0">Consultant Name</h5>
-                        <p>Environmental Specialist</p>
-                        <div class="btn-slide mt-1">
-                            <i class="fa fa-share"></i>
-                            <span>
-                                <a href=""><i class="fa-brands fa-facebook-f"></i></a>
-                                <a href=""><i class="fa-brands fa-twitter"></i></a>
-                                <a href=""><i class="fa-brands fa-instagram"></i></a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Why Choose Us End -->
 
-    <!-- Footer start -->
 
     <!-- Footer start -->
     <div class="container-fluid text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s"
@@ -335,7 +1170,7 @@
                 maintenance
             </p>
             <a href="tel:+880 9611-699 282" class="btn btn-light rounded-pill py-2 px-4 fw-bold">
-                <i class="fa fa-phone-alt me-2"></i>+880 9611-699 282
+                <i class="fa-solid fa-phone-alt me-2"></i>+880 9611-699 282
             </a>
         </div>
 
@@ -388,12 +1223,12 @@
                     <h5 class="text-light mb-4 text-uppercase border-bottom pb-2 d-inline-block border-secondary">
                         Contact Information</h5>
                     <div class="d-flex mb-3">
-                        <i class="fa fa-map-marker-alt text-light me-3 mt-1"></i>
+                        <i class="fa-solid fa-map-marker-alt text-light me-3 mt-1"></i>
                         <p class="mb-0">SRA Center (6th Floor) Pollibidyud Bus Stand , Savar Cant:-1344 Ashulia, Dhaka,
                             Bangladesh</p>
                     </div>
                     <div class="d-flex mb-3">
-                        <i class="fa fa-phone-alt text-light me-3 mt-1"></i>
+                        <i class="fa-solid fa-phone-alt text-light me-3 mt-1"></i>
                         <div>
                             <p class="mb-1"><a href="tel:+880 1958-605 251" class="text-light">+880 1958-605 251 </a>
                             </p>
@@ -403,7 +1238,7 @@
                         </div>
                     </div>
                     <div class="d-flex mb-3">
-                        <i class="fa fa-envelope text-light me-3 mt-1"></i>
+                        <i class="fa-solid fa-envelope text-light me-3 mt-1"></i>
                         <div>
                             <p class="mb-1"><a class="text-light"
                                     href="mailto:ajfiresolutions@hotmail.com">ajfiresolutions@hotmail.com
@@ -450,9 +1285,12 @@
         </div>
     </div>
     <!-- Footer end -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-0 back-to-top"><i class="fa fa-arrow-up"></i></a>
 
 
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-0 back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="lib/wow/wow.min.js"></script>
@@ -462,7 +1300,6 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
     <script src="js/main.js"></script>
-    <script src="js/common.js"></script>
 </body>
 
 </html>
