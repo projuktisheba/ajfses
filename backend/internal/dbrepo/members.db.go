@@ -36,9 +36,9 @@ func (m *MemberRepository) Create(ctx context.Context, member *models.Member) (i
 		member.Name,
 		member.TeamID,
 		member.Designation,
-		member.Contact,
-		member.ImageLink,
+		member.Contact,		
 		member.Note,
+		member.ImageLink,
 		time.Now().UTC(),
 		time.Now().UTC(),
 	).Scan(&id)
@@ -155,24 +155,26 @@ func (m *MemberRepository) GetByID(ctx context.Context, id int64) (*models.Membe
 }
 
 // GetAll retrieves all members, ordered by created_at descending.
-func (m *MemberRepository) GetAll(ctx context.Context) ([]*models.Member, error) {
+func (m *MemberRepository) GetAll(ctx context.Context, designation string) ([]*models.Member, error) {
 	ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
 	defer cancel()
-
-	stmt := `
+	whClause := ""
+	if designation == "Chairman" {
+		whClause = "WHERE m.designation='Chairman'"
+	}
+	stmt := fmt.Sprintf(`
 		SELECT  m.id, m.name, m.team, t.title AS team_name, m.designation, m.contact, m.note, m.image_link, m.created_at, m.updated_at
 		FROM members AS m
 		LEFT JOIN teams AS t ON m.team = t.id
-		ORDER BY m.created_at DESC;
-	`
-
-	rows, err := m.DB.Query(ctx, stmt)
-	if err != nil {
-		return nil, fmt.Errorf("failed to query members: %w", err)
-	}
-	defer rows.Close()
+		%s ORDER BY m.created_at DESC;
+	`, whClause)
 
 	var members []*models.Member
+	rows, err := m.DB.Query(ctx, stmt)
+	if err != nil {
+		return members, fmt.Errorf("failed to query members: %w", err)
+	}
+	defer rows.Close()
 
 	for rows.Next() {
 		var member models.Member
@@ -189,7 +191,7 @@ func (m *MemberRepository) GetAll(ctx context.Context) ([]*models.Member, error)
 			&member.UpdatedAt,
 		)
 		if err != nil {
-			return nil, fmt.Errorf("failed to scan member row: %w", err)
+			return members, fmt.Errorf("failed to scan member row: %w", err)
 		}
 		members = append(members, &member)
 	}

@@ -12,5 +12,6 @@ func teamRoutes() *chi.Mux {
 	// The handler we created specifically for multipart/form-data
 	mux.Post("/", handlerRepo.Team.CreateTeam)
 	mux.Get("/list", handlerRepo.Team.GetAllTeams)
+	mux.Get("/list/details", handlerRepo.Team.GetAllTeamsAndMembers)
 	return mux
 }

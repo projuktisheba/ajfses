@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>AJFSES - Gallery</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Roboto:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Fonts -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <!-- GLightbox CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        /* --- COMPACT UNIFORM GRID GALLERY STYLES --- */
+        
+        .gallery-section {
+            background-color: #f8f9fa;
+            min-height: 80vh;
+        }
+
+        /* Layout using CSS Columns (Behaves like a grid when items are same height) */
+        .gallery-grid {
+            column-count: 1;
+            column-gap: 15px;
+        }
+
+        @media (min-width: 576px) {
+            .gallery-grid {
+                column-count: 2;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .gallery-grid {
+                column-count: 3;
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .gallery-grid {
+                column-count: 4; 
+            }
+        }
+
+        /* Individual Gallery Item Wrapper */
+        .gallery-item {
+            position: relative;
+            margin-bottom: 15px; /* Vertical gap */
+            break-inside: avoid; /* Prevent breaking across columns */
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            background: #fff;
+            transform: translateZ(0); /* Fix for webkit flickering */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            z-index: 2;
+        }
+
+        /* Image Styling - Enforcing Uniform Size */
+        .gallery-item img {
+            width: 100%;
+            height: 250px; /* FIXED HEIGHT applied here */
+            object-fit: cover; /* Crops image to fit the box without stretching */
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        /* Hover Overlay */
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 18, 33, 0.6); /* Dark blue tint */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* Overlay Content */
+        .gallery-icon {
+            color: #fff;
+            font-size: 2rem;
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .gallery-item:hover .gallery-icon {
+            transform: scale(1);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Top Contact Bar Start -->
+    <div class="bg-dark text-light py-1">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start align-items-center flex-wrap py-1">
+                    <span class="d-flex align-items-center mx-3">
+                        <a href="tel:+880 9611-699 282" class="text-light py-2 px-2 fw-bold">
+                            <i class="fa fa-headphones text-primary me-2"></i>+880 9611-699 282
+                        </a>
+                    </span>
+                    <span class="d-flex align-items-center mx-3">
+                        <a href="mailto:ajfiresolutions@hotmail.com" class="text-light py-2 px-2 fw-bold">
+                            <i class="fa fa-envelope text-primary me-2"></i>ajfiresolutions@hotmail.com
+                        </a>
+                    </span>
+                </div>
+                <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-end align-items-center py-1">
+                    <a class="btn btn-outline-light btn-social mx-1 social-btn" href="https://www.facebook.com/ajfses.com.bd" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-outline-light btn-social mx-1 social-btn" href="https://wa.me/1676267377" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a class="btn btn-outline-light btn-social mx-1 social-btn" href="https://x.com/AJFIRESOLUTIONS" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-outline-light btn-social mx-1 social-btn" href="https://www.youtube.com/%40ajfses" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a class="btn btn-outline-light btn-social mx-1 social-btn" href="https://www.linkedin.com/company/ajfire" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Top Contact Bar End -->
+
+
+    <!-- Navbar start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow border-top border-5 border-primary sticky-top p-0">
+        <a href="index.html" class="navbar-brand d-flex align-items-center">
+            <img src="img/logo.png" class="nav-logo" style="transition: opacity 0.5s ease-in-out;" id="navLogo" alt="psstudio logo">
+        </a>
+
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="index.html" class="nav-item nav-link">Home</a>
+                <a href="services.html" class="nav-item nav-link">Services</a>
+                <a href="products.html" class="nav-item nav-link">Products</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">About</a>
+                    <div class="dropdown-menu fade-up m-0">
+                        <a href="chairman_message.html" class="dropdown-item">Chairman's Message</a>
+                        <a href="team.html" class="dropdown-item">Team</a>
+                        <a href="gallary.html" class="dropdown-item active">Gallery</a>
+                    </div>
+                </div>
+                <a href="contact.html" class="nav-item nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar end -->
+
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5" style="margin-bottom: 0;">
+        <div class="container py-5">
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Our Gallery</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="#">About</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Gallery</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Gallery Section Start -->
+    <div class="container-fluid gallery-section py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="text-secondary text-uppercase">Project Showcase</h6>
+                <h1 class="mb-5">Our Recent Works & Events</h1>
+            </div>
+
+            <!-- Gallery Container -->
+            <div class="gallery-grid" id="gallery-container">
+                <!-- Loader inside grid -->
+                <div class="d-flex justify-content-center w-100 py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Gallery Section End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s" style="margin-top: 0; background-color: #0b1221;">
+        <div class="container py-4 text-center">
+            <h2 class="text-white mb-3">CONTACT US FOR YOUR PROJECT</h2>
+            <p class="text-white-50 mb-4">We are specialized in design, supply, installation, testing, service and maintenance</p>
+            <a href="tel:+880 9611-699 282" class="btn btn-light rounded-pill py-2 px-4 fw-bold">
+                <i class="fa fa-phone-alt me-2"></i>+880 9611-699 282
+            </a>
+        </div>
+        <div class="w-100" style="height: 2px; background-color: #dc3545;"></div>
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <div class="d-flex align-items-center mb-4">
+                        <img src="img/logo.jpg" alt="Logo" class="img-fluid me-3" style="max-height: 60px;">
+                        <img src="img/logo-circle.jpg" alt="Logo" class="img-fluid" style="max-height: 60px;">
+                    </div>
+                    <p>AJ Fire Safety & Engineering Solutions is a leading supplier of the latest technology and fire & safety engineering solutions in Bangladesh.</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-light mb-4 text-uppercase border-bottom pb-2 d-inline-block border-secondary">Quick Links</h5>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-light mb-2 text-decoration-none" href="index.html"><i class="bi bi-chevron-right me-2"></i>Home</a>
+                        <a class="text-light mb-2 text-decoration-none" href="about.html"><i class="bi bi-chevron-right me-2"></i>About Us</a>
+                        <a class="text-light mb-2 text-decoration-none" href="services.html"><i class="bi bi-chevron-right me-2"></i>Our Services</a>
+                        <a class="text-light mb-2 text-decoration-none" href="contact.html"><i class="bi bi-chevron-right me-2"></i>Contact us</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-light mb-4 text-uppercase border-bottom pb-2 d-inline-block border-secondary">Contact</h5>
+                    <div class="d-flex mb-3">
+                        <i class="fa fa-map-marker-alt text-light me-3 mt-1"></i>
+                        <p class="mb-0">Plot# 13 (3rd Floor), Road #1, DOHS, Savar Cant:- 1344, Dhaka</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-light mb-4 text-uppercase border-bottom pb-2 d-inline-block border-secondary">Location</h5>
+                    <div class="position-relative w-100 h-100 rounded overflow-hidden" style="min-height: 200px;">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1823.480936864552!2d90.26288219163555!3d23.92640412253763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755e96538f7bbf1%3A0xb21307b107bb0366!2sAJ%20FIRE%20SAFETY%20%26%20ENGINEERING%20SOLUTIONS!5e0!3m2!1sen!2sbd!4v1764861128047!5m2!1sen!2sbd" style="border:0; width:100%; height:100%;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid copyright bg-dark py-4" style="border-top: 1px solid rgba(255,255,255,0.1);">
+             <div class="container text-center">
+                 <p class="mb-0 text-light">© 2025 All Rights Reserved By <a class="text-light border-bottom" href="#">AJ Fire Safety & Engineering Solutions</a> | Developed By <a class="text-light border-bottom" href="https://projuktisheba.com/" target="_blank">Projuktisheba</a></p>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-0 back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    
+    <!-- GLightbox JS -->
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
+    <script src="js/config.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/common.js"></script>
+    
+    <script>
+        // Gallery Fetch Logic
+        async function fetchGallery() {
+            const container = document.getElementById('gallery-container');
+            // Assuming endpoint is /gallery. If exact endpoint is unknown, we check likely candidates
+            const API_URL = `${window.env.API_URL}/gallery`; 
+
+            try {
+                const response = await fetch(API_URL);
+                
+                // Fallback for demo purposes if API isn't set up yet or returns 404
+                if (!response.ok) {
+                    throw new Error("Gallery fetch failed");
+                }
+
+                const result = await response.json();
+                
+                // Handle different possible API response structures:
+                // 1. Array: [...]
+                // 2. Object: { data: [...] }
+                // 3. Object: { gallery: [...] }
+                const items = Array.isArray(result) ? result : (result.data || result.gallery || []);
+
+                if (items.length === 0) {
+                    container.innerHTML = '<div class="text-center w-100 py-5">No images found in gallery.</div>';
+                    // Optional: Render mock images for preview if empty
+                    // renderMockImages(container);
+                    return;
+                }
+
+                // Clear loader
+                container.innerHTML = '';
+
+                let html = '';
+                items.forEach((item, index) => {
+                    // Construct Image URL
+                    const imgUrl = item.image_link ? `${window.env.API_URL}/images/gallery/${item.image_link}` : 'img/service-1.jpg'; // Fallback image
+                    const title = item.title || item.caption || 'AJFSES Project';
+
+                    html += `
+                        <div class="gallery-item wow fadeInUp" data-wow-delay="${0.1 * (index % 5)}s">
+                            <a href="${imgUrl}" class="glightbox" data-gallery="gallery1" data-title="${title}">
+                                <img src="${imgUrl}" alt="${title}" loading="lazy">
+                                <div class="gallery-overlay">
+                                    <i class="fa fa-search-plus gallery-icon"></i>
+                                </div>
+                                <div class="gallery-caption">
+                                    ${title}
+                                </div>
+                            </a>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML = html;
+
+                // Initialize GLightbox after content is injected
+                const lightbox = GLightbox({
+                    touchNavigation: true,
+                    loop: true,
+                    zoomable: true
+                });
+
+            } catch (error) {
+                console.error('Error fetching gallery:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchGallery);
+    </script>
+</body>
+
+</html>

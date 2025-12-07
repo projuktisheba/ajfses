@@ -92,6 +92,28 @@ func (h *TeamHandler) GetTeam(w http.ResponseWriter, r *http.Request) {
 	utils.WriteJSON(w, http.StatusOK, team)
 }
 
+func (h *TeamHandler) GetAllTeamsAndMembers(w http.ResponseWriter, r *http.Request) {
+	// Call the new Repo method
+	teamsData, err := h.DB.MemberRepo.GetTeamsWithMembers(r.Context())
+	if err != nil {
+		h.errorLog.Println("ERROR_GetTeams_01: db error:", err)
+		utils.ServerError(w, errors.New("failed to retrieve team data"))
+		return
+	}
+
+	var response struct {
+		Error   bool               `json:"error"`
+		Message string             `json:"message"`
+		Data    []*models.TeamData `json:"data"` // This holds the nested list
+	}
+
+	response.Error = false
+	response.Message = "Teams and members fetched successfully"
+	response.Data = teamsData
+
+	utils.WriteJSON(w, http.StatusOK, response)
+}
+
 // UpdateTeam updates an existing team.
 func (h *TeamHandler) UpdateTeam(w http.ResponseWriter, r *http.Request) {
 	idStr := chi.URLParam(r, "id")

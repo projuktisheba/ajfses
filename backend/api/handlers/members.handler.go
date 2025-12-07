@@ -67,7 +67,7 @@ func (h *MemberHandler) CreateMember(w http.ResponseWriter, r *http.Request) {
 		Note:        note,
 		ImageLink:   "", // Empty initially
 	}
-
+	fmt.Println(newMember)
 	id, err := h.DB.MemberRepo.Create(r.Context(), newMember)
 	if err != nil {
 		h.errorLog.Println("ERROR_CreateMember_03: db create:", err)
@@ -130,10 +130,9 @@ func (h *MemberHandler) CreateMember(w http.ResponseWriter, r *http.Request) {
 	h.respondSuccess(w, id, "Member created and image saved successfully")
 }
 
-
 // GetAllMembers retrieves a list of all members.
 func (h *MemberHandler) GetAllMembers(w http.ResponseWriter, r *http.Request) {
-	members, err := h.DB.MemberRepo.GetAll(r.Context())
+	members, err := h.DB.MemberRepo.GetAll(r.Context(), "")
 	if err != nil {
 		h.errorLog.Println("ERROR_GetAllMembers_01: db error:", err)
 		utils.ServerError(w, errors.New("failed to retrieve members"))
@@ -147,6 +146,25 @@ func (h *MemberHandler) GetAllMembers(w http.ResponseWriter, r *http.Request) {
 	response.Error = false
 	response.Message = "Members fetched successfully"
 	response.Members = members
+	utils.WriteJSON(w, http.StatusOK, response)
+}
+
+// GetAllMembers retrieves a list of all members.
+func (h *MemberHandler) GetChairmanInfo(w http.ResponseWriter, r *http.Request) {
+	members, err := h.DB.MemberRepo.GetAll(r.Context(), "Chairman")
+	if err != nil {
+		h.errorLog.Println("ERROR_GetChairmanInfo_01: db error:", err)
+		utils.ServerError(w, errors.New("failed to retrieve chairman info"))
+		return
+	}
+	var response struct {
+		Error    bool             `json:"error"`
+		Message  string           `json:"message"`
+		Chairman []*models.Member `json:"Chairman"`
+	}
+	response.Error = false
+	response.Message = "Chairman info retrieved successfully"
+	response.Chairman = members
 	utils.WriteJSON(w, http.StatusOK, response)
 }
 

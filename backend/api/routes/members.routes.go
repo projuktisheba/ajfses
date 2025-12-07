@@ -12,6 +12,7 @@ func memberRoutes() *chi.Mux {
 
 	// The handler we created specifically for multipart/form-data
 	mux.Post("/", handlerRepo.Member.CreateMember)
+	mux.Get("/chairman", handlerRepo.Member.GetChairmanInfo)
 	mux.Get("/list", handlerRepo.Member.GetAllMembers)
 	mux.Delete("/", handlerRepo.Member.DeleteMember) //	query parament {id}
 	// mux.Get("/{id}", handlerRepo.Member.GetMember)

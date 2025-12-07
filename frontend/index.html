@@ -15,8 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Roboto:wght@500;700&display=swap"
         rel="stylesheet">
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
     <link href="lib/animate/animate.min.css" rel="stylesheet">
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
@@ -24,6 +23,169 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <link href="css/style.css" rel="stylesheet">
+
+    <!-- CUSTOM STYLES -->
+    <style>
+        /* PRINCIPALS GRID STYLES */
+        .principals-section-area {
+            background: #ffffff;
+            padding: 60px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        #uc_logo_grid_elementor_cca2d9f {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Mobile default */
+            gap: 20px;
+        }
+
+        /* Responsive Columns */
+        @media (min-width: 768px) {
+            #uc_logo_grid_elementor_cca2d9f {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        @media (min-width: 1024px) {
+            #uc_logo_grid_elementor_cca2d9f {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        #uc_logo_grid_elementor_cca2d9f .ue-logo-title {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            text-align: center;
+            left: 0;
+        }
+
+        #uc_logo_grid_elementor_cca2d9f div.logo-grid-item {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            transition: 0.3s;
+            height: 150px;
+            border: 1px solid #f0f0f0;
+            background: #fff;
+            padding: 10px;
+        }
+
+        #uc_logo_grid_elementor_cca2d9f div.logo-grid-item:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+            z-index: 2;
+        }
+
+        #uc_logo_grid_elementor_cca2d9f div.logo-grid-item img {
+            width: 100%;
+            object-fit: contain;
+            display: block;
+            mix-blend-mode: normal;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 100%;
+            transition: 0.3s;
+            padding: 20px; 
+        }
+
+        #uc_logo_grid_elementor_cca2d9f a {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* NEW PORTFOLIO BANNER STYLES (Based on Reference) */
+        .portfolio-banner {
+            background-color: #0b1221; /* Dark Blue Background */
+            position: relative;
+            overflow: hidden;
+            padding: 80px 0;
+        }
+
+        /* Concentric Circles Background Effect */
+        .portfolio-circle-bg {
+            position: absolute;
+            top: 50%;
+            left: -5%; 
+            transform: translateY(-50%);
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 
+                0 0 0 60px rgba(255, 255, 255, 0.03),
+                0 0 0 120px rgba(255, 255, 255, 0.03),
+                0 0 0 180px rgba(255, 255, 255, 0.02),
+                0 0 0 240px rgba(255, 255, 255, 0.01);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Ensure content is above background */
+        .portfolio-banner .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .portfolio-heading h1 {
+            font-weight: 800;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .portfolio-highlight {
+            color: #dc3545; /* Red Highlight Color */
+        }
+
+        /* Portfolio Image Grid Items */
+        .portfolio-grid-img {
+            border: 3px solid #fff;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+            height: 140px; /* Fixed height for uniformity */
+        }
+        
+        .portfolio-grid-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-grid-img:hover img {
+            transform: scale(1.1);
+        }
+
+        .btn-custom-red {
+            background-color: #dc3545;
+            border: none;
+            font-weight: 600;
+            padding: 12px 30px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
+        }
+
+        .btn-custom-red:hover {
+            background-color: #bb2d3b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(220, 53, 69, 0.4);
+        }
+
+    </style>
 </head>
 
 <body>
@@ -46,12 +208,12 @@
 
                     <span class="d-flex align-items-center mx-3">
                         <a href="tel:+880 9611-699 282" class="text-light py-2 px-2 fw-bold">
-                            <i class="fa fa-headphones text-primary me-2"></i>+880 9611-699 282
+                            <i class="fa-solid fa-headphones text-primary me-2"></i>+880 9611-699 282
                         </a>
                     </span>
                     <span class="d-flex align-items-center mx-3">
                         <a href="mailto:ajfiresolutions@hotmail.com" class="text-light py-2 px-2 fw-bold">
-                            <i class="fa fa-envelope text-primary me-2"></i>ajfiresolutions@hotmail.com
+                            <i class="fa-solid fa-envelope text-primary me-2"></i>ajfiresolutions@hotmail.com
                         </a>
                     </span>
                 </div>
@@ -111,14 +273,13 @@
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">About</a>
                     <div class="dropdown-menu fade-up m-0">
                         <a href="chairman_message.html" class="dropdown-item">Chairman's Message</a>
-                        <a href="management.html" class="dropdown-item">Management</a>
-                        <a href="department.html" class="dropdown-item">Department</a>
-                        <a href="gallary.html" class="dropdown-item">Gallery</a>
+                        <a href="team.html" class="dropdown-item">Team</a>
+                        <a href="gallery.html" class="dropdown-item">Gallery</a>
                     </div>
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
             </div>
-            <!-- <h4 class="m-0 pe-lg-5 d-none d-lg-block"><i class="fa fa-headphones text-primary me-3"></i>+880 9611-699282 (24/7) -->
+            <!-- <h4 class="m-0 pe-lg-5 d-none d-lg-block"><i class="fa-solid fa-headphones text-primary me-3"></i>+880 9611-699282 (24/7) -->
             </h4>
         </div>
     </nav>
@@ -234,7 +395,7 @@
             </div>
         </div>
     </div>
-    <!-- Carousel start -->
+    <!-- Carousel end -->
 
     <!-- About start -->
     <div class="container-fluid overflow-hidden py-5 px-lg-0">
@@ -255,13 +416,13 @@
                     </p>
                     <div class="row g-4 mb-5">
                         <div class="col-sm-6 wow fadeIn" data-wow-delay="0.5s">
-                            <i class="fa fa-hard-hat fa-3x text-primary mb-3"></i>
+                            <i class="fa-solid fa-hard-hat fa-3x text-primary mb-3"></i>
                             <h5>Safety First</h5>
                             <p class="m-0">Comprehensive Fire and Electrical safety audits and design implementation.
                             </p>
                         </div>
                         <div class="col-sm-6 wow fadeIn" data-wow-delay="0.7s">
-                            <i class="fa fa-drafting-compass fa-3x text-primary mb-3"></i>
+                            <i class="fa-solid fa-drafting-compass fa-3x text-primary mb-3"></i>
                             <h5>Expert Design</h5>
                             <p class="m-0">Structural Analysis, Retrofitting, and Architectural designs by certified
                                 engineers.</p>
@@ -273,6 +434,129 @@
         </div>
     </div>
     <!-- About end -->
+
+    <!-- BRAND LOGO STRIP SECTION START -->
+    <div class="principals-section-area wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <!-- Header -->
+            <div class="text-center mb-4">
+                 <h2 class="elementor-heading-title elementor-size-default" style="font-weight: 800;">OUR VALUED<span style="color: red;"> PRINCIPALS </span> </h2>
+                 <div class="mt-2">
+                    <img loading="lazy" decoding="async" width="86" height="9" src="https://www.radius-bd.com/wp-content/uploads/2023/02/Screenshot_1-1.png" class="attachment-large size-large wp-image-1414" alt="">
+                 </div>
+            </div>
+
+            <!-- Grid -->
+            <div id="uc_logo_grid_elementor_cca2d9f" class="ue-logo-grid">
+                <div class="logo-grid-item">
+                    <a href="https://www.radius-bd.com/product-category/brand/advanced-brand/" target="_blank">
+                        <img loading="lazy" decoding="async" src="https://www.radius-bd.com/wp-content/uploads/2023/04/1.png" title="Default Title" alt="1" width="400" height="250">
+                    </a>
+                </div>
+                <div class="logo-grid-item">
+                    <a href="https://www.radius-bd.com/product-category/brand/argus-brand/" target="_blank">
+                        <img loading="lazy" decoding="async" src="https://www.radius-bd.com/wp-content/uploads/2023/04/24.jpg" title="Default Title" alt="24" width="400" height="250">
+                    </a>
+                </div>
+                <div class="logo-grid-item">
+                    <a href="https://www.radius-bd.com/product-category/brand/cooper-brand/" target="_blank">
+                        <img loading="lazy" decoding="async" src="https://www.radius-bd.com/wp-content/uploads/2023/04/3.png" title="Default Title" alt="3" width="400" height="250">
+                    </a>
+                </div>
+                <div class="logo-grid-item">
+                    <a href="https://www.radius-bd.com/product-category/brand/eaton-brand/" target="_blank">
+                        <img loading="lazy" decoding="async" src="https://www.radius-bd.com/wp-content/uploads/2023/04/4.png" title="Default Title" alt="4" width="400" height="250">
+                    </a>
+                </div>
+                <div class="logo-grid-item">
+                    <a href="https://www.radius-bd.com/product-category/brand/naffco-brand/" target="_blank">
+                        <img loading="lazy" decoding="async" src="https://www.radius-bd.com/wp-content/uploads/2023/04/5.png" title="Default Title" alt="5" width="400" height="250">
+                    </a>
+                </div>
+                <div class="logo-grid-item">
+                    <a href="https://www.radius-bd.com/product-category/brand/bristol-brand/" target="_blank">
+                        <img loading="lazy" decoding="async" src="https://www.radius-bd.com/wp-content/uploads/2023/04/7.png" title="Default Title" alt="7" width="400" height="250">
+                    </a>
+                </div>
+                <div class="logo-grid-item">
+                    <a href="https://www.radius-bd.com/product-category/brand/potter-brand/" target="_blank">
+                        <img loading="lazy" decoding="async" src="https://www.radius-bd.com/wp-content/uploads/2023/04/6.png" title="Default Title" alt="6" width="400" height="250">
+                    </a>
+                </div>
+                <div class="logo-grid-item">
+                    <a href="https://www.radius-bd.com/product-category/brand/ebitt-brand/" target="_blank">
+                        <img loading="lazy" decoding="async" src="https://www.radius-bd.com/wp-content/uploads/2023/04/8.png" title="Default Title" alt="8" width="400" height="250">
+                    </a>
+                </div>
+                <div class="logo-grid-item">
+                    <a href="https://www.radius-bd.com/product-category/brand/hochiki-brand/" target="_blank">
+                        <img loading="lazy" decoding="async" src="https://www.radius-bd.com/wp-content/uploads/2023/04/9.png" title="Default Title" alt="9" width="400" height="250">
+                    </a>
+                </div>
+                <div class="logo-grid-item">
+                    <a href="https://www.radius-bd.com/product-category/brand/rapidrop-brand/" target="_blank">
+                        <img loading="lazy" decoding="async" src="https://www.radius-bd.com/wp-content/uploads/2023/04/10.png" title="Default Title" alt="10" width="400" height="250">
+                    </a>
+                </div>
+                <div class="logo-grid-item">
+                    <a href="https://www.radius-bd.com/product-category/brand/shield-brand/" target="_blank">
+                        <img loading="lazy" decoding="async" src="https://www.radius-bd.com/wp-content/uploads/2023/04/11.png" title="Default Title" alt="11" width="400" height="250">
+                    </a>
+                </div>
+                <div class="logo-grid-item">
+                    <a href="https://www.radius-bd.com/product-category/brand/tornatech-brand/" target="_blank">
+                        <img loading="lazy" decoding="async" src="https://www.radius-bd.com/wp-content/uploads/2023/04/12.png" title="Default Title" alt="12" width="400" height="250">
+                    </a>
+                </div>
+                <div class="logo-grid-item">
+                    <a href="https://www.radius-bd.com/product-category/brand/ble-brand/" target="_blank">
+                        <img loading="lazy" decoding="async" src="https://www.radius-bd.com/wp-content/uploads/2023/04/13.png" title="Default Title" alt="13" width="400" height="250">
+                    </a>
+                </div>
+                <div class="logo-grid-item">
+                    <a href="https://www.radius-bd.com/product-category/brand/asico-brand/" target="_blank">
+                        <img loading="lazy" decoding="async" src="https://www.radius-bd.com/wp-content/uploads/2023/04/14.png" title="Default Title" alt="14" width="400" height="250">
+                    </a>
+                </div>
+                <div class="logo-grid-item">
+                    <a href="https://www.radius-bd.com/product-category/brand/aux-brand/" target="_blank">
+                        <img loading="lazy" decoding="async" src="https://www.radius-bd.com/wp-content/uploads/2023/04/15.png" title="Default Title" alt="15" width="400" height="250">
+                    </a>
+                </div>
+                <div class="logo-grid-item">
+                    <a href="https://www.radius-bd.com/product-category/brand/daikin-brand/" target="_blank">
+                        <img loading="lazy" decoding="async" src="https://www.radius-bd.com/wp-content/uploads/2023/04/16.png" title="Default Title" alt="16" width="400" height="250">
+                    </a>
+                </div>
+                <div class="logo-grid-item">
+                    <a href="https://www.radius-bd.com/product-category/brand/york-brand/" target="_blank">
+                        <img loading="lazy" decoding="async" src="https://www.radius-bd.com/wp-content/uploads/2023/04/17.png" title="Default Title" alt="17" width="400" height="250">
+                    </a>
+                </div>
+                <div class="logo-grid-item">
+                    <a href="https://www.radius-bd.com/product-category/brand/kentec-brand/" target="_blank">
+                        <img loading="lazy" decoding="async" src="https://www.radius-bd.com/wp-content/uploads/2023/04/19-2.jpg" title="Default Title" alt="19 (2)" width="400" height="250">
+                    </a>
+                </div>
+                <div class="logo-grid-item">
+                    <a href="https://www.radius-bd.com/product-category/brand/gala-brand/" target="_blank">
+                        <img loading="lazy" decoding="async" src="https://www.radius-bd.com/wp-content/uploads/2023/04/21-2.jpg" title="Default Title" alt="21 (2)" width="400" height="250">
+                    </a>
+                </div>
+                <div class="logo-grid-item">
+                    <a href="https://www.radius-bd.com/product-category/brand/bosch-brand/" target="_blank">
+                        <img loading="lazy" decoding="async" src="https://www.radius-bd.com/wp-content/uploads/2023/04/22-2.jpg" title="Default Title" alt="22 (2)" width="400" height="250">
+                    </a>
+                </div>
+                <div class="logo-grid-item">
+                    <a href="https://www.radius-bd.com/product-category/brand/ayzo-brand/" target="_blank">
+                        <img loading="lazy" decoding="async" src="https://www.radius-bd.com/wp-content/uploads/2023/04/23-2.jpg" title="Default Title" alt="23 (2)" width="400" height="250">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BRAND LOGO STRIP SECTION END -->
 
     <!-- Products start -->
     <div id="products" class="container-xxl py-5">
@@ -290,7 +574,7 @@
                         </div>
                         <h4 class="mb-3">Fire Protection System</h4>
                         <!-- <p>Preparation and approval of Fire Safety Plans, Fire Detection & Protection System Design.</p> -->
-                        <a class="btn-slide mt-2" href=""><i class="fa fa-arrow-right"></i><span>See More</span></a>
+                        <a class="btn-slide mt-2" href=""><i class="fa-solid fa-arrow-right"></i><span>See More</span></a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
@@ -301,7 +585,7 @@
                         </div>
                         <h4 class="mb-3">Fire Detection System</h4>
                         <!-- <p>Single Line Diagram (SLD), ELD, Lightning Protection System (LPS) design and auditing.</p> -->
-                        <a class="btn-slide mt-2" href=""><i class="fa fa-arrow-right"></i><span>Read More</span></a>
+                        <a class="btn-slide mt-2" href=""><i class="fa-solid fa-arrow-right"></i><span>Read More</span></a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
@@ -312,7 +596,7 @@
                         </div>
                         <h4 class="mb-3">MS Pipes & Fittings</h4>
                         <!-- <p>Single Line Diagram (SLD), ELD, Lightning Protection System (LPS) design and auditing.</p> -->
-                        <a class="btn-slide mt-2" href=""><i class="fa fa-arrow-right"></i><span>Read More</span></a>
+                        <a class="btn-slide mt-2" href=""><i class="fa-solid fa-arrow-right"></i><span>Read More</span></a>
                     </div>
                 </div>
 
@@ -321,32 +605,113 @@
     </div>
     <!-- Products end -->
 
+    <!-- PROJECT GALLERY SECTION START (Redesigned from Reference Image) -->
+    <div class="container-fluid portfolio-banner wow fadeInUp" data-wow-delay="0.1s">
+        <!-- Background Circles Effect -->
+        <div class="portfolio-circle-bg"></div>
+        
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <!-- Left Content -->
+                <div class="col-lg-5 text-white portfolio-heading">
+                    <h1 class="display-5 mb-4 text-white">WE HAVE STRONG <br> <span class="text-primary">PORTFOLIO WORK</span></h1>
+                    <p class="mb-4 text-white-50" style="font-size: 1.1rem; line-height: 1.6;">
+                        Within a short time, We have successfully completed various projects across the country with our valued client's satisfaction
+                    </p>
+                    <a href="gallery.html" class="btn btn-primary rounded-pill">View More</a>
+                </div>
+                
+                <!-- Right Image Grid (3x2 Layout) -->
+                <div class="col-lg-7">
+                    <div class="row g-2">
+                        <!-- Item 1 -->
+                        <div class="col-4">
+                            <div class="portfolio-grid-img">
+                                <img src="https://placehold.co/400x300/png?text=Work+1" alt="Portfolio 1">
+                            </div>
+                        </div>
+                        <!-- Item 2 -->
+                        <div class="col-4">
+                            <div class="portfolio-grid-img">
+                                <img src="https://placehold.co/400x300/png?text=Work+2" alt="Portfolio 2">
+                            </div>
+                        </div>
+                        <!-- Item 3 -->
+                        <div class="col-4">
+                            <div class="portfolio-grid-img">
+                                <img src="https://placehold.co/400x300/png?text=Work+3" alt="Portfolio 3">
+                            </div>
+                        </div>
+                        <!-- Item 4 -->
+                        <div class="col-4">
+                            <div class="portfolio-grid-img">
+                                <img src="https://placehold.co/400x300/png?text=Work+4" alt="Portfolio 4">
+                            </div>
+                        </div>
+                        <!-- Item 5 -->
+                        <div class="col-4">
+                            <div class="portfolio-grid-img">
+                                <img src="https://placehold.co/400x300/png?text=Work+5" alt="Portfolio 5">
+                            </div>
+                        </div>
+                        <!-- Item 6 -->
+                        <div class="col-4">
+                            <div class="portfolio-grid-img">
+                                <img src="https://placehold.co/400x300/png?text=Work+6" alt="Portfolio 6">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PROJECT GALLERY SECTION END -->
+
     <!-- Features start -->
     <div class="container-fluid overflow-hidden py-5 px-lg-0">
         <div class="container feature py-5 px-lg-0">
             <div class="row g-5 mx-lg-0">
                 <div class="col-lg-6 feature-text wow fadeInUp" data-wow-delay="0.1s">
                     <h6 class="text-secondary text-uppercase mb-3">Why Choose Us</h6>
-                    <h1 class="mb-5">Expert Engineering Solutions</h1>
-                    <div class="d-flex mb-5 wow fadeInUp" data-wow-delay="0.3s">
-                        <i class="fa fa-certificate text-primary fa-3x flex-shrink-0"></i>
+                    <h1 class="mb-5">AJ FIRE SAFETY & ENGINEERING SOLUTIONS</h1>
+                    
+                    <div class="d-flex mb-4 wow fadeInUp" data-wow-delay="0.3s">
+                        <i class="fa-solid fa-screwdriver-wrench text-primary fa-3x flex-shrink-0"></i>
                         <div class="ms-4">
-                            <h5>Certified Engineers</h5>
-                            <p class="mb-0">Our team consists of IEB certified engineers and safety experts.</p>
+                            <h5>Trusted Expertise</h5>
+                            <p class="mb-0">With a wealth of experience, we are dedicated to providing the highest quality of service and the most innovative fire protection solutions.</p>
                         </div>
                     </div>
-                    <div class="d-flex mb-5 wow fadeIn" data-wow-delay="0.5s">
-                        <i class="fa fa-tools text-primary fa-3x flex-shrink-0"></i>
+
+                    <div class="d-flex mb-4 wow fadeInUp" data-wow-delay="0.4s">
+                        <i class="fa-solid fa-atom text-primary fa-3x flex-shrink-0"></i>
                         <div class="ms-4">
-                            <h5>Advanced Technology</h5>
-                            <p class="mb-0">We use modern equipment for load testing, scanning, and thermal imaging.</p>
+                            <h5>Customized Solutions</h5>
+                            <p class="mb-0">Our experienced professionals collaborate with you to develop tailor-made fire protection plans that not only meet regulatory standards but exceed expectations.</p>
                         </div>
                     </div>
+
+                    <div class="d-flex mb-4 wow fadeInUp" data-wow-delay="0.5s">
+                        <i class="fa-solid fa-microchip text-primary fa-3x flex-shrink-0"></i>
+                        <div class="ms-4">
+                            <h5>Innovation at the Core</h5>
+                            <p class="mb-0">We are at the forefront of technological advancements in the field, ensuring that our solutions are not only effective but also incorporate the latest industry innovations.</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex mb-4 wow fadeInUp" data-wow-delay="0.6s">
+                        <i class="fa-solid fa-headset text-primary fa-3x flex-shrink-0"></i>
+                        <div class="ms-4">
+                            <h5>24/7 Support: +880 9611 699 282</h5>
+                            <p class="mb-0">Your peace of mind is our priority. Our team is available around the clock to answer your questions and address concerns promptly.</p>
+                        </div>
+                    </div>
+
                     <div class="d-flex mb-0 wow fadeInUp" data-wow-delay="0.7s">
-                        <i class="fa fa-headset text-primary fa-3x flex-shrink-0"></i>
+                        <i class="fa-solid fa-bahai text-primary fa-3x flex-shrink-0"></i>
                         <div class="ms-4">
-                            <h5>Dedicated Support</h5>
-                            <p class="mb-0">Continuous support for CAP management and regulatory approvals.</p>
+                            <h5>Comprehensive Range</h5>
+                            <p class="mb-0">We offer a wide array of fire protection solutions, addressing the diverse needs of businesses of all sizes.</p>
                         </div>
                     </div>
                 </div>
@@ -370,7 +735,7 @@
                 maintenance
             </p>
             <a href="tel:+880 9611-699 282" class="btn btn-light rounded-pill py-2 px-4 fw-bold">
-                <i class="fa fa-phone-alt me-2"></i>+880 9611-699 282
+                <i class="fa-solid fa-phone-alt me-2"></i>+880 9611-699 282
             </a>
         </div>
 
@@ -423,12 +788,12 @@
                     <h5 class="text-light mb-4 text-uppercase border-bottom pb-2 d-inline-block border-secondary">
                         Contact Information</h5>
                     <div class="d-flex mb-3">
-                        <i class="fa fa-map-marker-alt text-light me-3 mt-1"></i>
+                        <i class="fa-solid fa-map-marker-alt text-light me-3 mt-1"></i>
                         <p class="mb-0">Plot# 13 (3rd Floor), Road #1, DOHS, Savar Cant:- 1344, Ashulia, Savar,
                             Dhaka</a></p>
                     </div>
                     <div class="d-flex mb-3">
-                        <i class="fa fa-phone-alt text-light me-3 mt-1"></i>
+                        <i class="fa-solid fa-phone-alt text-light me-3 mt-1"></i>
                         <div>
                             <p class="mb-1"><a href="tel:+880 1958-605 251" class="text-light">+880 1958-605 251 </a>
                             </p>
@@ -438,7 +803,7 @@
                         </div>
                     </div>
                     <div class="d-flex mb-3">
-                        <i class="fa fa-envelope text-light me-3 mt-1"></i>
+                        <i class="fa-solid fa-envelope text-light me-3 mt-1"></i>
                         <div>
                             <p class="mb-1"><a class="text-light"
                                     href="mailto:ajfiresolutions@hotmail.com">ajfiresolutions@hotmail.com

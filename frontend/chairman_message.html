@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="utf-8">
-    <title>AJFSES - Engineering & Compliance</title>
+    <title>AJFSES - Engineering Services</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta content="" name=description>
 
     <link href="img/favicon.ico" rel="icon">
 
@@ -24,6 +24,194 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <link href="css/style.css" rel="stylesheet">
+    <style>        
+        /* --- UPDATED PREMIUM CHAIRMAN STYLES --- */
+        
+        .chairman-section-wrapper {
+            position: relative;
+            background-color: #f8f9fa;
+            /* Technical Dot Pattern */
+            background-image: radial-gradient(#cbd5e0 1px, transparent 1px);
+            background-size: 20px 20px;
+            overflow: hidden;
+            padding-top: 80px;
+            padding-bottom: 80px;
+        }
+        
+        /* White overlay to soften the pattern */
+        .chairman-section-wrapper::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 100%);
+            z-index: 0;
+        }
+
+        /* Container helper */
+        #leadership-container {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Image Styling */
+        .chairman-img-box {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+        }
+
+        .chairman-img-frame {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            /* Architectural Hard Shadow Effect */
+            box-shadow: 20px 20px 0px rgba(11, 18, 33, 0.1); 
+            border: 8px solid #ffffff;
+            /* Floating Animation */
+            animation: floatImage 5s ease-in-out infinite;
+            transform-origin: center center;
+            background: #fff;
+        }
+        
+        /* Decorative Element behind image */
+        .chairman-img-bg-shape {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 150px;
+            height: 150px;
+            background: repeating-linear-gradient(
+              45deg,
+              var(--primary),
+              var(--primary) 2px,
+              transparent 2px,
+              transparent 10px
+            );
+            opacity: 0.15;
+            z-index: -1;
+            border-radius: 50%;
+        }
+        
+        @keyframes floatImage {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Text Card Styling */
+        .chairman-card {
+            background: #fff;
+            padding: 40px 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            position: relative;
+            margin-left: -40px; /* Overlap effect on Desktop */
+        }
+
+        /* Quote Icon styling */
+        .quote-icon-top {
+            font-size: 60px;
+            color: var(--primary);
+            opacity: 0.1;
+            margin-bottom: -30px;
+            display: block;
+        }
+
+        .message-subtitle {
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--primary);
+            display: inline-block;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 50px;
+        }
+        
+        .message-subtitle::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .message-title {
+            font-weight: 800;
+            margin-bottom: 25px;
+            font-family: 'Roboto', sans-serif;
+            color: #0b1221;
+        }
+        
+        .message-body {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: #555;
+            text-align: justify;
+        }
+
+        /* Signature Area */
+        .signature-box {
+            margin-top: 35px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .signature-line {
+            height: 40px;
+            width: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .signature-details h5 {
+            font-weight: 800;
+            margin-bottom: 3px;
+            color: #0b1221;
+            letter-spacing: 0.5px;
+        }
+        
+        .signature-details small {
+            color: #666;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        /* Decorative Badge */
+        .leader-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(11, 18, 33, 0.04);
+            color: #0b1221;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive Tweaks */
+        @media (max-width: 991px) {
+            .chairman-card {
+                margin-left: 0;
+                margin-top: 30px;
+                padding: 30px;
+            }
+            .chairman-img-frame {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            .chairman-section-wrapper {
+                padding-top: 40px;
+                padding-bottom: 40px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -33,6 +221,7 @@
             <span class="sr-only">Loading...</span>
         </div>
     </div>
+
 
     <!-- Top Contact Bar Start -->
     <div class="bg-dark text-light py-1">
@@ -108,49 +297,44 @@
                 <a href="services.html" class="nav-item nav-link">Services</a>
                 <a href="products.html" class="nav-item nav-link">Products</a>
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle active active" data-bs-toggle="dropdown">About</a>
+                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">About</a>
                     <div class="dropdown-menu fade-up m-0">
-                        <a href="chairman_message.html" class="dropdown-item">Chairman's Message</a>
-                        <a href="team.html" class="dropdown-item active">Team</a>
+                        <a href="chairman_message.html" class="dropdown-item active">Chairman's Message</a>
+                        <a href="team.html" class="dropdown-item">Team</a>
                         <a href="gallery.html" class="dropdown-item">Gallery</a>
                     </div>
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
             </div>
-            <!-- <h4 class="m-0 pe-lg-5 d-none d-lg-block"><i class="fa fa-headphones text-primary me-3"></i>+880 9611-699282 (24/7) -->
-            </h4>
         </div>
     </nav>
     <!-- Navbar end -->
-    <div class="container-fluid page-header py-5" style="margin-bottom: 6rem;">
+
+    <div class="container-fluid page-header py-5" style="margin-bottom: 0;">
         <div class="container py-5">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">Our Team</h1>
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Chairman's Note</h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">Team</li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Chairman's Note</li>
                 </ol>
             </nav>
         </div>
     </div>
 
-
-    <!-- Team Start -->
-    <div class="container-xxl py-5">
-        <div class="container py-5">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="text-secondary text-uppercase">Our Team</h6>
-                <h1 class="mb-5">Expert Team Members</h1>
-            </div>
-            <div class="row g-4" id="team-container">
+    <!-- Chairman Message start-->
+    <div class="container-fluid chairman-section-wrapper">
+        <div class="container" id="leadership-container">
+            <div class="text-center py-5">
+                <i class="fa fa-spinner fa-spin fa-3x text-primary"></i>
             </div>
         </div>
     </div>
-    <!-- Team End -->
+    <!-- Chairman Message end-->
 
     <!-- Footer start -->
     <div class="container-fluid text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s"
-        style="margin-top: 6rem; background-color: #0b1221;">
+        style="margin-top: 0; background-color: #0b1221;">
         <div class="container py-4 text-center">
             <h2 class="text-white mb-3">CONTACT US FOR YOUR PROJECT</h2>
             <p class="text-white-50 mb-4">We are specialized in design, supply, installation, testing, service and
@@ -272,6 +456,7 @@
         </div>
     </div>
     <!-- Footer end -->
+
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-0 back-to-top"><i class="bi bi-arrow-up"></i></a>
 
 
@@ -286,79 +471,121 @@
     <script src="js/config.js"></script>
     <script src="js/main.js"></script>
     <script src="js/common.js"></script>
+    <script>
+        // 1. HELPER: Parser Function (Same as before)
+        function parseContent(rawText) {
+            if (!rawText) return { subtitle: '', title: '', bodyHtml: '' };
 
-   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        fetchTeamsAndMembers();
-    });
+            const h6Match = rawText.match(/\[h6\](.*?)(\[|$)/s);
+            const subtitle = h6Match ? h6Match[1].trim() : '';
 
-    async function fetchTeamsAndMembers() {
-        const container = document.getElementById('team-container');
-        // Ensure this variable is defined in your environment
-        const imageBaseUrl = `${window.env.API_URL}/images/`; 
+            const h1Match = rawText.match(/\[h1\](.*?)(\[|$)/s);
+            const title = h1Match ? h1Match[1].trim() : '';
 
-        try {
-            const response = await fetch(`${window.env.API_URL}/team/list/details`, {
-                method: 'GET',
-            });
-
-            const result = await response.json();
-
-            if (result.error) {
-                console.error(result.message);
-                return;
+            const pMatches = [...rawText.matchAll(/\[p\](.*?)(?=\[|$)/gs)];
+            let bodyHtml = '';
+            if (pMatches.length > 0) {
+                // Use .message-body class for styling logic
+                bodyHtml = pMatches.map(m => `<p class="message-body">${m[1].trim()}</p>`).join('');
+            } else {
+                const cleanText = rawText.replace(/\[h6\].*?(\[|$)/s, '').replace(/\[h1\].*?(\[|$)/s, '').trim();
+                if (cleanText) bodyHtml = `<p class="message-body">${cleanText}</p>`;
             }
+            return { subtitle, title, bodyHtml };
+        }
 
-            const teams = result.data;
-            container.innerHTML = ''; 
+        // 2. MAIN: Fetch All Leadership Data
+        async function fetchLeadership() {
+            const container = document.getElementById('leadership-container');
+            const API_URL = `${window.env.API_URL}/member/chairman`;
 
-            teams.forEach((team) => {
-                if (team.members.length > 0) {
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error('Failed to fetch data');
 
-                    // 1. Team Header
-                    const teamHeaderHTML = `
-                        <div class="col-12 mt-5 mb-3 wow fadeInUp" data-wow-delay="0.1s">
-                            <div class="text-center">
-                                <h3 class="text-primary text-uppercase" style="border-bottom: 2px solid #ddd; display: inline-block; padding-bottom: 10px;">
-                                    ${team.team_name}
-                                </h3>
-                            </div>
-                        </div>
-                    `;
-                    container.insertAdjacentHTML('beforeend', teamHeaderHTML);
+                const result = await response.json();
+                const leaders = result.Chairman || [];
 
-                    // 2. Members Loop
-                    team.members.forEach((member, index) => {
-                        const delay = 0.1 + (index * 0.2); 
+                if (leaders.length === 0) {
+                    container.innerHTML = '<div class="text-center">No messages found.</div>';
+                    return;
+                }
 
-                        const imageUrl = member.image_link
-                            ? imageBaseUrl + member.image_link
-                            : 'img/user.svg'; // Ensure this fallback path is correct relative to your public folder
+                let htmlContent = '';
 
-                        // UPDATED HTML BELOW
-                        const memberHTML = `
-                            <div class="col-lg-3 col-md-6 wow fadeInUp rounded" data-wow-delay="${delay}s">
-                                <div class="team-item p-4 h-100"> 
-                                    <div class="overflow-hidden mb-4">
-                                        <img class="img-fluid" src="${imageUrl}" alt="${member.name}" 
-                                             style="width: 100%; height: 250px; object-fit: contain;">
+                leaders.forEach((person, index) => {
+                    const parsed = parseContent(person.note);
+
+                    let imgUrl = '';
+                    if (person.image_link) {
+                        imgUrl = `${window.env.API_URL}/images/${person.image_link}`;
+                    } else {
+                        imgUrl = 'img/user.svg';
+                    }
+
+                    // Separator for multiple leaders
+                    const separatorClass = (index !== leaders.length - 1) ? 'border-bottom pb-5 mb-5' : '';
+
+                    // Enhanced HTML Structure
+                    htmlContent += `
+                        <div class="row g-5 align-items-center ${separatorClass}">
+                            
+                            <!-- Image Section with Animations -->
+                            <div class="col-lg-5 wow slideInLeft" data-wow-delay="0.1s">
+                                <div class="chairman-img-box">
+                                    <div class="chairman-img-bg-shape"></div>
+                                    <div class="chairman-img-frame">
+                                        <img class="img-fluid w-100" src="${imgUrl}" alt="${person.name}" style="object-fit: cover;">
                                     </div>
-                                    <h5 class="mb-0">${member.name}</h5>
-                                    <p>${member.designation}</p>
-                                    
                                 </div>
                             </div>
-                        `;
-                        container.insertAdjacentHTML('beforeend', memberHTML);
-                    });
-                }
-            });
 
-        } catch (error) {
-            console.error('Error fetching data:', error);
+                            <!-- Content Section -->
+                            <div class="col-lg-7 wow fadeInRight" data-wow-delay="0.3s">
+                                <div class="chairman-card">
+                                    <div class="leader-badge">Management</div>
+                                    <!-- Background Quote Icon -->
+                                    <i class="fa fa-quote-left quote-icon-top"></i>
+
+                                    <div class="position-relative">
+                                        <h6 class="message-subtitle text-uppercase">${parsed.subtitle || 'Message'}</h6>
+                                        <h1 class="message-title">${parsed.title}</h1>
+                                        
+                                        <div class="mt-4">
+                                            ${parsed.bodyHtml}
+                                        </div>
+                                        
+                                        <!-- Signature / Name Area -->
+                                        <div class="signature-box">
+                                            <div class="signature-line"></div>
+                                            <div class="signature-details">
+                                                <h5 class="text-uppercase">${person.name}</h5>
+                                                <small class="text-uppercase">${person.designation || 'Leader'}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                });
+
+                container.innerHTML = htmlContent;
+                
+                // Re-trigger WOW animations if needed, though slideIn classes usually work if WOW is observing
+                // Just in case, we can manually ensure wow is active
+                if(typeof WOW === 'function') {
+                    new WOW().init(); 
+                }
+
+            } catch (error) {
+                console.error('Error loading leadership:', error);
+                container.innerHTML = '<div class="text-center text-danger">Failed to load content.</div>';
+            }
         }
-    }
-</script>
+
+        document.addEventListener('DOMContentLoaded', fetchLeadership);
+    </script>
 </body>
 
 </html>

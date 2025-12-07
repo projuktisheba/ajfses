@@ -70,5 +70,8 @@ func Routes(host, env string, db *dbrepo.DBRepository, jwt models.JWTConfig, inf
 	// Mount member handler routes
 	mux.Mount("/api/v1/member", memberRoutes())
 
+	// Mount gallery handler routes
+	mux.Mount("/api/v1/gallery", galleryRoutes())
+
 	return mux
 }

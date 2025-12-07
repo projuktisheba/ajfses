@@ -199,6 +199,16 @@
                             <span class="ml-2 text-sm tracking-wide truncate">Team Members</span>
                         </a>
                     </li>
+                    <!-- Photo Gallery Members -->
+                    <li>
+                        <a href="#" onclick="showSection('photo-gallery', this)"
+                            class="nav-item relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-800 text-gray-300 hover:text-white pr-6 cursor-pointer transition">
+                            <span class="inline-flex justify-center items-center ml-4">
+                                <i class="fa-solid fa-users"></i>
+                            </span>
+                            <span class="ml-2 text-sm tracking-wide truncate">Photo Gallery</span>
+                        </a>
+                    </li>
 
                     <li class="px-5 mt-4">
                         <div class="flex flex-row items-center h-8">
@@ -313,7 +323,7 @@
                                 <i class="fa fa-search absolute left-3 top-3 text-gray-400 text-xs"></i> -->
                             </div>
                             <button onclick="exportInquiries()"
-                                class="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-blue-700 transition">
+                                class="px-4 py-2 bg-gray-100 text-primary border border-primary text-sm rounded-lg hover:bg-primary hover:text-white transition">
                                 <i class="fa fa-download mr-1"></i> Export
                             </button>
                         </div>
@@ -418,7 +428,7 @@
                                 Close
                             </button>
                             <button type="button" onclick="markAsResolved()"
-                                class="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-primary text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                                class="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-base text-base font-medium hover:bg-primary hover:text-white focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                                 Mark As Done
                             </button>
                         </div>
@@ -438,7 +448,7 @@
                             <!-- <input type="text" placeholder="Search team members..."
                                 class="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-primary w-full md:w-48"> -->
                             <button
-                                class="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-blue-700 transition"
+                                class="px-4 py-2 bg-gray-100 text-primary text-sm border border-primary rounded-lg hover:bg-primary hover:text-white transition"
                                 onclick="openMemberModal()">
                                 <i class="fa fa-plus mr-1"></i> Add Team Member
                             </button>
@@ -451,6 +461,7 @@
                                 <tr class="bg-gray-50 text-gray-600 text-sm uppercase tracking-wider">
                                     <th class="p-4 font-semibold border-b">Member Profile</th>
                                     <th class="p-4 font-semibold border-b">Contact Info</th>
+                                    <th class="p-4 font-semibold border-b">Designation</th>
                                     <th class="p-4 font-semibold border-b">Team</th>
                                     <th class="p-4 font-semibold border-b">Note</th>
                                     <th class="p-4 font-semibold border-b text-center">Actions</th>
@@ -537,13 +548,15 @@
                                                     <div class="flex text-sm text-gray-600 justify-center">
                                                         <label for="memberImage"
                                                             class="relative cursor-pointer bg-white rounded-md font-medium text-primary hover:text-red-500 focus-within:outline-none">
-                                                            <span>Upload a file</span>
+                                                            <span
+                                                                class="bg-secondary text-white px-4 py-1 rounded-lg">Upload
+                                                                a file</span>
                                                             <input id="memberImage" name="profileImage" type="file"
                                                                 class="sr-only" accept="image/*">
                                                         </label>
                                                     </div>
-
                                                     <p class="text-xs text-gray-500">PNG, JPG, GIF up to 5MB</p>
+                                                    <p class="text-xs text-gray-500">540px X 540px</p>
                                                     <p id="fileNameDisplay"
                                                         class="text-xs text-green-600 mt-2 font-semibold"></p>
                                                 </div>
@@ -564,6 +577,117 @@
                                 Cancel
                             </button>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================
+                 PHOTO GALLERY VIEW
+                 ========================= -->
+            <div id="photo-gallery-section" class="section-view">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+                    <div
+                        class="p-5 border-b border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                        <h3 class="font-bold text-lg text-gray-800">Photo Gallery</h3>
+                        <div class="flex gap-2">
+                            <!-- <input type="text" placeholder="Search team members..."
+                                class="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-primary w-full md:w-48"> -->
+                            <button onclick="openGalleryModal()"
+                                class="mt-4 md:mt-0 bg-primary hover:bg-red-600 text-white px-4 py-2 rounded shadow transition flex items-center">
+                                <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Upload Images
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50 text-gray-600 text-sm uppercase tracking-wider">
+                                    <th class="p-4 border-b w-32">Preview</th>
+                                    <th class="p-4 border-b">Title / Caption</th>
+                                    <th class="p-4 border-b text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="gallery-table-body" class="text-sm text-gray-700">
+                                <!-- Dynamically updated -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Loader / Empty State -->
+                    <div id="gallery-loader" class="p-12 flex justify-center hidden">
+                        <div class="loader"></div>
+                    </div>
+                    <div id="gallery-empty" class="p-12 text-center text-gray-500 hidden bg-white">
+                        <i class="fa-regular fa-images text-4xl mb-3 text-gray-300"></i>
+                        <p>No images found in the gallery.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- GALLERY MODAL (Add/Edit) -->
+            <div id="gallery-modal"
+                class="fixed inset-0 z-50 bg-black bg-opacity-50 hidden flex items-center justify-center p-4">
+                <div class="bg-white rounded-lg shadow-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto">
+                    <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+                        <h3 class="text-xl font-bold font-heading text-dark" id="gallery-modal-title">Upload Images</h3>
+                        <button onclick="closeGalleryModal()" class="text-gray-400 hover:text-gray-600 transition">
+                            <i class="fa-solid fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <form id="gallery-form" class="space-y-4">
+                            <input type="hidden" id="gallery_id" name="id">
+
+                            <!-- Title/Caption -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Title / Caption <span
+                                        class="text-gray-400 text-xs">(Optional)</span></label>
+                                <input type="text" name="title" id="gallery_title"
+                                    class="w-full border border-gray-300 rounded p-2 focus:ring-primary focus:border-primary"
+                                    placeholder="e.g., Site Photo">
+                                <p class="text-xs text-gray-500 mt-1">If uploading multiple photos, this title will
+                                    apply to all of them.</p>
+                            </div>
+
+                            <!-- Image Upload (Hidden for Edit) -->
+                            <div id="upload-container">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Select Photos</label>
+                                <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md hover:border-primary transition cursor-pointer bg-gray-50"
+                                    onclick="document.getElementById('gallery_images_input').click()">
+                                    <div class="space-y-1 text-center">
+                                        <i class="fa-solid fa-cloud-arrow-up text-gray-400 text-3xl mb-2"></i>
+                                        <div class="flex text-sm text-gray-600 justify-center">
+                                            <label for="gallery_images_input"
+                                                class="relative cursor-pointer bg-white rounded-md font-medium text-primary hover:text-red-500 focus-within:outline-none">
+                                                <span>Click to upload</span>
+                                            </label>
+                                        </div>
+                                        <p class="text-xs text-gray-500">PNG, JPG up to 5MB</p>
+                                        <!-- 'multiple' allows selecting multiple files -->
+                                        <input id="gallery_images_input" name="images" type="file" class="sr-only"
+                                            multiple accept="image/*" onchange="previewGalleryImages(this)">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Preview Container -->
+                            <div id="gallery_preview_container" class="grid grid-cols-3 gap-2 mt-2"></div>
+
+                            <!-- Existing Image (Only shown when Editing) -->
+                            <div id="edit-image-preview" class="hidden text-center">
+                                <img id="current_edit_img" src="" class="h-32 mx-auto rounded border">
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="p-6 border-t border-gray-100 bg-gray-50 flex justify-end space-x-3">
+                        <button onclick="closeGalleryModal()"
+                            class="px-4 py-2 bg-white border border-gray-300 rounded text-gray-700 hover:bg-gray-50 font-medium transition">Cancel</button>
+                        <button onclick="handleGallerySubmit()" id="gallery-submit-btn"
+                            class="px-4 py-2 bg-primary text-white rounded hover:bg-red-600 font-medium transition shadow flex items-center">
+                            <span>Save</span>
+                            <div id="gallery-loading-spinner"
+                                class="loader ml-2 w-4 h-4 border-2 border-white border-t-transparent hidden"></div>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -697,13 +821,13 @@
             // 3. Update Titles
             const titles = {
                 'inquiries': 'Inquiry Management',
-                'services': 'Service Management',
-                'team-members': 'Team Members'
+                'team-members': 'Team Members',
+                'photo-gallery': 'Photo Gallery'
             };
             const descs = {
                 'inquiries': "Review and manage recent quote requests.",
-                'services': "Add, edit, or remove engineering services.",
-                'team-members': "Manage team members."
+                'team-members': "Manage team members.",
+                'photo-gallery': "Add, or remove engineering projects.",
             };
 
             document.getElementById('page-title').innerText = titles[sectionId] || 'Inquiries';
@@ -724,8 +848,8 @@
             }
 
             const callbacks = {
-                'inquiries': fetchInquiries,      // reference only
-                // 'services': loadServices,
+                'inquiries': fetchInquiries,
+                'photo-gallery': fetchProjects,
                 'team-members': fetchMembers
             };
 
@@ -830,25 +954,25 @@
                 const initials = (item.name || 'U').substring(0, 2).toUpperCase();
 
                 html += `
-            <tr class="table-row-hover border-b border-gray-100 transition">
-                <td class="p-4 text-gray-500">#${item.id}</td>
-                <td class="p-4">
-                    <div class="flex items-center gap-3">
-                        <div class="h-8 w-8 rounded-full bg-blue-100 text-primary flex items-center justify-center font-bold text-xs">${initials}</div>
-                        <div>
-                            <div class="font-medium text-gray-900">${item.name}</div>
-                            <div class="text-xs text-gray-500">${item.contact || item.email}</div>
-                        </div>
-                    </div>
-                </td>
-                <td class="p-4 font-medium">${item.subject}</td>
-                <td class="p-4 text-gray-500 text-sm max-w-xs truncate">${item.message}</td>
-                <td class="p-4">${getStatusBadge(item.status)}</td>
-                <td class="p-4 text-center">
-                    <button onclick="viewInquiry(${item.id})" class="text-gray-500 hover:text-primary mx-1"><i class="fa fa-eye"></i></button>
-                    <button onclick="deleteInquiry(${item.id})" class="text-gray-500 hover:text-red-500 mx-1"><i class="fa fa-trash"></i></button>
-                </td>
-            </tr>`;
+                    <tr class="table-row-hover border-b border-gray-100 transition">
+                        <td class="p-4 text-gray-500">#${item.id}</td>
+                        <td class="p-4">
+                            <div class="flex items-center gap-3">
+                                <div class="h-8 w-8 rounded-full bg-blue-100 text-primary flex items-center justify-center font-bold text-xs">${initials}</div>
+                                <div>
+                                    <div class="font-medium text-gray-900">${item.name}</div>
+                                    <div class="text-xs text-gray-500">${item.contact || item.email}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="p-4 font-medium">${item.subject}</td>
+                        <td class="p-4 text-gray-500 text-sm max-w-xs truncate">${item.message}</td>
+                        <td class="p-4">${getStatusBadge(item.status)}</td>
+                        <td class="p-4 text-center">
+                            <button onclick="viewInquiry(${item.id})" class="text-gray-500 hover:text-primary mx-1"><i class="fa fa-eye"></i></button>
+                            <button onclick="deleteInquiry(${item.id})" class="text-gray-500 hover:text-red-500 mx-1"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>`;
             });
             inquiryTableBody.innerHTML = html;
         }
@@ -1119,16 +1243,14 @@
             preview.src = '#';
             preview.classList.add('hidden');      // Hide image
             placeholder.classList.remove('hidden'); // Show icon
+            document.getElementById('memberForm').reset();
         }
 
         // --- 3. UPDATE CLOSE FUNCTION ---
         function closeMemberModal() {
             const memberModal = document.getElementById('memberModal');
             memberModal.classList.add('hidden');
-
-            document.getElementById('memberForm').reset();
-
-
+            resetPreview();
         }
 
         // 4. SUBMIT FORM (Multipart/Form-Data)
@@ -1171,7 +1293,7 @@
                 if (response.ok) {
                     showStatusModal('Congratulations', 'Member added successfully', 'success');
                     closeMemberModal();
-                    fetchMembers(); 
+                    fetchMembers();
                 } else {
                     const result = await response.json();
                     showStatusModal('Error', result.message || "Failed to save member.", 'error');
@@ -1257,16 +1379,19 @@
                         </td>
                         <td class="p-4">
                             <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs font-semibold">
-                                ${member.team_name || ""}
+                                ${member.designation || ""}
                             </span>
+                        </td>
+                        <td class="p-4 text-gray-500 text-sm max-w-xs truncate" title="${member.team_name || ''}">
+                            ${member.team_name || '-'}
                         </td>
                         <td class="p-4 text-gray-500 text-sm max-w-xs truncate" title="${member.note || ''}">
                             ${member.note || '-'}
                         </td>
                         <td class="p-4 text-center">
-                            <button onclick="editMember(${member.id})" class="text-gray-400 hover:text-primary mx-1 transition" title="Edit">
+                            <!-- <button onclick="editMember(${member.id})" class="text-gray-400 hover:text-primary mx-1 transition" title="Edit">
                                 <i class="fa fa-edit"></i>
-                            </button>
+                            </button> -->
                             <button onclick="deleteMember(${member.id})" class="text-gray-400 hover:text-red-500 mx-1 transition" title="Delete">
                                 <i class="fa fa-trash"></i>
                             </button>
@@ -1324,7 +1449,234 @@
 
     </script>
 
+    <script>
+        // ==========================================================
+        //  FLAT GALLERY LOGIC (Table View)
+        // ==========================================================
+        const apiURL = `${window.env.API_URL}`;
+        async function fetchProjects() {
+            const loader = document.getElementById('gallery-loader');
+            const tbody = document.getElementById('gallery-table-body'); // Changed to tbody
+            const emptyMsg = document.getElementById('gallery-empty');
 
+            loader.classList.remove('hidden');
+            if (tbody) tbody.innerHTML = '';
+            emptyMsg.classList.add('hidden');
+            try {
+                const res = await fetch(`${apiURL}/gallery`);
+                let data = [];
+                if (res.ok) {
+                    const result = await res.json();
+                    const rawData = Array.isArray(result) ? result : (result.data || result.gallery || []);
+
+                    // Flatten logic
+                    rawData.forEach(item => {
+                        if (item.images && Array.isArray(item.images) && item.images.length > 0) {
+                            item.images.forEach(imgName => {
+                                data.push({
+                                    id: item.id,
+                                    title: item.title,
+                                    image_link: imgName
+                                });
+                            });
+                        } else {
+                            data.push(item);
+                        }
+                    });
+                }
+
+                // Update stats if element exists
+                const statEl = document.getElementById('stat-projects-count');
+                if (statEl) statEl.innerText = data.length;
+
+                renderGalleryTable(data); // Call Table Render
+
+            } catch (err) {
+                console.error(err);
+                emptyMsg.classList.remove('hidden');
+            } finally {
+                loader.classList.add('hidden');
+            }
+        }
+
+        function renderGalleryTable(data) {
+            const tbody = document.getElementById('gallery-table-body');
+            const emptyMsg = document.getElementById('gallery-empty');
+
+            if (data.length === 0) {
+                emptyMsg.classList.remove('hidden');
+                return;
+            }
+
+            data.forEach(item => {
+                const imgUrl = item.image_link ? `${apiURL}/images/gallery/${item.image_link}` : 'https://via.placeholder.com/150';
+                const itemStr = encodeURIComponent(JSON.stringify(item));
+
+                const tr = document.createElement('tr');
+                tr.className = 'border-b hover:bg-gray-50 transition align-middle';
+                tr.innerHTML = `
+                    <td class="p-4">
+                        <img src="${imgUrl}" class="h-16 w-24 object-cover rounded border shadow-sm cursor-pointer hover:scale-105 transition" onclick="window.open('${imgUrl}', '_blank')">
+                    </td>
+                    <td class="p-4">
+                        <p class="font-bold text-dark text-base">${item.title || '<span class="text-gray-400 italic">Untitled</span>'}</p>
+                        <p class="text-xs text-gray-500 mt-1">ID: ${item.id}</p>
+                    </td>
+                    <td class="p-4 text-right">
+                        <button onclick="openGalleryModal('${itemStr}')" class="bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white p-2 rounded mr-2 transition" title="Edit Info">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <button onclick="deleteGalleryItem(${item.id})" class="bg-red-50 text-red-600 hover:bg-red-600 hover:text-white p-2 rounded transition" title="Delete Image">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Modal Functions (Same as before, included for completeness)
+        function openGalleryModal(itemStr = null) {
+            const modal = document.getElementById('gallery-modal');
+            const title = document.getElementById('gallery-modal-title');
+            const form = document.getElementById('gallery-form');
+
+            const uploadContainer = document.getElementById('upload-container');
+            const previewContainer = document.getElementById('gallery_preview_container');
+            const editPreview = document.getElementById('edit-image-preview');
+
+            form.reset();
+            previewContainer.innerHTML = '';
+            modal.classList.remove('hidden');
+
+            if (itemStr) {
+                // EDIT MODE
+                const item = JSON.parse(decodeURIComponent(itemStr));
+                title.textContent = 'Edit Image Details';
+                document.getElementById('gallery_id').value = item.id;
+                document.getElementById('gallery_title').value = item.title || '';
+
+                uploadContainer.classList.add('hidden');
+                editPreview.classList.remove('hidden');
+
+                const imgUrl = item.image_link ? `${apiURL}/images/${item.image_link}` : '';
+                editPreview.innerHTML = `
+                    <div class="relative inline-block mt-2">
+                        <img src="${imgUrl}" class="h-32 rounded border shadow-sm object-cover">
+                        <button type="button" onclick="removeEditImage()" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center shadow hover:bg-red-600 transition" title="Replace Image">
+                            <i class="fa-solid fa-times text-xs"></i>
+                        </button>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2">Current Image</p>
+                `;
+
+            } else {
+                // ADD MODE
+                title.textContent = 'Upload New Images';
+                document.getElementById('gallery_id').value = '';
+
+                uploadContainer.classList.remove('hidden');
+                editPreview.classList.add('hidden');
+                editPreview.innerHTML = '';
+            }
+        }
+
+        function removeEditImage() {
+            document.getElementById('edit-image-preview').classList.add('hidden');
+            document.getElementById('edit-image-preview').innerHTML = '';
+            document.getElementById('upload-container').classList.remove('hidden');
+        }
+
+        function closeGalleryModal() {
+            document.getElementById('gallery-modal').classList.add('hidden');
+        }
+
+        function previewGalleryImages(input) {
+            const container = document.getElementById('gallery_preview_container');
+            container.innerHTML = '';
+            if (input.files) {
+                Array.from(input.files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.className = 'h-20 w-full object-cover rounded border';
+                        container.appendChild(img);
+                    }
+                    reader.readAsDataURL(file);
+                });
+            }
+        }
+
+        async function handleGallerySubmit() {
+            const form = document.getElementById('gallery-form');
+            const formData = new FormData(form);
+            const id = formData.get('id');
+            const btn = document.getElementById('gallery-submit-btn');
+            const spinner = document.getElementById('gallery-loading-spinner');
+
+            btn.disabled = true;
+            spinner.classList.remove('hidden');
+
+            try {
+                let url = `${apiURL}/gallery`;
+                if (id) {
+                    url = `${apiURL}/gallery/${id}`;
+                    formData.append('_method', 'PUT');
+                } else {
+                    const fileInput = document.getElementById('gallery_images_input');
+                    if (fileInput.files.length === 0) {
+                        alert("Please select at least one image.");
+                        btn.disabled = false;
+                        spinner.classList.add('hidden');
+                        return;
+                    }
+                }
+
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${getToken()}` },
+                    body: formData
+                });
+
+                if (response.ok) {
+                    closeGalleryModal();
+                    fetchProjects();
+                    showStatusModal('Success', 'Gallery updated successfully!');
+                } else {
+                    const err = await response.json();
+                    showStatusModal('Error', err.message || 'Failed to save', 'error');
+                }
+            } catch (error) {
+                console.error(error);
+                showStatusModal('Error', 'Network error', 'error');
+            } finally {
+                btn.disabled = false;
+                spinner.classList.add('hidden');
+            }
+        }
+
+        async function deleteGalleryItem(id) {
+            if (!confirm('Are you sure you want to delete this image?')) return;
+
+            try {
+                const response = await fetch(`${apiURL}/gallery?id=${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${getToken()}` }
+                });
+
+                if (response.ok) {
+                    fetchProjects();
+                    showStatusModal('Deleted', 'Image removed.');
+                } else {
+                    showStatusModal('Error', 'Failed to delete.', 'error');
+                }
+            } catch (error) {
+                console.error(error);
+                showStatusModal('Error', 'Network error', 'error');
+            }
+        }
+    </script>
 </body>
 
 </html>

@@ -155,3 +155,85 @@ func (m *TeamRepository) Delete(ctx context.Context, id int64) error {
 
 	return nil
 }
+
+func (m *MemberRepository) GetTeamsWithMembers(ctx context.Context) ([]*models.TeamData, error) {
+	ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
+	defer cancel()
+
+	// Use COALESCE to handle NULLs because of the LEFT JOIN
+	// If a team has no members, member columns will be NULL. We convert them to defaults.
+	query := `
+		SELECT 
+			t.id AS team_id,
+			t.title AS team_name,
+			COALESCE(m.id, 0),
+			COALESCE(m.name, ''),
+			COALESCE(m.designation, ''),
+			COALESCE(m.contact, ''),
+			COALESCE(m.note, ''),
+			COALESCE(m.image_link, ''),
+			COALESCE(m.created_at, CURRENT_TIMESTAMP),
+			COALESCE(m.updated_at, CURRENT_TIMESTAMP)
+		FROM teams t
+		LEFT JOIN members m ON t.id = m.team
+		ORDER BY t.id ASC, m.id ASC; -- Order by Team first to group them
+	`
+
+	rows, err := m.DB.Query(ctx, query)
+	if err != nil {
+		return nil, fmt.Errorf("failed to query teams and members: %w", err)
+	}
+	defer rows.Close()
+
+	// Map to keep track of pointers to TeamData by TeamID
+	teamMap := make(map[int64]*models.TeamData)
+	var teams []*models.TeamData
+
+	for rows.Next() {
+		var tID int64
+		var tName string
+		// Temp member variables
+		var mID int64
+		var mName, mDesignation, mContact, mNote, mImg string
+		var mCreated, mUpdated time.Time
+
+		err := rows.Scan(
+			&tID, &tName,
+			&mID, &mName, &mDesignation, &mContact, &mNote, &mImg, &mCreated, &mUpdated,
+		)
+		if err != nil {
+			return nil, fmt.Errorf("failed to scan row: %w", err)
+		}
+
+		// Check if we already processed this team
+		teamData, exists := teamMap[tID]
+		if !exists {
+			// Create new Team entry
+			teamData = &models.TeamData{
+				TeamID:   tID,
+				TeamName: tName,
+				Members:  []*models.Member{}, // Initialize empty slice
+			}
+			teamMap[tID] = teamData
+			teams = append(teams, teamData) // Add to result slice
+		}
+
+		// If mID is > 0, it means there is a valid member in this row
+		if mID > 0 {
+			member := &models.Member{
+				ID:          mID,
+				Name:        mName,
+				TeamID:      tID,
+				Designation: mDesignation,
+				Contact:     mContact,
+				Note:        mNote,
+				ImageLink:   mImg,
+				CreatedAt:   mCreated,
+				UpdatedAt:   mUpdated,
+			}
+			teamData.Members = append(teamData.Members, member)
+		}
+	}
+
+	return teams, nil
+}
