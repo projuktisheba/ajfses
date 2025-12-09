@@ -21,88 +21,29 @@
     <link href="css/style.css" rel="stylesheet">
 
     <style>
-        /* PRINCIPALS GRID STYLES */
-        .principals-section-area {
-            background: #ffffff;
-            padding: 60px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        #brand_catalog {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            /* Mobile default */
-            gap: 20px;
-        }
-
-        /* Responsive Columns */
+        /* Ensure image covers the full height of the card on desktop */
         @media (min-width: 768px) {
-            #brand_catalog {
-                grid-template-columns: repeat(4, 1fr);
+            .product-horizontal-img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                min-height: 300px; /* Enforce a reasonable height */
+            }
+        }
+        
+        /* Mobile adjustment */
+        @media (max-width: 767.98px) {
+            .product-horizontal-img {
+                height: 250px;
+                width: 100%;
+                object-fit: cover;
             }
         }
 
-        @media (min-width: 1024px) {
-            #brand_catalog {
-                grid-template-columns: repeat(5, 1fr);
-            }
-        }
-
-        #brand_catalog .ue-logo-title {
-            width: 100%;
-            position: absolute;
-            bottom: 0;
-            text-align: center;
-            left: 0;
-        }
-
-        #brand_catalog div.logo-grid-item {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
-            transition: 0.3s;
-            height: 150px;
-            border: 1px solid #f0f0f0;
-            background: #fff;
-            padding: 10px;
-        }
-
-        #brand_catalog div.logo-grid-item:hover {
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
-            z-index: 2;
-        }
-
-        #brand_catalog div.logo-grid-item img {
-            width: 100%;
-            object-fit: contain;
-            display: block;
-            mix-blend-mode: normal;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            height: 100%;
-            transition: 0.3s;
-            padding: 20px;
-        }
-
-        #brand_catalog a {
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .product-specs li {
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: #555;
         }
     </style>
 </head>
@@ -116,11 +57,9 @@
     </div>
 
 
-    <!-- Top Contact Bar start -->
     <div class="bg-dark text-light py-1">
         <div class="container">
             <div class="row">
-                <!-- Left Section -->
                 <div
                     class="col-sm-12 col-md-8 d-flex justify-content-center justify-content-start align-items-center flex-wrap py-1">
                     <span class="d-flex align-items-center mx-3">
@@ -140,7 +79,6 @@
                     </span>
                 </div>
 
-                <!-- Right Section -->
                 <div
                     class="col-sm-12 col-md-4 d-flex justify-content-center justify-content-md-end align-items-center py-1">
                     <a class="btn btn-outline-light btn-social mx-1 social-btn"
@@ -172,10 +110,6 @@
 
         </div>
     </div>
-    <!-- Top Contact Bar end -->
-
-
-    <!-- Navbar start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow border-top border-5 border-primary sticky-top p-0">
         <a href="index.html" class="navbar-brand d-flex align-items-center">
             <img src="img/logo.png" class="nav-logo" style="transition: opacity 0.5s ease-in-out;" id="navLogo"
@@ -198,190 +132,38 @@
                         <a href="gallery.html" class="dropdown-item">Gallery</a>
                     </div>
                 </div>
-                <a href="products.html" class="nav-item nav-link">Products & Services</a>
-                <a href="brands.html" class="nav-item nav-link active">Brands</a>
+                <a href="products.html" class="nav-item nav-link active">Products & Services</a>
+                <a href="brands.html" class="nav-item nav-link">Brands</a>
                 <a href="contact.html" class="nav-item nav-link">Contact Us</a>
             </div>
-            <!-- <h4 class="m-0 pe-lg-5 d-none d-lg-block"><i class="fa fa-headphones text-primary me-3"></i>+880 9611-699282 (24/7) -->
             </h4>
         </div>
     </nav>
-    <!-- Navbar end -->
-
     <div class="container-fluid page-header py-5" style="margin-bottom: 2rem;">>
         <div class="container py-5">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">Our Brands</h1>
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Products & Services</h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">Brands</li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Products & Services</li>
                 </ol>
             </nav>
         </div>
     </div>
-    <!-- BRAND LOGO STRIP SECTION start -->
+    
+    
     <div id="products" class="container-xxl py-5">
         <div class="container py-5">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="text-secondary text-uppercase">Our Brands</h6>
-                <h1 class="mb-5">Our Valued Principles</h1>
+                <h6 class="text-secondary text-uppercase">Our Products</h6>
+                <h1 class="mb-5">Fire Safety Compliances</h1>
             </div>
-            <div class="row g-4">
-                <div id="brand_catalog" class="ue-logo-grid">
-                    <div class="logo-grid-item">
-                        <a href="#" target="_blank">
-                            <img loading="lazy" decoding="async"
-                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/1.png" title="Default Title"
-                                alt="1" width="400" height="250">
-                        </a>
-                    </div>
-                    <div class="logo-grid-item">
-                        <a href="#" target="_blank">
-                            <img loading="lazy" decoding="async"
-                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/24.jpg" title="Default Title"
-                                alt="24" width="400" height="250">
-                        </a>
-                    </div>
-                    <div class="logo-grid-item">
-                        <a href="#" target="_blank">
-                            <img loading="lazy" decoding="async"
-                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/3.png" title="Default Title"
-                                alt="3" width="400" height="250">
-                        </a>
-                    </div>
-                    <div class="logo-grid-item">
-                        <a href="#" target="_blank">
-                            <img loading="lazy" decoding="async"
-                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/4.png" title="Default Title"
-                                alt="4" width="400" height="250">
-                        </a>
-                    </div>
-                    <div class="logo-grid-item">
-                        <a href="#" target="_blank">
-                            <img loading="lazy" decoding="async"
-                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/5.png" title="Default Title"
-                                alt="5" width="400" height="250">
-                        </a>
-                    </div>
-                    <div class="logo-grid-item">
-                        <a href="#" target="_blank">
-                            <img loading="lazy" decoding="async"
-                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/7.png" title="Default Title"
-                                alt="7" width="400" height="250">
-                        </a>
-                    </div>
-                    <div class="logo-grid-item">
-                        <a href="#" target="_blank">
-                            <img loading="lazy" decoding="async"
-                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/6.png" title="Default Title"
-                                alt="6" width="400" height="250">
-                        </a>
-                    </div>
-                    <div class="logo-grid-item">
-                        <a href="#" target="_blank">
-                            <img loading="lazy" decoding="async"
-                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/8.png" title="Default Title"
-                                alt="8" width="400" height="250">
-                        </a>
-                    </div>
-                    <div class="logo-grid-item">
-                        <a href="#" target="_blank">
-                            <img loading="lazy" decoding="async"
-                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/9.png" title="Default Title"
-                                alt="9" width="400" height="250">
-                        </a>
-                    </div>
-                    <div class="logo-grid-item">
-                        <a href="#" target="_blank">
-                            <img loading="lazy" decoding="async"
-                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/10.png" title="Default Title"
-                                alt="10" width="400" height="250">
-                        </a>
-                    </div>
-                    <div class="logo-grid-item">
-                        <a href="#" target="_blank">
-                            <img loading="lazy" decoding="async"
-                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/11.png" title="Default Title"
-                                alt="11" width="400" height="250">
-                        </a>
-                    </div>
-                    <div class="logo-grid-item">
-                        <a href="#" target="_blank">
-                            <img loading="lazy" decoding="async"
-                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/12.png" title="Default Title"
-                                alt="12" width="400" height="250">
-                        </a>
-                    </div>
-                    <div class="logo-grid-item">
-                        <a href="#" target="_blank">
-                            <img loading="lazy" decoding="async"
-                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/13.png" title="Default Title"
-                                alt="13" width="400" height="250">
-                        </a>
-                    </div>
-                    <div class="logo-grid-item">
-                        <a href="#" target="_blank">
-                            <img loading="lazy" decoding="async"
-                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/14.png" title="Default Title"
-                                alt="14" width="400" height="250">
-                        </a>
-                    </div>
-                    <div class="logo-grid-item">
-                        <a href="#" target="_blank">
-                            <img loading="lazy" decoding="async"
-                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/15.png" title="Default Title"
-                                alt="15" width="400" height="250">
-                        </a>
-                    </div>
-                    <div class="logo-grid-item">
-                        <a href="#" target="_blank">
-                            <img loading="lazy" decoding="async"
-                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/16.png" title="Default Title"
-                                alt="16" width="400" height="250">
-                        </a>
-                    </div>
-                    <div class="logo-grid-item">
-                        <a href="#" target="_blank">
-                            <img loading="lazy" decoding="async"
-                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/17.png" title="Default Title"
-                                alt="17" width="400" height="250">
-                        </a>
-                    </div>
-                    <div class="logo-grid-item">
-                        <a href="#" target="_blank">
-                            <img loading="lazy" decoding="async"
-                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/19-2.jpg"
-                                title="Default Title" alt="19 (2)" width="400" height="250">
-                        </a>
-                    </div>
-                    <div class="logo-grid-item">
-                        <a href="#" target="_blank">
-                            <img loading="lazy" decoding="async"
-                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/21-2.jpg"
-                                title="Default Title" alt="21 (2)" width="400" height="250">
-                        </a>
-                    </div>
-                    <div class="logo-grid-item">
-                        <a href="#" target="_blank">
-                            <img loading="lazy" decoding="async"
-                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/22-2.jpg"
-                                title="Default Title" alt="22 (2)" width="400" height="250">
-                        </a>
-                    </div>
-                    <div class="logo-grid-item">
-                        <a href="#" target="_blank">
-                            <img loading="lazy" decoding="async"
-                                src="https://www.radius-bd.com/wp-content/uploads/2023/04/23-2.jpg"
-                                title="Default Title" alt="23 (2)" width="400" height="250">
-                        </a>
-                    </div>
+            
+            <div class="d-flex flex-column gap-5" id="product-list-container">
                 </div>
-            </div>
+            
         </div>
     </div>
-    <!-- BRAND LOGO STRIP SECTION end -->
-
-    <!-- Footer start -->
     <div class="container-fluid text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s"
         style="margin-top: 6rem; background-color: #0b1221;">
         <div class="container py-4 text-center">
@@ -483,7 +265,6 @@
             <div class="container">
                 <div class="row align-items-center">
 
-                    <!-- Left Side -->
                     <div class="col-md-6 text-center text-md-start">
                         <p class="mb-0 text-light">
                             © 2025 All Rights Reserved By
@@ -491,7 +272,6 @@
                         </p>
                     </div>
 
-                    <!-- Right Side -->
                     <div class="col-md-6 text-center text-md-end">
                         <p class="mb-0 text-light">
                             Developed By
@@ -504,7 +284,6 @@
             </div>
         </div>
     </div>
-    <!-- Footer end -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-0 back-to-top"><i class="fa fa-arrow-up"></i></a>
 
 
@@ -518,6 +297,109 @@
 
     <script src="js/main.js"></script>
     <script src="js/common.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            renderProducts();
+        });
+
+        async function renderProducts() {
+            // MOCK DATA: I have used the exact image paths from your original code
+            const products = [
+                {
+                    id: 1,
+                    title: "Fire Protection System",
+                    description: "We provide complete fire protection solutions including the preparation and approval of Fire Safety Plans. Our designs strictly adhere to BNBC, NFPA, and Accord/Alliance standards to ensure maximum safety.",
+                    specs: [
+                        { label: "Standard", value: "NFPA / BNBC" },
+                        { label: "Service", value: "Design & Approval" }
+                    ],
+                    image_link: "img/product-1.jpg", 
+                    pdf_link: "brochures/fire-protection.pdf"
+                },
+                {
+                    id: 2,
+                    title: "Fire Detection System",
+                    description: "State-of-the-art detection systems including Single Line Diagram (SLD), ELD, and Lightning Protection System (LPS) design. We also offer professional auditing services to ensure your existing systems are compliant.",
+                    specs: [
+                        { label: "Components", value: "SLD, ELD, LPS" },
+                        { label: "Service", value: "Auditing & Installation" }
+                    ],
+                    image_link: "img/product-2.jpg", 
+                    pdf_link: "brochures/fire-detection.pdf"
+                },
+                {
+                    id: 3,
+                    title: "MS Pipes & Fittings",
+                    description: "High-quality Mild Steel (MS) pipes and fittings suitable for robust fire hydrant systems and industrial plumbing. We ensure durability and leak-proof installation for high-pressure environments.",
+                    specs: [
+                        { label: "Material", value: "Mild Steel (MS)" },
+                        { label: "Usage", value: "Hydrants & Plumbing" }
+                    ],
+                    image_link: "img/product-3.jpg", 
+                    pdf_link: "brochures/ms-pipes.pdf"
+                }
+            ];
+
+            const container = document.getElementById('product-list-container');
+            container.innerHTML = ''; // Clear loading
+
+            // Configuration for file paths
+            // If fetching from API later, use: const imageBaseUrl = `${window.env.API_URL}/images/`;
+            // For now, we use the local path relative to this HTML file
+            const imageBaseUrl = ""; 
+            const pdfBaseUrl = ""; // e.g., 'files/'
+
+            products.forEach((product, index) => {
+                const delay = 0.1 + (index * 0.2);
+                
+                // Construct Specs List
+                let specsHtml = '';
+                if(product.specs) {
+                    specsHtml = '<ul class="product-specs list-unstyled mt-3 mb-3">';
+                    product.specs.forEach(spec => {
+                        specsHtml += `<li><i class="fa fa-check text-primary me-2"></i><strong>${spec.label}:</strong> ${spec.value}</li>`;
+                    });
+                    specsHtml += '</ul>';
+                }
+
+                // Horizontal Card Layout
+                const cardHtml = `
+                    <div class="card shadow-sm overflow-hidden wow fadeInUp" data-wow-delay="${delay}s">
+                        <div class="row g-0">
+                            <div class="col-md-5 col-lg-4">
+                                <img src="${imageBaseUrl + product.image_link}" 
+                                     class="img-fluid rounded-start product-horizontal-img" 
+                                     alt="${product.title}">
+                            </div>
+                            
+                            <div class="col-md-7 col-lg-8 align-self-center">
+                                <div class="card-body p-4">
+                                    <h3 class="card-title fw-bold mb-3 text-dark">${product.title}</h3>
+                                    <p class="card-text text-muted">
+                                        ${product.description}
+                                    </p>
+                                    
+                                    ${specsHtml}
+
+                                    <div class="mt-4">
+                                        <a href="${pdfBaseUrl + product.pdf_link}" class="btn btn-primary py-2 px-4 rounded-pill" download>
+                                            <i class="fa fa-download me-2"></i> Download Brochure
+                                        </a>
+                                        <a href="contact.html" class="btn btn-outline-dark py-2 px-4 rounded-pill ms-2">
+                                            Contact Us
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.insertAdjacentHTML('beforeend', cardHtml);
+            });
+        }
+    </script>
 </body>
 
 </html>

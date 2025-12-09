@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Products List - AJFSES</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Roboto:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        @media (min-width: 768px) {
+            .product-horizontal-img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                min-height: 300px;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .product-horizontal-img {
+                height: 250px;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .product-specs li {
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Top Contact Bar Start -->
+    <div class="bg-dark text-light py-1">
+        <div class="container">
+            <div class="row">
+                <!-- Left Section -->
+                <div
+                    class="col-sm-12 col-md-8 d-flex justify-content-center justify-content-start align-items-center flex-wrap py-1">
+                    <span class="d-flex align-items-center mx-3">
+                        <a href="tel:+8809611699282" class="text-light py-2 px-2">
+                            <i class="fa-solid fa-headphones text-primary me-2"></i>+880 9611-699 282 (24x7)
+                        </a>
+                    </span>
+                    <span class="d-flex align-items-center mx-3">
+                        <a href="tel:+8801958605251" class="text-light py-2 px-2">
+                            <i class="fa-solid fa-phone text-primary me-2"></i>+880 1958-605251
+                        </a>
+                    </span>
+                    <span class="d-flex align-items-center mx-3">
+                        <a href="mailto:ajfiresolutions@hotmail.com" class="text-light py-2 px-2">
+                            <i class="fa-solid fa-envelope text-primary me-2"></i>ajfiresolutions@hotmail.com
+                        </a>
+                    </span>
+                </div>
+
+                <!-- Right Section -->
+                <div
+                    class="col-sm-12 col-md-4 d-flex justify-content-center justify-content-md-end align-items-center py-1">
+                    <a class="btn btn-outline-light btn-social mx-1 social-btn"
+                        href="https://www.facebook.com/ajfses.com.bd" target="_blank">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+
+                    <a class="btn btn-outline-light btn-social mx-1 social-btn" href="https://wa.me/1676267377"
+                        target="_blank">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                    <a class="btn btn-outline-light btn-social mx-1 social-btn" href="https://x.com/AJFIRESOLUTIONS"
+                        target="_blank">
+                        <i class="fa-brands fa-twitter"></i>
+                    </a>
+
+                    <a class="btn btn-outline-light btn-social mx-1 social-btn" href="https://www.youtube.com/%40ajfses"
+                        target="_blank">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+
+                    <a class="btn btn-outline-light btn-social mx-1 social-btn"
+                        href="https://www.linkedin.com/company/ajfire" target="_blank">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- Top Contact Bar End -->
+
+
+    <!-- Navbar start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow border-top border-5 border-primary sticky-top p-0">
+        <a href="index.html" class="navbar-brand d-flex align-items-center">
+            <img src="img/logo.png" class="nav-logo" style="transition: opacity 0.5s ease-in-out;" id="navLogo"
+                alt="psstudio logo">
+        </a>
+
+
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="index.html" class="nav-item nav-link">Home</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">About Us</a>
+                    <div class="dropdown-menu fade-up m-0">
+                        <a href="about.html" class="dropdown-item">Company Overview</a>
+                        <a href="chairman_message.html" class="dropdown-item">Chairman's Message</a>
+                        <a href="team.html" class="dropdown-item">Team</a>
+                        <a href="gallery.html" class="dropdown-item">Gallery</a>
+                    </div>
+                </div>
+                <a href="products.html" class="nav-item nav-link active">Products & Services</a>
+                <a href="brands.html" class="nav-item nav-link">Brands</a>
+                <a href="contact.html" class="nav-item nav-link">Contact Us</a>
+            </div>
+            <!-- <h4 class="m-0 pe-lg-5 d-none d-lg-block"><i class="fa-solid fa-headphones text-primary me-3"></i>+880 9611-699282 (24/7) -->
+            </h4>
+        </div>
+    </nav>
+    <!-- Navbar end -->
+
+    <div class="container-fluid page-header py-5" style="margin-bottom: 2rem; background-color: #0b1221;">
+        <div class="container py-5">
+            <h1 class="display-3 text-white mb-3 animated slideInDown" id="page-title">Products</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="products.html">Categories</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">List</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container-xxl py-5">
+        <div class="container py-5">
+            <div class="d-flex flex-column gap-5" id="product-list-container">
+            </div>
+
+            <div id="no-products-msg" class="text-center d-none">
+                <h3>No products found in this category.</h3>
+                <a href="products.html" class="btn btn-primary mt-3">Back to Categories</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoryId = urlParams.get('category');
+            renderProducts(categoryId);
+        });
+        function downloadFile(fileLink = "#") {
+            // Option A: Opens in new tab (often triggers browser's PDF viewer)
+            window.open(fileLink, '_blank');
+
+            // Option B: Forces download (creates a temporary link)
+            /*
+            const link = document.createElement('a');
+            link.href = 'assets/brochure-v1.pdf';
+            link.download = 'filename.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            */
+        }
+        function renderProducts(categoryId) {
+            // EXPANDED DATABASE with ComplianceBD Products & Unsplash Images
+            const allProducts = [
+                // --- VALVES & ACCESSORIES (cat_id: valves-accessories) ---
+                {
+                    id: 101,
+                    cat_id: "valves-accessories",
+                    title: "OS&Y Gate Valve (Flanged/Grooved)",
+                    description: "Resilient seated OS&Y gate valve for fire protection systems. Features a fusion bonded epoxy coating and is designed for high-pressure applications.",
+                    specs: [
+                        { label: "Certificate", value: "UL Listed / FM Approved" },
+                        { label: "Pressure", value: "300 psi (2.07 MPa)" },
+                        { label: "Temp", value: "0°C to 100°C" }
+                    ],
+                    // Image: Red Industrial Gate Valve
+                    image_link: "img/products/Flanged-Grooved-OSY-gate-valve.jpg",
+                },
+                {
+                    id: 102,
+                    cat_id: "valves-accessories",
+                    title: "Supervisory / Tamper Switch",
+                    description: "Robust supervisory switch for monitoring the open/closed position of control valves. Enclosed in a corrosion-resistant die-cast aluminum housing.",
+                    specs: [
+                        { label: "Certificate", value: "UL / FM / CE" },
+                        { label: "Enclosure", value: "IP 65 / IP 67" },
+                        { label: "Rod Material", value: "SS304 / SS316" }
+                    ],
+                    // Image: Industrial Switch/Sensor
+                    image_link: "img/products/Flanged-Grooved-OSY-gate-valve.jpg",
+                },
+                {
+                    id: 103,
+                    cat_id: "valves-accessories",
+                    title: "Swing Check / Non-Return Valve",
+                    description: "Prevents reverse flow in fire piping systems. Features a resilient seat and flanged connections for secure installation.",
+                    specs: [
+                        { label: "Certificate", value: "UL Listed / FM Approved" },
+                        { label: "Standard", value: "UL 312 / AWWA C508" },
+                        { label: "Pressure", value: "300 psi" }
+                    ],
+                    // Image: Check Valve
+                    image_link: "img/products/Flanged-Grooved-OSY-gate-valve.jpg",
+                },
+                {
+                    id: 104,
+                    cat_id: "valves-accessories",
+                    title: "Butterfly Valve with Supervisory Option",
+                    description: "Wafer-style butterfly valve with a flag-type position indicator and supervisory tamper switch integration.",
+                    specs: [
+                        { label: "Certificate", value: "UL Listed / FM Approved" },
+                        { label: "Top Flange", value: "ISO 5211" },
+                        { label: "Pressure", value: "300 psi" }
+                    ],
+                    // Image: Butterfly Valve (Generic Industrial)
+                    image_link: "img/products/Flanged-Grooved-OSY-gate-valve.jpg",
+                },
+                {
+                    id: 105,
+                    cat_id: "valves-accessories",
+                    title: "Alarm Check Valve Assembly",
+                    description: "Vertical installation check valve that actuates a fire alarm gong when water flow is detected in the sprinkler system.",
+                    specs: [
+                        { label: "Certificate", value: "UL Listed / FM Approved" },
+                        { label: "Hydro Test", value: "350 psi" },
+                        { label: "Mounting", value: "Vertical" }
+                    ],
+                    // Image: Complex Valve Assembly
+                    image_link: "img/products/Flanged-Grooved-OSY-gate-valve.jpg",
+                },
+                {
+                    id: 106,
+                    cat_id: "valves-accessories",
+                    title: "Deluge Valve",
+                    description: "High-performance diaphragm valve for deluge fire protection systems. capable of rapid opening for massive water application.",
+                    specs: [
+                        { label: "Certificate", value: "UL Listed" },
+                        { label: "Pressure", value: "300 psi" },
+                        { label: "Surface", value: "FBE Coating" }
+                    ],
+                    // Image: Red Piping System
+                    image_link: "img/products/Flanged-Grooved-OSY-gate-valve.jpg",
+                },
+                {
+                    id: 107,
+                    cat_id: "valves-accessories",
+                    title: "Fire Pump Flowmeter",
+                    description: "Accurate flow measuring device for fire pump performance testing. Scales in both US GPM and dm3/min.",
+                    specs: [
+                        { label: "Certificate", value: "FM / LPCB Approved" },
+                        { label: "Accuracy", value: "±2%" },
+                        { label: "Size", value: "2 inch to 8 inch" }
+                    ],
+                    // Image: Gauge/Meter
+                    image_link: "img/products/Flanged-Grooved-OSY-gate-valve.jpg",
+                },
+                {
+                    id: 108,
+                    cat_id: "valves-accessories",
+                    title: "Pressure Reducing Valve",
+                    description: "Automatically reduces higher upstream pressure to a steady lower downstream pressure regardless of flow rate fluctuations.",
+                    specs: [
+                        { label: "Certificate", value: "UL Listed / FM Approved" },
+                        { label: "Adjustment", value: "30 ~ 165 psi" },
+                        { label: "Body", value: "Class 150/300" }
+                    ],
+                    // Image: Pressure Valve
+                    image_link: "img/products/Flanged-Grooved-OSY-gate-valve.jpg",
+                },
+                {
+                    id: 109,
+                    cat_id: "valves-accessories",
+                    title: "Brass Ball Valve",
+                    description: "Heavy-duty forged brass ball valve with threaded connections. Ideal for trim lines and drains.",
+                    specs: [
+                        { label: "Certificate", value: "UL Listed" },
+                        { label: "Standard", value: "MSS SP-110" },
+                        { label: "WOG", value: "600 psi" }
+                    ],
+                    // Image: Brass Valve
+                    image_link: "img/products/Flanged-Grooved-OSY-gate-valve.jpg",
+                },
+                {
+                    id: 110,
+                    cat_id: "valves-accessories",
+                    title: "UL/FM Pressure Gauge",
+                    description: "Precision pressure gauge designed specifically for fire sprinkler systems. Features a large 3.5-inch dial.",
+                    specs: [
+                        { label: "Certificate", value: "UL Listed / FM Approved" },
+                        { label: "Dial", value: "3.5 inch (90mm)" },
+                        { label: "Accuracy", value: "3-2-3% (ASME B40.1)" }
+                    ],
+                    // Image: Pressure Gauge
+                    image_link: "img/products/Flanged-Grooved-OSY-gate-valve.jpg",
+                },
+
+                // --- SAMPLE ITEMS FOR OTHER CATEGORIES (To prevent empty pages) ---
+                {
+                    id: 201,
+                    cat_id: "fire-pump-controller",
+                    title: "Horizontal Split Case Fire Pump",
+                    description: "High-capacity electric fire pump set.",
+                    specs: [{ label: "Standard", value: "NFPA 20" }],
+                    image_link: "img/products/Flanged-Grooved-OSY-gate-valve.jpg",
+                },
+                {
+                    id: 301,
+                    cat_id: "fire-detection-system",
+                    title: "Optical Smoke Detector",
+                    description: "Intelligent addressable smoke detector.",
+                    specs: [{ label: "Sensitivity", value: "0.5 - 3.5%/ft" }],
+                    image_link: "img/products/Flanged-Grooved-OSY-gate-valve.jpg",
+                }
+            ];
+
+            // Filter Logic
+            const filteredProducts = categoryId
+                ? allProducts.filter(p => p.cat_id === categoryId)
+                : allProducts;
+
+            const container = document.getElementById('product-list-container');
+            const titleElement = document.getElementById('page-title');
+
+            // Update Title dynamically based on NEW Category IDs
+            const categoryTitles = {
+                "valves-accessories": "Valves & Accessories",
+                "fire-pump-controller": "Fire Pump & Controller",
+                "steam-line-accessories": "Steam Line Accessories",
+                "fire-protection-system": "Fire Protection System",
+                "passive-fire-protection": "Passive Fire Protection",
+                "process-line-accessories": "Process Line Accessories",
+                "fire-detection-system": "Fire Detection System",
+                "ms-pipe-fitting": "Ms Pipe & Fitting",
+                "firestop-protection": "Firestop System",
+                "ul-fire-rated-door": "UL Listed Fire Rated Door",
+                "fire-suppression-system": "Fire Suppression System"
+            };
+
+            if (categoryId && categoryTitles[categoryId]) {
+                titleElement.innerText = categoryTitles[categoryId];
+            } else {
+                titleElement.innerText = "All Products";
+            }
+
+            // Empty State
+            if (filteredProducts.length === 0) {
+                document.getElementById('no-products-msg').classList.remove('d-none');
+                return;
+            }
+
+            // Render Loop
+            filteredProducts.forEach((product, index) => {
+                const delay = 0.1 + (index * 0.1); // Faster animation for longer lists
+
+                let specsHtml = '';
+                if (product.specs) {
+                    specsHtml = '<ul class="product-specs mt-3 mb-3 small">';
+                    product.specs.forEach(spec => {
+                        specsHtml += `<li><strong>${spec.label}:</strong> ${spec.value}</li>`;
+                    });
+                    specsHtml += '</ul>';
+                }
+
+                const cardHtml = `
+                    <div class="card shadow-sm overflow-hidden wow fadeInUp mb-4" data-wow-delay="${delay}s">
+                        <div class="row g-0">
+                            <div class="col-md-5 col-lg-4">
+                                <div class="p-4" style="height: 250px;">
+                                    <img src="${product.image_link}" class="w-100 h-100" style="object-fit: contain;" alt="${product.title}">
+                                </div>
+                            </div>
+                            <div class="col-md-7 col-lg-8 align-self-center">
+                                <div class="card-body p-4">
+                                    <h4 class="card-title fw-bold mb-3 text-dark">${product.title}</h4>
+                                    <p class="card-text text-muted small">${product.description}</p>
+                                    ${specsHtml}
+                                    <div class="mt-4">
+                                        <a onclick="downloadFile('pdf/product_${product.id}.pdf')" class="btn btn-sm btn-primary py-2 px-4 rounded-pill" download>
+                                            <i class="fa fa-download me-2"></i> Download Full Details
+                                        </a>
+                                        <a href="contact.html" class="btn btn-sm btn-outline-dark py-2 px-4 rounded-pill ms-2">Contact</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', cardHtml);
+            });
+        }
+    </script>
+</body>
+
+</html>
