@@ -177,16 +177,6 @@
         function downloadFile(fileLink = "#") {
             // Option A: Opens in new tab (often triggers browser's PDF viewer)
             window.open(fileLink, '_blank');
-
-            // Option B: Forces download (creates a temporary link)
-            /*
-            const link = document.createElement('a');
-            link.href = 'assets/brochure-v1.pdf';
-            link.download = 'filename.pdf';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            */
         }
         function renderProducts(categoryId) {
             // EXPANDED DATABASE with ComplianceBD Products & Unsplash Images
@@ -404,7 +394,7 @@
                                     <p class="card-text text-muted small">${product.description}</p>
                                     ${specsHtml}
                                     <div class="mt-4">
-                                        <a onclick="downloadFile('pdf/product_${product.id}.pdf')" class="btn btn-sm btn-primary py-2 px-4 rounded-pill" download>
+                                        <a onclick="downloadFile('pdf/product_101.pdf')" class="btn btn-sm btn-primary py-2 px-4 rounded-pill" download>
                                             <i class="fa fa-download me-2"></i> Download Full Details
                                         </a>
                                         <a href="contact.html" class="btn btn-sm btn-outline-dark py-2 px-4 rounded-pill ms-2">Contact</a>
