@@ -189,7 +189,7 @@ func (h *MemberHandler) GetMember(w http.ResponseWriter, r *http.Request) {
 
 // UpdateMember handles updating member details and allows re-uploading the image.
 func (h *MemberHandler) UpdateMember(w http.ResponseWriter, r *http.Request) {
-	idStr := chi.URLParam(r, "id")
+	idStr := strings.TrimSpace(r.URL.Query().Get("id"))
 	id, err := strconv.ParseInt(idStr, 10, 64)
 	if err != nil {
 		utils.BadRequest(w, errors.New("invalid member ID"))
@@ -219,7 +219,7 @@ func (h *MemberHandler) UpdateMember(w http.ResponseWriter, r *http.Request) {
 
 	teamIDStr := r.FormValue("team")
 	teamID, err := strconv.Atoi(teamIDStr)
-	if teamIDStr != "" {
+	if teamIDStr != "" && err == nil {
 		existing.TeamID = int64(teamID)
 	}
 
@@ -274,9 +274,9 @@ func (h *MemberHandler) UpdateMember(w http.ResponseWriter, r *http.Request) {
 		}
 		dst.Close()
 
-		existing.ImageLink = fullPath
+		existing.ImageLink = filename
 	}
-
+	fmt.Println(existing.TeamID)
 	// 5. Update Database
 	err = h.DB.MemberRepo.Update(r.Context(), existing)
 	if err != nil {

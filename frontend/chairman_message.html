@@ -152,7 +152,7 @@
             text-align: justify;
         }
 
-        /* --- UPDATED SIGNATURE STYLES --- */
+        /* --- SIGNATURE STYLES --- */
         .signature-box {
             margin-top: 40px;
             display: flex;
@@ -166,6 +166,7 @@
             width: 4px;
             background: var(--primary);
             border-radius: 2px;
+            flex-shrink: 0; /* Prevent line from shrinking */
         }
 
         .signature-details {
@@ -213,21 +214,86 @@
             letter-spacing: 1px;
         }
 
-        /* Responsive Tweaks */
+        /* --- RESPONSIVE TWEAKS --- */
+        
+        /* Tablet & Laptop (Below 992px) */
         @media (max-width: 991px) {
-            .chairman-float-wrapper {
-                float: none;
-                width: 100%;
-                max-width: 450px;
-                margin: 0 auto 40px auto; /* Center image and add bottom margin */
-            }
-            
             .chairman-card {
-                padding: 30px;
+                padding: 40px 30px;
+                text-align: left;
+            }
+
+            .chairman-float-wrapper {
+                float: none; /* Disable float to stack elements */
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto 40px auto; /* Center image */
+                display: block;
             }
             
+            .quote-icon-top {
+                font-size: 50px;
+                top: 20px;
+                right: 20px;
+            }
+        }
+
+        /* Mobile Devices (Below 576px) */
+        @media (max-width: 575px) {
+            .chairman-section-wrapper {
+                padding-top: 50px;
+                padding-bottom: 50px;
+            }
+
+            .chairman-card {
+                padding: 25px 20px; /* Less padding on small screens */
+            }
+
+            .chairman-float-wrapper {
+                max-width: 100%; /* Allow image to take full width */
+                margin-right: 0;
+                margin-bottom: 30px;
+            }
+            
+            .chairman-img-bg-shape {
+                width: 100px;
+                height: 100px;
+                right: -10px;
+                bottom: -10px;
+            }
+
             .message-title {
-                font-size: 1.8rem;
+                font-size: 1.6rem; /* Smaller title font */
+                margin-bottom: 20px;
+            }
+
+            .message-subtitle {
+                font-size: 0.8rem;
+                padding-left: 40px;
+                letter-spacing: 2px;
+            }
+            
+            .message-subtitle::before {
+                width: 30px;
+            }
+
+            .message-body {
+                font-size: 0.95rem; /* Slightly smaller body text */
+                line-height: 1.7;
+            }
+
+            .signature-box {
+                margin-top: 30px;
+                gap: 15px;
+            }
+
+            .signature-line {
+                min-height: 50px;
+            }
+            
+            .leader-badge {
+                padding: 8px 15px;
+                font-size: 0.65rem;
             }
         }
     </style>

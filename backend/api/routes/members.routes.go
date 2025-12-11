@@ -16,6 +16,6 @@ func memberRoutes() *chi.Mux {
 	mux.Get("/list", handlerRepo.Member.GetAllMembers)
 	mux.Delete("/", handlerRepo.Member.DeleteMember) //	query parament {id}
 	// mux.Get("/{id}", handlerRepo.Member.GetMember)
-	// mux.Put("/{id}", handlerRepo.Member.UpdateMember)
+	mux.Put("/", handlerRepo.Member.UpdateMember) // query parameter {id}
 	return mux
 }

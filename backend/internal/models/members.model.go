@@ -5,7 +5,7 @@ import "time"
 type Member struct {
 	ID          int64     `json:"id"`
 	Name        string    `json:"name"`
-	TeamID        int64    `json:"team"`
+	TeamID      int64     `json:"team_id"`
 	TeamName    string    `json:"team_name"`
 	Designation string    `json:"designation"`
 	Contact     string    `json:"contact"`

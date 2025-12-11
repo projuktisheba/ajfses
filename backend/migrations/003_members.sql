@@ -28,7 +28,6 @@ CREATE TABLE members (
     image_link TEXT DEFAULT '',
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
-
 );
 
 -- Indexes 
