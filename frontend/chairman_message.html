@@ -530,7 +530,7 @@
                     if (person.image_link) {
                         imgUrl = `${window.env.API_URL}/images/${person.image_link}`;
                     } else {
-                        imgUrl = 'img/user.svg';
+                        imgUrl = 'img/user.jpg';
                     }
 
                     // Separator for multiple leaders
@@ -569,7 +569,7 @@
                                         <div class="signature-box">
                                             <div class="signature-line"></div>
                                             <div class="signature-details">
-                                                <h5 class="text-uppercase">${person.name}</h5>
+                                                <h5 class="text-uppercase">${person.name || ""}</h5>
                                                 <small class="text-uppercase">${person.designation || 'Leader'}</small>
                                             </div>
                                         </div>
