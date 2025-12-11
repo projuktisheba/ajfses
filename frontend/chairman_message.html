@@ -6,7 +6,7 @@
     <title>Chairman Words</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
-    <meta content="" name=description>
+    <meta content="" name="description">
 
     <link href="img/favicon.ico" rel="icon">
 
@@ -33,7 +33,6 @@
             padding-bottom: 80px;
         }
 
-        /* White overlay to soften the pattern */
         .chairman-section-wrapper::before {
             content: "";
             position: absolute;
@@ -45,33 +44,47 @@
             z-index: 0;
         }
 
-        /* Container helper */
         #leadership-container {
             position: relative;
             z-index: 2;
         }
 
-        /* Image Styling */
-        .chairman-img-box {
+        /* --- NEW LAYOUT STYLES --- */
+
+        /* The main card containing both image and text */
+        .chairman-card {
+            background: #fff;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
             position: relative;
-            z-index: 2;
-            padding: 20px;
+            /* Ensures floats are contained */
+            overflow: visible; 
+            display: flow-root; 
+        }
+
+        /* The container for the floated image */
+        .chairman-float-wrapper {
+            float: left;
+            width: 400px; /* Fixed width for the image area */
+            margin-right: 50px; /* Space between image and text */
+            margin-bottom: 30px; /* Space below image if text wraps */
+            position: relative;
+            z-index: 5;
         }
 
         .chairman-img-frame {
             position: relative;
             border-radius: 15px;
             overflow: hidden;
-            /* Architectural Hard Shadow Effect */
             box-shadow: 20px 20px 0px rgba(11, 18, 33, 0.1);
             border: 8px solid #ffffff;
-            /* Floating Animation */
             animation: floatImage 5s ease-in-out infinite;
             transform-origin: center center;
             background: #fff;
         }
 
-        /* Decorative Element behind image */
+        /* Decorative Shape behind image */
         .chairman-img-bg-shape {
             position: absolute;
             bottom: -30px;
@@ -89,37 +102,19 @@
         }
 
         @keyframes floatImage {
-            0% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-
-            100% {
-                transform: translateY(0px);
-            }
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
 
-        /* Text Card Styling */
-        .chairman-card {
-            background: #fff;
-            padding: 40px 50px;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
-            position: relative;
-            margin-left: -40px;
-            /* Overlap effect on Desktop */
-        }
-
-        /* Quote Icon styling */
+        /* Text Styling */
         .quote-icon-top {
             font-size: 60px;
             color: var(--primary);
             opacity: 0.1;
-            margin-bottom: -30px;
-            display: block;
+            position: absolute;
+            top: 40px;
+            right: 50px;
         }
 
         .message-subtitle {
@@ -157,43 +152,61 @@
             text-align: justify;
         }
 
-        /* Signature Area */
+        /* --- UPDATED SIGNATURE STYLES --- */
         .signature-box {
-            margin-top: 35px;
+            margin-top: 40px;
             display: flex;
-            align-items: center;
             gap: 20px;
+            clear: both;
         }
 
         .signature-line {
-            height: 40px;
+            height: auto;
+            min-height: 60px;
             width: 4px;
             background: var(--primary);
             border-radius: 2px;
         }
 
-        .signature-details h5 {
-            font-weight: 800;
-            margin-bottom: 3px;
-            color: #0b1221;
-            letter-spacing: 0.5px;
+        .signature-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .signature-details small {
+        .signature-details div:first-child {
+            /* "With warm regards" style */
+            font-style: italic;
             color: #666;
+            margin-bottom: 5px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .signature-details h6 {
+            /* Name Style */
+            font-weight: 800;
+            margin-bottom: 2px;
+            color: #0b1221;
+            letter-spacing: 0.5px;
+            font-size: 1.1rem;
+        }
+        
+        .signature-details div:last-child {
+            /* Company Name Style */
+            color: var(--primary);
             font-weight: 600;
             font-size: 0.9rem;
         }
 
-        /* Decorative Badge */
         .leader-badge {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 0;
+            right: 0;
             background: rgba(11, 18, 33, 0.04);
             color: #0b1221;
-            padding: 5px 15px;
-            border-radius: 30px;
+            padding: 10px 25px;
+            border-bottom-left-radius: 15px;
+            border-top-right-radius: 15px;
             font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
@@ -202,20 +215,19 @@
 
         /* Responsive Tweaks */
         @media (max-width: 991px) {
+            .chairman-float-wrapper {
+                float: none;
+                width: 100%;
+                max-width: 450px;
+                margin: 0 auto 40px auto; /* Center image and add bottom margin */
+            }
+            
             .chairman-card {
-                margin-left: 0;
-                margin-top: 30px;
                 padding: 30px;
             }
-
-            .chairman-img-frame {
-                max-width: 400px;
-                margin: 0 auto;
-            }
-
-            .chairman-section-wrapper {
-                padding-top: 40px;
-                padding-bottom: 40px;
+            
+            .message-title {
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -230,11 +242,9 @@
     </div>
 
 
-    <!-- Top Contact Bar Start -->
     <div class="bg-dark text-light py-1">
         <div class="container">
             <div class="row">
-                <!-- Left Section -->
                 <div
                     class="col-sm-12 col-md-8 d-flex justify-content-center justify-content-start align-items-center flex-wrap py-1">
                     <span class="d-flex align-items-center mx-3">
@@ -254,7 +264,6 @@
                     </span>
                 </div>
 
-                <!-- Right Section -->
                 <div
                     class="col-sm-12 col-md-4 d-flex justify-content-center justify-content-md-end align-items-center py-1">
                     <a class="btn btn-outline-light btn-social mx-1 social-btn"
@@ -286,10 +295,6 @@
 
         </div>
     </div>
-    <!-- Top Contact Bar End -->
-
-
-    <!-- Navbar start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow border-top border-5 border-primary sticky-top p-0">
         <a href="index.html" class="navbar-brand d-flex align-items-center">
             <img src="img/logo.png" class="nav-logo" style="transition: opacity 0.5s ease-in-out;" id="navLogo"
@@ -318,8 +323,6 @@
             </div>
         </div>
     </nav>
-    <!-- Navbar end -->
-
     <div class="container-fluid page-header py-5" style="margin-bottom: 0;">
         <div class="container py-5">
             <h1 class="display-3 text-white mb-3 animated slideInDown">Chairman's Note</h1>
@@ -332,7 +335,6 @@
         </div>
     </div>
 
-    <!-- Chairman Message start-->
     <div class="container-fluid chairman-section-wrapper">
         <div class="container" id="leadership-container">
             <div class="text-center py-5">
@@ -340,9 +342,6 @@
             </div>
         </div>
     </div>
-    <!-- Chairman Message end-->
-
-    <!-- Footer start -->
     <div class="container-fluid text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s"
         style="margin-top: 0; background-color: #0b1221;">
         <div class="container py-4 text-center">
@@ -444,7 +443,6 @@
             <div class="container">
                 <div class="row align-items-center">
 
-                    <!-- Left Side -->
                     <div class="col-md-6 text-center text-md-start">
                         <p class="mb-0 text-light">
                             © 2025 All Rights Reserved By
@@ -452,7 +450,6 @@
                         </p>
                     </div>
 
-                    <!-- Right Side -->
                     <div class="col-md-6 text-center text-md-end">
                         <p class="mb-0 text-light">
                             Developed By
@@ -465,8 +462,6 @@
             </div>
         </div>
     </div>
-    <!-- Footer end -->
-
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-0 back-to-top"><i class="fa fa-arrow-up"></i></a>
 
 
@@ -482,7 +477,7 @@
     <script src="js/main.js"></script>
     <script src="js/common.js"></script>
     <script>
-        // 1. HELPER: Parser Function (Same as before)
+        // 1. HELPER: Parser Function
         function parseContent(rawText) {
             if (!rawText) return { subtitle: '', title: '', bodyHtml: '' };
 
@@ -495,7 +490,6 @@
             const pMatches = [...rawText.matchAll(/\[p\](.*?)(?=\[|$)/gs)];
             let bodyHtml = '';
             if (pMatches.length > 0) {
-                // Use .message-body class for styling logic
                 bodyHtml = pMatches.map(m => `<p class="message-body">${m[1].trim()}</p>`).join('');
             } else {
                 const cleanText = rawText.replace(/\[h6\].*?(\[|$)/s, '').replace(/\[h1\].*?(\[|$)/s, '').trim();
@@ -536,44 +530,39 @@
                     // Separator for multiple leaders
                     const separatorClass = (index !== leaders.length - 1) ? 'border-bottom pb-5 mb-5' : '';
 
-                    // Enhanced HTML Structure
+                    // STRUCTURE CHANGED: Single Column containing a Card. Image floated inside the card.
                     htmlContent += `
-                        <div class="row g-5 align-items-center ${separatorClass}">
-                            
-                            <!-- Image Section with Animations -->
-                            <div class="col-lg-5 wow slideInLeft" data-wow-delay="0.1s">
-                                <div class="chairman-img-box">
-                                    <div class="chairman-img-bg-shape"></div>
-                                    <div class="chairman-img-frame">
-                                        <img class="img-fluid w-100" src="${imgUrl}" alt="${person.name}" style="object-fit: cover;">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Content Section -->
-                            <div class="col-lg-7 wow fadeInRight" data-wow-delay="0.3s">
+                        <div class="row ${separatorClass}">
+                            <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s">
                                 <div class="chairman-card">
                                     <div class="leader-badge">Management</div>
-                                    <!-- Background Quote Icon -->
                                     <i class="fa fa-quote-left quote-icon-top"></i>
 
-                                    <div class="position-relative">
+                                    <div class="chairman-float-wrapper">
+                                        <div class="chairman-img-bg-shape"></div>
+                                        <div class="chairman-img-frame">
+                                            <img class="img-fluid w-100" src="${imgUrl}" alt="${person.name}" style="object-fit: cover;">
+                                        </div>
+                                    </div>
+
+                                    <div class="text-content">
                                         <h6 class="message-subtitle text-uppercase">${parsed.subtitle || 'Message'}</h6>
                                         <h1 class="message-title">${parsed.title}</h1>
                                         
                                         <div class="mt-4">
                                             ${parsed.bodyHtml}
                                         </div>
-                                        
-                                        <!-- Signature / Name Area -->
+
                                         <div class="signature-box">
                                             <div class="signature-line"></div>
                                             <div class="signature-details">
-                                                <h5 class="text-uppercase">${person.name || ""}</h5>
-                                                <small class="text-uppercase">${person.designation || 'Leader'}</small>
+                                                <div>With warm regards,</div>
+                                                <h6 class="text-uppercase">${person.name || ""}</h6>
+                                                <div>AJ Fire Safety & Engineering Solutions</div>
                                             </div>
                                         </div>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -582,8 +571,6 @@
 
                 container.innerHTML = htmlContent;
 
-                // Re-trigger WOW animations if needed, though slideIn classes usually work if WOW is observing
-                // Just in case, we can manually ensure wow is active
                 if (typeof WOW === 'function') {
                     new WOW().init();
                 }
