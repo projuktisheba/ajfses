@@ -11,6 +11,7 @@ type DBRepository struct {
 	MemberRepo  *MemberRepository
 	TeamRepo  *TeamRepository
 	GalleryRepo  *GalleryRepository
+	ClientRepo  *ClientRepository
 }
 
 // NewDBRepository initializes all repositories with a shared connection pool
@@ -21,5 +22,6 @@ func NewDBRepository(db *pgxpool.Pool) *DBRepository {
 		MemberRepo:  newMemberRepository(db),
 		TeamRepo:  newTeamRepository(db),
 		GalleryRepo:  newGalleryRepository(db),
+		ClientRepo:  newClientRepository(db),
 	}
 }

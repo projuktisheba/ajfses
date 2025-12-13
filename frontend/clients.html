@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Contact Us</title>
+    <title>Clients</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -19,20 +19,82 @@
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        /* NEW CLIENT CARD STYLES - Inherited Vertical Product Style */
+
+        .client-card-vertical {
+            /* Inherited from .service-item in your product code */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            /* Ensures equal height in the flex row */
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .client-card-vertical:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        /* Fixed Image Container/Styling (Inherited from product card) */
+        .client-logo-wrapper {
+            overflow: hidden;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .client-logo-wrapper img {
+            /* Fixed height and object-fit for uniform image display */
+            height: 200px; 
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.5s, filter 0.5s;
+        }
+
+        .client-card-vertical:hover .client-logo-wrapper img {
+            transform: scale(1.1);
+        }
+
+        /* Status Badges */
+        .badge {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .bg-warning {
+            color: #000 !important;
+        }
+
+        .bg-info {
+            color: #ffffff !important;
+        }
+
+        /* Ensure card body content flexes to fill space */
+        .client-card-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
 </head>
 
-<body>
+<body onload="fetchClients()">
     <div id="spinner"
         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="sr-only">Loading...</span>
         </div>
     </div>
-    <!-- Top Contact Bar start -->
+
+
     <div class="bg-dark text-light py-1">
         <div class="container">
             <div class="row">
-                <!-- Left Section -->
                 <div
                     class="col-sm-12 col-md-8 d-flex justify-content-center justify-content-start align-items-center flex-wrap py-1">
                     <span class="d-flex align-items-center mx-3">
@@ -52,7 +114,6 @@
                     </span>
                 </div>
 
-                <!-- Right Section -->
                 <div
                     class="col-sm-12 col-md-4 d-flex justify-content-center justify-content-md-end align-items-center py-1">
                     <a class="btn btn-outline-light btn-social mx-1 social-btn"
@@ -84,13 +145,12 @@
 
         </div>
     </div>
-    <!-- Top Contact Bar end -->
-
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow border-top border-5 border-primary sticky-top p-0">
         <a href="index.html" class="navbar-brand d-flex align-items-center">
             <img src="img/logo.png" class="nav-logo" style="transition: opacity 0.5s ease-in-out;" id="navLogo"
                 alt="psstudio logo">
         </a>
+
 
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -115,148 +175,35 @@
                     </div>
                 </div>
                 <a href="brands.html" class="nav-item nav-link">Brands</a>
-                <a href="clients.html" class="nav-item nav-link">Clients</a>
-                <a href="contact.html" class="nav-item nav-link active">Contact Us</a>
+                <a href="clients.html" class="nav-item nav-link active">Clients</a>
+                <a href="contact.html" class="nav-item nav-link">Contact Us</a>
             </div>
+            </h4>
         </div>
     </nav>
-    <div class="container-fluid page-header py-5" style="margin-bottom: 2rem;">
+    <div class="container-fluid page-header py-5" style="margin-bottom: 2rem;">>
         <div class="container py-5">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">Contact Us</h1>
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Our Clients</h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">Contact</li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Clients</li>
                 </ol>
             </nav>
         </div>
     </div>
-    <div class="container-fluid bg-light py-4">
-        <div class="container">
-            <div class="row g-4 text-center">
-                <div class="col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="p-4 bg-white shadow-sm rounded h-100">
-                        <i class="fa fa-phone fa-2x mb-3"></i>
-                        <h5 class="mb-1">Phone</h5>
-                        <p class="mb-0"><a href="tel:+8801958605251">+880 1958 605 251</a></p>
-                        <p class="mb-0"><a href="tel:+8801944428593">+880 1944 428 593</a></p>
-                    </div>
+    <div id="clients-section" class="container-xxl py-5">
+        <div class="container py-5">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="text-secondary text-uppercase">Our Clients</h6>
+                <h1 class="mb-5">Our Valued Clients</h1>
+            </div>
+            <div class="row g-4" id="client_catalog">
                 </div>
-                <div class="col-md-4 wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="p-4 bg-white shadow-sm rounded h-100">
-                        <i class="fa fa-envelope fa-2x mb-3"></i>
-                        <h5 class="mb-1">Email</h5>
-                        <p class="mb-0"><a href="mailto:ajfiresolutions@hotmail.com">ajfiresolutions@hotmail.com</a></p>
-                        <p class="mb-0"><a href="mailto:info@ajfses.com.bd">info@ajfses.com.bd</a></p>
-                    </div>
-                </div>
-                <div class="col-md-4 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="p-4 bg-white shadow-sm rounded h-100">
-                        <i class="fa-brands fa-whatsapp fa-2x mb-3"></i>
-                        <h5 class="mb-1">WhatsApp</h5>
-                        <p class="mb-0"><a href="https://wa.me/1676267377" target="_blank">+880 1676 267 377</a></p>
-                    </div>
-                </div>
+            <div id="client_message" class="text-center mt-5 fs-5 text-danger" style="display: none;">
             </div>
         </div>
     </div>
-    <!-- Contact Form start -->
-    <div class="container-fluid overflow-hidden py-5 px-lg-0">
-        <div class="container contact-page py-2 px-lg-0">
-            <div class="row g-5 mx-lg-0">
-                <div class="col-md-6 contact-form wow fadeIn" data-wow-delay="0.1s">
-                    <h6 class="text-secondary text-uppercase">Get In Touch</h6>
-                    <h1 class="mb-4">Contact For Any Query</h1>
-
-                    <div class="card shadow-lg border-0 rounded-3">
-                        <div class="card-body p-4 p-md-5">
-                            <form id="contactForm">
-                                <div class="row g-3">
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" id="name" placeholder="Your Name"
-                                                required>
-                                            <label for="name">Your Name <span class="text-danger">*</span></label>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" id="contact_mobile"
-                                                name="contact_mobile" placeholder="Mobile No" required>
-                                            <label for="contact_mobile">Mobile No. <span
-                                                    class="text-danger">*</span></label>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                                        <div class="form-floating">
-                                            <input type="email" class="form-control" id="contact_email"
-                                                name="contact_email" placeholder="Email Address" required>
-                                            <label for="contact_email">Email Address <span
-                                                    class="text-danger">*</span></label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <select class="form-select" name="subject" id="subject" required>
-                                                <option value="" selected disabled>Select Service...</option>
-                                                <option value="Fire Safety Consultancy & Service">Fire Safety
-                                                    Consultancy & Service</option>
-                                                <option value="Electrical Safety Consultancy & Service">Electrical
-                                                    Safety Consultancy & Service</option>
-                                                <option value="Construction Safety Consultancy & Service">Construction
-                                                    Safety Consultancy & Service</option>
-                                            </select>
-                                            <label for="subject">Subject</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <textarea class="form-control" placeholder="Leave a message here"
-                                                id="message" required style="height: 120px"></textarea>
-                                            <label for="message">Message</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <button class="btn btn-primary w-100 py-3 btn-lg rounded-3" type="submit"
-                                            id="submitBtn">Send Message</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 wow fadeInRight" data-wow-delay="0.1s">
-                    <div class="position-relative h-100 m-4">
-                        <iframe class="position-absolute w-100 h-100 rounded-3 shadow" style="object-fit: cover;"
-                            frameborder="0" allowfullscreen="" aria-hidden="false" tabindex="0"
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d766.6908722321659!2d90.26261671537178!3d23.92445347072371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755e96538f7bbf1%3A0xb21307b107bb0366!2sAJ%20FIRE%20SAFETY%20%26%20ENGINEERING%20SOLUTIONS!5e0!3m2!1sen!2sbd!4v1764626580414!5m2!1sen!2sbd"
-                            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Contact Form end -->
-    <!-- Modal start -->
-    <div class="modal fade" id="statusModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded-0">
-                <div class="modal-header border-0">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center pb-5">
-                    <div class="mb-3">
-                        <i id="modalIcon" class="fa fa-5x"></i>
-                    </div>
-                    <h3 class="mb-3" id="modalTitle"></h3>
-                    <p class="mb-4 text-secondary" id="modalMessage"></p>
-                    <button type="button" class="btn btn-primary py-2 px-5" data-bs-dismiss="modal">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal end -->
-    <!-- Footer start -->
     <div class="container-fluid text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s"
         style="margin-top: 6rem; background-color: #0b1221;">
         <div class="container py-4 text-center">
@@ -307,12 +254,12 @@
                                 class="fa-solid fa-angle-right me-2"></i>About Us</a>
                         <a class="text-light mb-2 text-decoration-none" href="products.html"><i
                                 class="fa-solid fa-angle-right me-2"></i>Our Products</a>
-                                <a class="text-light mb-2 text-decoration-none" href="services.html"><i
+                        <a class="text-light mb-2 text-decoration-none" href="services.html"><i
                                 class="fa-solid fa-angle-right me-2"></i>Our Services</a>
                         <a class="text-light mb-2 text-decoration-none" href="clients.html"><i
                                 class="fa-solid fa-angle-right me-2"></i>Clients</a>
                         <a class="text-light mb-2 text-decoration-none" href="contact.html"><i
-                                class="fa-solid fa-angle-right me-2"></i>Contact us</a>
+                                class="fa-solid fa-angle-right me-2"></i>Contact Us</a>
                         <a class="text-light mb-2 text-decoration-none" href="admin_panel.html"><i
                                 class="fa-solid fa-angle-right me-2"></i>Login</a>
                     </div>
@@ -362,7 +309,6 @@
             <div class="container">
                 <div class="row align-items-center">
 
-                    <!-- Left Side -->
                     <div class="col-md-6 text-center text-md-start">
                         <p class="mb-0 text-light">
                             © 2025 All Rights Reserved By
@@ -370,7 +316,6 @@
                         </p>
                     </div>
 
-                    <!-- Right Side -->
                     <div class="col-md-6 text-center text-md-end">
                         <p class="mb-0 text-light">
                             Developed By
@@ -383,7 +328,6 @@
             </div>
         </div>
     </div>
-    <!-- Footer end -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-0 back-to-top"><i class="fa fa-arrow-up"></i></a>
 
 
@@ -394,92 +338,153 @@
     <script src="lib/waypoints/waypoints.min.js"></script>
     <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    
+
     <script src="js/main.js"></script>
     <script src="js/common.js"></script>
     <script src="js/config.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/modal.js"></script>
 
     <script>
-        document.getElementById('contactForm').addEventListener('submit', async function (event) {
-            event.preventDefault(); // Stop page reload
+        // Assuming window.env.API_URL is available from config.js
+        const apiURL = window.env.API_URL;
+        // Set up the base path for client images
+        const CLIENT_IMAGE_BASE_PATH = `${apiURL}/images/clients`;
 
-            // 1. Get References to elements
-            const nameInput = document.getElementById('name');
-            // FIXED: Fetch inputs by correct IDs (Mobile and Email)
-            const mobileInput = document.getElementById('contact_mobile');
-            const emailInput = document.getElementById('contact_email');
-            const subjectInput = document.getElementById('subject');
-            const messageInput = document.getElementById('message');
-            const submitBtn = document.getElementById('submitBtn');
+        function showSpinner() {
+            document.getElementById('spinner').classList.add('show');
+        }
 
-            // 2. Get Values
-            const formData = {
-                name: nameInput.value.trim(),
-                mobile: mobileInput.value.trim(),
-                email: emailInput.value.trim(),
-                subject: subjectInput.value.trim(),
-                message: messageInput.value.trim()
-            };
+        function hideSpinner() {
+            document.getElementById('spinner').classList.remove('show');
+        }
 
-            // Client-Side Validation
-            if (!formData.name) {
-                showStatusModal('Missing Info', 'Please enter your name.', 'error');
+        /**
+         * Renders the client cards into the list container using efficient string buffering.
+         * @param {Array<Object>} clients - Array of client objects from the API.
+         */
+        function renderClients(clients) {
+            const container = document.getElementById('client_catalog');
+            const messageElement = document.getElementById('client_message');
+
+            container.innerHTML = ''; // Clear container first
+            messageElement.style.display = 'none';
+
+            // Ensure clients is an array and not empty
+            if (!Array.isArray(clients) || clients.length === 0) {
+                messageElement.textContent = 'No clients found.';
+                messageElement.style.display = 'block';
+                container.innerHTML = '';
                 return;
             }
-            if (!formData.mobile && !formData.email) {
-                showStatusModal('Missing Info', 'Please enter at least a mobile number or email.', 'error');
-                return;
-            }
 
-            // 4. API Configuration
-            const apiURL = `${window.env.API_URL}/inquiry`;
-            const BEARER_TOKEN = getToken();
+            let htmlContent = ''; // Start an HTML string buffer
 
-            try {
-                // UI: Set loading state
-                const originalBtnText = submitBtn.innerText;
-                submitBtn.innerText = "Sending...";
-                submitBtn.disabled = true;
+            clients.forEach((client, index) => {
+                // Added a short delay increment for WoW.js animation
+                const delay = (index * 0.1).toFixed(1);
 
-                // 5. Send Request
-                const response = await fetch(apiURL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${BEARER_TOKEN}`
-                    },
-                    body: JSON.stringify(formData)
-                });
-                // Parse the JSON response
-                const result = await response.json();
+                // --- Logic for status badge ---
+                const statusText = client.status || 'Pending';
+                let statusClass = 'bg-warning text-dark'; // Default for Pending
 
-                // Check HTTP Status
-                if (response.ok) {
-                    // Success: Use the message from the API, or a fallback
-                    const successMessage = result.message || 'Your message has been sent successfully.';
-
-                    showStatusModal('Thank You!', successMessage, 'success');
-                    document.getElementById('contactForm').reset();
-                } else {
-                    // Server Error (400, 422, 500): Use the error message from API
-                    const errorMessage = result.message || result.error || 'Failed to send message. Please try again.';
-
-                    showStatusModal('Submission Failed', errorMessage, 'error');
-                    console.error('Server Error Detail:', result);
+                if (statusText === 'Active') {
+                    statusClass = 'bg-success text-white';
+                } else if (statusText === 'Completed') {
+                    statusClass = 'bg-success text-white';
                 }
 
+                const statusBadgeHtml = `<span class="badge ${statusClass} rounded-pill px-3 py-2 fw-normal">${statusText}</span>`;
+                // Format date for display
+                const formattedDate = client.created_at ? new Date(client.created_at).toLocaleDateString() : 'N/A';
+
+                // Construct the full image path.
+                const imagePath = client.image_link && client.image_link.trim() !== ""
+                    ? `${CLIENT_IMAGE_BASE_PATH}/${client.image_link}`
+                    : 'img/placeholder.jpg';
+
+                // Details structure 
+                const detailsHtml = `
+                    <ul class="list-unstyled mt-3 mb-0 small">
+                        <li class="d-flex align-items-center mb-1">
+                            <i class="fa-solid fa-briefcase text-primary me-2"></i>
+                            <strong class="me-1">Service:</strong>
+                            <span class="text-dark">${client.service_name || 'N/A'}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-1">
+                            <i class="fa-solid fa-location-dot text-primary me-2"></i>
+                            <strong class="me-1">Area:</strong>
+                            <span class="text-dark">${client.area || 'N/A'}</span>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <i class="fa-solid fa-calendar-alt text-primary me-2"></i>
+                            <strong class="me-1">Joined:</strong>
+                            <span class="text-dark">${formattedDate}</span>
+                        </li>
+                    </ul>
+                `;
+
+                // NEW CARD STRUCTURE (Vertical, 3/2/1 Layout)
+                htmlContent += `
+                    <div class="col-12 col-md-6 col-lg-4 d-flex"> 
+                        <div class="client-card-vertical p-0 shadow-sm wow fadeInUp w-100" data-wow-delay="${delay}s">
+                            
+                            <div class="client-logo-wrapper">
+                                <img src="${imagePath}" class="client-logo" alt="${client.name || 'Client Logo'}" loading="lazy">
+                            </div>
+
+                            <div class="client-card-body p-4">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h5 class="card-title fw-bold mb-0 text-dark">${client.name || 'N/A'}</h5>
+                                    ${statusBadgeHtml}
+                                </div>
+                                <p class="card-text text-muted small">${client.note || 'No specific note for this client.'}</p>
+                                
+                                <div class="mt-auto">
+                                    ${detailsHtml}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Insert all collected HTML at once
+            container.innerHTML = htmlContent;
+
+            // Initialize WOW.js for animations
+            new WOW().init();
+        }
+
+        /**
+         * Fetches client data from the backend API.
+         */
+        async function fetchClients() {
+            showSpinner();
+            const messageElement = document.getElementById('client_message');
+            messageElement.style.display = 'none';
+
+            try {
+                // Assuming the client list endpoint is /client
+                const response = await fetch(`${apiURL}/client`);
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP error! Status: ${response.status}. Response: ${errorText.substring(0, 100)}...`);
+                }
+
+                const data = await response.json();
+
+                renderClients(data.clients);
+
             } catch (error) {
-                // Error Modal (Network)
-                showStatusModal('Network Error', 'Unable to connect to the server. Please check your internet connection.', 'error');
-                console.error('Network Error:', error);
+                console.error("Failed to fetch or render clients:", error);
+                messageElement.textContent = 'Error loading client data. Please check the browser console for network and JSON parsing errors.';
+                messageElement.style.display = 'block';
+
+                document.getElementById('client_catalog').innerHTML = '';
             } finally {
-                // Reset Button
-                submitBtn.innerText = "Send Message";
-                submitBtn.disabled = false;
+                hideSpinner();
             }
-        });
+        }
     </script>
 </body>
 

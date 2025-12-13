@@ -29,8 +29,8 @@ func Routes(host, env string, db *dbrepo.DBRepository, jwt models.JWTConfig, inf
 		AllowCredentials: false,
 		MaxAge:           300,
 	}))
-	mux.Use(middlewares.Logger) // logger
-
+	mux.Use(middlewares.Logger)                    // logger
+	
 	// --- Static file serving for images ---
 	imageDir := filepath.Join(".", "data", "images")
 	fs := http.StripPrefix("/api/v1/images/", http.FileServer(http.Dir(imageDir)))
@@ -63,12 +63,15 @@ func Routes(host, env string, db *dbrepo.DBRepository, jwt models.JWTConfig, inf
 
 	// Mount inquiries handler routes
 	mux.Mount("/api/v1/inquiry", inquiryRoutes())
-	
+
 	// Mount team handler routes
 	mux.Mount("/api/v1/team", teamRoutes())
 
 	// Mount member handler routes
 	mux.Mount("/api/v1/member", memberRoutes())
+
+	// Mount client handler routes
+	mux.Mount("/api/v1/client", clientRoutes())
 
 	// Mount gallery handler routes
 	mux.Mount("/api/v1/gallery", galleryRoutes())

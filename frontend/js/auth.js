@@ -15,4 +15,10 @@ function getToken() {
         sessionStorage.getItem("auth_token") || "";
     return token;
 }
+function getUser() {
+    const user =
+        localStorage.getItem("auth_user") ||
+        sessionStorage.getItem("auth_user") || "";
+    return JSON.parse(user);
+}
 

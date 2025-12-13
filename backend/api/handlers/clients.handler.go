@@ -17,61 +17,58 @@ import (
 	"github.com/projuktisheba/ajfses/backend/internal/utils"
 )
 
-type MemberHandler struct {
+// ClientHandler is the new handler struct for client operations.
+type ClientHandler struct {
 	DB       *dbrepo.DBRepository
 	infoLog  *log.Logger
 	errorLog *log.Logger
 }
 
-func newMemberHandler(db *dbrepo.DBRepository, infoLog, errorLog *log.Logger) MemberHandler {
-	return MemberHandler{
+func newClientHandler(db *dbrepo.DBRepository, infoLog, errorLog *log.Logger) ClientHandler {
+	// IMPORTANT: This assumes dbrepo.DBRepository has a field 'ClientRepo'
+	// (e.g., DB.ClientRepo.Create, DB.ClientRepo.GetAll, etc.)
+	return ClientHandler{
 		DB:       db,
 		infoLog:  infoLog,
 		errorLog: errorLog,
 	}
 }
 
-// CreateMember handles the 3-step process: DB Insert -> File Save -> DB Update
-func (h *MemberHandler) CreateMember(w http.ResponseWriter, r *http.Request) {
+// CreateClient handles the 3-step process: DB Insert -> File Save -> DB Update
+func (h *ClientHandler) CreateClient(w http.ResponseWriter, r *http.Request) {
 	// 1. Parse Multipart Form (10MB limit)
 	if err := r.ParseMultipartForm(10 << 20); err != nil {
-		h.errorLog.Println("ERROR_CreateMember_01: parsing form:", err)
+		h.errorLog.Println("ERROR_CreateClient_01: parsing form:", err)
 		utils.BadRequest(w, errors.New("file too large or invalid form data"))
 		return
 	}
 
-	// 2. Extract Text Data
+	// 2. Extract Text Data (Fields adapted for the Client model)
 	name := strings.TrimSpace(r.FormValue("name"))
-	team := strings.TrimSpace(r.FormValue("team"))
-	designation := strings.TrimSpace(r.FormValue("designation"))
-	contact := strings.TrimSpace(r.FormValue("contact"))
+	area := strings.TrimSpace(r.FormValue("area"))
+	serviceName := strings.TrimSpace(r.FormValue("service_name"))
+	status := strings.TrimSpace(r.FormValue("status"))
 	note := strings.TrimSpace(r.FormValue("note"))
 
-	if name == "" || team == "" {
-		utils.BadRequest(w, errors.New("name and team are required"))
+	if name == "" || area == "" {
+		utils.BadRequest(w, errors.New("name and area are required"))
 		return
 	}
 
-	teamID, err := strconv.Atoi(team)
-	if err != nil {
-		h.errorLog.Println("ERROR_CreateMember_02: invalid form data:", err)
-		utils.BadRequest(w, errors.New("invalid team id"))
-		return
-	}
 	// 3. STEP ONE: Save data to Database (to generate ID)
-	newMember := &models.Member{
+	newClient := &models.Client{
 		Name:        name,
-		TeamID:      int64(teamID),
-		Designation: designation,
-		Contact:     contact,
+		Area:        area,
+		ServiceName: serviceName,
+		Status:      status,
 		Note:        note,
 		ImageLink:   "", // Empty initially
 	}
-	fmt.Println(newMember)
-	id, err := h.DB.MemberRepo.Create(r.Context(), newMember)
+
+	id, err := h.DB.ClientRepo.Create(r.Context(), newClient)
 	if err != nil {
-		h.errorLog.Println("ERROR_CreateMember_03: db create:", err)
-		utils.ServerError(w, errors.New("failed to save member info"))
+		h.errorLog.Println("ERROR_CreateClient_03: db create:", err)
+		utils.ServerError(w, errors.New("failed to save client info"))
 		return
 	}
 
@@ -80,16 +77,16 @@ func (h *MemberHandler) CreateMember(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		if errors.Is(err, http.ErrMissingFile) {
 			// No image uploaded, just return success with the ID
-			h.respondSuccess(w, id, "Member created (no image uploaded)")
+			h.respondSuccess(w, id, "Client created (no image uploaded)")
 			return
 		}
-		h.errorLog.Println("ERROR_CreateMember_04: retrieving file:", err)
+		h.errorLog.Println("ERROR_CreateClient_04: retrieving file:", err)
 		utils.BadRequest(w, errors.New("invalid image file"))
 		return
 	}
 	defer file.Close()
 
-	// Create filename pattern: id_name.ext (e.g., 15_Alice_Smith.jpg)
+	// Create filename pattern: id_name.ext (e.g., 15_Acme_Corp.jpg)
 	ext := filepath.Ext(header.Filename)
 	if ext == "" {
 		ext = ".jpg"
@@ -97,10 +94,10 @@ func (h *MemberHandler) CreateMember(w http.ResponseWriter, r *http.Request) {
 	safeName := strings.ReplaceAll(name, " ", "_")
 	filename := fmt.Sprintf("%d_%s%s", id, safeName, ext)
 
-	// Create directory if not exists
-	storagePath := filepath.Join("data", "images")
+	// Use a 'clients' specific directory
+	storagePath := filepath.Join("data", "images", "clients")
 	if err := os.MkdirAll(storagePath, 0755); err != nil {
-		h.errorLog.Println("ERROR_CreateMember_05: mkdir:", err)
+		h.errorLog.Println("ERROR_CreateClient_05: mkdir:", err)
 		utils.ServerError(w, errors.New("server storage error"))
 		return
 	}
@@ -108,106 +105,90 @@ func (h *MemberHandler) CreateMember(w http.ResponseWriter, r *http.Request) {
 	fullPath := filepath.Join(storagePath, filename)
 	dst, err := os.Create(fullPath)
 	if err != nil {
-		h.errorLog.Println("ERROR_CreateMember_06: create file:", err)
+		h.errorLog.Println("ERROR_CreateClient_06: create file:", err)
 		utils.ServerError(w, errors.New("failed to create image file"))
 		return
 	}
 	defer dst.Close()
 
 	if _, err := io.Copy(dst, file); err != nil {
-		h.errorLog.Println("ERROR_CreateMember_07: save file:", err)
+		h.errorLog.Println("ERROR_CreateClient_07: save file:", err)
 		utils.ServerError(w, errors.New("failed to save image content"))
 		return
 	}
 
 	// 5. STEP THREE: Update Database with Image Link
-	err = h.DB.MemberRepo.UpdateImageLink(r.Context(), id, filename)
+	err = h.DB.ClientRepo.UpdateImageLink(r.Context(), id, filename)
 	if err != nil {
 		// Log error but do not fail request since data & file are saved
-		h.errorLog.Println("ERROR_CreateMember_08: update link:", err)
+		h.errorLog.Println("ERROR_CreateClient_08: update link:", err)
 	}
 
-	h.respondSuccess(w, id, "Member created and image saved successfully")
+	h.respondSuccess(w, id, "Client created and image saved successfully")
 }
 
-// GetAllMembers retrieves a list of all members.
-func (h *MemberHandler) GetAllMembers(w http.ResponseWriter, r *http.Request) {
-	members, err := h.DB.MemberRepo.GetAll(r.Context(), "")
+// GetAllClients retrieves a list of all clients, optionally filtered by status.
+func (h *ClientHandler) GetAllClients(w http.ResponseWriter, r *http.Request) {
+	// Use 'status' query parameter for optional filtering (replacing designation logic)
+	status := r.URL.Query().Get("status")
+
+	clients, err := h.DB.ClientRepo.GetAll(r.Context(), status)
 	if err != nil {
-		h.errorLog.Println("ERROR_GetAllMembers_01: db error:", err)
-		utils.ServerError(w, errors.New("failed to retrieve members"))
+		h.errorLog.Println("ERROR_GetAllClients_01: db error:", err)
+		utils.ServerError(w, errors.New("failed to retrieve clients"))
 		return
 	}
 	var response struct {
 		Error   bool             `json:"error"`
 		Message string           `json:"message"`
-		Members []*models.Member `json:"members"`
+		Clients []*models.Client `json:"clients"`
 	}
 	response.Error = false
-	response.Message = "Members fetched successfully"
-	response.Members = members
+	response.Message = "Clients fetched successfully"
+	response.Clients = clients
 	utils.WriteJSON(w, http.StatusOK, response)
 }
 
-// GetAllMembers retrieves a list of all members.
-func (h *MemberHandler) GetChairmanInfo(w http.ResponseWriter, r *http.Request) {
-	members, err := h.DB.MemberRepo.GetAll(r.Context(), "Chairman")
-	if err != nil {
-		h.errorLog.Println("ERROR_GetChairmanInfo_01: db error:", err)
-		utils.ServerError(w, errors.New("failed to retrieve chairman info"))
-		return
-	}
-	var response struct {
-		Error    bool             `json:"error"`
-		Message  string           `json:"message"`
-		Chairman []*models.Member `json:"Chairman"`
-	}
-	response.Error = false
-	response.Message = "Chairman info retrieved successfully"
-	response.Chairman = members
-	utils.WriteJSON(w, http.StatusOK, response)
-}
-
-// GetMember retrieves a single member by ID.
-func (h *MemberHandler) GetMember(w http.ResponseWriter, r *http.Request) {
+// GetClient retrieves a single client by ID.
+func (h *ClientHandler) GetClient(w http.ResponseWriter, r *http.Request) {
 	idStr := chi.URLParam(r, "id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
 	if err != nil {
-		utils.BadRequest(w, errors.New("invalid member ID"))
+		utils.BadRequest(w, errors.New("invalid client ID"))
 		return
 	}
 
-	member, err := h.DB.MemberRepo.GetByID(r.Context(), id)
+	client, err := h.DB.ClientRepo.GetByID(r.Context(), id)
 	if err != nil {
-		h.errorLog.Println("ERROR_GetMember_01: db error:", err)
-		utils.BadRequest(w, errors.New("member not found"))
+		h.errorLog.Println("ERROR_GetClient_01: db error:", err)
+		utils.NotFound(w, "client not found")
 		return
 	}
 
-	utils.WriteJSON(w, http.StatusOK, member)
+	utils.WriteJSON(w, http.StatusOK, client)
 }
 
-// UpdateMember handles updating member details and allows re-uploading the image.
-func (h *MemberHandler) UpdateMember(w http.ResponseWriter, r *http.Request) {
+// UpdateClient handles updating client details and allows re-uploading the image.
+func (h *ClientHandler) UpdateClient(w http.ResponseWriter, r *http.Request) {
 	idStr := strings.TrimSpace(r.URL.Query().Get("id"))
 	id, err := strconv.ParseInt(idStr, 10, 64)
 	if err != nil {
-		utils.BadRequest(w, errors.New("invalid member ID"))
+		utils.BadRequest(w, errors.New("invalid client ID"))
 		return
 	}
 
-	// 1. Fetch existing member to preserve data/paths
-	existing, err := h.DB.MemberRepo.GetByID(r.Context(), id)
+	// 1. Fetch existing client to preserve data/paths
+	existing, err := h.DB.ClientRepo.GetByID(r.Context(), id)
 	if err != nil {
-		h.errorLog.Println("ERROR_UpdateMember_01: fetch error:", err)
-		utils.BadRequest(w, errors.New("member not found"))
+		h.errorLog.Println("ERROR_UpdateClient_01: fetch error:", err)
+		utils.NotFound(w, "client not found")
 		return
 	}
 
 	// 2. Parse Multipart Form (10MB)
 	if err := r.ParseMultipartForm(10 << 20); err != nil {
-		h.errorLog.Println("ERROR_UpdateMember_02: parse form:", err)
-		utils.BadRequest(w, errors.New("invalid form data"))
+		h.errorLog.Println("ERROR_UpdateClient_02: parse form:", err)
+		utils.BadRequest(w, errors.New("invalid form data or file too large"))
 		return
 	}
 
@@ -217,20 +198,19 @@ func (h *MemberHandler) UpdateMember(w http.ResponseWriter, r *http.Request) {
 		existing.Name = name
 	}
 
-	teamIDStr := r.FormValue("team")
-	teamID, err := strconv.Atoi(teamIDStr)
-	if teamIDStr != "" && err == nil {
-		existing.TeamID = int64(teamID)
+	area := strings.TrimSpace(r.FormValue("area"))
+	if area != "" {
+		existing.Area = area
 	}
 
-	designation := strings.TrimSpace(r.FormValue("designation"))
-	if designation != "" {
-		existing.Designation = designation
+	serviceName := strings.TrimSpace(r.FormValue("service_name"))
+	if serviceName != "" {
+		existing.ServiceName = serviceName
 	}
 
-	contact := strings.TrimSpace(r.FormValue("contact"))
-	if contact != "" {
-		existing.Contact = contact
+	status := strings.TrimSpace(r.FormValue("status"))
+	if status != "" {
+		existing.Status = status
 	}
 
 	note := strings.TrimSpace(r.FormValue("note"))
@@ -239,9 +219,9 @@ func (h *MemberHandler) UpdateMember(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// --- File Change Tracking Variables ---
-	storagePath := filepath.Join("data", "images") // Base path: data/images
-	oldImageLink := existing.ImageLink             // Store original image link
-	var backupFilePath string                      // Tracks if a successful backup file was created
+	storagePath := filepath.Join("data", "images", "clients")
+	oldImageLink := existing.ImageLink // Store original image link
+	var backupFilePath string          // Tracks if a successful backup file was created
 
 	// 4. Handle Optional Image Update
 	file, header, err := r.FormFile("profileImage")
@@ -253,17 +233,17 @@ func (h *MemberHandler) UpdateMember(w http.ResponseWriter, r *http.Request) {
 		if oldImageLink != "" {
 			oldFullPath := filepath.Join(storagePath, oldImageLink)
 
-			// Create backup filename: e.g., "10_Member.jpg" -> "10_Member_backup.jpg"
+			// Create backup filename: e.g., "10_Client.jpg" -> "10_Client_backup.jpg"
 			oldExt := filepath.Ext(oldImageLink)
 			oldBase := strings.TrimSuffix(oldImageLink, oldExt)
 			backupFileName := fmt.Sprintf("%s_backup%s", oldBase, oldExt)
 			backupFilePath = filepath.Join(storagePath, backupFileName)
 
-			// STEP 1: Perform Backup (Rename old file to backup file)
+			//  STEP 1: Perform Backup (Rename old file to backup file)
 			if err := os.Rename(oldFullPath, backupFilePath); err != nil {
 				// We proceed if the file doesn't exist, but log an error if rename fails for another reason.
 				if !os.IsNotExist(err) {
-					h.errorLog.Println("WARNING_UpdateMember_03a: Failed to backup old member image:", err)
+					h.errorLog.Println("WARNING_UpdateClient_03a: Failed to backup old client image:", err)
 				}
 				// Clear the path if backup failed/wasn't needed
 				backupFilePath = ""
@@ -280,13 +260,13 @@ func (h *MemberHandler) UpdateMember(w http.ResponseWriter, r *http.Request) {
 
 		// Ensure storage directory exists
 		if err := os.MkdirAll(storagePath, 0755); err != nil {
-			h.errorLog.Println("ERROR_UpdateMember_04: mkdir:", err)
+			h.errorLog.Println("ERROR_UpdateClient_03: mkdir:", err)
 
-			// Restore backup if mkdir failed
+			//  Restore backup if it exists
 			if backupFilePath != "" {
 				restorePath := filepath.Join(storagePath, oldImageLink)
 				if restoreErr := os.Rename(backupFilePath, restorePath); restoreErr != nil {
-					h.errorLog.Println("CRITICAL_UpdateMember_04b: Failed to restore backup image:", restoreErr)
+					h.errorLog.Println("CRITICAL_UpdateClient_03b: Failed to restore backup image:", restoreErr)
 				}
 			}
 
@@ -297,13 +277,13 @@ func (h *MemberHandler) UpdateMember(w http.ResponseWriter, r *http.Request) {
 		fullPath := filepath.Join(storagePath, filename)
 		dst, err := os.Create(fullPath)
 		if err != nil {
-			h.errorLog.Println("ERROR_UpdateMember_05: create file:", err)
+			h.errorLog.Println("ERROR_UpdateClient_04: create file:", err)
 
-			// Restore backup if create file failed
+			// Restore backup if it exists
 			if backupFilePath != "" {
 				restorePath := filepath.Join(storagePath, oldImageLink)
 				if restoreErr := os.Rename(backupFilePath, restorePath); restoreErr != nil {
-					h.errorLog.Println("CRITICAL_UpdateMember_05b: Failed to restore backup image:", restoreErr)
+					h.errorLog.Println("CRITICAL_UpdateClient_04b: Failed to restore backup image:", restoreErr)
 				}
 			}
 
@@ -313,7 +293,7 @@ func (h *MemberHandler) UpdateMember(w http.ResponseWriter, r *http.Request) {
 		defer dst.Close()
 
 		if _, err := io.Copy(dst, file); err != nil {
-			h.errorLog.Println("ERROR_UpdateMember_06: copy file:", err)
+			h.errorLog.Println("ERROR_UpdateClient_05: copy file:", err)
 
 			// STEP 3 (Part 1): Restore backup if saving new file failed
 			if backupFilePath != "" {
@@ -321,7 +301,7 @@ func (h *MemberHandler) UpdateMember(w http.ResponseWriter, r *http.Request) {
 				// Delete the partially written new file before restore attempt
 				os.Remove(fullPath)
 				if restoreErr := os.Rename(backupFilePath, restorePath); restoreErr != nil {
-					h.errorLog.Println("CRITICAL_UpdateMember_06a: Failed to restore backup image:", restoreErr)
+					h.errorLog.Println("CRITICAL_UpdateClient_05a: Failed to restore backup image:", restoreErr)
 				}
 			}
 
@@ -333,33 +313,32 @@ func (h *MemberHandler) UpdateMember(w http.ResponseWriter, r *http.Request) {
 		existing.ImageLink = filename
 	} else if err != http.ErrMissingFile {
 		// Handle other errors besides just missing the file
-		h.errorLog.Println("ERROR_UpdateMember_06b: form file:", err)
+		h.errorLog.Println("ERROR_UpdateClient_05b: form file:", err)
 		utils.BadRequest(w, errors.New("failed to process image upload"))
 		return
 	}
-	fmt.Println(existing.TeamID)
 
 	// 5. Update Database
-	err = h.DB.MemberRepo.Update(r.Context(), existing)
+	err = h.DB.ClientRepo.Update(r.Context(), existing)
 	if err != nil {
-		h.errorLog.Println("ERROR_UpdateMember_07: db update:", err)
+		h.errorLog.Println("ERROR_UpdateClient_06: db update:", err)
 
 		// STEP 3 (Part 2): Restore original file if DB update failed, AND a backup was made
 		if backupFilePath != "" {
 			// 1. Delete the newly uploaded file (whose name is now in existing.ImageLink)
 			newFullPath := filepath.Join(storagePath, existing.ImageLink)
 			if err := os.Remove(newFullPath); err != nil && !os.IsNotExist(err) {
-				h.errorLog.Printf("WARNING_UpdateMember_07b: Failed to clean up new image (%s): %v", newFullPath, err)
+				h.errorLog.Printf("WARNING_UpdateClient_06b: Failed to clean up new image (%s): %v", newFullPath, err)
 			}
 
 			// 2. Restore backup file
 			restorePath := filepath.Join(storagePath, oldImageLink)
 			if restoreErr := os.Rename(backupFilePath, restorePath); restoreErr != nil {
-				h.errorLog.Println("CRITICAL_UpdateMember_07c: Failed to restore backup image after DB failure:", restoreErr)
+				h.errorLog.Println("CRITICAL_UpdateClient_06a: Failed to restore backup image after DB failure:", restoreErr)
 			}
 		}
 
-		utils.ServerError(w, errors.New("failed to update member"))
+		utils.ServerError(w, errors.New("failed to update client"))
 		return
 	}
 
@@ -367,57 +346,58 @@ func (h *MemberHandler) UpdateMember(w http.ResponseWriter, r *http.Request) {
 	// STEP 4: Remove backup file
 	if backupFilePath != "" {
 		if err := os.Remove(backupFilePath); err != nil {
-			h.errorLog.Println("WARNING_UpdateMember_08: Failed to remove backup image:", err)
+			h.errorLog.Println("WARNING_UpdateClient_07: Failed to remove backup image:", err)
 		}
 	}
 
 	utils.WriteJSON(w, http.StatusOK, struct {
 		Error   bool           `json:"error"`
 		Message string         `json:"message"`
-		Data    *models.Member `json:"data"`
+		Data    *models.Client `json:"data"`
 	}{
 		Error:   false,
-		Message: "Member updated successfully",
+		Message: "Client updated successfully",
 		Data:    existing,
 	})
 }
 
-// DeleteMember removes the member from the database.
-func (h *MemberHandler) DeleteMember(w http.ResponseWriter, r *http.Request) {
+// DeleteClient removes the client from the database and its image from the filesystem.
+func (h *ClientHandler) DeleteClient(w http.ResponseWriter, r *http.Request) {
 	idStr := strings.TrimSpace(r.URL.Query().Get("id"))
 	id, err := strconv.ParseInt(idStr, 10, 64)
 	if err != nil {
-		utils.BadRequest(w, errors.New("invalid member ID"))
+		utils.BadRequest(w, errors.New("invalid client ID"))
 		return
 	}
 
-	//fetch the member info
-	member, err := h.DB.MemberRepo.GetByID(r.Context(), id)
+	// Fetch the client info (need ImageLink for file deletion)
+	client, err := h.DB.ClientRepo.GetByID(r.Context(), id)
 	if err != nil {
-		utils.BadRequest(w, errors.New("Member not found"))
+		utils.NotFound(w, "Client not found")
 		return
 	}
 
-	err = h.DB.MemberRepo.Delete(r.Context(), id)
+	err = h.DB.ClientRepo.Delete(r.Context(), id)
 	if err != nil {
-		h.errorLog.Println("ERROR_DeleteMember_01: db error:", err)
-		utils.ServerError(w, errors.New("failed to delete member"))
+		h.errorLog.Println("ERROR_DeleteClient_01: db error:", err)
+		utils.ServerError(w, errors.New("failed to delete client"))
 		return
 	}
 
-	//silently delete the image from the filesystem
-	os.Remove(filepath.Join("data", "images", member.ImageLink))
+	// Silently delete the image from the filesystem
+	// Changed directory from 'images' to 'clients'
+	os.Remove(filepath.Join("data", "images", "clients", client.ImageLink))
 
 	utils.WriteJSON(w, http.StatusOK, struct {
 		Error   bool   `json:"error"`
 		Message string `json:"message"`
 	}{
 		Error:   false,
-		Message: "Member deleted successfully",
+		Message: "Client deleted successfully",
 	})
 }
 
-func (h *MemberHandler) respondSuccess(w http.ResponseWriter, id int64, msg string) {
+func (h *ClientHandler) respondSuccess(w http.ResponseWriter, id int64, msg string) {
 	utils.WriteJSON(w, http.StatusCreated, struct {
 		Error   bool   `json:"error"`
 		Message string `json:"message"`

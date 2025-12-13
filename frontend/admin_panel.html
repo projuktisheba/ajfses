@@ -145,7 +145,8 @@
                         class="flex items-center gap-2 focus:outline-none hover:bg-gray-100 p-2 rounded-lg transition">
                         <img src="https://ui-avatars.com/api/?name=Admin+User&background=0d6efd&color=fff" alt="Admin"
                             class="h-8 w-8 rounded-full border-2 border-gray-100 shadow-sm">
-                        <span class="hidden md:block font-medium text-sm text-gray-700">Administrator</span>
+                        <span id="user-name"
+                            class="hidden md:block font-medium text-sm text-gray-700">Administrator</span>
                         <i class="fa fa-chevron-down text-xs hidden md:block text-gray-500"></i>
                     </button>
 
@@ -154,11 +155,16 @@
                         class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 ring-1 ring-black ring-opacity-5 origin-top-right">
                         <div class="px-4 py-3 border-b border-gray-100">
                             <p class="text-sm">Signed in as</p>
-                            <p class="text-sm font-bold text-gray-900 truncate">admin@ajfses.com</p>
+                            <p id="user-email" class="text-sm font-bold text-gray-900 truncate">admin@ajfses.com</p>
                         </div>
-                        <!-- <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i
+                        <a onclick="openProfileViewModal()"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i
                                 class="fa fa-user mr-2 text-gray-400"></i> Your Profile</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i
+                        <a onclick="openResetPasswordModal()"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i
+                                class="fa fa-key mr-2 text-gray-400"></i> Change Password</a>
+
+                        <!-- <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i
                                 class="fa fa-cog mr-2 text-gray-400"></i> Settings</a>
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i
                                 class="fa fa-list mr-2 text-gray-400"></i> Activity Log</a> -->
@@ -166,6 +172,172 @@
                         <button type="button" onclick="signout()"
                             class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100"><i
                                 class="fa fa-sign-out-alt mr-2"></i> Sign out</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Profile view modal -->
+        <div id="profileViewModal" class="fixed inset-0 z-50 hidden overflow-y-auto"
+    aria-labelledby="profileViewModalLabel" role="dialog" aria-modal="true">
+
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-gray-900 bg-opacity-70 transition-opacity"
+            onclick="closeProfileViewModal()" aria-hidden="true"></div>
+
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+        <div
+            class="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full">
+
+            <div class="bg-white px-6 pt-5 pb-3 flex justify-between items-center border-b border-gray-100">
+                <h3 class="text-xl font-semibold text-gray-800" id="profileViewModalLabel">
+                    Profile Information
+                </h3>
+                <button type="button" class="text-gray-400 hover:text-gray-700 p-1 rounded-full"
+                    onclick="closeProfileViewModal()">
+                    <i class="fa fa-times text-lg"></i>
+                </button>
+            </div>
+
+            <div class="bg-white px-6 pt-4 pb-6">
+                <div class="w-full space-y-5"> <div class="flex items-center justify-between border-b border-gray-100 pb-3"> <div class="flex items-center space-x-4">
+                            <img id="viewProfileImage" src="img/user.webp" alt="Profile Picture"
+                                class="h-16 w-16 object-cover rounded-full shadow-md">
+                            <div class="flex flex-col">
+                                <p id="viewProfileName" class="text-lg font-bold text-gray-900">ajfses Admin</p>
+                                <p id="viewProfileEmail" class="text-sm text-gray-500">
+                                    ajfiresolutions@hotmail.com</p>
+                            </div>
+                        </div>
+
+                        </div>
+
+                    <div class="grid grid-cols-2 gap-x-4 gap-y-3"> <div class="p-3 border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition duration-200 bg-white">
+                            <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Full Name</span>
+                            <div class="flex items-center mt-1 space-x-2">
+                                <p class="text-gray-900 text-sm font-medium" id="viewProfileNameDisplay">ajfses Admin</p>
+                                <span id="viewProfileStatus"
+                                    class="inline-flex items-center rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">Active</span> </div>
+                        </div>
+
+                        <div class="p-3 border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition duration-200 bg-white">
+                            <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Role</span>
+                            <p class="text-gray-900 text-sm font-medium mt-1" id="viewProfileRoleDisplay">Admin</p>
+                        </div>
+
+                        <div class="p-3 border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition duration-200 bg-white">
+                            <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Mobile</span>
+                            <p class="text-gray-900 text-sm font-medium mt-1" id="viewProfileMobile">+09611-699282</p>
+                        </div>
+
+                        <div class="p-3 border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition duration-200 bg-white">
+                            <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Joining Date</span>
+                            <p class="text-gray-900 text-sm font-medium mt-1" id="viewProfileJoiningDate">Dec 03, 2025</p>
+                        </div>
+
+                        <div class="p-3 border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition duration-200 bg-white">
+                            <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Created At</span>
+                            <p class="text-gray-900 text-sm font-medium mt-1" id="viewProfileCreatedAt">Dec 03, 2025</p>
+                        </div>
+
+                        <div class="p-3 border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition duration-200 bg-white">
+                            <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Last Updated</span>
+                            <p class="text-gray-900 text-sm font-medium mt-1" id="viewProfileUpdatedAt">Dec 14, 2025</p>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t border-gray-100"> <span class="text-sm font-semibold text-gray-700 block mb-1">Full Address</span> <div class="p-3 border border-gray-100 rounded-lg shadow-md bg-white hover:shadow-lg transition duration-200">
+                            <p id="viewProfileAddress" class="text-gray-700 text-sm">
+                                SRA Centre (6th Floor), Pllibidyut Bus Stand, Ashulia, Savar, Dhaka, Bangladesh
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+        <!-- Reset password modal -->
+        <div id="resetPasswordModal" class="fixed inset-0 z-50 hidden overflow-y-auto"
+            aria-labelledby="resetPasswordModalLabel" aria-modal="true" role="dialog">
+
+            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+                    onclick="closeResetPasswordModal()" aria-hidden="true"></div>
+
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+                <div
+                    class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full">
+
+                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6">
+                        <div class="sm:flex sm:items-start">
+                            <div class="w-full">
+
+                                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4"
+                                    id="resetPasswordModalLabel">
+                                    <i class="fa fa-key text-primary mr-2"></i>Reset Admin Password
+                                </h3>
+
+                                <form id="resetPasswordForm">
+                                    <div class="mb-4">
+                                        <label for="newPassword" class="block text-sm font-medium text-gray-700">New
+                                            Password
+                                            <span class="text-red-500">*</span></label>
+                                        <div class="relative">
+                                            <input type="password"
+                                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm pr-10"
+                                                id="newPassword" required minlength="6">
+                                            <button type="button"
+                                                class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 hover:text-gray-800"
+                                                onclick="togglePasswordVisibility('newPassword', 'toggleNewPasswordIcon')"
+                                                aria-label="Toggle password visibility">
+                                                <i id="toggleNewPasswordIcon" class="fa fa-eye-slash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="confirmPassword"
+                                            class="block text-sm font-medium text-gray-700">Confirm New
+                                            Password <span class="text-red-500">*</span></label>
+                                        <div class="relative">
+                                            <input type="password"
+                                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm pr-10"
+                                                id="confirmPassword" required>
+                                            <button type="button"
+                                                class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 hover:text-gray-800"
+                                                onclick="togglePasswordVisibility('confirmPassword', 'toggleConfirmPasswordIcon')"
+                                                aria-label="Toggle password visibility">
+                                                <i id="toggleConfirmPasswordIcon" class="fa fa-eye-slash"></i>
+                                            </button>
+                                        </div>
+                                        <div class="text-red-500 text-xs mt-1 hidden" id="passwordMatchError">
+                                            Passwords do not match.
+                                        </div>
+                                    </div>
+
+                                    <div id="resetPasswordAlert" class="hidden mt-4 p-3 rounded-md text-sm"
+                                        role="alert"></div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                        <button type="button" onclick="handleResetPassword()" id="btnSavePassword"
+                            class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-medium text-white hover:bg-red-600 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
+                            <span id="resetPasswordSpinner" class="fa fa-spinner fa-spin hidden me-2"></span>
+                            <span id="btnSavePasswordText">Save New Password</span>
+                        </button>
+
+                        <button type="button" onclick="closeResetPasswordModal()"
+                            class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                            Cancel
+                        </button>
                     </div>
                 </div>
             </div>
@@ -203,12 +375,22 @@
                             <span class="ml-2 text-sm tracking-wide truncate">Team Members</span>
                         </a>
                     </li>
-                    <!-- Photo Gallery Members -->
+                    <!-- Clients -->
+                    <li>
+                        <a href="#" onclick="showSection('clients', this)"
+                            class="nav-item relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-800 text-gray-300 hover:text-white pr-6 cursor-pointer transition">
+                            <span class="inline-flex justify-center items-center ml-4">
+                                <i class="fa-solid fa-address-book"></i>
+                            </span>
+                            <span class="ml-2 text-sm tracking-wide truncate">Clients</span>
+                        </a>
+                    </li>
+                    <!-- Photo Gallery -->
                     <li>
                         <a href="#" onclick="showSection('photo-gallery', this)"
                             class="nav-item relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-800 text-gray-300 hover:text-white pr-6 cursor-pointer transition">
                             <span class="inline-flex justify-center items-center ml-4">
-                                <i class="fa-solid fa-users"></i>
+                                <i class="fa-solid fa-photo-film"></i>
                             </span>
                             <span class="ml-2 text-sm tracking-wide truncate">Photo Gallery</span>
                         </a>
@@ -588,6 +770,167 @@
             </div>
 
             <!-- =========================
+                 Clients VIEW
+                 ========================= -->
+            <div id="clients-section" class="section-view hidden">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+                    <div
+                        class="p-5 border-b border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                        <h3 class="font-bold text-lg text-gray-800">Client Management</h3>
+                        <div class="flex gap-2">
+                            <button
+                                class="px-4 py-2 bg-gray-100 text-primary text-sm border border-primary rounded-lg hover:bg-primary hover:text-white transition"
+                                onclick="openClientModal(0)">
+                                <i class="fa fa-plus mr-1"></i> Add New Client
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50 text-gray-600 text-sm uppercase tracking-wider">
+                                    <th class="p-4 font-semibold border-b">Logo / ID</th>
+                                    <th class="p-4 font-semibold border-b">Client Name</th>
+                                    <th class="p-4 font-semibold border-b">Address</th>
+                                    <th class="p-4 font-semibold border-b">Service Name</th>
+                                    <th class="p-4 font-semibold border-b">Status</th>
+                                    <th class="p-4 font-semibold border-b">Note</th>
+                                    <th class="p-4 font-semibold border-b text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="clients-table-body" class="text-sm text-gray-700">
+                                <tr>
+                                    <td colspan="7" class="text-center p-8 text-gray-500">
+                                        <i class="fa fa-spinner fa-spin fa-2x mb-2"></i><br>Loading clients...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="clientModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title"
+                role="dialog" aria-modal="true">
+                <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"
+                        onclick="closeClientModal()"></div>
+
+                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+                    <div
+                        class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full">
+                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6">
+                            <div class="sm:flex sm:items-start">
+                                <div class="w-full">
+                                    <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="clientModalTitle">
+                                        <i class="fa fa-users text-primary mr-2"></i>Add New Client
+                                    </h3>
+
+                                    <form id="clientForm" onsubmit="saveClient(event)">
+                                        <input type="hidden" id="clientID" name="id">
+
+                                        <div class="mb-4">
+                                            <label for="clientName"
+                                                class="block text-sm font-medium text-gray-700">Client
+                                                Name</label>
+                                            <input type="text" id="clientName" name="name" required
+                                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label for="clientArea"
+                                                class="block text-sm font-medium text-gray-700">Address</label>
+                                            <input type="text" id="clientArea" name="area" required
+                                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label for="clientServiceName"
+                                                class="block text-sm font-medium text-gray-700">Service Name</label>
+                                            <input type="text" id="clientServiceName" name="service_name"
+                                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label for="clientStatus"
+                                                class="block text-sm font-medium text-gray-700">Status</label>
+                                            <select id="clientStatus" name="status"
+                                                class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                                <option value="">Select Status (Optional)</option>
+                                                <option value="Active">Active</option>
+                                                <option value="Pending">Pending</option>
+                                                <option value="Completed">Completed</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label for="clientNote"
+                                                class="block text-sm font-medium text-gray-700">Note</label>
+                                            <textarea id="clientNote" name="note" rows="3"
+                                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label class="block text-sm font-medium text-gray-700">Client Logo /
+                                                Image</label>
+                                            <div
+                                                class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md relative">
+                                                <div class="space-y-1 text-center w-full flex flex-col items-center">
+
+                                                    <i id="clientUploadPlaceholder"
+                                                        class="fa fa-image text-gray-400 text-5xl mb-3"></i>
+
+                                                    <img id="clientPreviewImage" src="#" alt="Preview"
+                                                        class="hidden h-32 w-32 object-cover rounded-full border-4 border-gray-100 shadow-sm mb-3">
+
+                                                    <div class="flex text-sm text-gray-600 justify-center">
+                                                        <label for="clientImage"
+                                                            class="relative cursor-pointer bg-white rounded-md font-medium text-primary hover:text-red-500 focus-within:outline-none">
+                                                            <span
+                                                                class="bg-secondary text-white px-4 py-1 rounded-lg">Upload
+                                                                a file</span>
+                                                            <input id="clientImage" name="profileImage" type="file"
+                                                                class="sr-only" accept="image/*">
+                                                        </label>
+                                                    </div>
+                                                    <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                                                    <p class="text-xs text-gray-500">540px X 540px</p>
+                                                    <p id="clientFileNameDisplay"
+                                                        class="text-xs text-green-600 mt-2 font-semibold"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                            <button type="submit" onclick="saveClient(event)" id="btnSaveClient"
+                                class="w-full inline-flex justify-center items-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-medium text-white hover:bg-red-600 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
+                                <span id="btnSaveClientText">
+                                    Save Client
+                                </span>
+
+                                <span id="clientSpinner" class="hidden ml-2">
+                                    <div
+                                        class="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin">
+                                    </div>
+                                </span>
+
+                            </button>
+                            <button type="button" onclick="closeClientModal()"
+                                class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================
                  PHOTO GALLERY VIEW
                  ========================= -->
             <div id="photo-gallery-section" class="section-view">
@@ -753,6 +1096,7 @@
     </div>
 
     <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/admin-modal.js"></script>
     <script src="lib/xlsx/xlsx.full.min.js"></script>
     <!-- Default script -->
@@ -760,6 +1104,100 @@
         // Set Current Date
         const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', dateOptions);
+
+        // set user data to the top-right section
+        let userData = getUser();
+        if (userData) {
+            document.getElementById("user-name").innerText = userData.name;
+            document.getElementById("user-email").innerText = userData.email;
+        }
+
+
+        function openProfileViewModal() {
+            // Helper to format ISO date strings (shorter, e.g., "Dec 03, 2025")
+            const formatDate = (isoString) => {
+                if (!isoString) return 'N/A';
+                try {
+                    const date = new Date(isoString);
+                    // Options for human-readable date only
+                    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+                    return date.toLocaleDateString('en-US', options);
+                } catch (e) {
+                    return 'Invalid Date';
+                }
+            };
+
+            // --- TOP SUMMARY SECTION ---
+
+            // 1. Name in the summary (Top Left)
+            const nameEl = document.getElementById('viewProfileName');
+            if (nameEl) nameEl.textContent = userData.name || 'N/A';
+
+            // 2. Email in the summary (Top Left)
+            const emailSummaryEl = document.getElementById('viewProfileEmail');
+            if (emailSummaryEl) emailSummaryEl.textContent = userData.email || 'N/A';
+
+            // // 3. Avatar Image Source
+            // const avatarEl = document.getElementById('viewProfileImage');
+            // // NOTE: The HTML uses src="img/user.webp", so we update it here if avatarLink is available
+            // if (avatarEl) avatarEl.src = userData.avatarLink || 'img/user.webp';
+
+
+            // --- DETAIL GRID SECTION ---
+
+            // 4. Full Name Display (Inside the grid, next to status)
+            const nameDisplayEl = document.getElementById('viewProfileNameDisplay');
+            if (nameDisplayEl) nameDisplayEl.textContent = userData.name || 'N/A';
+
+            // 5. Role
+            const roleEl = document.getElementById('viewProfileRoleDisplay');
+            if (roleEl) roleEl.textContent = userData.role || 'N/A';
+
+            // 6. Mobile
+            const mobileEl = document.getElementById('viewProfileMobile');
+            if (mobileEl) mobileEl.textContent = userData.mobile || 'N/A';
+
+            // 7. Joining Date
+            const joiningDateEl = document.getElementById('viewProfileJoiningDate');
+            if (joiningDateEl) joiningDateEl.textContent = formatDate(userData.joiningDate);
+
+            // 8. Created At (Mapped to a date field)
+            const createdAtEl = document.getElementById('viewProfileCreatedAt');
+            if (createdAtEl) createdAtEl.textContent = formatDate(userData.createdAt);
+
+            // 9. Last Updated (FIXED THE TYPO HERE)
+            const updatedAtEl = document.getElementById('viewProfileUpdatedAt');
+            if (updatedAtEl) updatedAtEl.textContent = formatDate(userData.updatedAt);
+
+            // 10. Address (Full Width Block)
+            const addressEl = document.getElementById('viewProfileAddress');
+            if (addressEl) addressEl.textContent = userData.address || 'N/A';
+
+            // --- STATUS HANDLING ---
+
+            // 11. Handle Status 
+            const statusEl = document.getElementById('viewProfileStatus');
+            if (statusEl) {
+                statusEl.textContent = userData.status || 'Unknown';
+                // Reset classes first
+                statusEl.className = 'inline-flex items-center rounded-full px-3 py-0.5 text-xs font-medium';
+
+                if (userData.status === 'Active') {
+                    statusEl.classList.add('bg-green-100', 'text-green-800');
+                } else if (userData.status === 'Inactive' || userData.status === 'Suspended') {
+                    statusEl.classList.add('bg-red-100', 'text-red-800');
+                } else {
+                    statusEl.classList.add('bg-gray-100', 'text-gray-800');
+                }
+            }
+
+            // 12. Display the modal
+            document.getElementById('profileViewModal').classList.remove('hidden');
+        }
+
+        function closeProfileViewModal() {
+            document.getElementById('profileViewModal').classList.add('hidden');
+        }
 
         // Sidebar Toggle for Mobile
         const btn = document.getElementById('mobile-menu-btn');
@@ -828,12 +1266,14 @@
             const titles = {
                 'inquiries': 'Inquiry Management',
                 'team-members': 'Team Members',
-                'photo-gallery': 'Photo Gallery'
+                'photo-gallery': 'Photo Gallery',
+                'clients': 'Client Management'
             };
             const descs = {
                 'inquiries': "Review and manage recent quote requests.",
                 'team-members': "Manage team members.",
                 'photo-gallery': "Add, or remove engineering projects.",
+                'clients': "Add, or remove clients.",
             };
 
             document.getElementById('page-title').innerText = titles[sectionId] || 'Inquiries';
@@ -856,7 +1296,8 @@
             const callbacks = {
                 'inquiries': fetchInquiries,
                 'photo-gallery': fetchProjects,
-                'team-members': fetchMembers
+                'team-members': fetchMembers,
+                'clients': fetchClients,
             };
 
             const callbackFn = callbacks[sectionId];
@@ -892,6 +1333,136 @@
         }
 
 
+    </script>
+
+    <!-- Reset password script -->
+    <script>
+        /**
+         * Toggles the visibility of a password input field.
+         */
+        function togglePasswordVisibility(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            }
+        }
+        // Get the modal element once
+        const resetPasswordModal = document.getElementById('resetPasswordModal');
+
+        // 1. OPEN MODAL
+        function openResetPasswordModal() {
+            // Clear the form and any previous errors/alerts when opening
+            document.getElementById('resetPasswordForm').reset();
+            document.getElementById('passwordMatchError').classList.add('hidden');
+
+            const alertElement = document.getElementById('resetPasswordAlert');
+            alertElement.classList.add('hidden');
+            alertElement.className = 'hidden mt-4 p-3 rounded-lg text-sm'; // Clear all color classes
+
+            // Show the modal by removing 'hidden'
+            resetPasswordModal.classList.remove('hidden');
+        }
+
+        // 2. CLOSE MODAL
+        function closeResetPasswordModal() {
+            // Hide the modal by adding 'hidden'
+            resetPasswordModal.classList.add('hidden');
+            // You can optionally reset the form here if not done in open, but form.reset() is recommended in open.
+        }
+
+        // 3. SUBMIT FORM (Reset Password Logic)
+        async function handleResetPassword() {
+            const newPasswordInput = document.getElementById('newPassword');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            const passwordMatchError = document.getElementById('passwordMatchError');
+            const alertElement = document.getElementById('resetPasswordAlert');
+
+            const btn = document.getElementById('btnSavePassword');
+            const btnText = document.getElementById('btnSavePasswordText');
+            const spinner = document.getElementById('resetPasswordSpinner');
+
+            const newPassword = newPasswordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+
+            // --- Validation and UI Reset ---
+            passwordMatchError.classList.add('hidden');
+            alertElement.classList.add('hidden');
+            alertElement.className = 'hidden mt-4 p-3 rounded-lg text-sm';
+            newPasswordInput.classList.remove('border-red-500'); // Assuming you have a style for error input
+
+            if (newPassword !== confirmPassword) {
+                passwordMatchError.classList.remove('hidden');
+                confirmPasswordInput.classList.add('border-red-500');
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                alertElement.classList.remove('hidden');
+                alertElement.classList.add('bg-red-100', 'text-red-700');
+                alertElement.textContent = 'Password must be at least 6 characters long.';
+                newPasswordInput.classList.add('border-red-500');
+                return;
+            }
+
+            // --- API Call Preparation ---
+            btn.disabled = true;
+            btnText.innerText = "Saving...";
+            spinner.classList.remove('hidden');
+
+            try {
+                const token = getToken(); // Assuming getToken() is defined globally
+                if (!token) throw new Error("Admin token not found.");
+
+                const response = await fetch(`${apiURL}/auth/admin/reset-password`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        new_password: newPassword
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alertElement.classList.remove('hidden');
+                    alertElement.classList.add('bg-green-100', 'text-green-700');
+                    alertElement.textContent = data.message || 'Password successfully reset!';
+
+                    // Show status briefly, then close
+                    setTimeout(() => {
+                        closeResetPasswordModal();
+                    }, 2000);
+
+                } else {
+                    const errorMessage = data.message || 'Failed to reset password. Please try again.';
+                    alertElement.classList.remove('hidden');
+                    alertElement.classList.add('bg-red-100', 'text-red-700');
+                    alertElement.textContent = errorMessage;
+                }
+
+            } catch (error) {
+                console.error('Password Reset Error:', error);
+                alertElement.classList.remove('hidden');
+                alertElement.classList.add('bg-red-100', 'text-red-700');
+                alertElement.textContent = 'A network error occurred or you are not authorized.';
+            } finally {
+                // Re-enable button and hide spinner
+                btnText.innerText = "Save New Password";
+                btn.disabled = false;
+                spinner.classList.add('hidden');
+            }
+        }
     </script>
 
     <!-- Inquiries script -->
@@ -1084,7 +1655,7 @@
 
             try {
                 // 3. UI Loading State
-                btn.innerText = "Updating...";
+                btn.innerText = "Updating ";
                 btn.disabled = true;
 
                 const token = getToken();
@@ -1299,7 +1870,7 @@
             }
 
             try {
-                btn.innerText = isEdit ? "Updating..." : "Saving...";
+                btn.innerText = isEdit ? "Updating " : "Saving ";
                 btn.disabled = true;
 
                 const formData = new FormData(form);
@@ -1451,6 +2022,289 @@
         }
     </script>
 
+
+    <script>
+        const clientModal = document.getElementById('clientModal');
+        let fetchedClients = []; // Store clients globally to access for editing
+
+        // 1. OPEN MODAL (Handles both Add and Edit)
+        async function openClientModal(client = null) {
+            clientModal.classList.remove('hidden');
+
+            // UI Elements
+            const title = document.getElementById('clientModalTitle');
+            const btn = document.getElementById('btnSaveClient');
+            const btnText = document.getElementById('btnSaveClientText'); // NEW
+            const spinner = document.getElementById('clientSpinner');     // NEW
+            const form = document.getElementById('clientForm');
+            const idInput = document.getElementById('clientID');
+
+            // Image Elements
+            const preview = document.getElementById('clientPreviewImage');
+            const placeholder = document.getElementById('clientUploadPlaceholder');
+            const fileNameDisplay = document.getElementById('clientFileNameDisplay');
+
+            // Reset spinner and button state
+            btn.disabled = false;
+            if (spinner) spinner.classList.add('hidden');
+
+
+            if (client) {
+                // === EDIT MODE ===
+                title.innerHTML = '<i class="fa fa-users text-primary mr-2"></i>Edit Client';
+                if (btnText) btnText.innerText = "Update Client"; // Use btnText to set the content
+
+                // Fill Form
+                idInput.value = client.id;
+                document.getElementById('clientName').value = client.name || '';
+                document.getElementById('clientArea').value = client.area || '';
+                document.getElementById('clientServiceName').value = client.service_name || '';
+                document.getElementById('clientStatus').value = client.status || '';
+                document.getElementById('clientNote').value = client.note || '';
+
+                // Handle Image Preview
+                if (client.image_link) {
+                    // Ensure image path includes /clients/ if that's where they are stored
+                    preview.src = `${window.env.API_URL}/images/clients/${client.image_link}`;
+                    preview.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
+                    fileNameDisplay.innerText = "Current Image: " + client.image_link;
+                } else {
+                    preview.classList.add('hidden');
+                    placeholder.classList.remove('hidden');
+                    fileNameDisplay.innerText = "No image uploaded";
+                }
+            } else {
+                // === ADD MODE ===
+                title.innerHTML = '<i class="fa fa-users text-primary mr-2"></i>Add New Client';
+                if (btnText) btnText.innerText = "Save Client"; // Use btnText to set the content
+
+                // Clear Form
+                form.reset();
+                idInput.value = '';
+
+                // Reset Image
+                preview.src = '#';
+                preview.classList.add('hidden');
+                placeholder.classList.remove('hidden');
+                fileNameDisplay.innerText = '';
+            }
+        }
+
+        // 2. HANDLES FILE SELECTION & PREVIEW (Adapted from Member script)
+        document.getElementById('clientImage').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('clientPreviewImage');
+            const placeholder = document.getElementById('clientUploadPlaceholder');
+            const fileNameDisplay = document.getElementById('clientFileNameDisplay');
+
+            if (file) {
+                fileNameDisplay.innerText = 'Selected: ' + file.name;
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
+                }
+                reader.readAsDataURL(file);
+            } else {
+                // Reset image display if file selection is cancelled
+                preview.classList.add('hidden');
+                placeholder.classList.remove('hidden');
+                fileNameDisplay.innerText = '';
+            }
+        });
+
+        function closeClientModal() {
+            clientModal.classList.add('hidden');
+            document.getElementById('clientForm').reset();
+        }
+
+        // 3. SUBMIT FORM (Create or Update)
+        async function saveClient(event) {
+            event.preventDefault(); // Prevent default form submission
+            const btn = document.getElementById('btnSaveClient');
+            const btnText = document.getElementById('btnSaveClientText'); // NEW
+            const spinner = document.getElementById('clientSpinner');     // NEW
+            const form = document.getElementById('clientForm');
+            const id = document.getElementById('clientID').value;
+            const isEdit = !!id; // Boolean: true if ID exists
+
+            // Construct URL and Method based on mode
+            let API_URL = `${window.env.API_URL}/client`;
+            let method = 'POST';
+
+            if (isEdit) {
+                // Use query parameter as per your Go route
+                API_URL = `${window.env.API_URL}/client?id=${id}`;
+                method = 'PUT';
+            }
+
+            try {
+                // START: Disable button and show spinner
+                btn.disabled = true;
+                if (btnText) btnText.innerText = isEdit ? "Updating " : "Saving ";
+                if (spinner) spinner.classList.remove('hidden');
+
+                const formData = new FormData(form);
+                const token = getToken(); // Assuming getToken() is defined globally
+
+                const response = await fetch(API_URL, {
+                    method: method,
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formData
+                });
+
+                if (response.ok) {
+                    showStatusModal('Success', isEdit ? 'Client updated successfully' : 'Client added successfully', 'success');
+                    closeClientModal();
+                    fetchClients(); // Refresh the table
+                } else {
+                    const result = await response.json();
+                    showStatusModal('Error', result.message || "Failed to save client.", 'error');
+                }
+            } catch (error) {
+                console.error("Submit Error:", error);
+                showStatusModal('Error', "Network error.", 'error');
+            } finally {
+                // END: Enable button and hide spinner
+                if (btnText) btnText.innerText = isEdit ? "Update Client" : "Save Client";
+                btn.disabled = false;
+                if (spinner) spinner.classList.add('hidden');
+            }
+        }
+
+        // --- FETCH & RENDER CLIENTS (No changes needed here) ---
+        async function fetchClients() {
+            const tableBody = document.getElementById('clients-table-body');
+            const API_URL = `${window.env.API_URL}/client`;
+
+            try {
+                tableBody.innerHTML = `<tr><td colspan="7" class="text-center p-8 text-gray-500"><i class="fa fa-spinner fa-spin fa-2x mb-2"></i><br>Loading...</td></tr>`;
+
+                const token = getToken();
+                const response = await fetch(API_URL, {
+                    method: 'GET',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!response.ok) throw new Error("Failed to fetch clients");
+
+                const data = await response.json();
+                fetchedClients = Array.isArray(data) ? data : (data.clients || []);
+
+                renderClientsTable(fetchedClients);
+
+            } catch (error) {
+                console.error('Error fetching clients:', error);
+                tableBody.innerHTML = `<tr><td colspan="7" class="text-center p-8 text-red-500">Failed to load clients.</td></tr>`;
+            }
+        }
+
+        function renderClientsTable(clients) {
+            const tableBody = document.getElementById('clients-table-body');
+
+            if (!clients || clients.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="7" class="text-center p-8 text-gray-500">No clients found.</td></tr>`;
+                return;
+            }
+
+            let html = '';
+            clients.forEach(client => {
+                // Image Logic
+                let avatarHtml = `<div class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500"><i class="fa fa-user"></i></div>`;
+                if (client.image_link) {
+                    avatarHtml = `<img src="${window.env.API_URL}/images/clients/${client.image_link}" class="h-10 w-10 rounded-full object-cover border border-gray-200" alt="${client.name}">`;
+                }
+
+                // Status Badge Logic
+                let statusClass = 'bg-gray-100 text-gray-600';
+                if (client.status === 'Active') {
+                    statusClass = 'bg-green-100 text-green-700';
+                } else if (client.status === 'Pending') {
+                    statusClass = 'bg-yellow-100 text-yellow-700';
+                }
+
+
+                html += `
+                <tr class="table-row-hover border-b border-gray-100 transition hover:bg-gray-50">
+                    <td class="p-4">
+                        <div class="flex items-center gap-3">
+                            ${avatarHtml}
+                            <div class="font-medium text-gray-900">#${client.id}</div>
+                        </div>
+                    </td>
+                    <td class="p-4">
+                        <div class="font-medium text-gray-900">${client.name}</div>
+                    </td>
+                    <td class="p-4 text-gray-700">${client.area || '-'}</td>
+                    <td class="p-4 text-gray-500 text-sm">
+                        ${client.service_name || '-'}
+                    </td>
+                    <td class="p-4">
+                        <span class="px-2 py-1 ${statusClass} rounded text-xs font-semibold">
+                            ${client.status || "N/A"}
+                        </span>
+                    </td>
+                    <td class="p-4 text-gray-500 text-sm max-w-xs truncate" title="${client.note || ''}">
+                        ${client.note || '-'}
+                    </td>
+                    <td class="p-4 text-center">
+                        <button onclick="editClient(${client.id})" class="text-gray-400 hover:text-primary mx-1 transition" title="Edit">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                        <button onclick="deleteClient(${client.id})" class="text-gray-400 hover:text-red-500 mx-1 transition" title="Delete">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>`;
+            });
+            tableBody.innerHTML = html;
+        }
+
+        // 4. HELPER: Edit Client Trigger
+        function editClient(id) {
+            // Find the client object from the global array
+            const client = fetchedClients.find(c => c.id === id);
+            if (client) {
+                openClientModal(client);
+            } else {
+                showStatusModal('Error', 'Client details not found. Please try refreshing.', 'error');
+            }
+        }
+
+        // --- DELETE CLIENT LOGIC (No changes needed here) ---
+        async function deleteClient(id) {
+            if (!confirm(`Are you sure you want to permanently delete client #${id}?`)) {
+                return;
+            }
+            // Use query parameter as per your Go route
+            const DELETE_URL = `${window.env.API_URL}/client?id=${id}`;
+            try {
+                const token = getToken();
+                const response = await fetch(DELETE_URL, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    fetchClients();
+                    showStatusModal('Deleted', 'Client removed successfully.', 'success');
+                } else {
+                    showStatusModal('Error', 'Failed to delete client.', 'error');
+                }
+            } catch (error) {
+                console.error('Delete Error:', error);
+                showStatusModal('Error', 'Network error.', 'error');
+            }
+        }
+    </script>
+    <!-- Gallery script -->
     <script>
         // ==========================================================
         //  FLAT GALLERY LOGIC (Table View)
@@ -1511,7 +2365,7 @@
             }
 
             data.forEach(item => {
-                const imgUrl = item.image_link ? `${apiURL}/images/gallery/${item.image_link}` : 'https://via.placeholder.com/150';
+                const imgUrl = item.image_link ? `${apiURL}/images/gallery/${item.image_link}` : 'img/no-img.webp';
                 const itemStr = encodeURIComponent(JSON.stringify(item));
 
                 const tr = document.createElement('tr');

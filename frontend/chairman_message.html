@@ -59,16 +59,19 @@
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
             position: relative;
             /* Ensures floats are contained */
-            overflow: visible; 
-            display: flow-root; 
+            overflow: visible;
+            display: flow-root;
         }
 
         /* The container for the floated image */
         .chairman-float-wrapper {
             float: left;
-            width: 400px; /* Fixed width for the image area */
-            margin-right: 50px; /* Space between image and text */
-            margin-bottom: 30px; /* Space below image if text wraps */
+            width: 400px;
+            /* Fixed width for the image area */
+            margin-right: 50px;
+            /* Space between image and text */
+            margin-bottom: 30px;
+            /* Space below image if text wraps */
             position: relative;
             z-index: 5;
         }
@@ -102,9 +105,17 @@
         }
 
         @keyframes floatImage {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
         }
 
         /* Text Styling */
@@ -166,7 +177,8 @@
             width: 4px;
             background: var(--primary);
             border-radius: 2px;
-            flex-shrink: 0; /* Prevent line from shrinking */
+            flex-shrink: 0;
+            /* Prevent line from shrinking */
         }
 
         .signature-details {
@@ -191,7 +203,7 @@
             letter-spacing: 0.5px;
             font-size: 1.1rem;
         }
-        
+
         .signature-details div:last-child {
             /* Company Name Style */
             color: var(--primary);
@@ -215,7 +227,7 @@
         }
 
         /* --- RESPONSIVE TWEAKS --- */
-        
+
         /* Tablet & Laptop (Below 992px) */
         @media (max-width: 991px) {
             .chairman-card {
@@ -224,13 +236,15 @@
             }
 
             .chairman-float-wrapper {
-                float: none; /* Disable float to stack elements */
+                float: none;
+                /* Disable float to stack elements */
                 width: 100%;
                 max-width: 400px;
-                margin: 0 auto 40px auto; /* Center image */
+                margin: 0 auto 40px auto;
+                /* Center image */
                 display: block;
             }
-            
+
             .quote-icon-top {
                 font-size: 50px;
                 top: 20px;
@@ -246,15 +260,17 @@
             }
 
             .chairman-card {
-                padding: 25px 20px; /* Less padding on small screens */
+                padding: 25px 20px;
+                /* Less padding on small screens */
             }
 
             .chairman-float-wrapper {
-                max-width: 100%; /* Allow image to take full width */
+                max-width: 100%;
+                /* Allow image to take full width */
                 margin-right: 0;
                 margin-bottom: 30px;
             }
-            
+
             .chairman-img-bg-shape {
                 width: 100px;
                 height: 100px;
@@ -263,7 +279,8 @@
             }
 
             .message-title {
-                font-size: 1.6rem; /* Smaller title font */
+                font-size: 1.6rem;
+                /* Smaller title font */
                 margin-bottom: 20px;
             }
 
@@ -272,13 +289,14 @@
                 padding-left: 40px;
                 letter-spacing: 2px;
             }
-            
+
             .message-subtitle::before {
                 width: 30px;
             }
 
             .message-body {
-                font-size: 0.95rem; /* Slightly smaller body text */
+                font-size: 0.95rem;
+                /* Slightly smaller body text */
                 line-height: 1.7;
             }
 
@@ -290,7 +308,7 @@
             .signature-line {
                 min-height: 50px;
             }
-            
+
             .leader-badge {
                 padding: 8px 15px;
                 font-size: 0.65rem;
@@ -361,6 +379,7 @@
 
         </div>
     </div>
+    <!-- Navbar start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow border-top border-5 border-primary sticky-top p-0">
         <a href="index.html" class="navbar-brand d-flex align-items-center">
             <img src="img/logo.png" class="nav-logo" style="transition: opacity 0.5s ease-in-out;" id="navLogo"
@@ -383,23 +402,22 @@
                         <a href="gallery.html" class="dropdown-item">Gallery</a>
                     </div>
                 </div>
-                <a href="products.html" class="nav-item nav-link">Products & Services</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Products & Services</a>
+                    <div class="dropdown-menu fade-up m-0">
+                        <a href="products.html" class="dropdown-item">Products</a>
+                        <a href="services.html" class="dropdown-item">Services</a>
+                    </div>
+                </div>
                 <a href="brands.html" class="nav-item nav-link">Brands</a>
+                <a href="clients.html" class="nav-item nav-link">Clients</a>
                 <a href="contact.html" class="nav-item nav-link">Contact Us</a>
             </div>
+            <!-- <h4 class="m-0 pe-lg-5 d-none d-lg-block"><i class="fa fa-headphones text-primary me-3"></i>+880 9611-699282 (24/7) -->
+            </h4>
         </div>
     </nav>
-    <div class="container-fluid page-header py-5" style="margin-bottom: 0;">
-        <div class="container py-5">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">Chairman's Note</h1>
-            <nav aria-label="breadcrumb animated slideInDown">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">Chairman's Note</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <!-- Navbar end -->
 
     <div class="container-fluid chairman-section-wrapper">
         <div class="container" id="leadership-container">
@@ -408,8 +426,9 @@
             </div>
         </div>
     </div>
+    <!-- Footer start -->
     <div class="container-fluid text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s"
-        style="margin-top: 0; background-color: #0b1221;">
+        style="margin-top: 6rem; background-color: #0b1221;">
         <div class="container py-4 text-center">
             <h2 class="text-white mb-3">CONTACT US FOR YOUR PROJECT</h2>
             <p class="text-white-50 mb-4">We are specialized in design, supply, installation, testing, service and
@@ -456,8 +475,12 @@
                                 class="fa-solid fa-angle-right me-2"></i>Home</a>
                         <a class="text-light mb-2 text-decoration-none" href="about.html"><i
                                 class="fa-solid fa-angle-right me-2"></i>About Us</a>
+                        <a class="text-light mb-2 text-decoration-none" href="products.html"><i
+                                class="fa-solid fa-angle-right me-2"></i>Our Products</a>
                         <a class="text-light mb-2 text-decoration-none" href="services.html"><i
                                 class="fa-solid fa-angle-right me-2"></i>Our Services</a>
+                        <a class="text-light mb-2 text-decoration-none" href="clients.html"><i
+                                class="fa-solid fa-angle-right me-2"></i>Clients</a>
                         <a class="text-light mb-2 text-decoration-none" href="contact.html"><i
                                 class="fa-solid fa-angle-right me-2"></i>Contact us</a>
                         <a class="text-light mb-2 text-decoration-none" href="admin_panel.html"><i
@@ -509,6 +532,7 @@
             <div class="container">
                 <div class="row align-items-center">
 
+                    <!-- Left Side -->
                     <div class="col-md-6 text-center text-md-start">
                         <p class="mb-0 text-light">
                             © 2025 All Rights Reserved By
@@ -516,6 +540,7 @@
                         </p>
                     </div>
 
+                    <!-- Right Side -->
                     <div class="col-md-6 text-center text-md-end">
                         <p class="mb-0 text-light">
                             Developed By
@@ -528,6 +553,7 @@
             </div>
         </div>
     </div>
+    <!-- Footer end -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-0 back-to-top"><i class="fa fa-arrow-up"></i></a>
 
 
@@ -590,7 +616,7 @@
                     if (person.image_link) {
                         imgUrl = `${window.env.API_URL}/images/${person.image_link}`;
                     } else {
-                        imgUrl = 'img/user.jpg';
+                        imgUrl = 'img/user.webp';
                     }
 
                     // Separator for multiple leaders

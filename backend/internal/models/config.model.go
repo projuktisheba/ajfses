@@ -1,12 +1,20 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 // Response is the type for response
 type Response struct {
 	Error   bool   `json:"error"`
 	Message string `json:"message"`
 }
+
+// Define a common key type for context values
+type ContextKey string
+
+// Define the public constant key used by the middleware and handler
+const AuthClaimsContextKey ContextKey = "authClaims"
 
 // JWT holds token data
 type JWT struct {
@@ -32,8 +40,8 @@ type JWTConfig struct {
 }
 
 type DBConfig struct {
-	DSN          string
-	DEVDSN       string
+	DSN    string
+	DEVDSN string
 }
 
 type Config struct {

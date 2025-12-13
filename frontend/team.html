@@ -12,7 +12,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Roboto:wght@500;700&display=swap"
+        rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="lib/animate/animate.min.css" rel="stylesheet">
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
@@ -110,8 +111,15 @@
                         <a href="gallery.html" class="dropdown-item">Gallery</a>
                     </div>
                 </div>
-                <a href="products.html" class="nav-item nav-link">Products & Services</a>                
-                <a href="brands.html" class="nav-item nav-link">Brands</a>                
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Products & Services</a>
+                    <div class="dropdown-menu fade-up m-0">
+                        <a href="products.html" class="dropdown-item">Products</a>
+                        <a href="services.html" class="dropdown-item">Services</a>
+                    </div>
+                </div>
+                <a href="brands.html" class="nav-item nav-link">Brands</a>
+                <a href="clients.html" class="nav-item nav-link">Clients</a>
                 <a href="contact.html" class="nav-item nav-link">Contact Us</a>
             </div>
             <!-- <h4 class="m-0 pe-lg-5 d-none d-lg-block"><i class="fa fa-headphones text-primary me-3"></i>+880 9611-699282 (24/7) -->
@@ -144,7 +152,6 @@
         </div>
     </div>
     <!-- Team End -->
-
     <!-- Footer start -->
     <div class="container-fluid text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s"
         style="margin-top: 6rem; background-color: #0b1221;">
@@ -194,8 +201,12 @@
                                 class="fa-solid fa-angle-right me-2"></i>Home</a>
                         <a class="text-light mb-2 text-decoration-none" href="about.html"><i
                                 class="fa-solid fa-angle-right me-2"></i>About Us</a>
+                        <a class="text-light mb-2 text-decoration-none" href="products.html"><i
+                                class="fa-solid fa-angle-right me-2"></i>Our Products</a>
                         <a class="text-light mb-2 text-decoration-none" href="services.html"><i
                                 class="fa-solid fa-angle-right me-2"></i>Our Services</a>
+                        <a class="text-light mb-2 text-decoration-none" href="clients.html"><i
+                                class="fa-solid fa-angle-right me-2"></i>Clients</a>
                         <a class="text-light mb-2 text-decoration-none" href="contact.html"><i
                                 class="fa-solid fa-angle-right me-2"></i>Contact us</a>
                         <a class="text-light mb-2 text-decoration-none" href="admin_panel.html"><i
@@ -208,7 +219,8 @@
                         Contact Information</h5>
                     <div class="d-flex mb-3">
                         <i class="fa fa-map-marker-alt text-light me-3 mt-1"></i>
-                        <p class="mb-0">SRA Center (6th Floor) Pollibidyud Bus Stand , Savar Cant:-1344 Ashulia, Dhaka, Bangladesh</p>
+                        <p class="mb-0">SRA Center (6th Floor) Pollibidyud Bus Stand , Savar Cant:-1344 Ashulia, Dhaka,
+                            Bangladesh</p>
                     </div>
                     <div class="d-flex mb-3">
                         <i class="fa fa-phone-alt text-light me-3 mt-1"></i>
@@ -279,40 +291,40 @@
     <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
-    <script src="js/config.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/config.js"></script>
     <script src="js/common.js"></script>
 
-   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        fetchTeamsAndMembers();
-    });
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchTeamsAndMembers();
+        });
 
-    async function fetchTeamsAndMembers() {
-        const container = document.getElementById('team-container');
-        // Ensure this variable is defined in your environment
-        const imageBaseUrl = `${window.env.API_URL}/images/`; 
+        async function fetchTeamsAndMembers() {
+            const container = document.getElementById('team-container');
+            // Ensure this variable is defined in your environment
+            const imageBaseUrl = `${window.env.API_URL}/images/`;
 
-        try {
-            const response = await fetch(`${window.env.API_URL}/team/list/details`, {
-                method: 'GET',
-            });
+            try {
+                const response = await fetch(`${window.env.API_URL}/team/list/details`, {
+                    method: 'GET',
+                });
 
-            const result = await response.json();
+                const result = await response.json();
 
-            if (result.error) {
-                console.error(result.message);
-                return;
-            }
+                if (result.error) {
+                    console.error(result.message);
+                    return;
+                }
 
-            const teams = result.data;
-            container.innerHTML = ''; 
+                const teams = result.data;
+                container.innerHTML = '';
 
-            teams.forEach((team) => {
-                if (team.members.length > 0) {
+                teams.forEach((team) => {
+                    if (team.members.length > 0) {
 
-                    // 1. Team Header
-                    const teamHeaderHTML = `
+                        // 1. Team Header
+                        const teamHeaderHTML = `
                         <div class="col-12 mt-5 mb-3 wow fadeInUp" data-wow-delay="0.1s">
                             <div class="text-center">
                                 <h3 class="text-primary text-uppercase" style="border-bottom: 2px solid #ddd; display: inline-block; padding-bottom: 10px;">
@@ -321,18 +333,18 @@
                             </div>
                         </div>
                     `;
-                    container.insertAdjacentHTML('beforeend', teamHeaderHTML);
+                        container.insertAdjacentHTML('beforeend', teamHeaderHTML);
 
-                    // 2. Members Loop
-                    team.members.forEach((member, index) => {
-                        const delay = 0.1 + (index * 0.2); 
+                        // 2. Members Loop
+                        team.members.forEach((member, index) => {
+                            const delay = 0.1 + (index * 0.2);
 
-                        const imageUrl = member.image_link
-                            ? imageBaseUrl + member.image_link
-                            : 'img/user.jpg'; // Ensure this fallback path is correct relative to your public folder
+                            const imageUrl = member.image_link
+                                ? imageBaseUrl + member.image_link
+                                : 'img/user.webp'; // Ensure this fallback path is correct relative to your public folder
 
-                        // UPDATED HTML BELOW
-                        const memberHTML = `
+                            // UPDATED HTML BELOW
+                            const memberHTML = `
                             <div class="col-lg-3 col-md-6 wow fadeInUp rounded" data-wow-delay="${delay}s">
                                 <div class="team-item p-4 h-100"> 
                                     <div class="overflow-hidden mb-4">
@@ -345,16 +357,16 @@
                                 </div>
                             </div>
                         `;
-                        container.insertAdjacentHTML('beforeend', memberHTML);
-                    });
-                }
-            });
+                            container.insertAdjacentHTML('beforeend', memberHTML);
+                        });
+                    }
+                });
 
-        } catch (error) {
-            console.error('Error fetching data:', error);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
         }
-    }
-</script>
+    </script>
 </body>
 
 </html>

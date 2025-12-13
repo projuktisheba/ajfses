@@ -108,16 +108,15 @@ func (r *UserRepo) UpdateUser(ctx context.Context, e *models.User) error {
 			status = $4,
 			mobile = $5,
 			email = $6,
-			password = $7,
-			address = $8,
-			avatar_link = $9,
+			address = $7,
+			avatar_link = $8,
 			updated_at = CURRENT_TIMESTAMP
 		WHERE id = $1
 		RETURNING updated_at
 	`
 
 	row := r.db.QueryRow(ctx, query,
-		e.ID, e.Name, e.Role, e.Status, e.Mobile, e.Email, e.Password,
+		e.ID, e.Name, e.Role, e.Status, e.Mobile, e.Email,
 		e.Address, e.AvatarLink,
 	)
 
@@ -145,7 +144,23 @@ func (r *UserRepo) UpdateUser(ctx context.Context, e *models.User) error {
 
 	return nil
 }
+// UpdatePassword updates only the password hash for a specific user ID.
+func (r *UserRepo) UpdatePassword(ctx context.Context, userID int64, hashedPassword string) error {
+	const sqlUpdatePassword = `
+        UPDATE users SET
+            password = $2,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = $1
+    `
+	
+	_, err :=  r.db.Exec(ctx, sqlUpdatePassword, userID, hashedPassword)
+	
+	if err != nil {
+		return fmt.Errorf("failed to update password: %w", err)
+	}
 
+	return nil
+}
 // UpdateUserAvatarLink updates only the user's avatar link
 func (r *UserRepo) UpdateUserAvatarLink(ctx context.Context, id int64, avatarLink string) error {
 	query := `

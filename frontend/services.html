@@ -3,15 +3,12 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Product List</title>
+    <title>Product & Services</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
 
     <link href="img/favicon.ico" rel="icon">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Roboto:wght@500;700&display=swap"
         rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -19,47 +16,21 @@
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-
-    <style>
-        /* Ensure image covers the full height of the card on desktop */
-        @media (min-width: 768px) {
-            .product-horizontal-img {
-                height: 100%;
-                width: 100%;
-                object-fit: cover;
-                min-height: 300px; /* Enforce a reasonable height */
-            }
-        }
-        
-        /* Mobile adjustment */
-        @media (max-width: 767.98px) {
-            .product-horizontal-img {
-                height: 250px;
-                width: 100%;
-                object-fit: cover;
-            }
-        }
-
-        .product-specs li {
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-            color: #555;
-        }
-    </style>
 </head>
 
 <body>
     <div id="spinner"
-        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 d-flex align-items-center justify-content-center">
         <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="sr-only">Loading...</span>
         </div>
     </div>
 
-
+    <!-- Top Contact Bar Start -->
     <div class="bg-dark text-light py-1">
         <div class="container">
             <div class="row">
+                <!-- Left Section -->
                 <div
                     class="col-sm-12 col-md-8 d-flex justify-content-center justify-content-start align-items-center flex-wrap py-1">
                     <span class="d-flex align-items-center mx-3">
@@ -79,6 +50,7 @@
                     </span>
                 </div>
 
+                <!-- Right Section -->
                 <div
                     class="col-sm-12 col-md-4 d-flex justify-content-center justify-content-md-end align-items-center py-1">
                     <a class="btn btn-outline-light btn-social mx-1 social-btn"
@@ -110,6 +82,10 @@
 
         </div>
     </div>
+    <!-- Top Contact Bar End -->
+
+
+    <!-- Navbar start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow border-top border-5 border-primary sticky-top p-0">
         <a href="index.html" class="navbar-brand d-flex align-items-center">
             <img src="img/logo.png" class="nav-logo" style="transition: opacity 0.5s ease-in-out;" id="navLogo"
@@ -132,38 +108,47 @@
                         <a href="gallery.html" class="dropdown-item">Gallery</a>
                     </div>
                 </div>
-                <a href="products.html" class="nav-item nav-link active">Products & Services</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Products & Services</a>
+                    <div class="dropdown-menu fade-up m-0">
+                        <a href="products.html" class="dropdown-item">Products</a>
+                        <a href="services.html" class="dropdown-item active">Services</a>
+                    </div>
+                </div>
                 <a href="brands.html" class="nav-item nav-link">Brands</a>
+                <a href="clients.html" class="nav-item nav-link">Clients</a>
                 <a href="contact.html" class="nav-item nav-link">Contact Us</a>
             </div>
+            <!-- <h4 class="m-0 pe-lg-5 d-none d-lg-block"><i class="fa-solid fa-headphones text-primary me-3"></i>+880 9611-699282 (24/7) -->
             </h4>
         </div>
     </nav>
-    <div class="container-fluid page-header py-5" style="margin-bottom: 2rem;">>
+    <!-- Navbar end -->
+
+    <div class="container-fluid page-header py-5" style="margin-bottom: 2rem; background-color: #0b1221;">
         <div class="container py-5">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">Products & Services</h1>
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Product Categories</h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">Products & Services</li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Categories</li>
                 </ol>
             </nav>
         </div>
     </div>
-    
-    
-    <div id="products" class="container-xxl py-5">
+
+    <div class="container-xxl py-5">
         <div class="container py-5">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="text-secondary text-uppercase">Our Products</h6>
-                <h1 class="mb-5">Fire Safety Compliances</h1>
+                <h6 class="text-secondary text-uppercase">Browse by Sector</h6>
+                <h1 class="mb-5">Our Solutions</h1>
             </div>
-            
-            <div class="d-flex flex-column gap-5" id="product-list-container">
-                </div>
-            
+
+            <div class="row g-4" id="category-container">
+            </div>
         </div>
     </div>
+    <!-- Footer start -->
     <div class="container-fluid text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s"
         style="margin-top: 6rem; background-color: #0b1221;">
         <div class="container py-4 text-center">
@@ -212,8 +197,12 @@
                                 class="fa-solid fa-angle-right me-2"></i>Home</a>
                         <a class="text-light mb-2 text-decoration-none" href="about.html"><i
                                 class="fa-solid fa-angle-right me-2"></i>About Us</a>
-                        <a class="text-light mb-2 text-decoration-none" href="services.html"><i
+                        <a class="text-light mb-2 text-decoration-none" href="products.html"><i
+                                class="fa-solid fa-angle-right me-2"></i>Our Products</a>
+                                <a class="text-light mb-2 text-decoration-none" href="services.html"><i
                                 class="fa-solid fa-angle-right me-2"></i>Our Services</a>
+                        <a class="text-light mb-2 text-decoration-none" href="clients.html"><i
+                                class="fa-solid fa-angle-right me-2"></i>Clients</a>
                         <a class="text-light mb-2 text-decoration-none" href="contact.html"><i
                                 class="fa-solid fa-angle-right me-2"></i>Contact us</a>
                         <a class="text-light mb-2 text-decoration-none" href="admin_panel.html"><i
@@ -265,6 +254,7 @@
             <div class="container">
                 <div class="row align-items-center">
 
+                    <!-- Left Side -->
                     <div class="col-md-6 text-center text-md-start">
                         <p class="mb-0 text-light">
                             © 2025 All Rights Reserved By
@@ -272,6 +262,7 @@
                         </p>
                     </div>
 
+                    <!-- Right Side -->
                     <div class="col-md-6 text-center text-md-end">
                         <p class="mb-0 text-light">
                             Developed By
@@ -284,6 +275,7 @@
             </div>
         </div>
     </div>
+    <!-- Footer end -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-0 back-to-top"><i class="fa fa-arrow-up"></i></a>
 
 
@@ -300,105 +292,112 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            renderProducts();
-        });
-
-        async function renderProducts() {
-            // MOCK DATA: I have used the exact image paths from your original code
-            const products = [
+            // Updated Categories based on ComplianceBD Website
+            const categories = [
                 {
-                    id: 1,
-                    title: "Fire Protection System",
-                    description: "We provide complete fire protection solutions including the preparation and approval of Fire Safety Plans. Our designs strictly adhere to BNBC, NFPA, and Accord/Alliance standards to ensure maximum safety.",
-                    specs: [
-                        { label: "Standard", value: "NFPA / BNBC" },
-                        { label: "Service", value: "Design & Approval" }
-                    ],
-                    image_link: "img/product-1.jpg", 
-                    pdf_link: "brochures/fire-protection.pdf"
+                    id: "valves-accessories",
+                    name: "Valves & Accessories",
+                    // Image: Industrial Red Valve/Hydrant 
+                    image: "https://images.unsplash.com/photo-1615818497984-69970c679a95?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    desc: "UL certified gate valves, check valves, and risers for fire hydrant systems."
                 },
                 {
-                    id: 2,
-                    title: "Fire Detection System",
-                    description: "State-of-the-art detection systems including Single Line Diagram (SLD), ELD, and Lightning Protection System (LPS) design. We also offer professional auditing services to ensure your existing systems are compliant.",
-                    specs: [
-                        { label: "Components", value: "SLD, ELD, LPS" },
-                        { label: "Service", value: "Auditing & Installation" }
-                    ],
-                    image_link: "img/product-2.jpg", 
-                    pdf_link: "brochures/fire-detection.pdf"
+                    id: "fire-pump-controller",
+                    name: "Fire Pump & Controller",
+                    // Image: Industrial Pump/Machinery
+                    image: "https://images.unsplash.com/photo-1563815949503-455b5d5d8866?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    desc: "High-performance fire pumps and UL/FM certified control panel systems."
                 },
                 {
-                    id: 3,
-                    title: "MS Pipes & Fittings",
-                    description: "High-quality Mild Steel (MS) pipes and fittings suitable for robust fire hydrant systems and industrial plumbing. We ensure durability and leak-proof installation for high-pressure environments.",
-                    specs: [
-                        { label: "Material", value: "Mild Steel (MS)" },
-                        { label: "Usage", value: "Hydrants & Plumbing" }
-                    ],
-                    image_link: "img/product-3.jpg", 
-                    pdf_link: "brochures/ms-pipes.pdf"
+                    id: "steam-line-accessories",
+                    name: "Steam Line Accessories",
+                    // Image: Steam/Pressure Pipes
+                    image: "https://images.unsplash.com/photo-1518709388484-916c87a315cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    desc: "Industrial steam traps, control valves, and strainers for efficient steam management."
+                },
+                {
+                    id: "fire-protection-system",
+                    name: "Fire Protection System",
+                    // Image: Fire Sprinkler Head
+                    image: "https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    desc: "Complete active fire protection solutions including hydrant and sprinkler setups."
+                },
+                {
+                    id: "passive-fire-protection",
+                    name: "Passive Fire Protection",
+                    // Image: Construction/Safety Coatings
+                    image: "https://images.unsplash.com/photo-1590059530460-6453fa844783?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    desc: "Structural fire resistance solutions and protective coatings to limit fire spread."
+                },
+                {
+                    id: "process-line-accessories",
+                    name: "Process Line Accessories",
+                    // Image: Industrial Gauges/Factory
+                    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    desc: "Instrumentation and control valves for industrial manufacturing process lines."
+                },
+                {
+                    id: "fire-detection-system",
+                    name: "Fire Detection System",
+                    // Image: Smoke Detector/Alarm
+                    image: "https://images.unsplash.com/photo-1557997384-6017285648da?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    desc: "Intelligent smoke detectors, heat sensors, and fire alarm control panels."
+                },
+                {
+                    id: "ms-pipe-fitting",
+                    name: "Ms Pipe & Fitting",
+                    // Image: Stacked Metal Pipes
+                    image: "https://images.unsplash.com/photo-1535068484643-4dc97e556dd2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    desc: "High-grade seamless Carbon Steel (CS) and Mild Steel (MS) pipes and fittings."
+                },
+                {
+                    id: "firestop-protection",
+                    name: "Firestop System",
+                    // Image: Sealant/Construction Detail
+                    image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    desc: "Firestop sealants and barrier systems to seal openings and joints in buildings."
+                },
+                {
+                    id: "ul-fire-rated-door",
+                    name: "UL Listed Fire Rated Door",
+                    // Image: Heavy Metal Door/Exit
+                    image: "https://images.unsplash.com/photo-1506168536671-893d5f134260?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    desc: "Certified fire-resistant steel doors for emergency exits and containment."
+                },
+                {
+                    id: "fire-suppression-system",
+                    name: "Fire Suppression System",
+                    // Image: Gas Cylinders/Suppression
+                    image: "https://images.unsplash.com/photo-1455136868613-2339d15024b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    desc: "Clean agent gas (FM200/Novec) and foam-based automatic suppression systems."
                 }
             ];
 
-            const container = document.getElementById('product-list-container');
-            container.innerHTML = ''; // Clear loading
+            const container = document.getElementById('category-container');
+            container.innerHTML = '';
 
-            // Configuration for file paths
-            // If fetching from API later, use: const imageBaseUrl = `${window.env.API_URL}/images/`;
-            // For now, we use the local path relative to this HTML file
-            const imageBaseUrl = ""; 
-            const pdfBaseUrl = ""; // e.g., 'files/'
+            categories.forEach((cat, index) => {
+                // Animation delay calculation
+                const delay = 0.1 + (index * 0.1); // Reduced delay slightly for larger list
 
-            products.forEach((product, index) => {
-                const delay = 0.1 + (index * 0.2);
-                
-                // Construct Specs List
-                let specsHtml = '';
-                if(product.specs) {
-                    specsHtml = '<ul class="product-specs list-unstyled mt-3 mb-3">';
-                    product.specs.forEach(spec => {
-                        specsHtml += `<li><i class="fa fa-check text-primary me-2"></i><strong>${spec.label}:</strong> ${spec.value}</li>`;
-                    });
-                    specsHtml += '</ul>';
-                }
-
-                // Horizontal Card Layout
-                const cardHtml = `
-                    <div class="card shadow-sm overflow-hidden wow fadeInUp" data-wow-delay="${delay}s">
-                        <div class="row g-0">
-                            <div class="col-md-5 col-lg-4">
-                                <img src="${imageBaseUrl + product.image_link}" 
-                                     class="img-fluid rounded-start product-horizontal-img" 
-                                     alt="${product.title}">
-                            </div>
-                            
-                            <div class="col-md-7 col-lg-8 align-self-center">
-                                <div class="card-body p-4">
-                                    <h3 class="card-title fw-bold mb-3 text-dark">${product.title}</h3>
-                                    <p class="card-text text-muted">
-                                        ${product.description}
-                                    </p>
-                                    
-                                    ${specsHtml}
-
-                                    <div class="mt-4">
-                                        <a href="${pdfBaseUrl + product.pdf_link}" class="btn btn-primary py-2 px-4 rounded-pill" download>
-                                            <i class="fa fa-download me-2"></i> Download Brochure
-                                        </a>
-                                        <a href="contact.html" class="btn btn-outline-dark py-2 px-4 rounded-pill ms-2">
-                                            Contact Us
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                const html = `
+            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="${delay}s">
+                <div class="service-item p-4 shadow-sm border h-100 d-flex flex-column">
+                    <div class="overflow-hidden mb-4 rounded">
+                        <img class="img-fluid w-100" style="height: 200px; object-fit: cover;" src="${cat.image}" alt="${cat.name}">
                     </div>
-                `;
+                    <h4 class="mb-3">${cat.name}</h4>
+                    <p class="flex-grow-1 text-muted small">${cat.desc}</p>
+                    
+                    <a class="btn btn-primary rounded-pill py-2 px-4 mt-3" href="product-list.html?category=${cat.id}">
+                        View All <i class="fa fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>`;
 
-                container.insertAdjacentHTML('beforeend', cardHtml);
+                container.insertAdjacentHTML('beforeend', html);
             });
-        }
+        });
     </script>
 </body>
 

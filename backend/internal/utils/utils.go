@@ -1,10 +1,8 @@
 package utils
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
-	"io"
 	"math/rand"
 	"net/http"
 	"os"
@@ -15,101 +13,6 @@ import (
 	"github.com/projuktisheba/ajfses/backend/internal/models"
 	"golang.org/x/crypto/bcrypt"
 )
-
-// readJSON read json from request body into data. It accepts a sinle JSON of 1MB max size value in the body
-func ReadJSON(w http.ResponseWriter, r *http.Request, data any) error {
-	maxBytes := 1048576 //maximum allowable bytes is 1MB
-
-	r.Body = http.MaxBytesReader(w, r.Body, int64(maxBytes))
-
-	dec := json.NewDecoder(r.Body)
-	err := dec.Decode(data)
-	if err != nil {
-		return err
-	}
-
-	err = dec.Decode(&struct{}{})
-
-	if err != io.EOF {
-		return errors.New("body must only have a single JSON value")
-	}
-
-	return nil
-}
-
-// writeJSON writes arbitrary data out as json
-func WriteJSON(w http.ResponseWriter, status int, data any, headers ...http.Header) error {
-	out, err := json.MarshalIndent(data, "", "    ")
-	if err != nil {
-		return err
-	}
-	//add the headers if exists
-	if len(headers) > 0 {
-		for i, v := range headers[0] {
-			w.Header()[i] = v
-		}
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(status)
-	w.Write(out)
-	return nil
-}
-
-// badRequest sends a JSON response with the status http.StatusBadRequest, describing the error
-func BadRequest(w http.ResponseWriter, err error) {
-	var payload struct {
-		Error   bool   `json:"error"`
-		Message string `json:"message"`
-	}
-
-	payload.Error = true
-	payload.Message = err.Error()
-	_ = WriteJSON(w, http.StatusBadRequest, payload)
-}
-
-// NotFound sends a 404 JSON response with a standard structure.
-func NotFound(w http.ResponseWriter, message string) {
-	if message == "" {
-		message = "Resource not found"
-	}
-
-	resp := struct {
-		Error   bool   `json:"error"`
-		Status  string `json:"status"`
-		Message string `json:"message"`
-	}{
-		Error:   true,
-		Status:  "not_found",
-		Message: message,
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusNotFound)
-	_ = json.NewEncoder(w).Encode(resp)
-}
-
-// ServerError sends a 500 JSON response with a standard structure.
-func ServerError(w http.ResponseWriter, err error) {
-	message := "Internal server error"
-	if err != nil && err.Error() != "" {
-		message = err.Error()
-	}
-
-	resp := struct {
-		Error   bool   `json:"error"`
-		Status  string `json:"status"`
-		Message string `json:"message"`
-	}{
-		Error:   true,
-		Status:  "server_error",
-		Message: message,
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusInternalServerError)
-	_ = json.NewEncoder(w).Encode(resp)
-}
 
 // EnsureDir checks if a directory exists, and creates it if it does not.
 func EnsureDir(dir string) error {
@@ -162,6 +65,105 @@ func ParseJWT(tokenString string, cfg models.JWTConfig) (*models.JWT, error) {
 		Audience:  claims["aud"].(string),
 		ExpiresAt: int64(claims["exp"].(float64)),
 		IssuedAt:  int64(claims["iat"].(float64)),
+	}, nil
+}
+
+// VerifyJWT validates the token string and returns the claims (models.JWT).
+// It performs strict checks against the provided JWTConfig and safely parses time fields.
+func VerifyJWT(tokenString string, cfg models.JWTConfig) (*models.JWT, error) {
+	
+	// 1. Parse the token
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		// Verify the signing algorithm matches the configuration
+		if token.Method.Alg() != cfg.Algorithm {
+			return nil, errors.New("unexpected signing method")
+		}
+		// Return the secret key for validation
+		return []byte(cfg.SecretKey), nil
+	})
+
+	if err != nil {
+		if errors.Is(err, jwt.ErrTokenExpired) {
+			return nil, errors.New("token is expired")
+		}
+		return nil, fmt.Errorf("invalid token: %w", err)
+	}
+
+	if !token.Valid {
+		return nil, errors.New("invalid token signature or claims")
+	}
+
+	claims, ok := token.Claims.(jwt.MapClaims)
+	if !ok {
+		return nil, errors.New("invalid claims format")
+	}
+
+	// 2. Perform Security/Config Checks and map claims
+	
+	// A. Check Issuer (iss)
+	if claims["iss"].(string) != cfg.Issuer {
+		return nil, errors.New("token issuer mismatch")
+	}
+
+	// B. Check Audience (aud)
+	if claims["aud"].(string) != cfg.Audience {
+		return nil, errors.New("token audience mismatch")
+	}
+    
+	// C. Check Expiration (exp)
+    // JSON numbers are parsed as float64
+	expTimestamp, ok := claims["exp"].(float64)
+	if !ok {
+		return nil, errors.New("token expiry claim missing or invalid")
+	}
+	if time.Unix(int64(expTimestamp), 0).Before(time.Now()) {
+		return nil, errors.New("token has expired")
+	}
+	
+	// 3. Map Claims to models.JWT with safe type conversions
+	
+	// Safely get ID (parsed as float64)
+	id, ok := claims["id"].(float64) 
+	if !ok {
+		return nil, errors.New("token 'id' claim missing or invalid")
+	}
+    
+    // Safely parse created_at time (FIX for the panic)
+    createdAtStr, ok := claims["created_at"].(string)
+    if !ok {
+        return nil, errors.New("token 'created_at' claim missing or invalid format")
+    }
+    createdAt, err := time.Parse(time.RFC3339, createdAtStr)
+    if err != nil {
+        return nil, fmt.Errorf("failed to parse created_at time: %w", err)
+    }
+
+    // Safely parse updated_at time (FIX for the panic)
+    updatedAtStr, ok := claims["updated_at"].(string)
+    if !ok {
+        return nil, errors.New("token 'updated_at' claim missing or invalid format")
+    }
+    updatedAt, err := time.Parse(time.RFC3339, updatedAtStr)
+    if err != nil {
+        return nil, fmt.Errorf("failed to parse updated_at time: %w", err)
+    }
+
+
+	return &models.JWT{
+		ID:    int64(id),
+		Name:   claims["name"].(string),
+		Username: claims["username"].(string),
+		Role:   claims["role"].(string),
+		
+		// Standard claims
+		Issuer:  claims["iss"].(string),
+		Audience: claims["aud"].(string),
+		ExpiresAt: int64(claims["exp"].(float64)),
+		IssuedAt: int64(claims["iat"].(float64)),
+        
+        // Time fields (Now correctly parsed from string)
+		CreatedAt: createdAt,
+		UpdatedAt: updatedAt,
 	}, nil
 }
 
