@@ -23,11 +23,12 @@
     <!-- CUSTOM STYLES -->
     <style>
         /* Custom CSS to hide the navigation arrows specifically for the client slider */
-/* Targets the .owl-nav element inside the #client-slider container */
-#client-slider .owl-nav {
-    display: none !important;
-    visibility: hidden !important;
-}
+        /* Targets the .owl-nav element inside the #client-slider container */
+        #client-slider .owl-nav {
+            display: none !important;
+            visibility: hidden !important;
+        }
+
         /* --- brands BRAND SLIDER STYLES --- */
         .brands-section-area {
             background: #ffffff;
@@ -35,6 +36,7 @@
             overflow: hidden;
         }
 
+        /* GENERAL CAROUSEL STYLING */
         .brands-carousel .owl-stage {
             display: flex;
             align-items: center;
@@ -43,41 +45,59 @@
             border-bottom: 1px solid #eee;
         }
 
-        .brands-carousel .logo-item {
+        /* GENERAL LOGO ITEM STYLING (Used by both brands-carousel and client-carousel) */
+        .brands-carousel .logo-item,
+        .client-carousel .logo-item {
+            /* Added .client-carousel selector */
             background: #fff;
             padding: 20px;
             border-radius: 10px;
             transition: all 0.3s ease;
             opacity: 0.5;
-            /* Fade out non-centered items */
             transform: scale(0.9);
-            /* Shrink non-centered items */
             display: flex;
             align-items: center;
             justify-content: center;
+
+            /* 🌟 FIX: SET A CONSTRAINED HEIGHT HERE 🌟 */
             height: 150px;
+            max-height: 150px;
+            overflow: hidden;
+            /* Ensure nothing can leave this container */
         }
 
-        .brands-carousel .logo-item img {
+        /* GENERAL IMAGE STYLING */
+        .brands-carousel .logo-item img,
+        .client-carousel .logo-item img {
+            /* Added .client-carousel selector */
             max-width: 100%;
+
+            /* 🌟 FIX: SCALE IMAGE PROPERLY 🌟 */
             max-height: 100%;
+            /* Limit image height to the logo-item height (150px) */
             width: auto !important;
-            /* Override owl carousel inline width */
+            height: auto;
+            object-fit: contain;
+            /* Crucial: Scales the image down to fit without cropping */
+
             transition: all 0.3s ease;
             /* filter: grayscale(100%); */
         }
 
         /* Center Focus Styles */
-        .brands-carousel .owl-item.center .logo-item {
+        .brands-carousel .owl-item.center .logo-item,
+        .client-carousel .owl-item.center .logo-item {
+            /* Added .client-carousel selector */
             opacity: 1;
             transform: scale(1.1);
-            /* Scale up centered item */
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             border-color: transparent;
             z-index: 2;
         }
 
-        .brands-carousel .owl-item.center .logo-item img {
+        .brands-carousel .owl-item.center .logo-item img,
+        .client-carousel .owl-item.center .logo-item img {
+            /* Added .client-carousel selector */
             filter: grayscale(0%);
         }
 
@@ -389,7 +409,7 @@
     <!-- Carousel end -->
 
     <!-- About Start -->
-    <div class="container-fluid overflow-hidden py-5 px-lg-0">
+    <div class="container-fluid overflow-hidden py-2 px-lg-0">
         <div class="container about py-5 px-lg-0">
             <div class="row g-5 mx-lg-0">
                 <div class="col-lg-6 ps-lg-0 wow fadeInLeft" data-wow-delay="0.1s" style="min-height: 400px;">
@@ -430,7 +450,7 @@
     <!-- About End -->
 
     <!-- Products start -->
-    <div id="products" class="container-xxl py-5">
+    <div id="products" class="container-xxl py-2">
         <div class="container py-5">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <h6 class="text-secondary text-uppercase">Our Products</h6>
@@ -507,6 +527,7 @@
         </div>
     </div>
     <!-- PROJECT GALLERY SECTION END -->
+
     <!-- BRAND LOGO SLIDER start -->
     <div class="container-fluid overflow-hidden py-2 px-lg-0">
         <div class="brands-section-area wow fadeInUp" data-wow-delay="0.1s">
@@ -632,24 +653,10 @@
     <!-- BRAND LOGO SLIDER end -->
 
     <!-- Clients SLIDER start -->
-    <div class="container-fluid overflow-hidden py-2 px-lg-0">
-        <div class="brands-section-area wow fadeInUp" data-wow-delay="0.1s">
-            <div class="container">
-                <!-- Header -->
-                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <h6 class="text-secondary text-uppercase">Our Clients</h6>
-                    <h1 class="mb-5">Our Happy Clients</h1>
-                </div>
-
-                <!-- Slider -->
-                <div id="client-slider" class="owl-carousel brands-carousel">
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="client-slider-container"></div>
     <!-- Clients SLIDER end -->
     <!-- Features start -->
-    <div class="container-fluid overflow-hidden py-5 px-lg-0">
+    <div class="container-fluid overflow-hidden py-2 px-lg-0">
         <div class="container feature py-5 px-lg-0">
             <div class="row g-5 mx-lg-0">
                 <div class="col-lg-6 feature-text wow fadeInUp" data-wow-delay="0.1s">
@@ -714,14 +721,13 @@
     </div>
     <!-- Features end -->
 
-    <!-- Team start-->
-    <div class="container-xxl py-5" id="teamSection">
-        <!-- updated by js -->
+    <!-- Team Start -->
+    <div id="team-section" class="container-xxl py-5">
+        <!-- Updated by JS -->
     </div>
-    <!-- Team end-->
 
     <!-- Happy clients start -->
-    <div class="container-xxl py-5">
+    <div class="container-xxl py-2">
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -785,7 +791,7 @@
 
         <div class="w-100" style="height: 2px; background-color: #dc3545;"></div>
 
-        <div class="container py-5">
+        <div class="container py-2">
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6">
                     <div class="d-flex align-items-center mb-4">
@@ -984,21 +990,28 @@
         async function loadClientSlider() {
             // 1. Setup
             const apiUrl = (window.env && window.env.API_URL) ? window.env.API_URL : '';
-            // Corrected selector to match the HTML class/ID expected from previous context
-            const brandsContainer = document.getElementById('client-slider');
+            // This is the container where the WHOLE SLIDER SECTION will be injected (e.g., <div id="client-slider-container"></div>)
+            const containerForSection = document.getElementById('client-slider-container');
 
-            if (!brandsContainer) {
-                // Warning: The HTML you provided earlier used class="owl-carousel brands-carousel", 
-                // but this JS uses id="client-slider". Ensure your HTML has: <div id="client-slider" class="owl-carousel brands-carousel">
-                console.error("Client slider container (#client-slider) not found.");
+            if (!containerForSection) {
+                console.error("Target container for the whole section (#client-slider-container) not found.");
                 return;
             }
 
-            // Set a temporary loading state
-            brandsContainer.innerHTML = '<div class="text-center p-5">Loading client logos...</div>';
+            // Function to hide the container on error
+            const hideContainerOnError = (error) => {
+                console.error('Failed to load client slider:', error);
+                // Clear content and hide the main container
+                containerForSection.innerHTML = '';
+                containerForSection.style.display = 'none';
+            };
 
             try {
                 if (!apiUrl) throw new Error("API configuration missing");
+
+                // Set a temporary loading state (optional, can be removed if you prefer immediate hiding)
+                containerForSection.innerHTML = '<div class="text-center p-5">Loading clients...</div>';
+
 
                 // 2. Fetch Data (Fetching from /client endpoint for all clients)
                 const response = await fetch(`${apiUrl}/client`, {
@@ -1011,81 +1024,194 @@
 
                 const data = await response.json();
 
-                // 3. Generate HTML
-                let brandsHTML = '';
-                const clients = data.clients || []; // Default to empty array if clients property is missing
+                // 3. Generate HTML for the logo items
+                let clientSliderHTML = '';
+                const clients = data.clients || [];
 
-                if (Array.isArray(clients)) {
-                    clients.forEach(client => {
-                        const imageUrl = client.image_link || 'img/no-img.webp';
-                        const altText = client.name || 'Client Logo';
+                if (!Array.isArray(clients) || clients.length === 0) {
+                    // Treat empty array or non-array response as an error state for hiding
+                    throw new Error("No client data available to display.");
+                }
 
-                        // Constructing the full image path
-                        const fullImagePath = `${window.env.API_URL}/images/clients/${imageUrl}`;
+                clients.forEach(client => {
+                    const imageUrl = client.image_link || 'img/no-img.webp';
+                    const altText = client.name || 'Client Logo';
+                    const fullImagePath = `${apiUrl}/images/clients/${imageUrl}`;
 
-                        brandsHTML += `
-                    <div class="logo-item">
-                        <a href="" target="_blank">
-                            <img src="${fullImagePath}" alt="${altText}">
-                        </a>
+                    clientSliderHTML += `
+                <div class="logo-item">
+                    <a href="" target="_blank">
+                        <img src="${fullImagePath}" alt="${altText}">
+                    </a>
+                </div>
+            `;
+                });
+
+                // 4. Inject the FULL HTML SECTION into the main container
+                containerForSection.innerHTML = `
+            <div class="container-fluid overflow-hidden py-2 px-lg-0">
+                <div class="brands-section-area wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="container">
+                        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                            <h6 class="text-secondary text-uppercase">Our Clients</h6>
+                            <h1 class="mb-5">Our Happy Clients</h1>
+                        </div>
+
+                        <div id="client-slider" class="owl-carousel client-carousel"> 
+                            ${clientSliderHTML}
+                        </div>
                     </div>
-                `;
-                    });
+                </div>
+            </div>
+        `;
+
+                // 5. Select and Initialize Owl Carousel
+                const newSliderElement = document.getElementById('client-slider');
+
+                if (!newSliderElement) {
+                    console.error("Failed to find the newly injected slider element (#client-slider).");
+                    // Even if we injected HTML, if we can't initialize the slider, hide the section gracefully
+                    hideContainerOnError("Initialization element not found after injection.");
+                    return;
                 }
 
-                // Handle case where no clients were returned
-                if (brandsHTML === '') {
-                    brandsHTML = '<div class="text-center p-5">No client logos to display.</div>';
-                }
-
-                // 4. Inject HTML
-                brandsContainer.innerHTML = brandsHTML;
-
-                // 5. Re-initialize Owl Carousel (Crucial step for dynamically loaded content)
                 if (window.jQuery && window.jQuery.fn.owlCarousel) {
+                    const $newSliderElement = window.jQuery(newSliderElement);
+                    $newSliderElement.addClass('owl-carousel');
 
-                    const $brandsContainer = window.jQuery(brandsContainer);
-
-                    // --- DESTRUCTION (To ensure clean re-initialization) ---
-                    if ($brandsContainer.hasClass('owl-loaded')) {
-                        // Trigger destroy on the container
-                        $brandsContainer.trigger('destroy.owl.carousel');
-
-                        // Remove classes and injected elements
-                        $brandsContainer.removeClass('owl-carousel owl-loaded');
-                        $brandsContainer.find('.owl-stage-outer, .owl-dots, .owl-nav').remove();
-                    }
-
-                    // --- RE-INITIALIZATION ---
-                    $brandsContainer.owlCarousel({
+                    $newSliderElement.owlCarousel({
                         loop: true,
                         margin: 30,
-                        // Explicitly set nav to false to remove arrows
-                        nav: false,
-                        dots: false, // Keep dots false to remove pagination
+                        nav: false,       // Arrows hidden
+                        dots: false,      // Dots hidden
                         autoplay: true,
                         autoplayTimeout: 3000,
                         center: true,
                         responsive: {
-                            0: {
-                                items: 1
-                            },
-                            576: {
-                                items: 3
-                            },
-                            992: {
-                                items: 5
-                            }
+                            0: { items: 1 },
+                            576: { items: 3 },
+                            992: { items: 5 }
                         }
                     });
                 } else {
                     console.warn("Owl Carousel library not found. Clients loaded, but slider is static.");
                 }
 
-
             } catch (error) {
-                console.error('Failed to load client slider:', error);
-                brandsContainer.innerHTML = '<div class="text-center p-5 text-danger">Failed to load client logos.</div>';
+                // If any error occurs in the entire try block, hide the container
+                hideContainerOnError(error);
+            }
+        }
+
+        async function fetchTeamMembers() {
+            // NOTE: Assuming your HTML has a main wrapper with ID 'team-section'
+            const teamSectionWrapper = document.getElementById('team-section');
+            const apiUrl = window.env.API_URL;
+            const imageBaseUrl = `${apiUrl}/images/`;
+
+            // Configuration
+            const teamIDsToFetch = [5, 6, 4];
+            const maxMembersToRender = 3;
+            let allFetchedMembers = [];
+
+            // --- Utility Functions ---
+            const hideContainerOnError = (error) => {
+                console.error('Failed to load team members:', error);
+                teamSectionWrapper.innerHTML = '';
+                teamSectionWrapper.style.display = 'none';
+            };
+
+            if (!teamSectionWrapper) {
+                console.error("Team section wrapper (#team-section) not found.");
+                return;
+            }
+
+            // Initial structure setup (including loading state)
+            teamSectionWrapper.innerHTML = `
+                <div class="container py-5">
+                    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                        <h6 class="text-secondary text-uppercase">Our Team</h6>
+                        <h1 class="mb-5">Expert Team Members</h1>
+                        <div id="team-cards-row" class="row g-4 justify-content-center">
+                            <div class="col-12 text-center p-5">Loading team members...</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            const teamCardsRow = document.getElementById('team-cards-row'); // Element to receive the member cards
+
+
+            // --- Step 1: Sequential Fetching ---
+            for (const teamId of teamIDsToFetch) {
+                if (allFetchedMembers.length >= maxMembersToRender) {
+                    break;
+                }
+
+                const remainingLimit = maxMembersToRender - allFetchedMembers.length;
+
+                try {
+                    const response = await fetch(`${apiUrl}/members?team_id=${teamId}&max_limit=${remainingLimit}`, {
+                        method: 'GET',
+                    });
+
+                    if (!response.ok) {
+                        console.warn(`API call failed for Team ID ${teamId}: Status ${response.status}`);
+                        continue;
+                    }
+
+                    const result = await response.json();
+
+                    if (result.error || !Array.isArray(result.members)) {
+                        console.warn(`API returned error or invalid data for Team ID ${teamId}:`, result.message);
+                        continue;
+                    }
+
+                    allFetchedMembers.push(...result.members);
+
+                } catch (error) {
+                    console.error(`Network error fetching members for Team ID ${teamId}:`, error);
+                }
+            } // End of for loop
+
+            // --- Step 2: Final Check and Rendering ---
+
+            if (allFetchedMembers.length === 0) {
+                hideContainerOnError("No members could be retrieved from the specified teams.");
+                return;
+            }
+
+            const membersToRender = allFetchedMembers.slice(0, maxMembersToRender);
+
+            let memberCardsHTML = '';
+            // 1. Generate Member Cards
+            membersToRender.forEach((member, index) => {
+                const delay = 0.1 + (index * 0.2);
+
+                const imageUrl = member.image_link
+                    ? imageBaseUrl + member.image_link
+                    : 'img/user.webp';
+
+                memberCardsHTML += `
+                    <div class="col-lg-4 col-md-6 wow fadeInUp rounded" data-wow-delay="${delay}s">
+                        <div class="team-item p-4 h-100"> 
+                            <div class="overflow-hidden mb-4">
+                                <img class="img-fluid" src="${imageUrl}" alt="${member.name}" 
+                                    style="width: 100%; height: 250px; object-fit: cover;">
+                            </div>
+                            <h5 class="mb-0">${member.name}</h5>
+                            <p>${member.designation}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Final Rendering: Replace the content of the card row only
+            // Note: Changed col-lg-3 to col-lg-4 since we only render 3 members, making them equal width (3 * 4 = 12)
+            if (teamCardsRow) {
+                teamCardsRow.innerHTML = memberCardsHTML;
+            } else {
+                // Fallback error if the inner row wasn't found (shouldn't happen with the initial structure)
+                hideContainerOnError("Internal rendering error: Row element missing.");
             }
         }
         async function updateCountSection() {
@@ -1161,6 +1287,7 @@
             // Both functions will execute sequentially when the DOM is loaded
             fetchGallery();
             loadClientSlider();
+            fetchTeamMembers();
             updateCountSection();
         });
     </script>
