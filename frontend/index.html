@@ -1150,7 +1150,7 @@
                 const remainingLimit = maxMembersToRender - allFetchedMembers.length;
 
                 try {
-                    const response = await fetch(`${apiUrl}/member?team_id=${teamId}&max_limit=${remainingLimit}`, {
+                    const response = await fetch(`${apiUrl}/member/list?team_id=${teamId}&max_limit=${remainingLimit}`, {
                         method: 'GET',
                     });
 
