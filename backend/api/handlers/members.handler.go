@@ -130,28 +130,74 @@ func (h *MemberHandler) CreateMember(w http.ResponseWriter, r *http.Request) {
 	h.respondSuccess(w, id, "Member created and image saved successfully")
 }
 
-// GetAllMembers retrieves a list of all members.
+// GetAllMembers retrieves a list of all members, optionally filtered by team ID, designation, and limited.
 func (h *MemberHandler) GetAllMembers(w http.ResponseWriter, r *http.Request) {
-	members, err := h.DB.MemberRepo.GetAll(r.Context(), "")
-	if err != nil {
-		h.errorLog.Println("ERROR_GetAllMembers_01: db error:", err)
-		utils.ServerError(w, errors.New("failed to retrieve members"))
-		return
-	}
-	var response struct {
-		Error   bool             `json:"error"`
-		Message string           `json:"message"`
-		Members []*models.Member `json:"members"`
-	}
-	response.Error = false
-	response.Message = "Members fetched successfully"
-	response.Members = members
-	utils.WriteJSON(w, http.StatusOK, response)
+    queryParams := r.URL.Query()
+    
+    // --- A. Extract and parse maxLimit ---
+    var maxLimit int64
+    maxLimitStr := queryParams.Get("max_limit")
+    if maxLimitStr != "" {
+        val, err := strconv.ParseInt(maxLimitStr, 10, 64)
+        if err != nil {
+            h.errorLog.Println("ERROR_GetAllMembers_01: invalid max_limit format:", err)
+            utils.BadRequest(w, errors.New("Invalid format for 'max_limit'. Must be an integer."))
+            return
+        }
+        maxLimit = val
+    }
+    
+    // --- B. Extract and parse designations list ---
+    var designations []string
+    designationStr := queryParams.Get("designations")
+    if designationStr != "" {
+        designations = strings.Split(designationStr, ",")
+        
+        // Trim whitespace from each designation for cleaner database lookups
+        for i, d := range designations {
+            designations[i] = strings.TrimSpace(d)
+        }
+    }
+    
+    // --- C. Extract and parse teamID ---
+    var teamID int64
+    teamIDStr := queryParams.Get("team_id")
+    if teamIDStr != "" {
+        val, err := strconv.ParseInt(teamIDStr, 10, 64)
+        if err != nil {
+            h.errorLog.Println("ERROR_GetAllMembers_02: invalid team_id format:", err)
+            utils.BadRequest(w, errors.New("Invalid format for 'team_id'. Must be an integer."))
+            return
+        }
+        teamID = val
+    }
+
+
+    // 2. Call the repository method with all three parameters
+    // NEW SIGNATURE: GetAll(ctx context.Context, teamID int64, designations []string, maxLimit int64) ([]*models.Member, error)
+    members, err := h.DB.MemberRepo.GetAll(r.Context(), teamID, designations, maxLimit)
+    
+    if err != nil {
+        h.errorLog.Println("ERROR_GetAllMembers_03: db error:", err)
+        utils.ServerError(w, errors.New("failed to retrieve members"))
+        return
+    }
+    
+    // 3. Prepare and send response
+    var response struct {
+        Error   bool             `json:"error"`
+        Message string           `json:"message"`
+        Members []*models.Member `json:"members"`
+    }
+    response.Error = false
+    response.Message = "Members fetched successfully"
+    response.Members = members
+    utils.WriteJSON(w, http.StatusOK, response)
 }
 
 // GetAllMembers retrieves a list of all members.
 func (h *MemberHandler) GetChairmanInfo(w http.ResponseWriter, r *http.Request) {
-	members, err := h.DB.MemberRepo.GetAll(r.Context(), "Chairman")
+	members, err := h.DB.MemberRepo.GetAll(r.Context(), 0, []string{"Chairman"}, 0)
 	if err != nil {
 		h.errorLog.Println("ERROR_GetChairmanInfo_01: db error:", err)
 		utils.ServerError(w, errors.New("failed to retrieve chairman info"))

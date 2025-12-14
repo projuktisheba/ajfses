@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/jackc/pgx/v5"
@@ -164,51 +165,94 @@ func (m *MemberRepository) MemberCount(ctx context.Context) (int64) {
 	return totalMembers
 }
 
-// GetAll retrieves all members, ordered by created_at descending.
-func (m *MemberRepository) GetAll(ctx context.Context, designation string) ([]*models.Member, error) {
-	ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
-	defer cancel()
-	whClause := ""
-	if designation == "Chairman" {
-		whClause = "WHERE m.designation='Chairman'"
-	}
-	stmt := fmt.Sprintf(`
-		SELECT  m.id, m.name, m.team, t.title AS team_name, m.designation, m.contact, m.note, m.image_link, m.created_at, m.updated_at
-		FROM members AS m
-		LEFT JOIN teams AS t ON m.team = t.id
-		%s ORDER BY m.created_at DESC;
-	`, whClause)
+// GetAll retrieves all members, optionally filtered by team ID and designations, and limited by maxLimit.
+// Members are ordered by created_at descending.
+func (m *MemberRepository) GetAll(ctx context.Context, teamID int64, designations []string, maxLimit int64) ([]*models.Member, error) {
+    ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
+    defer cancel()
 
-	var members []*models.Member
-	rows, err := m.DB.Query(ctx, stmt)
-	if err != nil {
-		return members, fmt.Errorf("failed to query members: %w", err)
-	}
-	defer rows.Close()
+    var (
+        whereClauses []string
+        queryArgs    []any
+        argCount     int = 1
+    )
 
-	for rows.Next() {
-		var member models.Member
-		err := rows.Scan(
-			&member.ID,
-			&member.Name,
-			&member.TeamID,
-			&member.TeamName,
-			&member.Designation,
-			&member.Contact,
-			&member.Note,
-			&member.ImageLink,
-			&member.CreatedAt,
-			&member.UpdatedAt,
-		)
-		if err != nil {
-			return members, fmt.Errorf("failed to scan member row: %w", err)
-		}
-		members = append(members, &member)
-	}
+    // 1. Build WHERE clause for teamID
+    if teamID > 0 {
+        whereClauses = append(whereClauses, fmt.Sprintf("m.team = $%d", argCount))
+        queryArgs = append(queryArgs, teamID)
+        argCount++
+    }
 
-	if err = rows.Err(); err != nil {
-		return nil, fmt.Errorf("error iterating member rows: %w", err)
-	}
+    // 2. Build WHERE clause for designations (safe handling of IN clause)
+    if len(designations) > 0 {
+        // Create placeholders for the IN clause: $N, $N+1, $N+2, ...
+        placeholders := make([]string, len(designations))
+        for i, designation := range designations {
+            placeholders[i] = fmt.Sprintf("$%d", argCount)
+            queryArgs = append(queryArgs, designation)
+            argCount++
+        }
+        whereClauses = append(whereClauses, fmt.Sprintf("m.designation IN (%s)", strings.Join(placeholders, ", ")))
+    }
 
-	return members, nil
+    // 3. Combine WHERE clauses
+    whereClause := ""
+    if len(whereClauses) > 0 {
+        whereClause = "WHERE " + strings.Join(whereClauses, " AND ")
+    }
+
+    // 4. Build LIMIT clause
+    limitClause := ""
+    if maxLimit > 0 {
+        // Use the next available argument number for LIMIT
+        limitClause = fmt.Sprintf("LIMIT $%d", argCount)
+        queryArgs = append(queryArgs, maxLimit)
+        argCount++
+    }
+
+    // 5. Construct the final statement
+    stmt := fmt.Sprintf(`
+        SELECT m.id, m.name, m.team, t.title AS team_name, m.designation, m.contact, m.note, m.image_link, m.created_at, m.updated_at
+        FROM members AS m
+        LEFT JOIN teams AS t ON m.team = t.id
+        %s 
+        ORDER BY m.created_at DESC
+        %s;
+    `, whereClause, limitClause)
+
+    var members []*models.Member
+    
+    // 6. Execute the parameterized query
+    rows, err := m.DB.Query(ctx, stmt, queryArgs...)
+    if err != nil {
+        return members, fmt.Errorf("failed to query members: %w", err)
+    }
+    defer rows.Close()
+
+    for rows.Next() {
+        var member models.Member
+        err := rows.Scan(
+            &member.ID,
+            &member.Name,
+            &member.TeamID, // Use TeamID instead of Team
+            &member.TeamName,
+            &member.Designation,
+            &member.Contact,
+            &member.Note,
+            &member.ImageLink,
+            &member.CreatedAt,
+            &member.UpdatedAt,
+        )
+        if err != nil {
+            return members, fmt.Errorf("failed to scan member row: %w", err)
+        }
+        members = append(members, &member)
+    }
+
+    if err = rows.Err(); err != nil {
+        return nil, fmt.Errorf("error iterating member rows: %w", err)
+    }
+
+    return members, nil
 }
