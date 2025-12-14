@@ -14,8 +14,11 @@ func clientRoutes() *chi.Mux {
 	// GET /: Retrieve a list of all clients (using the base path for listing all/filtering)
 	mux.Get("/", handlerRepo.Client.GetAllClients)
 
+	// GET /: Retrieve client matrices
+	mux.Get("/metrics", handlerRepo.Client.GetClientMetrics)
+
 	// GET /{id}: Retrieve a single client by ID (ID is expected in the URL path)
-	mux.Get("/{id}", handlerRepo.Client.GetClient)
+	mux.Get("/profile/{id}", handlerRepo.Client.GetClient)
 
 	// PUT /: Update an existing client (expects form data, uses query parameter {id} for identification)
 	mux.Put("/", handlerRepo.Client.UpdateClient)

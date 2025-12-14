@@ -15,3 +15,11 @@ type Client struct {
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
 }
+
+// ClientMetrics holds the statistical counts for the client data.
+type ClientMetrics struct {
+	TotalDistinctClients int64 `json:"total_clients"`
+	ActiveProjects       int64 `json:"active_projects"`
+	CompletedProjects    int64 `json:"completed_projects"`
+	TotalEmployees       int64 `json:"total_employees"`
+}

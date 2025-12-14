@@ -170,6 +170,21 @@ func (h *ClientHandler) GetClient(w http.ResponseWriter, r *http.Request) {
 	utils.WriteJSON(w, http.StatusOK, client)
 }
 
+// GetClientMetricsHandler handles the HTTP request to fetch client statistics.
+func (h *ClientHandler) GetClientMetrics(w http.ResponseWriter, r *http.Request) {
+	h.infoLog.Println("Hit")
+	metrics, err := h.DB.ClientRepo.GetClientMetrics(r.Context())
+	if err != nil {
+		h.errorLog.Println("ERROR_GetClientMetrics_01: db error:", err)
+		utils.NotFound(w, "Client Metrics not found")
+		return
+	}
+	totalEmployees := h.DB.MemberRepo.MemberCount(r.Context())
+	metrics.TotalEmployees = totalEmployees
+
+	utils.WriteJSON(w, http.StatusOK, metrics)
+}
+
 // UpdateClient handles updating client details and allows re-uploading the image.
 func (h *ClientHandler) UpdateClient(w http.ResponseWriter, r *http.Request) {
 	idStr := strings.TrimSpace(r.URL.Query().Get("id"))

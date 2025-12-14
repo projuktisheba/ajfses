@@ -36,7 +36,7 @@ func (m *MemberRepository) Create(ctx context.Context, member *models.Member) (i
 		member.Name,
 		member.TeamID,
 		member.Designation,
-		member.Contact,		
+		member.Contact,
 		member.Note,
 		member.ImageLink,
 		time.Now().UTC(),
@@ -152,6 +152,16 @@ func (m *MemberRepository) GetByID(ctx context.Context, id int64) (*models.Membe
 	}
 
 	return &member, nil
+}
+
+// MemberCount counts the employees.
+func (m *MemberRepository) MemberCount(ctx context.Context) (int64) {
+	ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
+	defer cancel()
+	var totalMembers int64
+	stmt := `SELECT COUNT(*) FROM members`
+	m.DB.QueryRow(ctx, stmt).Scan(&totalMembers)
+	return totalMembers
 }
 
 // GetAll retrieves all members, ordered by created_at descending.

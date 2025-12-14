@@ -2,13 +2,14 @@ package dbrepo
 
 import (
 	"context"
+	"database/sql"
 	"errors"
 	"fmt"
 	"time"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/projuktisheba/ajfses/backend/internal/models" 
+	"github.com/projuktisheba/ajfses/backend/internal/models"
 )
 
 // --- ClientRepository and Constructor ---
@@ -165,16 +166,16 @@ func (c *ClientRepository) GetByID(ctx context.Context, id int64) (*models.Clien
 func (c *ClientRepository) GetAll(ctx context.Context, status string) ([]*models.Client, error) {
 	ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
 	defer cancel()
-	
+
 	// Prepare the WHERE clause based on the status parameter
 	whClause := ""
 	args := []any{}
-	
+
 	if status != "" {
 		whClause = "WHERE status = $1"
 		args = append(args, status)
 	}
-	
+
 	stmt := fmt.Sprintf(`
 		SELECT id, name, area, service_name, service_date, status, note, image_link, created_at, updated_at
 		FROM clients
@@ -214,4 +215,38 @@ func (c *ClientRepository) GetAll(ctx context.Context, status string) ([]*models
 	}
 
 	return clients, nil
+}
+
+// GetClientMetrics executes a query to return key statistics about clients and projects.
+func (c *ClientRepository) GetClientMetrics(ctx context.Context) (models.ClientMetrics, error) {
+	var metrics models.ClientMetrics
+
+	// The SQL query uses conditional aggregation (SUM with CASE)
+	// to calculate the status counts in a single pass.
+	// It also counts distinct client names for the total client count.
+	const query = `
+        SELECT
+            COUNT(DISTINCT name) AS total_distinct_clients,
+            SUM(CASE WHEN status = 'Active' THEN 1 ELSE 0 END) AS active_projects,
+            SUM(CASE WHEN status = 'Completed' THEN 1 ELSE 0 END) AS completed_projects
+        FROM
+            clients;
+    `
+	// Execute the query and scan the results into the metrics struct fields
+	err := c.DB.QueryRow(ctx, query).Scan(
+		&metrics.TotalDistinctClients,
+		&metrics.ActiveProjects,
+		&metrics.CompletedProjects,
+	)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			// Return zero values if the table is empty, no error
+			return metrics, nil
+		}
+		// Return any other database error
+		return metrics, err
+	}
+
+	return metrics, nil
 }
