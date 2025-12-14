@@ -22,6 +22,12 @@
 
     <!-- CUSTOM STYLES -->
     <style>
+        /* Custom CSS to hide the navigation arrows specifically for the client slider */
+/* Targets the .owl-nav element inside the #client-slider container */
+#client-slider .owl-nav {
+    display: none !important;
+    visibility: hidden !important;
+}
         /* --- brands BRAND SLIDER STYLES --- */
         .brands-section-area {
             background: #ffffff;
@@ -502,7 +508,7 @@
     </div>
     <!-- PROJECT GALLERY SECTION END -->
     <!-- BRAND LOGO SLIDER start -->
-    <div class="container-fluid overflow-hidden py-5 px-lg-0">
+    <div class="container-fluid overflow-hidden py-2 px-lg-0">
         <div class="brands-section-area wow fadeInUp" data-wow-delay="0.1s">
             <div class="container">
                 <!-- Header -->
@@ -624,6 +630,24 @@
         </div>
     </div>
     <!-- BRAND LOGO SLIDER end -->
+
+    <!-- Clients SLIDER start -->
+    <div class="container-fluid overflow-hidden py-2 px-lg-0">
+        <div class="brands-section-area wow fadeInUp" data-wow-delay="0.1s">
+            <div class="container">
+                <!-- Header -->
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h6 class="text-secondary text-uppercase">Our Clients</h6>
+                    <h1 class="mb-5">Our Happy Clients</h1>
+                </div>
+
+                <!-- Slider -->
+                <div id="client-slider" class="owl-carousel brands-carousel">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Clients SLIDER end -->
     <!-- Features start -->
     <div class="container-fluid overflow-hidden py-5 px-lg-0">
         <div class="container feature py-5 px-lg-0">
@@ -719,20 +743,25 @@
                         <div class="col-sm-6">
                             <div class="bg-primary p-4 mb-4 wow fadeIn" data-wow-delay="0.3s">
                                 <i class="fa fa-building fa-2x text-white mb-3"></i>
-                                <h2 class="text-white mb-2" data-toggle="counter-up">500</h2>
-                                <p class="text-white mb-0">Projects Done</p>
+                                <h2 class="text-white mb-2" id="completed-projects" data-toggle="counter-up">0</h2>
+                                <p class="text-white mb-0">Completed Projects</p>
                             </div>
                             <div class="bg-secondary p-4 wow fadeIn" data-wow-delay="0.5s">
                                 <i class="fa fa-check-double fa-2x text-white mb-3"></i>
-                                <h2 class="text-white mb-2" data-toggle="counter-up">300</h2>
-                                <p class="text-white mb-0">Safety Audits</p>
+                                <h2 class="text-white mb-2" id="ongoing-projects" data-toggle="counter-up">0</h2>
+                                <p class="text-white mb-0">Ongoing Projects</p>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="bg-success p-4 wow fadeIn" data-wow-delay="0.7s">
+                            <div class="bg-success p-4 mb-4 wow fadeIn" data-wow-delay="0.3s">
                                 <i class="fa fa-users fa-2x text-white mb-3"></i>
-                                <h2 class="text-white mb-2" data-toggle="counter-up">150</h2>
+                                <h2 class="text-white mb-2" id="happy-clients" data-toggle="counter-up">0</h2>
                                 <p class="text-white mb-0">Happy Clients</p>
+                            </div>
+                            <div class="bg-dark p-4 wow fadeIn" data-wow-delay="0.5s">
+                                <i class="fa fa-users fa-2x text-white mb-3"></i>
+                                <h2 class="text-white mb-2" id="employee-count" data-toggle="counter-up">0</h2>
+                                <p class="text-white mb-0">Employees</p>
                             </div>
                         </div>
                     </div>
@@ -741,7 +770,7 @@
         </div>
     </div>
     <!-- Happy clients end -->
-   <!-- Footer start -->
+    <!-- Footer start -->
     <div class="container-fluid text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s"
         style="margin-top: 6rem; background-color: #0b1221;">
         <div class="container py-4 text-center">
@@ -792,7 +821,7 @@
                                 class="fa-solid fa-angle-right me-2"></i>About Us</a>
                         <a class="text-light mb-2 text-decoration-none" href="products.html"><i
                                 class="fa-solid fa-angle-right me-2"></i>Our Products</a>
-                                <a class="text-light mb-2 text-decoration-none" href="services.html"><i
+                        <a class="text-light mb-2 text-decoration-none" href="services.html"><i
                                 class="fa-solid fa-angle-right me-2"></i>Our Services</a>
                         <a class="text-light mb-2 text-decoration-none" href="clients.html"><i
                                 class="fa-solid fa-angle-right me-2"></i>Clients</a>
@@ -952,7 +981,188 @@
             }
         }
 
-        window.addEventListener("DOMContentLoaded", fetchGallery)
+        async function loadClientSlider() {
+            // 1. Setup
+            const apiUrl = (window.env && window.env.API_URL) ? window.env.API_URL : '';
+            // Corrected selector to match the HTML class/ID expected from previous context
+            const brandsContainer = document.getElementById('client-slider');
+
+            if (!brandsContainer) {
+                // Warning: The HTML you provided earlier used class="owl-carousel brands-carousel", 
+                // but this JS uses id="client-slider". Ensure your HTML has: <div id="client-slider" class="owl-carousel brands-carousel">
+                console.error("Client slider container (#client-slider) not found.");
+                return;
+            }
+
+            // Set a temporary loading state
+            brandsContainer.innerHTML = '<div class="text-center p-5">Loading client logos...</div>';
+
+            try {
+                if (!apiUrl) throw new Error("API configuration missing");
+
+                // 2. Fetch Data (Fetching from /client endpoint for all clients)
+                const response = await fetch(`${apiUrl}/client`, {
+                    method: 'GET'
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Clients fetch failed with status: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                // 3. Generate HTML
+                let brandsHTML = '';
+                const clients = data.clients || []; // Default to empty array if clients property is missing
+
+                if (Array.isArray(clients)) {
+                    clients.forEach(client => {
+                        const imageUrl = client.image_link || 'img/no-img.webp';
+                        const altText = client.name || 'Client Logo';
+
+                        // Constructing the full image path
+                        const fullImagePath = `${window.env.API_URL}/images/clients/${imageUrl}`;
+
+                        brandsHTML += `
+                    <div class="logo-item">
+                        <a href="" target="_blank">
+                            <img src="${fullImagePath}" alt="${altText}">
+                        </a>
+                    </div>
+                `;
+                    });
+                }
+
+                // Handle case where no clients were returned
+                if (brandsHTML === '') {
+                    brandsHTML = '<div class="text-center p-5">No client logos to display.</div>';
+                }
+
+                // 4. Inject HTML
+                brandsContainer.innerHTML = brandsHTML;
+
+                // 5. Re-initialize Owl Carousel (Crucial step for dynamically loaded content)
+                if (window.jQuery && window.jQuery.fn.owlCarousel) {
+
+                    const $brandsContainer = window.jQuery(brandsContainer);
+
+                    // --- DESTRUCTION (To ensure clean re-initialization) ---
+                    if ($brandsContainer.hasClass('owl-loaded')) {
+                        // Trigger destroy on the container
+                        $brandsContainer.trigger('destroy.owl.carousel');
+
+                        // Remove classes and injected elements
+                        $brandsContainer.removeClass('owl-carousel owl-loaded');
+                        $brandsContainer.find('.owl-stage-outer, .owl-dots, .owl-nav').remove();
+                    }
+
+                    // --- RE-INITIALIZATION ---
+                    $brandsContainer.owlCarousel({
+                        loop: true,
+                        margin: 30,
+                        // Explicitly set nav to false to remove arrows
+                        nav: false,
+                        dots: false, // Keep dots false to remove pagination
+                        autoplay: true,
+                        autoplayTimeout: 3000,
+                        center: true,
+                        responsive: {
+                            0: {
+                                items: 1
+                            },
+                            576: {
+                                items: 3
+                            },
+                            992: {
+                                items: 5
+                            }
+                        }
+                    });
+                } else {
+                    console.warn("Owl Carousel library not found. Clients loaded, but slider is static.");
+                }
+
+
+            } catch (error) {
+                console.error('Failed to load client slider:', error);
+                brandsContainer.innerHTML = '<div class="text-center p-5 text-danger">Failed to load client logos.</div>';
+            }
+        }
+        async function updateCountSection() {
+            const apiUrl = (window.env && window.env.API_URL) ? window.env.API_URL : '';
+
+            const defaultMetrics = {
+                completed_projects: 0,
+                active_projects: 0,
+                total_clients: 0,
+                total_employees: 0
+            };
+            let metricsToDisplay = defaultMetrics;
+
+            try {
+                if (!apiUrl) throw new Error("API configuration missing");
+
+                const response = await fetch(`${apiUrl}/client/metrics`, {
+                    method: 'GET'
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Metrics fetch failed with status: ${response.status}`);
+                }
+
+                const result = await response.json();
+
+                // Use the fetched data if it's valid
+                if (result && !result.error) {
+                    metricsToDisplay = {
+                        completed_projects: result.completed_projects || 0,
+                        active_projects: result.active_projects || 0,
+                        total_clients: result.total_clients || 0,
+                        total_employees: result.total_employees || 0,
+                    };
+                }
+
+            } catch (error) {
+                console.warn('API fetch failed, loading defaults:', error);
+            }
+
+            // --- 1. Update the DOM with the (fetched or default) values ---
+
+            // Completed Projects
+            document.getElementById("completed-projects").innerText = metricsToDisplay.completed_projects;
+
+            // Ongoing Projects (Fixing the HTML ID typo: 'ongoing-projects')
+            document.getElementById("ongoing-projects").innerText = metricsToDisplay.active_projects;
+
+            // Happy Clients
+            document.getElementById("happy-clients").innerText = metricsToDisplay.total_clients;
+            // Employee Count (Using the hardcoded default)
+            document.getElementById("employee-count").innerText = metricsToDisplay.total_employees;
+
+
+            // --- 2. Re-initialize the counter library ---
+            // The library usually needs to be told to re-run on the updated elements.
+            // Assuming you are using waypoints.min.js and counterup.min.js (which is common 
+            // for Bootstrap themes that use data-toggle="counter-up"):
+
+            // Check if jQuery and the counterUp function exist before calling
+            if (window.jQuery && window.jQuery.fn.counterUp) {
+                // Select all elements with data-toggle="counter-up" and run counterUp
+                window.jQuery('[data-toggle="counter-up"]').counterUp({
+                    delay: 10, // The delay period in ms (e.g., 10)
+                    time: 1000 // The total duration of the count (e.g., 1000ms = 1s)
+                });
+            } else {
+                console.warn("CounterUp or jQuery library not found. Animation skipped.");
+            }
+        }
+
+        window.addEventListener("DOMContentLoaded", function () {
+            // Both functions will execute sequentially when the DOM is loaded
+            fetchGallery();
+            loadClientSlider();
+            updateCountSection();
+        });
     </script>
 </body>
 

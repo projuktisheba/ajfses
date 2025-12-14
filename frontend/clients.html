@@ -397,7 +397,7 @@
                 // Construct the full image path.
                 const imagePath = client.image_link && client.image_link.trim() !== ""
                     ? `${CLIENT_IMAGE_BASE_PATH}/${client.image_link}`
-                    : 'img/placeholder.jpg';
+                    : 'img/no-img.webp';
 
                 // Details structure 
                 const detailsHtml = `
@@ -414,7 +414,7 @@
                         </li>
                         <li class="d-flex align-items-center">
                             <i class="fa-solid fa-calendar-alt text-primary me-2"></i>
-                            <strong class="me-1">Joined:</strong>
+                            <strong class="me-1">Date:</strong>
                             <span class="text-dark">${client.service_date || 'N/A'}</span>
                         </li>
                     </ul>
