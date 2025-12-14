@@ -47,6 +47,7 @@ func (h *ClientHandler) CreateClient(w http.ResponseWriter, r *http.Request) {
 	name := strings.TrimSpace(r.FormValue("name"))
 	area := strings.TrimSpace(r.FormValue("area"))
 	serviceName := strings.TrimSpace(r.FormValue("service_name"))
+	serviceDate := strings.TrimSpace(r.FormValue("service_date"))
 	status := strings.TrimSpace(r.FormValue("status"))
 	note := strings.TrimSpace(r.FormValue("note"))
 
@@ -60,6 +61,7 @@ func (h *ClientHandler) CreateClient(w http.ResponseWriter, r *http.Request) {
 		Name:        name,
 		Area:        area,
 		ServiceName: serviceName,
+		ServiceDate: serviceDate,
 		Status:      status,
 		Note:        note,
 		ImageLink:   "", // Empty initially
@@ -206,6 +208,10 @@ func (h *ClientHandler) UpdateClient(w http.ResponseWriter, r *http.Request) {
 	serviceName := strings.TrimSpace(r.FormValue("service_name"))
 	if serviceName != "" {
 		existing.ServiceName = serviceName
+	}
+	serviceDate := strings.TrimSpace(r.FormValue("service_date"))
+	if serviceDate != "" {
+		existing.ServiceDate = serviceDate
 	}
 
 	status := strings.TrimSpace(r.FormValue("status"))

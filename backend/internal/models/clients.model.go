@@ -8,6 +8,7 @@ type Client struct {
 	Name        string    `json:"name"`
 	Area        string    `json:"area"`
 	ServiceName string    `json:"service_name"`
+	ServiceDate string    `json:"service_date"`
 	Status      string    `json:"status"` // Can be used for filtering (e.g., "Running", "Completed")
 	Note        string    `json:"note"`
 	ImageLink   string    `json:"image_link"` // The filename/path on the server

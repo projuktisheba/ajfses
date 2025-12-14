@@ -178,87 +178,112 @@
         </div>
         <!-- Profile view modal -->
         <div id="profileViewModal" class="fixed inset-0 z-50 hidden overflow-y-auto"
-    aria-labelledby="profileViewModalLabel" role="dialog" aria-modal="true">
+            aria-labelledby="profileViewModalLabel" role="dialog" aria-modal="true">
 
-    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <div class="fixed inset-0 bg-gray-900 bg-opacity-70 transition-opacity"
-            onclick="closeProfileViewModal()" aria-hidden="true"></div>
+            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <div class="fixed inset-0 bg-gray-900 bg-opacity-70 transition-opacity"
+                    onclick="closeProfileViewModal()" aria-hidden="true"></div>
 
-        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
-        <div
-            class="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full">
+                <div
+                    class="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full">
 
-            <div class="bg-white px-6 pt-5 pb-3 flex justify-between items-center border-b border-gray-100">
-                <h3 class="text-xl font-semibold text-gray-800" id="profileViewModalLabel">
-                    Profile Information
-                </h3>
-                <button type="button" class="text-gray-400 hover:text-gray-700 p-1 rounded-full"
-                    onclick="closeProfileViewModal()">
-                    <i class="fa fa-times text-lg"></i>
-                </button>
-            </div>
+                    <div class="bg-white px-6 pt-5 pb-3 flex justify-between items-center border-b border-gray-100">
+                        <h3 class="text-xl font-semibold text-gray-800" id="profileViewModalLabel">
+                            Profile Information
+                        </h3>
+                        <button type="button" class="text-gray-400 hover:text-gray-700 p-1 rounded-full"
+                            onclick="closeProfileViewModal()">
+                            <i class="fa fa-times text-lg"></i>
+                        </button>
+                    </div>
 
-            <div class="bg-white px-6 pt-4 pb-6">
-                <div class="w-full space-y-5"> <div class="flex items-center justify-between border-b border-gray-100 pb-3"> <div class="flex items-center space-x-4">
-                            <img id="viewProfileImage" src="img/user.webp" alt="Profile Picture"
-                                class="h-16 w-16 object-cover rounded-full shadow-md">
-                            <div class="flex flex-col">
-                                <p id="viewProfileName" class="text-lg font-bold text-gray-900">ajfses Admin</p>
-                                <p id="viewProfileEmail" class="text-sm text-gray-500">
-                                    ajfiresolutions@hotmail.com</p>
+                    <div class="bg-white px-6 pt-4 pb-6">
+                        <div class="w-full space-y-5">
+                            <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+                                <div class="flex items-center space-x-4">
+                                    <img id="viewProfileImage" src="img/user.webp" alt="Profile Picture"
+                                        class="h-16 w-16 object-cover rounded-full shadow-md">
+                                    <div class="flex flex-col">
+                                        <p id="viewProfileName" class="text-lg font-bold text-gray-900">ajfses Admin</p>
+                                        <p id="viewProfileEmail" class="text-sm text-gray-500">
+                                            ajfiresolutions@hotmail.com</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-x-4 gap-y-3">
+                                <div
+                                    class="p-3 border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition duration-200 bg-white">
+                                    <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Full
+                                        Name</span>
+                                    <div class="flex items-center mt-1 space-x-2">
+                                        <p class="text-gray-900 text-sm font-medium" id="viewProfileNameDisplay">ajfses
+                                            Admin</p>
+                                        <span id="viewProfileStatus"
+                                            class="inline-flex items-center rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">Active</span>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="p-3 border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition duration-200 bg-white">
+                                    <span
+                                        class="text-xs font-semibold uppercase tracking-wider text-gray-500">Role</span>
+                                    <p class="text-gray-900 text-sm font-medium mt-1" id="viewProfileRoleDisplay">Admin
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="p-3 border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition duration-200 bg-white">
+                                    <span
+                                        class="text-xs font-semibold uppercase tracking-wider text-gray-500">Mobile</span>
+                                    <p class="text-gray-900 text-sm font-medium mt-1" id="viewProfileMobile">
+                                        +09611-699282</p>
+                                </div>
+
+                                <div
+                                    class="p-3 border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition duration-200 bg-white">
+                                    <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Joining
+                                        Date</span>
+                                    <p class="text-gray-900 text-sm font-medium mt-1" id="viewProfileJoiningDate">Dec
+                                        03, 2025</p>
+                                </div>
+
+                                <div
+                                    class="p-3 border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition duration-200 bg-white">
+                                    <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Created
+                                        At</span>
+                                    <p class="text-gray-900 text-sm font-medium mt-1" id="viewProfileCreatedAt">Dec 03,
+                                        2025</p>
+                                </div>
+
+                                <div
+                                    class="p-3 border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition duration-200 bg-white">
+                                    <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Last
+                                        Updated</span>
+                                    <p class="text-gray-900 text-sm font-medium mt-1" id="viewProfileUpdatedAt">Dec 14,
+                                        2025</p>
+                                </div>
+
+                            </div>
+
+                            <div class="mt-4 pt-3 border-t border-gray-100"> <span
+                                    class="text-sm font-semibold text-gray-700 block mb-1">Full Address</span>
+                                <div
+                                    class="p-3 border border-gray-100 rounded-lg shadow-md bg-white hover:shadow-lg transition duration-200">
+                                    <p id="viewProfileAddress" class="text-gray-700 text-sm">
+                                        SRA Centre (6th Floor), Pllibidyut Bus Stand, Ashulia, Savar, Dhaka, Bangladesh
+                                    </p>
+                                </div>
                             </div>
                         </div>
-
-                        </div>
-
-                    <div class="grid grid-cols-2 gap-x-4 gap-y-3"> <div class="p-3 border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition duration-200 bg-white">
-                            <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Full Name</span>
-                            <div class="flex items-center mt-1 space-x-2">
-                                <p class="text-gray-900 text-sm font-medium" id="viewProfileNameDisplay">ajfses Admin</p>
-                                <span id="viewProfileStatus"
-                                    class="inline-flex items-center rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">Active</span> </div>
-                        </div>
-
-                        <div class="p-3 border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition duration-200 bg-white">
-                            <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Role</span>
-                            <p class="text-gray-900 text-sm font-medium mt-1" id="viewProfileRoleDisplay">Admin</p>
-                        </div>
-
-                        <div class="p-3 border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition duration-200 bg-white">
-                            <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Mobile</span>
-                            <p class="text-gray-900 text-sm font-medium mt-1" id="viewProfileMobile">+09611-699282</p>
-                        </div>
-
-                        <div class="p-3 border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition duration-200 bg-white">
-                            <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Joining Date</span>
-                            <p class="text-gray-900 text-sm font-medium mt-1" id="viewProfileJoiningDate">Dec 03, 2025</p>
-                        </div>
-
-                        <div class="p-3 border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition duration-200 bg-white">
-                            <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Created At</span>
-                            <p class="text-gray-900 text-sm font-medium mt-1" id="viewProfileCreatedAt">Dec 03, 2025</p>
-                        </div>
-
-                        <div class="p-3 border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition duration-200 bg-white">
-                            <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Last Updated</span>
-                            <p class="text-gray-900 text-sm font-medium mt-1" id="viewProfileUpdatedAt">Dec 14, 2025</p>
-                        </div>
-
                     </div>
 
-                    <div class="mt-4 pt-3 border-t border-gray-100"> <span class="text-sm font-semibold text-gray-700 block mb-1">Full Address</span> <div class="p-3 border border-gray-100 rounded-lg shadow-md bg-white hover:shadow-lg transition duration-200">
-                            <p id="viewProfileAddress" class="text-gray-700 text-sm">
-                                SRA Centre (6th Floor), Pllibidyut Bus Stand, Ashulia, Savar, Dhaka, Bangladesh
-                            </p>
-                        </div>
-                    </div>
                 </div>
             </div>
-
         </div>
-    </div>
-</div>
         <!-- Reset password modal -->
         <div id="resetPasswordModal" class="fixed inset-0 z-50 hidden overflow-y-auto"
             aria-labelledby="resetPasswordModalLabel" aria-modal="true" role="dialog">
@@ -794,6 +819,7 @@
                                     <th class="p-4 font-semibold border-b">Client Name</th>
                                     <th class="p-4 font-semibold border-b">Address</th>
                                     <th class="p-4 font-semibold border-b">Service Name</th>
+                                    <th class="p-4 font-semibold border-b">Service Date</th>
                                     <th class="p-4 font-semibold border-b">Status</th>
                                     <th class="p-4 font-semibold border-b">Note</th>
                                     <th class="p-4 font-semibold border-b text-center">Actions</th>
@@ -850,6 +876,13 @@
                                             <label for="clientServiceName"
                                                 class="block text-sm font-medium text-gray-700">Service Name</label>
                                             <input type="text" id="clientServiceName" name="service_name"
+                                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="clientServiceDate"
+                                                class="block text-sm font-medium text-gray-700">Service Date</label>
+                                            <input type="text" id="clientServiceDate" name="service_date"
+                                                placeholder="e.g. 12-Dec-2025"
                                                 class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
                                         </div>
 
@@ -2059,6 +2092,7 @@
                 document.getElementById('clientName').value = client.name || '';
                 document.getElementById('clientArea').value = client.area || '';
                 document.getElementById('clientServiceName').value = client.service_name || '';
+                document.getElementById('clientServiceDate').value = client.service_date || '';
                 document.getElementById('clientStatus').value = client.status || '';
                 document.getElementById('clientNote').value = client.note || '';
 
@@ -2242,6 +2276,9 @@
                     <td class="p-4 text-gray-700">${client.area || '-'}</td>
                     <td class="p-4 text-gray-500 text-sm">
                         ${client.service_name || '-'}
+                    </td>
+                    <td class="p-4 text-gray-500 text-sm">
+                        ${client.service_date || '-'}
                     </td>
                     <td class="p-4">
                         <span class="px-2 py-1 ${statusClass} rounded text-xs font-semibold">

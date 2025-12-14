@@ -393,8 +393,6 @@
                 }
 
                 const statusBadgeHtml = `<span class="badge ${statusClass} rounded-pill px-3 py-2 fw-normal">${statusText}</span>`;
-                // Format date for display
-                const formattedDate = client.created_at ? new Date(client.created_at).toLocaleDateString() : 'N/A';
 
                 // Construct the full image path.
                 const imagePath = client.image_link && client.image_link.trim() !== ""
@@ -417,7 +415,7 @@
                         <li class="d-flex align-items-center">
                             <i class="fa-solid fa-calendar-alt text-primary me-2"></i>
                             <strong class="me-1">Joined:</strong>
-                            <span class="text-dark">${formattedDate}</span>
+                            <span class="text-dark">${client.service_date || 'N/A'}</span>
                         </li>
                     </ul>
                 `;

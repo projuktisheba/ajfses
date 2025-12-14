@@ -5,6 +5,7 @@ CREATE TABLE clients (
     name VARCHAR(255) NOT NULL,
     area TEXT NOT NULL DEFAULT '',
     service_name TEXT NOT NULL DEFAULT '',
+    service_date VARCHAR(100) NOT NULL DEFAULT '',
     status TEXT DEFAULT '',
     note TEXT DEFAULT '',
     image_link TEXT DEFAULT '',

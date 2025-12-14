@@ -32,8 +32,8 @@ func (c *ClientRepository) Create(ctx context.Context, client *models.Client) (i
 	defer cancel()
 
 	stmt := `
-		INSERT INTO clients (name, area, service_name, status, note, image_link, created_at, updated_at)
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+		INSERT INTO clients (name, area, service_name, service_date, status, note, image_link, created_at, updated_at)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
 		RETURNING id
 	`
 
@@ -42,6 +42,7 @@ func (c *ClientRepository) Create(ctx context.Context, client *models.Client) (i
 		client.Name,
 		client.Area,
 		client.ServiceName,
+		client.ServiceDate,
 		client.Status,
 		client.Note,
 		client.ImageLink,
@@ -63,14 +64,15 @@ func (c *ClientRepository) Update(ctx context.Context, client *models.Client) er
 
 	stmt := `
 		UPDATE clients
-		SET name = $1, area = $2, service_name = $3, status = $4, note = $5, image_link = $6, updated_at = $7
-		WHERE id = $8
+		SET name = $1, area = $2, service_name = $3, service_date = $4, status = $5, note = $6, image_link = $7, updated_at = $8
+		WHERE id = $9
 	`
 
 	_, err := c.DB.Exec(ctx, stmt,
 		client.Name,
 		client.Area,
 		client.ServiceName,
+		client.ServiceDate,
 		client.Status,
 		client.Note,
 		client.ImageLink,
@@ -129,7 +131,7 @@ func (c *ClientRepository) GetByID(ctx context.Context, id int64) (*models.Clien
 	defer cancel()
 
 	stmt := `
-		SELECT id, name, area, service_name, status, note, image_link, created_at, updated_at
+		SELECT id, name, area, service_name, service_date, status, note, image_link, created_at, updated_at
 		FROM clients
 		WHERE id = $1
 	`
@@ -140,6 +142,7 @@ func (c *ClientRepository) GetByID(ctx context.Context, id int64) (*models.Clien
 		&client.Name,
 		&client.Area,
 		&client.ServiceName,
+		&client.ServiceDate,
 		&client.Status,
 		&client.Note,
 		&client.ImageLink,
@@ -173,7 +176,7 @@ func (c *ClientRepository) GetAll(ctx context.Context, status string) ([]*models
 	}
 	
 	stmt := fmt.Sprintf(`
-		SELECT id, name, area, service_name, status, note, image_link, created_at, updated_at
+		SELECT id, name, area, service_name, service_date, status, note, image_link, created_at, updated_at
 		FROM clients
 		%s 
 		ORDER BY created_at DESC;
@@ -193,6 +196,7 @@ func (c *ClientRepository) GetAll(ctx context.Context, status string) ([]*models
 			&client.Name,
 			&client.Area,
 			&client.ServiceName,
+			&client.ServiceDate,
 			&client.Status,
 			&client.Note,
 			&client.ImageLink,
