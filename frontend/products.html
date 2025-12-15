@@ -109,7 +109,8 @@
                     </div>
                 </div>
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle accept" data-bs-toggle="dropdown">Products & Services</a>
+                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Products &
+                        Services</a>
                     <div class="dropdown-menu fade-up m-0">
                         <a href="products.html" class="dropdown-item active">Products</a>
                         <a href="services.html" class="dropdown-item">Services</a>
@@ -138,16 +139,48 @@
     </div>
 
     <div class="container-xxl py-5">
+        <!-- Fire Protection System start -->
         <div class="container py-5">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="text-secondary text-uppercase">Browse by Sector</h6>
-                <h1 class="mb-5">Our Solutions</h1>
+                <h6 class="text-secondary text-uppercase">Browse Our Products</h6>
+                <h1 class="mb-5">Fire Protection System</h1>
+            </div>
+            <div class="row g-4" id="fire-protection-categories">
+                <!-- products added by JS -->
             </div>
 
-            <div class="row g-4" id="category-container">
+        </div>
+        <!-- Fire Protection System end -->
+
+        <!-- Electrical System start -->
+        <div class="container py-5">
+            <!-- Electrical System start -->
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="text-secondary text-uppercase">Browse Our Products</h6>
+                <h1 class="mb-5">Electrical System</h1>
+            </div>
+            <div class="row g-4" id="electrical-system-categories">
+                <!-- products added by JS -->
+            </div>
+            <!-- Electrical System end -->
+
+        </div>
+        <!-- Electrical System end -->
+
+        <!-- Special Products start -->
+        <div class="container py-5">
+
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="text-secondary text-uppercase">Browse Our Products</h6>
+                <h1 class="mb-5">Special Products</h1>
+            </div>
+            <div class="row g-4" id="special-categories">
+                <!-- products added by JS -->
             </div>
         </div>
+        <!-- Special Products end -->
     </div>
+
     <!-- Footer start -->
     <div class="container-fluid text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s"
         style="margin-top: 6rem; background-color: #0b1221;">
@@ -199,7 +232,7 @@
                                 class="fa-solid fa-angle-right me-2"></i>About Us</a>
                         <a class="text-light mb-2 text-decoration-none" href="products.html"><i
                                 class="fa-solid fa-angle-right me-2"></i>Our Products</a>
-                                <a class="text-light mb-2 text-decoration-none" href="services.html"><i
+                        <a class="text-light mb-2 text-decoration-none" href="services.html"><i
                                 class="fa-solid fa-angle-right me-2"></i>Our Services</a>
                         <a class="text-light mb-2 text-decoration-none" href="clients.html"><i
                                 class="fa-solid fa-angle-right me-2"></i>Clients</a>
@@ -291,112 +324,231 @@
     <script src="js/common.js"></script>
 
     <script>
+        function renderCategoriesContainer(divID, productCategories) {
+            const container = document.getElementById(divID);
+            container.innerHTML = '';
+
+            productCategories.forEach((cat, index) => {
+                // Animation delay calculation
+                const delay = 0.1 + (index * 0.1); // Reduced delay slightly for larger list
+
+                const html = `
+                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="${delay}s">
+                    <div class="service-item p-4 shadow-sm border h-100 d-flex flex-column">
+                        <div class="overflow-hidden mb-4 rounded">
+                            <img class="img-fluid w-100" style="height: 200px; object-fit: cover;" src="${cat.image}" alt="${cat.name}">
+                        </div>
+                        <h4 class="mb-3">${cat.name}</h4>
+                        <p class="flex-grow-1 text-muted small">${cat.desc}</p>
+                        
+                        <a class="btn btn-primary rounded-pill py-2 px-4 mt-3" href="product-list.html?category=${cat.id}">
+                            View All <i class="fa fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>`;
+
+                container.insertAdjacentHTML('beforeend', html);
+            });
+
+        }
+
         document.addEventListener("DOMContentLoaded", function () {
-            // Updated Categories based on ComplianceBD Website
-            const categories = [
+            // Updated fireProtectionCategories
+            const fireProtectionCategories = [
                 {
                     id: "valves-accessories",
                     name: "Valves & Accessories",
                     // Image: Industrial Red Valve/Hydrant 
-                    image: "https://images.unsplash.com/photo-1615818497984-69970c679a95?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    image: "img/categories/valves-accessories.webp",
                     desc: "UL certified gate valves, check valves, and risers for fire hydrant systems."
-                },
-                {
-                    id: "fire-pump-controller",
-                    name: "Fire Pump & Controller",
-                    // Image: Industrial Pump/Machinery
-                    image: "https://images.unsplash.com/photo-1563815949503-455b5d5d8866?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                    desc: "High-performance fire pumps and UL/FM certified control panel systems."
-                },
-                {
-                    id: "steam-line-accessories",
-                    name: "Steam Line Accessories",
-                    // Image: Steam/Pressure Pipes
-                    image: "https://images.unsplash.com/photo-1518709388484-916c87a315cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                    desc: "Industrial steam traps, control valves, and strainers for efficient steam management."
                 },
                 {
                     id: "fire-protection-system",
                     name: "Fire Protection System",
                     // Image: Fire Sprinkler Head
-                    image: "https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    image: "img/categories/fire-protection-system.webp",
                     desc: "Complete active fire protection solutions including hydrant and sprinkler setups."
-                },
-                {
-                    id: "passive-fire-protection",
-                    name: "Passive Fire Protection",
-                    // Image: Construction/Safety Coatings
-                    image: "https://images.unsplash.com/photo-1590059530460-6453fa844783?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                    desc: "Structural fire resistance solutions and protective coatings to limit fire spread."
-                },
-                {
-                    id: "process-line-accessories",
-                    name: "Process Line Accessories",
-                    // Image: Industrial Gauges/Factory
-                    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                    desc: "Instrumentation and control valves for industrial manufacturing process lines."
                 },
                 {
                     id: "fire-detection-system",
                     name: "Fire Detection System",
                     // Image: Smoke Detector/Alarm
-                    image: "https://images.unsplash.com/photo-1557997384-6017285648da?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    image: "img/categories/fire-detection-system.webp",
                     desc: "Intelligent smoke detectors, heat sensors, and fire alarm control panels."
+                },
+
+                {
+                    id: "ul-fire-rated-door",
+                    name: "UL Listed Fire Rated Door",
+                    // Image: Heavy Metal Door/Exit
+                    image: "img/categories/ul-fire-rated-door.webp",
+                    desc: "Certified fire-resistant steel doors for emergency exits and containment."
+                },
+                {
+                    id: "fire-pump-controller",
+                    name: "Fire Pump & Controller",
+                    // Image: Industrial Pump/Machinery
+                    image: "img/categories/fire-pump-controller.webp",
+                    desc: "High-performance fire pumps and UL/FM certified control panel systems."
+                },
+
+                {
+                    id: "passive-fire-protection",
+                    name: "Passive Fire Protection",
+                    // Image: Construction/Safety Coatings
+                    image: "img/categories/passive-fire-protection.webp",
+                    desc: "Structural fire resistance solutions and protective coatings to limit fire spread."
                 },
                 {
                     id: "ms-pipe-fitting",
                     name: "Ms Pipe & Fitting",
                     // Image: Stacked Metal Pipes
-                    image: "https://images.unsplash.com/photo-1535068484643-4dc97e556dd2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    image: "img/categories/ms-pipe-fitting.webp",
                     desc: "High-grade seamless Carbon Steel (CS) and Mild Steel (MS) pipes and fittings."
-                },
-                {
-                    id: "firestop-protection",
-                    name: "Firestop System",
-                    // Image: Sealant/Construction Detail
-                    image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                    desc: "Firestop sealants and barrier systems to seal openings and joints in buildings."
-                },
-                {
-                    id: "ul-fire-rated-door",
-                    name: "UL Listed Fire Rated Door",
-                    // Image: Heavy Metal Door/Exit
-                    image: "https://images.unsplash.com/photo-1506168536671-893d5f134260?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                    desc: "Certified fire-resistant steel doors for emergency exits and containment."
                 },
                 {
                     id: "fire-suppression-system",
                     name: "Fire Suppression System",
                     // Image: Gas Cylinders/Suppression
-                    image: "https://images.unsplash.com/photo-1455136868613-2339d15024b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                    image: "img/categories/fire-suppression-system.webp",
                     desc: "Clean agent gas (FM200/Novec) and foam-based automatic suppression systems."
-                }
+                },
+                {
+                    id: "steam-line-accessories",
+                    name: "Steam Line Accessories",
+                    // Image: Steam/Pressure Pipes
+                    image: "img/categories/steam-line-accessories.webp",
+                    desc: "Industrial steam traps, control valves, and strainers for efficient steam management."
+                },
+                {
+                    id: "process-line-accessories",
+                    name: "Process Line Accessories",
+                    // Image: Industrial Gauges/Factory
+                    image: "img/categories/process-line-accessories.webp",
+                    desc: "Instrumentation and control valves for industrial manufacturing process lines."
+                },
+                {
+                    id: "firestop-protection",
+                    name: "Firestop System",
+                    // Image: Sealant/Construction Detail
+                    image: "img/categories/firestop-protection.webp",
+                    desc: "Firestop sealants and barrier systems to seal openings and joints in buildings."
+                },
+
+
             ];
 
-            const container = document.getElementById('category-container');
-            container.innerHTML = '';
+            renderCategoriesContainer('fire-protection-categories', fireProtectionCategories)
 
-            categories.forEach((cat, index) => {
-                // Animation delay calculation
-                const delay = 0.1 + (index * 0.1); // Reduced delay slightly for larger list
+            // Updated electricalSystemCategories
+            const electricalSystemCategories = [
+                {
+                    id: "transformer-substation",
+                    name: "Transformer Sub Station",
+                    image: "img/products/transformer-substation.webp",
+                    image_query: "Industrial Electrical Substation Diagram",
+                    desc: "High-voltage and medium-voltage equipment for transforming voltage, switching, and protection in the power grid. Key components include Power Transformers, Circuit Breakers, Isolators, CTs, PTs, and Lightning Arresters."
+                },
+                {
+                    id: "substation-infrastructure",
+                    name: "Substation (Civil & Infrastructure)",
+                    image: "img/products/substation-infrastructure.webp",
+                    image_query: "Electrical Substation Site Layout and Construction Plan",
+                    desc: "Planning, design, and construction of the complete substation site, including foundations, control building, cable trenches, and yard surfacing."
+                },
+                {
+                    id: "ht-lt-panels",
+                    name: "HT/LT Panel",
+                    image: "img/products/ht-lt-panels.webp",
+                    image_query: "Electrical Panel Board Internal Layout Diagram",
+                    desc: "Enclosed assemblies for managing and distributing electrical power at High Tension (HT, ≥ 1kV) and Low Tension (LT, < 1kV) levels. HT Panels use VCBs/SF6 Breakers; LT Panels use ACBs/MCCBs."
+                },
+                {
+                    id: "switchgear-control-room",
+                    name: "Switchgear/Control Room Work",
+                    image: "img/products/switchgear-control-room.webp",
+                    image_query: "Substation Control Room Workstation Layout",
+                    desc: "Equipment for controlling, protecting, and isolating electrical circuits (Switchgear), and the centralized station for monitoring and operating the system (Control Room). Focuses on Circuit Breakers, Protective Relays, and SCADA systems."
+                },
+                {
+                    id: "generator-systems",
+                    name: "Generator",
+                    image: "img/products/generator-systems.webp",
+                    image_query: "Industrial Diesel Generator Set Cross-Section Diagram",
+                    desc: "Systems that convert mechanical energy into electrical energy for primary or backup power supply. Includes the Engine, Alternator, Automatic Transfer Switch (ATS), Fuel System, and Control Panel."
+                }
+            ]
 
-                const html = `
-            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="${delay}s">
-                <div class="service-item p-4 shadow-sm border h-100 d-flex flex-column">
-                    <div class="overflow-hidden mb-4 rounded">
-                        <img class="img-fluid w-100" style="height: 200px; object-fit: cover;" src="${cat.image}" alt="${cat.name}">
-                    </div>
-                    <h4 class="mb-3">${cat.name}</h4>
-                    <p class="flex-grow-1 text-muted small">${cat.desc}</p>
-                    
-                    <a class="btn btn-primary rounded-pill py-2 px-4 mt-3" href="product-list.html?category=${cat.id}">
-                        View All <i class="fa fa-arrow-right ms-1"></i>
-                    </a>
-                </div>
-            </div>`;
+            renderCategoriesContainer('electrical-system-categories', electricalSystemCategories)
 
-                container.insertAdjacentHTML('beforeend', html);
-            });
+            // Updated specialCategories
+            const specialCategories = [
+                {
+                    id: "lightning-protection-system",
+                    name: "Lightning Protection System (LPS)",
+                    image: "img/products/lightning-protection-system.png",
+                    image_query: "Diagram of a complete Lightning Protection System on a building",
+                    desc: "Comprehensive systems to protect structures and occupants from direct lightning strikes and surges. Includes **Air Terminals (Rods)**, **Down Conductors**, the **Grounding System**, **Equipotential Bonding**, and **Surge Protection Devices (SPDs)**."
+                },
+                {
+                    id: "solar-power-system",
+                    name: "Solar Power System",
+                    image: "img/products/solar-power-system.webp",
+                    image_query: "Commercial Rooftop Solar PV System Diagram with Inverter and Battery",
+                    desc: "Design and installation of commercial and industrial photovoltaic (PV) solar systems. Key components are **Solar Panels**, **Inverters** (String/Micro/Hybrid), **Racking and Mounting**, and **Energy Storage Systems (ESS)**."
+                },
+                {
+                    id: "lift-elevator",
+                    name: "Lift & Elevator Service",
+                    image: "img/products/lift-elevator.webp",
+                    image_query: "Modern Elevator System Diagram showing Motor and Control Panel",
+                    desc: "Installation, modernization, and maintenance of various lift systems, including passenger, freight, and service elevators, focusing on safety, efficiency, and vertical transport management."
+                },
+                {
+                    id: "building-management-system",
+                    name: "Building Management System (BMS)",
+                    image: "img/products/building-management-system.webp",
+                    image_query: "3-Layer Architecture Diagram of a Building Management System",
+                    desc: "Centralized, computer-based systems for monitoring and controlling a building's mechanical and electrical equipment (HVAC, lighting, power). Architecture includes the **Field Level (Sensors/Actuators)**, **Automation Level (DDC)**, and **Management Level (HMI/SCADA)**."
+                },
+                {
+                    id: "public-address-system",
+                    name: "Public Address (PA) System",
+                    image: "img/products/public-address-system.webp",
+                    image_query: "Public Address System Zoning Diagram for Commercial Building",
+                    desc: "Professional audio systems for broadcasting announcements, emergency messages, and background music across multiple zones in commercial and public spaces, ensuring clear communication and evacuation control."
+                },
+                {
+                    id: "surveillance-system",
+                    name: "Surveillance System (CCTV)",
+                    image: "img/products/surveillance-system.webp",
+                    image_query: "IP CCTV Surveillance System Network Diagram",
+                    desc: "Installation and integration of Closed-Circuit Television (CCTV) and IP-based video surveillance systems, including HD cameras, Network Video Recorders (NVRs), and video analytics software."
+                },
+                {
+                    id: "access-control-time",
+                    name: "Access Control & Time Attendance System",
+                    image: "img/products/access-control-time.webp",
+                    image_query: "Diagram of Access Control System with Reader, Lock, and Controller",
+                    desc: "Security systems using biometrics, card readers, and keypads to manage and track authorized entry to secure areas, integrated with time and attendance software for workforce management."
+                },
+                {
+                    id: "industrial-pump-accessories",
+                    name: "Industrial Pump and Accessories",
+                    image: "img/products/industrial-pump-accessories.webp",
+                    image_query: "Cross-section diagram of a Centrifugal Industrial Pump",
+                    desc: "Supply, installation, and repair of various industrial pumps (Centrifugal, Submersible, Diaphragm) used in fluid transfer and HVAC. Includes mechanical seals, bearings, control panels, and necessary accessories."
+                },
+                {
+                    id: "safety-equipment",
+                    name: "Safety Equipment",
+                    image: "img/products/safety-equipment.webp",
+                    image_query: "Industrial Safety PPE and Fire Suppression Equipment",
+                    desc: "A range of industrial safety solutions, including Personal Protective Equipment (PPE), Fire Detection and Suppression Systems, Emergency Lighting, and first-aid provisions for site compliance."
+                }
+            ]
+            renderCategoriesContainer('special-categories', specialCategories)
+
         });
     </script>
 </body>

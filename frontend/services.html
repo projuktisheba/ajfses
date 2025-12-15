@@ -109,7 +109,8 @@
                     </div>
                 </div>
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Products & Services</a>
+                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Products &
+                        Services</a>
                     <div class="dropdown-menu fade-up m-0">
                         <a href="products.html" class="dropdown-item">Products</a>
                         <a href="services.html" class="dropdown-item active">Services</a>
@@ -127,11 +128,11 @@
 
     <div class="container-fluid page-header py-5" style="margin-bottom: 2rem; background-color: #0b1221;">
         <div class="container py-5">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">Product Categories</h1>
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Our Services</h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">Categories</li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">services</li>
                 </ol>
             </nav>
         </div>
@@ -140,11 +141,11 @@
     <div class="container-xxl py-5">
         <div class="container py-5">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="text-secondary text-uppercase">Browse by Sector</h6>
-                <h1 class="mb-5">Our Solutions</h1>
+                <h6 class="text-secondary text-uppercase">Browse Our Services</h6>
+                <h1 class="mb-5">Our Services</h1>
             </div>
 
-            <div class="row g-4" id="category-container">
+            <div class="row g-4" id="services-container">
             </div>
         </div>
     </div>
@@ -199,7 +200,7 @@
                                 class="fa-solid fa-angle-right me-2"></i>About Us</a>
                         <a class="text-light mb-2 text-decoration-none" href="products.html"><i
                                 class="fa-solid fa-angle-right me-2"></i>Our Products</a>
-                                <a class="text-light mb-2 text-decoration-none" href="services.html"><i
+                        <a class="text-light mb-2 text-decoration-none" href="services.html"><i
                                 class="fa-solid fa-angle-right me-2"></i>Our Services</a>
                         <a class="text-light mb-2 text-decoration-none" href="clients.html"><i
                                 class="fa-solid fa-angle-right me-2"></i>Clients</a>
@@ -295,85 +296,36 @@
             // Updated Categories based on ComplianceBD Website
             const categories = [
                 {
-                    id: "valves-accessories",
-                    name: "Valves & Accessories",
-                    // Image: Industrial Red Valve/Hydrant 
-                    image: "https://images.unsplash.com/photo-1615818497984-69970c679a95?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                    desc: "UL certified gate valves, check valves, and risers for fire hydrant systems."
+                    id: "fire-safety-plan",
+                    name: "Fire Safety Plan Service",
+                    image: "img/services/fire-safety-plan.webp",
+                    image_query: "Fire safety plan blueprint and consultation",
+                    desc: "Expert services for developing comprehensive, site-specific Fire Safety Plans (FSP), including risk assessment, evacuation strategy design, and regulatory compliance documentation."
                 },
                 {
-                    id: "fire-pump-controller",
-                    name: "Fire Pump & Controller",
-                    // Image: Industrial Pump/Machinery
-                    image: "https://images.unsplash.com/photo-1563815949503-455b5d5d8866?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                    desc: "High-performance fire pumps and UL/FM certified control panel systems."
+                    id: "supply-installation",
+                    name: "Supply and Installation",
+                    image: "img/services/supply-installation.webp",
+                    image_query: "Engineers installing fire suppression system components",
+                    desc: "The procurement and deployment of all necessary fire safety components, such as alarms, extinguishers, suppression systems, and detection devices, executed by certified technicians."
                 },
                 {
-                    id: "steam-line-accessories",
-                    name: "Steam Line Accessories",
-                    // Image: Steam/Pressure Pipes
-                    image: "https://images.unsplash.com/photo-1518709388484-916c87a315cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                    desc: "Industrial steam traps, control valves, and strainers for efficient steam management."
+                    id: "testing-commissioning",
+                    name: "Testing & Commissioning",
+                    image: "img/services/testing-commissioning.webp",
+                    image_query: "Engineer performing fire alarm system functional test",
+                    desc: "Systematic verification that all fire safety and protection systems operate according to design specifications and industry standards (e.g., NFPA/UL/FM), followed by official handover."
                 },
                 {
-                    id: "fire-protection-system",
-                    name: "Fire Protection System",
-                    // Image: Fire Sprinkler Head
-                    image: "https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                    desc: "Complete active fire protection solutions including hydrant and sprinkler setups."
-                },
-                {
-                    id: "passive-fire-protection",
-                    name: "Passive Fire Protection",
-                    // Image: Construction/Safety Coatings
-                    image: "https://images.unsplash.com/photo-1590059530460-6453fa844783?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                    desc: "Structural fire resistance solutions and protective coatings to limit fire spread."
-                },
-                {
-                    id: "process-line-accessories",
-                    name: "Process Line Accessories",
-                    // Image: Industrial Gauges/Factory
-                    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                    desc: "Instrumentation and control valves for industrial manufacturing process lines."
-                },
-                {
-                    id: "fire-detection-system",
-                    name: "Fire Detection System",
-                    // Image: Smoke Detector/Alarm
-                    image: "https://images.unsplash.com/photo-1557997384-6017285648da?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                    desc: "Intelligent smoke detectors, heat sensors, and fire alarm control panels."
-                },
-                {
-                    id: "ms-pipe-fitting",
-                    name: "Ms Pipe & Fitting",
-                    // Image: Stacked Metal Pipes
-                    image: "https://images.unsplash.com/photo-1535068484643-4dc97e556dd2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                    desc: "High-grade seamless Carbon Steel (CS) and Mild Steel (MS) pipes and fittings."
-                },
-                {
-                    id: "firestop-protection",
-                    name: "Firestop System",
-                    // Image: Sealant/Construction Detail
-                    image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                    desc: "Firestop sealants and barrier systems to seal openings and joints in buildings."
-                },
-                {
-                    id: "ul-fire-rated-door",
-                    name: "UL Listed Fire Rated Door",
-                    // Image: Heavy Metal Door/Exit
-                    image: "https://images.unsplash.com/photo-1506168536671-893d5f134260?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                    desc: "Certified fire-resistant steel doors for emergency exits and containment."
-                },
-                {
-                    id: "fire-suppression-system",
-                    name: "Fire Suppression System",
-                    // Image: Gas Cylinders/Suppression
-                    image: "https://images.unsplash.com/photo-1455136868613-2339d15024b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                    desc: "Clean agent gas (FM200/Novec) and foam-based automatic suppression systems."
+                    id: "annual-maintenance",
+                    name: "Annual Maintenance Contract (AMC)",
+                    image: "img/services/annual-maintenance.webp",
+                    image_query: "Technician performing preventative maintenance on a fire sprinkler system",
+                    desc: "Scheduled preventative maintenance, inspections, and functional testing to ensure all fire systems remain operational, compliant, and reliable throughout the year."
                 }
             ];
 
-            const container = document.getElementById('category-container');
+            const container = document.getElementById('services-container');
             container.innerHTML = '';
 
             categories.forEach((cat, index) => {
@@ -389,8 +341,8 @@
                     <h4 class="mb-3">${cat.name}</h4>
                     <p class="flex-grow-1 text-muted small">${cat.desc}</p>
                     
-                    <a class="btn btn-primary rounded-pill py-2 px-4 mt-3" href="product-list.html?category=${cat.id}">
-                        View All <i class="fa fa-arrow-right ms-1"></i>
+                    <a class="btn btn-primary rounded-pill py-2 px-4 mt-3" href="contact.html">
+                        Contact Us <i class="fa fa-arrow-right ms-1"></i>
                     </a>
                 </div>
             </div>`;
