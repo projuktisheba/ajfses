@@ -450,52 +450,34 @@
     <!-- About End -->
 
     <!-- Products start -->
-    <div id="products" class="container-xxl py-2">
+     <div class="container-xxl py-5">
+        <!-- Fire Protection System start -->
         <div class="container py-5">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="text-secondary text-uppercase">Our Products</h6>
-                <h1 class="mb-5">Fire Safety Compliances</h1>
+                <h6 class="text-secondary text-uppercase">Browse Our Products</h6>
+                <h1 class="mb-5">Fire Protection System</h1>
             </div>
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item p-4">
-                        <div class="overflow-hidden mb-4">
-                            <img class="img-fluid" height="80px" style="aspect-ratio: 4/3;" src="img/product-1.jpg"
-                                alt="">
-                        </div>
-                        <h4 class="mb-3">Fire Protection System</h4>
-                        <!-- <p>Preparation and approval of Fire Safety Plans, Fire Detection & Protection System Design.</p> -->
-                        <a class="btn-slide mt-2" href=""><i class="fa-solid fa-arrow-right"></i><span>See
-                                More</span></a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="service-item p-4">
-                        <div class="overflow-hidden mb-4">
-                            <img class="img-fluid" height="80px" style="aspect-ratio: 4/3;" src="img/product-2.jpg"
-                                alt="">
-                        </div>
-                        <h4 class="mb-3">Fire Detection System</h4>
-                        <!-- <p>Single Line Diagram (SLD), ELD, Lightning Protection System (LPS) design and auditing.</p> -->
-                        <a class="btn-slide mt-2" href=""><i class="fa-solid fa-arrow-right"></i><span>Read
-                                More</span></a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="service-item p-4">
-                        <div class="overflow-hidden mb-4">
-                            <img class="img-fluid" height="80px" style="aspect-ratio: 4/3;" src="img/product-3.jpg"
-                                alt="">
-                        </div>
-                        <h4 class="mb-3">MS Pipes & Fittings</h4>
-                        <!-- <p>Single Line Diagram (SLD), ELD, Lightning Protection System (LPS) design and auditing.</p> -->
-                        <a class="btn-slide mt-2" href=""><i class="fa-solid fa-arrow-right"></i><span>Read
-                                More</span></a>
-                    </div>
-                </div>
+            <div class="row g-4" id="fire-protection-categories">
+                <!-- products added by JS -->
+            </div>
 
-            </div>
         </div>
+        <!-- Fire Protection System end -->
+
+        <!-- Electrical System start -->
+        <div class="container py-5">
+            <!-- Electrical System start -->
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="text-secondary text-uppercase">Browse Our Products</h6>
+                <h1 class="mb-5">Electrical System</h1>
+            </div>
+            <div class="row g-4" id="electrical-system-categories">
+                <!-- products added by JS -->
+            </div>
+            <!-- Electrical System end -->
+
+        </div>
+        <!-- Electrical System end -->
     </div>
     <!-- Products end -->
 
@@ -1289,6 +1271,111 @@
             loadClientSlider();
             fetchTeamMembers();
             updateCountSection();
+        });
+    </script>
+
+<!-- product categories -->
+    <script>
+        function renderCategoriesContainer(divID, productCategories, hasChild = true) {
+            const container = document.getElementById(divID);
+            container.innerHTML = '';
+
+            productCategories.forEach((cat, index) => {
+                // Animation delay calculation
+                const delay = 0.1 + (index * 0.1); // Reduced delay slightly for larger list
+                btnHTML = `<a class="btn btn-primary rounded-pill py-2 px-4 mt-3" href="product-list.html?category=${cat.id}">
+                            View All <i class="fa fa-arrow-right ms-1"></i>
+                        </a>`
+                if (hasChild == false) {
+                    btnHTML = `<a href="contact.html" class="btn btn-sm btn-outline-dark py-2 px-4 rounded-pill ms-2">Contact</a>`
+                }
+                const html = `
+                <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="${delay}s">
+                    <div class="service-item p-4 shadow-sm border h-100 d-flex flex-column">
+                        <div class="overflow-hidden mb-4 rounded">
+                            <img class="img-fluid w-100" style="height: 200px; object-fit: cover;" src="${cat.image}" alt="${cat.name}">
+                        </div>
+                        <h4 class="mb-3">${cat.name}</h4>
+                        <p class="flex-grow-1 text-muted small">${cat.desc}</p>
+                        ${btnHTML}
+                    </div>
+                </div>`;
+
+                container.insertAdjacentHTML('beforeend', html);
+            });
+
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Updated fireProtectionCategories
+            const fireProtectionCategories = [
+                {
+                    id: "valves-accessories",
+                    name: "Valves & Accessories",
+                    // Image: Industrial Red Valve/Hydrant 
+                    image: "img/categories/valves-accessories.webp",
+                    desc: "UL certified gate valves, check valves, and risers for fire hydrant systems."
+                },
+                {
+                    id: "fire-protection-system",
+                    name: "Fire Protection System",
+                    // Image: Fire Sprinkler Head
+                    image: "img/categories/fire-protection-system.webp",
+                    desc: "Complete active fire protection solutions including hydrant and sprinkler setups."
+                },
+                {
+                    id: "fire-detection-system",
+                    name: "Fire Detection System",
+                    // Image: Smoke Detector/Alarm
+                    image: "img/categories/fire-detection-system.webp",
+                    desc: "Intelligent smoke detectors, heat sensors, and fire alarm control panels."
+                },
+
+                {
+                    id: "ul-fire-rated-door",
+                    name: "UL Listed Fire Rated Door",
+                    // Image: Heavy Metal Door/Exit
+                    image: "img/categories/ul-fire-rated-door.webp",
+                    desc: "Certified fire-resistant steel doors for emergency exits and containment."
+                },
+            ];
+
+            renderCategoriesContainer('fire-protection-categories', fireProtectionCategories)
+
+            // Updated electricalSystemCategories
+            const electricalSystemCategories = [
+                {
+                    id: "transformer-substation",
+                    name: "Transformer Sub Station",
+                    image: "img/categories/transformer-substation.webp",
+                    image_query: "Industrial Electrical Substation Diagram",
+                    desc: "High-voltage and medium-voltage equipment for transforming voltage, switching, and protection in the power grid. Key components include Power Transformers, Circuit Breakers, Isolators, CTs, PTs, and Lightning Arresters."
+                },
+                {
+                    id: "substation-infrastructure",
+                    name: "Substation (Civil & Infrastructure)",
+                    image: "img/categories/substation-infrastructure.webp",
+                    image_query: "Electrical Substation Site Layout and Construction Plan",
+                    desc: "Planning, design, and construction of the complete substation site, including foundations, control building, cable trenches, and yard surfacing."
+                },
+                {
+                    id: "switchgear-control-room",
+                    name: "Switchgear/Control Room Work",
+                    image: "img/categories/switchgear-control-room.webp",
+                    image_query: "Substation Control Room Workstation Layout",
+                    desc: "Equipment for controlling, protecting, and isolating electrical circuits (Switchgear), and the centralized station for monitoring and operating the system (Control Room). Focuses on Circuit Breakers, Protective Relays, and SCADA systems."
+                },
+                {
+                    id: "generator-systems",
+                    name: "Generator",
+                    image: "img/categories/generator-systems.webp",
+                    image_query: "Industrial Diesel Generator Set Cross-Section Diagram",
+                    desc: "Systems that convert mechanical energy into electrical energy for primary or backup power supply. Includes the Engine, Alternator, Automatic Transfer Switch (ATS), Fuel System, and Control Panel."
+                }
+            ]
+
+            renderCategoriesContainer('electrical-system-categories', electricalSystemCategories, false)
+
         });
     </script>
 </body>
