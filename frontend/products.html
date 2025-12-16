@@ -324,14 +324,19 @@
     <script src="js/common.js"></script>
 
     <script>
-        function renderCategoriesContainer(divID, productCategories) {
+        function renderCategoriesContainer(divID, productCategories, hasChild = true) {
             const container = document.getElementById(divID);
             container.innerHTML = '';
 
             productCategories.forEach((cat, index) => {
                 // Animation delay calculation
                 const delay = 0.1 + (index * 0.1); // Reduced delay slightly for larger list
-
+                btnHTML = `<a class="btn btn-primary rounded-pill py-2 px-4 mt-3" href="product-list.html?category=${cat.id}">
+                            View All <i class="fa fa-arrow-right ms-1"></i>
+                        </a>`
+                if (hasChild == false) {
+                    btnHTML = `<a href="contact.html" class="btn btn-sm btn-outline-dark py-2 px-4 rounded-pill ms-2">Contact</a>`
+                }
                 const html = `
                 <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="${delay}s">
                     <div class="service-item p-4 shadow-sm border h-100 d-flex flex-column">
@@ -340,10 +345,7 @@
                         </div>
                         <h4 class="mb-3">${cat.name}</h4>
                         <p class="flex-grow-1 text-muted small">${cat.desc}</p>
-                        
-                        <a class="btn btn-primary rounded-pill py-2 px-4 mt-3" href="product-list.html?category=${cat.id}">
-                            View All <i class="fa fa-arrow-right ms-1"></i>
-                        </a>
+                        ${btnHTML}
                     </div>
                 </div>`;
 
@@ -445,109 +447,109 @@
                 {
                     id: "transformer-substation",
                     name: "Transformer Sub Station",
-                    image: "img/products/transformer-substation.webp",
+                    image: "img/categories/transformer-substation.webp",
                     image_query: "Industrial Electrical Substation Diagram",
                     desc: "High-voltage and medium-voltage equipment for transforming voltage, switching, and protection in the power grid. Key components include Power Transformers, Circuit Breakers, Isolators, CTs, PTs, and Lightning Arresters."
                 },
                 {
                     id: "substation-infrastructure",
                     name: "Substation (Civil & Infrastructure)",
-                    image: "img/products/substation-infrastructure.webp",
+                    image: "img/categories/substation-infrastructure.webp",
                     image_query: "Electrical Substation Site Layout and Construction Plan",
                     desc: "Planning, design, and construction of the complete substation site, including foundations, control building, cable trenches, and yard surfacing."
                 },
                 {
                     id: "ht-lt-panels",
                     name: "HT/LT Panel",
-                    image: "img/products/ht-lt-panels.webp",
+                    image: "img/categories/ht-lt-panels.webp",
                     image_query: "Electrical Panel Board Internal Layout Diagram",
                     desc: "Enclosed assemblies for managing and distributing electrical power at High Tension (HT, ≥ 1kV) and Low Tension (LT, < 1kV) levels. HT Panels use VCBs/SF6 Breakers; LT Panels use ACBs/MCCBs."
                 },
                 {
                     id: "switchgear-control-room",
                     name: "Switchgear/Control Room Work",
-                    image: "img/products/switchgear-control-room.webp",
+                    image: "img/categories/switchgear-control-room.webp",
                     image_query: "Substation Control Room Workstation Layout",
                     desc: "Equipment for controlling, protecting, and isolating electrical circuits (Switchgear), and the centralized station for monitoring and operating the system (Control Room). Focuses on Circuit Breakers, Protective Relays, and SCADA systems."
                 },
                 {
                     id: "generator-systems",
                     name: "Generator",
-                    image: "img/products/generator-systems.webp",
+                    image: "img/categories/generator-systems.webp",
                     image_query: "Industrial Diesel Generator Set Cross-Section Diagram",
                     desc: "Systems that convert mechanical energy into electrical energy for primary or backup power supply. Includes the Engine, Alternator, Automatic Transfer Switch (ATS), Fuel System, and Control Panel."
                 }
             ]
 
-            renderCategoriesContainer('electrical-system-categories', electricalSystemCategories)
+            renderCategoriesContainer('electrical-system-categories', electricalSystemCategories, false)
 
             // Updated specialCategories
             const specialCategories = [
                 {
                     id: "lightning-protection-system",
                     name: "Lightning Protection System (LPS)",
-                    image: "img/products/lightning-protection-system.png",
+                    image: "img/categories/lightning-protection-system.png",
                     image_query: "Diagram of a complete Lightning Protection System on a building",
-                    desc: "Comprehensive systems to protect structures and occupants from direct lightning strikes and surges. Includes **Air Terminals (Rods)**, **Down Conductors**, the **Grounding System**, **Equipotential Bonding**, and **Surge Protection Devices (SPDs)**."
+                    desc: "Comprehensive systems to protect structures and occupants from direct lightning strikes and surges. Includes Air Terminals (Rods), Down Conductors, the Grounding System, Equipotential Bonding, and Surge Protection Devices (SPDs)."
                 },
                 {
                     id: "solar-power-system",
                     name: "Solar Power System",
-                    image: "img/products/solar-power-system.webp",
+                    image: "img/categories/solar-power-system.webp",
                     image_query: "Commercial Rooftop Solar PV System Diagram with Inverter and Battery",
-                    desc: "Design and installation of commercial and industrial photovoltaic (PV) solar systems. Key components are **Solar Panels**, **Inverters** (String/Micro/Hybrid), **Racking and Mounting**, and **Energy Storage Systems (ESS)**."
+                    desc: "Design and installation of commercial and industrial photovoltaic (PV) solar systems. Key components are Solar Panels, Inverters (String/Micro/Hybrid), Racking and Mounting, and Energy Storage Systems (ESS)."
                 },
                 {
                     id: "lift-elevator",
                     name: "Lift & Elevator Service",
-                    image: "img/products/lift-elevator.webp",
+                    image: "img/categories/lift-elevator.webp",
                     image_query: "Modern Elevator System Diagram showing Motor and Control Panel",
                     desc: "Installation, modernization, and maintenance of various lift systems, including passenger, freight, and service elevators, focusing on safety, efficiency, and vertical transport management."
                 },
                 {
                     id: "building-management-system",
                     name: "Building Management System (BMS)",
-                    image: "img/products/building-management-system.webp",
+                    image: "img/categories/building-management-system.webp",
                     image_query: "3-Layer Architecture Diagram of a Building Management System",
-                    desc: "Centralized, computer-based systems for monitoring and controlling a building's mechanical and electrical equipment (HVAC, lighting, power). Architecture includes the **Field Level (Sensors/Actuators)**, **Automation Level (DDC)**, and **Management Level (HMI/SCADA)**."
+                    desc: "Centralized, computer-based systems for monitoring and controlling a building's mechanical and electrical equipment (HVAC, lighting, power). Architecture includes the Field Level (Sensors/Actuators), Automation Level (DDC), and Management Level (HMI/SCADA)."
                 },
                 {
                     id: "public-address-system",
                     name: "Public Address (PA) System",
-                    image: "img/products/public-address-system.webp",
+                    image: "img/categories/public-address-system.webp",
                     image_query: "Public Address System Zoning Diagram for Commercial Building",
                     desc: "Professional audio systems for broadcasting announcements, emergency messages, and background music across multiple zones in commercial and public spaces, ensuring clear communication and evacuation control."
                 },
                 {
                     id: "surveillance-system",
                     name: "Surveillance System (CCTV)",
-                    image: "img/products/surveillance-system.webp",
+                    image: "img/categories/surveillance-system.webp",
                     image_query: "IP CCTV Surveillance System Network Diagram",
                     desc: "Installation and integration of Closed-Circuit Television (CCTV) and IP-based video surveillance systems, including HD cameras, Network Video Recorders (NVRs), and video analytics software."
                 },
                 {
                     id: "access-control-time",
                     name: "Access Control & Time Attendance System",
-                    image: "img/products/access-control-time.webp",
+                    image: "img/categories/access-control-time.webp",
                     image_query: "Diagram of Access Control System with Reader, Lock, and Controller",
                     desc: "Security systems using biometrics, card readers, and keypads to manage and track authorized entry to secure areas, integrated with time and attendance software for workforce management."
                 },
                 {
                     id: "industrial-pump-accessories",
                     name: "Industrial Pump and Accessories",
-                    image: "img/products/industrial-pump-accessories.webp",
+                    image: "img/categories/industrial-pump-accessories.webp",
                     image_query: "Cross-section diagram of a Centrifugal Industrial Pump",
                     desc: "Supply, installation, and repair of various industrial pumps (Centrifugal, Submersible, Diaphragm) used in fluid transfer and HVAC. Includes mechanical seals, bearings, control panels, and necessary accessories."
                 },
                 {
                     id: "safety-equipment",
                     name: "Safety Equipment",
-                    image: "img/products/safety-equipment.webp",
+                    image: "img/categories/safety-equipment.webp",
                     image_query: "Industrial Safety PPE and Fire Suppression Equipment",
                     desc: "A range of industrial safety solutions, including Personal Protective Equipment (PPE), Fire Detection and Suppression Systems, Emergency Lighting, and first-aid provisions for site compliance."
                 }
             ]
-            renderCategoriesContainer('special-categories', specialCategories)
+            renderCategoriesContainer('special-categories', specialCategories, false)
 
         });
     </script>
