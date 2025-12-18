@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Product & Services</title>
+    <title>AJ FIRE SOLUTIONS LTD - A TRUSTED FIRE & SAFETY SUPPLIER COMPANY</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -296,8 +296,17 @@
             // Updated Categories based on ComplianceBD Website
             const categories = [
                 {
+                    id: "consultancy-design-drawings-service",
+                    name: "Consultancy and Design Drawings Service",
+                    details:"",
+                    image: "img/services/consultancy-design-drawings-service.webp",
+                    image_query: "Fire safety plan blueprint and consultation",
+                    desc: "Expert services for developing comprehensive, site-specific Fire Safety Plans (FSP), including risk assessment, evacuation strategy design, and regulatory compliance documentation."
+                },
+                {
                     id: "fire-safety-plan",
                     name: "Fire Safety Plan Service",
+                    details:"service_fire_safety_plan.html",
                     image: "img/services/fire-safety-plan.webp",
                     image_query: "Fire safety plan blueprint and consultation",
                     desc: "Expert services for developing comprehensive, site-specific Fire Safety Plans (FSP), including risk assessment, evacuation strategy design, and regulatory compliance documentation."
@@ -305,6 +314,7 @@
                 {
                     id: "supply-installation",
                     name: "Supply and Installation",
+                    details:"",
                     image: "img/services/supply-installation.webp",
                     image_query: "Engineers installing fire suppression system components",
                     desc: "The procurement and deployment of all necessary fire safety components, such as alarms, extinguishers, suppression systems, and detection devices, executed by certified technicians."
@@ -312,6 +322,7 @@
                 {
                     id: "testing-commissioning",
                     name: "Testing & Commissioning",
+                    details:"",
                     image: "img/services/testing-commissioning.webp",
                     image_query: "Engineer performing fire alarm system functional test",
                     desc: "Systematic verification that all fire safety and protection systems operate according to design specifications and industry standards (e.g., NFPA/UL/FM), followed by official handover."
@@ -319,6 +330,7 @@
                 {
                     id: "annual-maintenance",
                     name: "Annual Maintenance Contract (AMC)",
+                    details:"",
                     image: "img/services/annual-maintenance.webp",
                     image_query: "Technician performing preventative maintenance on a fire sprinkler system",
                     desc: "Scheduled preventative maintenance, inspections, and functional testing to ensure all fire systems remain operational, compliant, and reliable throughout the year."
@@ -333,19 +345,31 @@
                 const delay = 0.1 + (index * 0.1); // Reduced delay slightly for larger list
 
                 const html = `
-            <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="${delay}s">
-                <div class="service-item p-4 shadow-sm border h-100 d-flex flex-column">
-                    <div class="overflow-hidden mb-4 rounded">
-                        <img class="img-fluid w-100" style="height: 200px; object-fit: cover;" src="${cat.image}" alt="${cat.name}">
+                    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="${delay}s">
+                        <div class="service-item p-4 shadow-sm border h-100 d-flex flex-column">
+                            <div class="overflow-hidden mb-4 rounded">
+                                <img class="img-fluid w-100" style="height: 200px; object-fit: cover;" src="${cat.image}" alt="${cat.name}">
+                            </div>
+                            <h4 class="mb-3">${cat.name}</h4>
+                            <p class="flex-grow-1 text-muted small">${cat.desc}</p>
+                            
+                            <div class="mt-4">
+                                <div class="row g-2"> 
+                                    ${cat.details == "" ? '' : `
+                                    <div class="col-6">
+                                        <a href="${cat.details}" class="btn btn-sm btn-primary w-100 py-2 px-4 rounded-pill" download>
+                                            <i class="fa-solid fa-circle-info me-2" title="See Details"></i> See Details
+                                        </a>
+                                    </div>`
+                                    }
+                                    <div class="${cat.details == "" ? 'col-12' : 'col-6'}">
+                                        <a href="contact.html" class="btn btn-sm btn-outline-dark w-100 py-2 px-4 rounded-pill">Contact</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <h4 class="mb-3">${cat.name}</h4>
-                    <p class="flex-grow-1 text-muted small">${cat.desc}</p>
-                    
-                    <a class="btn btn-primary rounded-pill py-2 px-4 mt-3" href="contact.html">
-                        Contact Us <i class="fa fa-arrow-right ms-1"></i>
-                    </a>
-                </div>
-            </div>`;
+                `;
 
                 container.insertAdjacentHTML('beforeend', html);
             });

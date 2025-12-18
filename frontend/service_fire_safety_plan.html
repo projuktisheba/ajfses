@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <title>AJ FIRE SOLUTIONS LTD - A TRUSTED FIRE & SAFETY SUPPLIER COMPANY</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta content="Fire Safety Plan, BNBC, Fire Hazard Control, Evacuation Plan" name="keywords">
+    <meta content="Comprehensive Fire Safety Planning services." name="description">
 
     <link href="img/favicon.ico" rel="icon">
 
@@ -14,321 +14,193 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Roboto:wght@500;700&display=swap"
         rel="stylesheet">
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
     <link href="lib/animate/animate.min.css" rel="stylesheet">
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+
     <style>
-        /* --- UPDATED PREMIUM CHAIRMAN STYLES --- */
-
-        .chairman-section-wrapper {
-            position: relative;
-            background-color: #f8f9fa;
-            /* Technical Dot Pattern */
-            background-image: radial-gradient(#cbd5e0 1px, transparent 1px);
-            background-size: 20px 20px;
-            overflow: hidden;
-            padding-top: 80px;
-            padding-bottom: 80px;
-        }
-
-        .chairman-section-wrapper::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.7) 100%);
-            z-index: 0;
-        }
-
-        #leadership-container {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* --- NEW LAYOUT STYLES --- */
-
-        /* The main card containing both image and text */
-        .chairman-card {
-            background: #fff;
-            padding: 50px;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
-            position: relative;
-            /* Ensures floats are contained */
-            overflow: visible;
-            display: flow-root;
-        }
-
-        /* The container for the floated image */
-        .chairman-float-wrapper {
+        /* --- IMAGE LAYOUT STYLES --- */
+        .img-left {
             float: left;
-            width: 400px;
-            /* Fixed width for the image area */
-            margin-right: 50px;
-            /* Space between image and text */
-            margin-bottom: 30px;
-            /* Space below image if text wraps */
-            position: relative;
-            z-index: 5;
+            width: 45%;
+            margin-right: 40px; /* Increased margin for full width */
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .chairman-img-frame {
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 20px 20px 0px rgba(11, 18, 33, 0.1);
-            border: 8px solid #ffffff;
-            animation: floatImage 5s ease-in-out infinite;
-            transform-origin: center center;
-            background: #fff;
+        .img-right {
+            float: right;
+            width: 40%;
+            margin-left: 40px; /* Increased margin for full width */
+            margin-bottom: 20px;
+            margin-top: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 4px solid #fff;
         }
 
-        /* Decorative Shape behind image */
-        .chairman-img-bg-shape {
-            position: absolute;
-            bottom: -30px;
-            right: -30px;
-            width: 150px;
-            height: 150px;
-            background: repeating-linear-gradient(45deg,
-                    var(--primary),
-                    var(--primary) 2px,
-                    transparent 2px,
-                    transparent 10px);
-            opacity: 0.15;
-            z-index: -1;
-            border-radius: 50%;
+        .img-bottom {
+            width: 100%;
+            height: auto;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        @keyframes floatImage {
-            0% {
-                transform: translateY(0px);
+        /* Responsive Image Handling: Disable float on mobile/tablet */
+        @media (max-width: 991px) {
+            .img-left,
+            .img-right {
+                float: none;
+                width: 100%;
+                margin: 0 0 30px 0;
+                display: block;
             }
-
-            50% {
-                transform: translateY(-10px);
-            }
-
-            100% {
-                transform: translateY(0px);
-            }
+            .img-left { margin-right: 0; }
+            .img-right { margin-left: 0; }
         }
 
-        /* Text Styling */
-        .quote-icon-top {
-            font-size: 60px;
-            color: var(--primary);
-            opacity: 0.1;
-            position: absolute;
-            top: 40px;
-            right: 50px;
-        }
-
-        .message-subtitle {
-            font-size: 0.9rem;
+        /* --- CONTENT STYLES --- */
+        .detail-content h2 {
+            font-size: 32px;
             font-weight: 700;
-            letter-spacing: 3px;
-            color: var(--primary);
-            display: inline-block;
-            margin-bottom: 10px;
-            position: relative;
-            padding-left: 50px;
-        }
-
-        .message-subtitle::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 50%;
-            width: 40px;
-            height: 2px;
-            background: var(--primary);
-        }
-
-        .message-title {
-            font-weight: 800;
+            color: #0b1221;
             margin-bottom: 25px;
             font-family: 'Roboto', sans-serif;
-            color: #0b1221;
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+            padding-bottom: 5px;
+            line-height: 1.3;
         }
 
-        .message-body {
-            font-size: 1.05rem;
+        .detail-content h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #0b1221;
+            margin-top: 40px;
+            margin-bottom: 25px;
+        }
+
+        .detail-content p {
             line-height: 1.9;
             color: #555;
             text-align: justify;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
         }
 
-        /* --- SIGNATURE STYLES --- */
-        .signature-box {
-            margin-top: 40px;
-            display: flex;
-            gap: 20px;
-            clear: both;
+        /* Definition List with Icons */
+        .definition-box {
+            background: #fdfdfd;
+            border-left: 5px solid var(--primary);
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
         }
 
-        .signature-line {
-            height: auto;
-            min-height: 60px;
-            width: 4px;
-            background: var(--primary);
-            border-radius: 2px;
-            flex-shrink: 0;
-            /* Prevent line from shrinking */
+        .definition-item {
+            margin-bottom: 20px;
         }
 
-        .signature-details {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .signature-details div:first-child {
-            /* "With warm regards" style */
-            font-style: italic;
-            color: #666;
-            margin-bottom: 5px;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .signature-details h6 {
-            /* Name Style */
-            font-weight: 800;
-            margin-bottom: 2px;
-            color: #0b1221;
-            letter-spacing: 0.5px;
-            font-size: 1.1rem;
-        }
-
-        .signature-details div:last-child {
-            /* Company Name Style */
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .leader-badge {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: rgba(11, 18, 33, 0.04);
-            color: #0b1221;
-            padding: 10px 25px;
-            border-bottom-left-radius: 15px;
-            border-top-right-radius: 15px;
-            font-size: 0.75rem;
+        .definition-title {
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: #0b1221;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
         }
 
-        /* --- RESPONSIVE TWEAKS --- */
-
-        /* Tablet & Laptop (Below 992px) */
-        @media (max-width: 991px) {
-            .chairman-card {
-                padding: 40px 30px;
-                text-align: left;
-            }
-
-            .chairman-float-wrapper {
-                float: none;
-                /* Disable float to stack elements */
-                width: 100%;
-                max-width: 400px;
-                margin: 0 auto 40px auto;
-                /* Center image */
-                display: block;
-            }
-
-            .quote-icon-top {
-                font-size: 50px;
-                top: 20px;
-                right: 20px;
-            }
+        .definition-title i {
+            color: var(--primary);
+            margin-right: 12px;
+            font-size: 16px;
         }
 
-        /* Mobile Devices (Below 576px) */
-        @media (max-width: 575px) {
-            .chairman-section-wrapper {
-                padding-top: 50px;
-                padding-bottom: 50px;
-            }
+        /* Objective Cards */
+        .obj-card {
+            background: #fff;
+            padding: 35px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            height: 100%;
+            border: 1px solid #eee;
+            transition: .3s;
+        }
 
-            .chairman-card {
-                padding: 25px 20px;
-                /* Less padding on small screens */
-            }
+        .obj-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
 
-            .chairman-float-wrapper {
-                max-width: 100%;
-                /* Allow image to take full width */
-                margin-right: 0;
-                margin-bottom: 30px;
-            }
+        .obj-card i {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            background: rgba(11, 18, 33, 0.05);
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+        }
+        
+        .obj-card h5 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
 
-            .chairman-img-bg-shape {
-                width: 100px;
-                height: 100px;
-                right: -10px;
-                bottom: -10px;
-            }
+        /* List Styles */
+        .check-list li {
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 15px;
+            list-style: none;
+            font-size: 1.05rem;
+            color: #555;
+        }
 
-            .message-title {
-                font-size: 1.6rem;
-                /* Smaller title font */
-                margin-bottom: 20px;
-            }
+        .check-list li::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 4px;
+            color: var(--primary);
+            font-size: 18px;
+        }
 
-            .message-subtitle {
-                font-size: 0.8rem;
-                padding-left: 40px;
-                letter-spacing: 2px;
-            }
-
-            .message-subtitle::before {
-                width: 30px;
-            }
-
-            .message-body {
-                font-size: 0.95rem;
-                /* Slightly smaller body text */
-                line-height: 1.7;
-            }
-
-            .signature-box {
-                margin-top: 30px;
-                gap: 15px;
-            }
-
-            .signature-line {
-                min-height: 50px;
-            }
-
-            .leader-badge {
-                padding: 8px 15px;
-                font-size: 0.65rem;
-            }
+        @media (max-width: 576px) {
+            .display-3 { font-size: 2.5rem; }
+            .detail-content h2 { font-size: 1.8rem; }
+            .detail-content h3 { font-size: 1.5rem; }
         }
     </style>
 </head>
 
 <body>
     <div id="spinner"
-        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 d-flex align-items-center justify-content-center">
         <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="sr-only">Loading...</span>
         </div>
     </div>
 
-
+    <!-- Top Contact Bar Start -->
     <div class="bg-dark text-light py-1">
         <div class="container">
             <div class="row">
+                <!-- Left Section -->
                 <div
                     class="col-sm-12 col-md-8 d-flex justify-content-center justify-content-start align-items-center flex-wrap py-1">
                     <span class="d-flex align-items-center mx-3">
@@ -348,6 +220,7 @@
                     </span>
                 </div>
 
+                <!-- Right Section -->
                 <div
                     class="col-sm-12 col-md-4 d-flex justify-content-center justify-content-md-end align-items-center py-1">
                     <a class="btn btn-outline-light btn-social mx-1 social-btn"
@@ -379,6 +252,9 @@
 
         </div>
     </div>
+    <!-- Top Contact Bar End -->
+
+
     <!-- Navbar start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow border-top border-5 border-primary sticky-top p-0">
         <a href="index.html" class="navbar-brand d-flex align-items-center">
@@ -394,38 +270,163 @@
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href="index.html" class="nav-item nav-link">Home</a>
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">About Us</a>
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">About Us</a>
                     <div class="dropdown-menu fade-up m-0">
                         <a href="about.html" class="dropdown-item">Company Overview</a>
-                        <a href="chairman_message.html" class="dropdown-item active">Chairman's Message</a>
+                        <a href="chairman_message.html" class="dropdown-item">Chairman's Message</a>
                         <a href="team.html" class="dropdown-item">Team</a>
                         <a href="gallery.html" class="dropdown-item">Gallery</a>
                     </div>
                 </div>
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Products & Services</a>
+                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Products &
+                        Services</a>
                     <div class="dropdown-menu fade-up m-0">
                         <a href="products.html" class="dropdown-item">Products</a>
-                        <a href="services.html" class="dropdown-item">Services</a>
+                        <a href="services.html" class="dropdown-item active">Services</a>
                     </div>
                 </div>
                 <a href="brands.html" class="nav-item nav-link">Brands</a>
                 <a href="clients.html" class="nav-item nav-link">Clients</a>
                 <a href="contact.html" class="nav-item nav-link">Contact Us</a>
             </div>
-            <!-- <h4 class="m-0 pe-lg-5 d-none d-lg-block"><i class="fa fa-headphones text-primary me-3"></i>+880 9611-699282 (24/7) -->
+            <!-- <h4 class="m-0 pe-lg-5 d-none d-lg-block"><i class="fa-solid fa-headphones text-primary me-3"></i>+880 9611-699282 (24/7) -->
             </h4>
         </div>
     </nav>
     <!-- Navbar end -->
 
-    <div class="container-fluid chairman-section-wrapper">
-        <div class="container" id="leadership-container">
-            <div class="text-center py-5">
-                <i class="fa fa-spinner fa-spin fa-3x text-primary"></i>
+    <div class="container-fluid page-header py-5" style="margin-bottom: 2rem; background-color: #0b1221;">
+        <div class="container py-5">
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Fire Safety Plan</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="services.html">Services</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Fire Safety Plan</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container-fluid py-5" style="background-color: #fff;">
+        <div class="container py-5">
+            <div class="row g-5">
+
+                <div class="col-lg-12 detail-content">
+
+                    <img src="img/services/fire-safety-plan_1.webp" alt="Fire Safety Plan Overview" class="img-left">
+
+                    <h2 class="mb-3">Fire Safety Plan in Bangladesh</h2>
+                    <p class="lead">
+                        A plan which provides occupant information for control of fire hazards, maintenance of fire
+                        protection systems, and evacuation procedures for their building.
+                    </p>
+                    <p>
+                        Fire Safety Planning prevents the occurrence of fire by the control of fire hazards in the
+                        building, ensures operation of fire protection systems by establishing maintenance procedures,
+                        and provides a systematic method of safe and orderly evacuation of the building in the event of
+                        fire. Compliance with the <strong>Bangladesh National Building Code (BNBC)</strong> is mandatory
+                        for ensuring the safety of life and property.
+                    </p>
+                    <p>
+                        Our expert team of engineers and safety consultants work tirelessly to ensure that your building not only meets regulatory requirements but also provides a genuinely safe environment for all occupants. We analyze every aspect of your infrastructure to create a tailored safety strategy.
+                    </p>
+                    <div style="clear: both;"></div>
+
+                    <div class="row g-4 my-5">
+                        <div class="col-12">
+                            <h3 class="mb-3 border-start border-5 border-primary ps-3">Primary Objectives</h3>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="obj-card">
+                                <i class="fa fa-fire-extinguisher"></i>
+                                <h5>Fire Hazard Control</h5>
+                                <p class="text-muted mb-0">Minimizing risks through strategic planning and identification of potential ignition sources.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="obj-card">
+                                <i class="fa fa-tools"></i>
+                                <h5>System Maintenance</h5>
+                                <p class="text-muted mb-0">Ensuring equipment is ready for action through regular inspection and testing protocols.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12 col-12">
+                            <div class="obj-card">
+                                <i class="fa fa-person-running"></i>
+                                <h5>Emergency Evacuation</h5>
+                                <p class="text-muted mb-0">Designing clear, unobstructed exit strategies and assembly points for all occupants.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <img src="img/services/fire-safety-plan_2.webp" alt="Fire Classifications" class="img-right">
+
+                        <h3 class="mb-3"><i class="fa fa-book-open text-primary me-2"></i>General Definitions</h3>
+                        <p>Understanding the terminology is crucial for implementing an effective safety strategy. Here are some key terms defined:</p>
+
+                        <div class="definition-box">
+                            <div class="definition-item">
+                                <div class="definition-title"><i class="fa fa-fire"></i> Class A Fire</div>
+                                <p class="mb-0 ms-4 text-muted">A fire involving combustible materials such as wood, cloth, and paper.</p>
+                            </div>
+                            <div class="definition-item">
+                                <div class="definition-title"><i class="fa fa-oil-can"></i> Class B Fire</div>
+                                <p class="mb-0 ms-4 text-muted">A fire involving flammable or combustible liquid, fat, or grease.</p>
+                            </div>
+                            <div class="definition-item">
+                                <div class="definition-title"><i class="fa fa-bolt"></i> Class C Fire</div>
+                                <p class="mb-0 ms-4 text-muted">A fire involving energized electrical equipment.</p>
+                            </div>
+                            <div class="definition-item">
+                                <div class="definition-title"><i class="fa fa-flask"></i> Combustible Liquid</div>
+                                <p class="mb-0 ms-4 text-muted">Any liquid having a flash point at or above 37.8°C and below 93.3°C.</p>
+                            </div>
+                        </div>
+
+                        <p>
+                            <strong>Means of Egress:</strong> A continuous path of travel provided by a doorway,
+                            hallway, corridor, exterior passageway, balcony, lobby, stair, ramp, or other egress
+                            facility for the escape of persons from any point in a building to a public thoroughfare.
+                        </p>
+                    </div>
+                    <div style="clear: both;"></div>
+
+                    <img src="img/services/fire-safety-plan_3.webp" alt="Evacuation Plan Sample" class="img-bottom">
+
+                    <h3 class="mb-4"><i class="fa fa-clipboard-check text-primary me-2"></i>Our Scope of Work</h3>
+                    <p>
+                        We can confidently provide a complete <strong>Fire Safety Plan</strong> to meet our client's
+                        needs with approval bodies. Our service includes detailed design, drawing, installation,
+                        inspection, testing, and maintenance for the complete system.
+                    </p>
+
+                    <div class="row mt-4">
+                        <div class="col-md-6 col-12">
+                            <ul class="check-list">
+                                <li>Fire Protection Systems Design & Implementation</li>
+                                <li>Fire Detection & Alarm System Configuration</li>
+                                <li>Emergency Evacuation Mapping & Signage</li>
+                                <li>Public Address (PA) & Voice Alarm System</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <ul class="check-list">
+                                <li>Single Line Diagrams (SLD) for Electrical Safety</li>
+                                <li>Lightning Protection Systems (LPS) Analysis</li>
+                                <li>Hydrant & Sprinkler System Hydraulic Calculation</li>
+                                <li>Annual Maintenance Contracts (AMC) & Support</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
+    
     <!-- Footer start -->
     <div class="container-fluid text-light footer pt-5 wow fadeIn" data-wow-delay="0.1s"
         style="margin-top: 6rem; background-color: #0b1221;">
@@ -565,116 +566,8 @@
     <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
-    <script src="js/config.js"></script>
     <script src="js/main.js"></script>
     <script src="js/common.js"></script>
-    <script>
-        // 1. HELPER: Parser Function
-        function parseContent(rawText) {
-            if (!rawText) return { subtitle: '', title: '', bodyHtml: '' };
-
-            const h6Match = rawText.match(/\[h6\](.*?)(\[|$)/s);
-            const subtitle = h6Match ? h6Match[1].trim() : '';
-
-            const h1Match = rawText.match(/\[h1\](.*?)(\[|$)/s);
-            const title = h1Match ? h1Match[1].trim() : '';
-
-            const pMatches = [...rawText.matchAll(/\[p\](.*?)(?=\[|$)/gs)];
-            let bodyHtml = '';
-            if (pMatches.length > 0) {
-                bodyHtml = pMatches.map(m => `<p class="message-body">${m[1].trim()}</p>`).join('');
-            } else {
-                const cleanText = rawText.replace(/\[h6\].*?(\[|$)/s, '').replace(/\[h1\].*?(\[|$)/s, '').trim();
-                if (cleanText) bodyHtml = `<p class="message-body">${cleanText}</p>`;
-            }
-            return { subtitle, title, bodyHtml };
-        }
-
-        // 2. MAIN: Fetch All Leadership Data
-        async function fetchLeadership() {
-            const container = document.getElementById('leadership-container');
-            const API_URL = `${window.env.API_URL}/member/chairman`;
-
-            try {
-                const response = await fetch(API_URL);
-                if (!response.ok) throw new Error('Failed to fetch data');
-
-                const result = await response.json();
-                const leaders = result.Chairman || [];
-
-                if (leaders.length === 0) {
-                    container.innerHTML = '<div class="text-center">No messages found.</div>';
-                    return;
-                }
-
-                let htmlContent = '';
-
-                leaders.forEach((person, index) => {
-                    const parsed = parseContent(person.note);
-
-                    let imgUrl = '';
-                    if (person.image_link) {
-                        imgUrl = `${window.env.API_URL}/images/${person.image_link}`;
-                    } else {
-                        imgUrl = 'img/user.webp';
-                    }
-
-                    // Separator for multiple leaders
-                    const separatorClass = (index !== leaders.length - 1) ? 'border-bottom pb-5 mb-5' : '';
-
-                    // STRUCTURE CHANGED: Single Column containing a Card. Image floated inside the card.
-                    htmlContent += `
-                        <div class="row ${separatorClass}">
-                            <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s">
-                                <div class="chairman-card">
-                                    <div class="leader-badge">Management</div>
-                                    <i class="fa fa-quote-left quote-icon-top"></i>
-
-                                    <div class="chairman-float-wrapper">
-                                        <div class="chairman-img-bg-shape"></div>
-                                        <div class="chairman-img-frame">
-                                            <img class="img-fluid w-100" src="${imgUrl}" alt="${person.name}" style="object-fit: cover;">
-                                        </div>
-                                    </div>
-
-                                    <div class="text-content">
-                                        <h6 class="message-subtitle text-uppercase">${parsed.subtitle || 'Message'}</h6>
-                                        <h1 class="message-title">${parsed.title}</h1>
-                                        
-                                        <div class="mt-4">
-                                            ${parsed.bodyHtml}
-                                        </div>
-
-                                        <div class="signature-box">
-                                            <div class="signature-line"></div>
-                                            <div class="signature-details">
-                                                <div>With warm regards,</div>
-                                                <h6 class="text-uppercase">${person.name || ""}</h6>
-                                                <div>AJ Fire Safety & Engineering Solutions</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        `;
-                });
-
-                container.innerHTML = htmlContent;
-
-                if (typeof WOW === 'function') {
-                    new WOW().init();
-                }
-
-            } catch (error) {
-                console.error('Error loading leadership:', error);
-                container.innerHTML = '<div class="text-center text-danger">Failed to load content.</div>';
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', fetchLeadership);
-    </script>
 </body>
 
 </html>

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Product & Services</title>
+    <title>AJ FIRE SOLUTIONS LTD - A TRUSTED FIRE & SAFETY SUPPLIER COMPANY</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -139,18 +139,31 @@
     </div>
 
     <div class="container-xxl py-5">
-        <!-- Fire Protection System start -->
+        <!-- Active Fire Protection System start -->
         <div class="container py-5">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <h6 class="text-secondary text-uppercase">Browse Our Products</h6>
-                <h1 class="mb-5">Fire Protection System</h1>
+                <h1 class="mb-5">Active Fire Protection System</h1>
             </div>
-            <div class="row g-4" id="fire-protection-categories">
+            <div class="row g-4" id="active-fire-protection-categories">
                 <!-- products added by JS -->
             </div>
 
         </div>
-        <!-- Fire Protection System end -->
+        <!-- Active Fire Protection System end -->
+
+        <!-- Passive Fire Protection System start -->
+        <div class="container py-5">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="text-secondary text-uppercase">Browse Our Products</h6>
+                <h1 class="mb-5">Passive Fire Protection System</h1>
+            </div>
+            <div class="row g-4" id="passive-fire-protection-categories">
+                <!-- products added by JS -->
+            </div>
+
+        </div>
+        <!-- Passive Fire Protection System end -->
 
         <!-- Electrical System start -->
         <div class="container py-5">
@@ -355,8 +368,8 @@
         }
 
         document.addEventListener("DOMContentLoaded", function () {
-            // Updated fireProtectionCategories
-            const fireProtectionCategories = [
+            // Updated activeFireProtectionCategories
+            const activeFireProtectionCategories = [
                 {
                     id: "valves-accessories",
                     name: "Valves & Accessories",
@@ -366,7 +379,7 @@
                 },
                 {
                     id: "fire-protection-system",
-                    name: "Fire Protection System",
+                    name: "Active Fire Protection System",
                     // Image: Fire Sprinkler Head
                     image: "img/categories/fire-protection-system.webp",
                     desc: "Complete active fire protection solutions including hydrant and sprinkler setups."
@@ -393,14 +406,6 @@
                     image: "img/categories/fire-pump-controller.webp",
                     desc: "High-performance fire pumps and UL/FM certified control panel systems."
                 },
-
-                {
-                    id: "passive-fire-protection",
-                    name: "Passive Fire Protection",
-                    // Image: Construction/Safety Coatings
-                    image: "img/categories/passive-fire-protection.webp",
-                    desc: "Structural fire resistance solutions and protective coatings to limit fire spread."
-                },
                 {
                     id: "ms-pipe-fitting",
                     name: "Ms Pipe & Fitting",
@@ -416,20 +421,6 @@
                     desc: "Clean agent gas (FM200/Novec) and foam-based automatic suppression systems."
                 },
                 {
-                    id: "steam-line-accessories",
-                    name: "Steam Line Accessories",
-                    // Image: Steam/Pressure Pipes
-                    image: "img/categories/steam-line-accessories.webp",
-                    desc: "Industrial steam traps, control valves, and strainers for efficient steam management."
-                },
-                {
-                    id: "process-line-accessories",
-                    name: "Process Line Accessories",
-                    // Image: Industrial Gauges/Factory
-                    image: "img/categories/process-line-accessories.webp",
-                    desc: "Instrumentation and control valves for industrial manufacturing process lines."
-                },
-                {
                     id: "firestop-protection",
                     name: "Firestop System",
                     // Image: Sealant/Construction Detail
@@ -440,7 +431,19 @@
 
             ];
 
-            renderCategoriesContainer('fire-protection-categories', fireProtectionCategories)
+            renderCategoriesContainer('active-fire-protection-categories', activeFireProtectionCategories)
+            // Updated passiveFireProtectionCategories
+            const passiveFireProtectionCategories = [
+                {
+                    id: "passive-fire-protection",
+                    name: "Passive Fire Protection",
+                    // Image: Construction/Safety Coatings
+                    image: "img/categories/passive-fire-protection.webp",
+                    desc: "Structural fire resistance solutions and protective coatings to limit fire spread."
+                },
+            ];
+
+            renderCategoriesContainer('passive-fire-protection-categories', passiveFireProtectionCategories)
 
             // Updated electricalSystemCategories
             const electricalSystemCategories = [
