@@ -382,13 +382,15 @@
                 const delay = (index * 0.1).toFixed(1);
 
                 // --- Logic for status badge ---
-                const statusText = client.status || 'Pending';
-                let statusClass = 'bg-warning text-dark'; // Default for Pending
+                let statusText = client.status || 'Running';
 
-                if (statusText === 'Active') {
+                // Status Badge Logic
+                let statusClass = 'bg-primary text-white';
+
+                if (statusText === 'Completed') {
                     statusClass = 'bg-success text-white';
-                } else if (statusText === 'Completed') {
-                    statusClass = 'bg-success text-white';
+                } else {
+                    statusText = 'Running'
                 }
 
                 const statusBadgeHtml = `<span class="badge ${statusClass} rounded-pill px-3 py-2 fw-normal">${statusText}</span>`;

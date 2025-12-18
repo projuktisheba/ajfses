@@ -819,7 +819,6 @@
                                     <th class="p-4 font-semibold border-b">Client Name</th>
                                     <th class="p-4 font-semibold border-b">Address</th>
                                     <th class="p-4 font-semibold border-b">Service Name</th>
-                                    <th class="p-4 font-semibold border-b">Service Date</th>
                                     <th class="p-4 font-semibold border-b">Status</th>
                                     <th class="p-4 font-semibold border-b">Note</th>
                                     <th class="p-4 font-semibold border-b text-center">Actions</th>
@@ -878,22 +877,14 @@
                                             <input type="text" id="clientServiceName" name="service_name"
                                                 class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
                                         </div>
-                                        <div class="mb-4">
-                                            <label for="clientServiceDate"
-                                                class="block text-sm font-medium text-gray-700">Service Date</label>
-                                            <input type="text" id="clientServiceDate" name="service_date"
-                                                placeholder="e.g. 12-Dec-2025"
-                                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
-                                        </div>
-
+                                        
                                         <div class="mb-4">
                                             <label for="clientStatus"
                                                 class="block text-sm font-medium text-gray-700">Status</label>
                                             <select id="clientStatus" name="status"
                                                 class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
                                                 <option value="">Select Status (Optional)</option>
-                                                <option value="Active">Active</option>
-                                                <option value="Pending">Pending</option>
+                                                <option value="Active">Running</option>
                                                 <option value="Completed">Completed</option>
                                             </select>
                                         </div>
@@ -2092,7 +2083,7 @@
                 document.getElementById('clientName').value = client.name || '';
                 document.getElementById('clientArea').value = client.area || '';
                 document.getElementById('clientServiceName').value = client.service_name || '';
-                document.getElementById('clientServiceDate').value = client.service_date || '';
+                document.getElementById('clientServiceDate').value = '12-12-2025';
                 document.getElementById('clientStatus').value = client.status || '';
                 document.getElementById('clientNote').value = client.note || '';
 
@@ -2255,12 +2246,12 @@
 
                 // Status Badge Logic
                 let statusClass = 'bg-gray-100 text-gray-600';
-                if (client.status === 'Active') {
-                    statusClass = 'bg-green-100 text-green-700';
-                } else if (client.status === 'Pending') {
-                    statusClass = 'bg-yellow-100 text-yellow-700';
-                }
 
+                if (client.status === 'Completed') {
+                    statusClass = 'bg-green-100 text-green-700';
+                } else {
+                    client.status = 'Running'
+                }
 
                 html += `
                 <tr class="table-row-hover border-b border-gray-100 transition hover:bg-gray-50">
@@ -2276,9 +2267,6 @@
                     <td class="p-4 text-gray-700">${client.area || '-'}</td>
                     <td class="p-4 text-gray-500 text-sm">
                         ${client.service_name || '-'}
-                    </td>
-                    <td class="p-4 text-gray-500 text-sm">
-                        ${client.service_date || '-'}
                     </td>
                     <td class="p-4">
                         <span class="px-2 py-1 ${statusClass} rounded text-xs font-semibold">
