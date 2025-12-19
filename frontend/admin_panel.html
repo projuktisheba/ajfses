@@ -704,7 +704,7 @@
 
                         <div class="bg-white px-6 pt-6 pb-4">
                             <div class="flex items-start justify-between mb-6">
-                                <h3 class="text-xl font-bold text-gray-900 flex items-center" id="modal-title">
+                                <h3 class="text-xl font-bold text-gray-900 flex items-center" id="member-modal-title">
                                     <span class="bg-blue-100 text-primary p-2 rounded-lg mr-3">
                                         <i class="fa fa-user-plus text-lg"></i>
                                     </span>
@@ -788,7 +788,7 @@
                                                     <p class="mb-1 text-sm text-gray-600">
                                                         <span class="font-semibold text-primary">Click to upload</span>
                                                     </p>
-                                                    <p class="text-xs text-gray-400">PNG, JPG (Max 5MB)</p>
+                                                    <p class="text-xs text-gray-400">PNG, JPG: 540x540 (Max 5MB)</p>
                                                     <p id="fileNameDisplay"
                                                         class="text-xs text-green-600 mt-2 font-semibold min-h-[1rem] truncate max-w-full">
                                                     </p>
@@ -1821,7 +1821,7 @@
         memberModal.classList.remove('hidden');
 
         // UI Elements
-        const title = document.getElementById('modal-title');
+        const title = document.getElementById('member-modal-title');
         const btn = document.getElementById('btnSaveMember');
         const form = document.getElementById('memberForm');
         const idInput = document.getElementById('memberId');
