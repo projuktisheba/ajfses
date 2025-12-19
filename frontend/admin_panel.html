@@ -673,7 +673,6 @@
                                 <tr class="bg-gray-50 text-gray-600 text-sm uppercase tracking-wider">
                                     <th class="p-4 font-semibold border-b">Member Profile</th>
                                     <th class="p-4 font-semibold border-b">Contact Info</th>
-                                    <th class="p-4 font-semibold border-b">Designation</th>
                                     <th class="p-4 font-semibold border-b">Team</th>
                                     <th class="p-4 font-semibold border-b">Note</th>
                                     <th class="p-4 font-semibold border-b text-center">Actions</th>
@@ -809,8 +808,8 @@
                                                         page</span>
                                                 </div>
                                                 <label class="relative inline-flex items-center cursor-pointer">
-                                                    <input type="checkbox" id="showOnHome" name="showOnHome"
-                                                        value="1" class="sr-only peer">
+                                                    <input type="checkbox" id="showOnHome" name="showOnHome" value="1"
+                                                        class="sr-only peer">
                                                     <div
                                                         class="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary shadow-inner">
                                                     </div>
@@ -1812,309 +1811,309 @@
     </script>
 
     <!-- Team Members script -->
-   <script>
-    const memberModal = document.getElementById('memberModal');
-    let fetchedMembers = []; // Store members globally for edit access
+    <script>
+        const memberModal = document.getElementById('memberModal');
+        let fetchedMembers = []; // Store members globally for edit access
 
-    // 1. OPEN MODAL (Handles both Add and Edit)
-    async function openMemberModal(member = null) {
-        memberModal.classList.remove('hidden');
+        // 1. OPEN MODAL (Handles both Add and Edit)
+        async function openMemberModal(member = null) {
+            memberModal.classList.remove('hidden');
 
-        // UI Elements
-        const title = document.getElementById('member-modal-title');
-        const btn = document.getElementById('btnSaveMember');
-        const form = document.getElementById('memberForm');
-        const idInput = document.getElementById('memberId');
-        
-        // Toggle Switch
-        const showOnHomeInput = document.getElementById('showOnHome');
+            // UI Elements
+            const title = document.getElementById('member-modal-title');
+            const btn = document.getElementById('btnSaveMember');
+            const form = document.getElementById('memberForm');
+            const idInput = document.getElementById('memberId');
 
-        // Image Elements
-        const preview = document.getElementById('previewImage');
-        const placeholder = document.getElementById('uploadPlaceholder');
-        const fileNameDisplay = document.getElementById('fileNameDisplay');
+            // Toggle Switch
+            const showOnHomeInput = document.getElementById('showOnHome');
 
-        // Always fetch latest teams for the dropdown
-        await fetchTeams();
+            // Image Elements
+            const preview = document.getElementById('previewImage');
+            const placeholder = document.getElementById('uploadPlaceholder');
+            const fileNameDisplay = document.getElementById('fileNameDisplay');
 
-        if (member) {
-            // === EDIT MODE ===
-            // Update Title
-            title.innerHTML = `
+            // Always fetch latest teams for the dropdown
+            await fetchTeams();
+
+            if (member) {
+                // === EDIT MODE ===
+                // Update Title
+                title.innerHTML = `
                 <span class="bg-blue-100 text-primary p-2 rounded-lg mr-3">
                     <i class="fa fa-user-edit text-lg"></i>
                 </span>
                 Edit Team Member`;
-            
-            btn.innerHTML = '<i class="fa fa-save mr-2"></i> Update Member';
 
-            // Fill Form Inputs
-            idInput.value = member.id;
-            document.getElementById('memberName').value = member.name || '';
-            document.getElementById('memberTeam').value = member.team_id || ''; 
-            document.getElementById('memberDesignation').value = member.designation || '';
-            document.getElementById('memberContact').value = member.contact || '';
-            document.getElementById('memberNote').value = member.note || '';
+                btn.innerHTML = '<i class="fa fa-save mr-2"></i> Update Member';
 
-            // Handle Toggle Switch (Convert 1/0/true/false to Checked state)
-            showOnHomeInput.checked = (member.show_on_homepage == 1 || member.show_on_homepage === true);
+                // Fill Form Inputs
+                idInput.value = member.id;
+                document.getElementById('memberName').value = member.name || '';
+                document.getElementById('memberTeam').value = member.team_id || '';
+                document.getElementById('memberDesignation').value = member.designation || '';
+                document.getElementById('memberContact').value = member.contact || '';
+                document.getElementById('memberNote').value = member.note || '';
 
-            // Handle Image Preview
-            if (member.image_link) {
-                preview.src = `${window.env.API_URL}/images/${member.image_link}`;
-                preview.classList.remove('hidden');
-                placeholder.classList.add('hidden');
-                fileNameDisplay.innerText = "Current: " + member.image_link;
+                // Handle Toggle Switch (Convert 1/0/true/false to Checked state)
+                showOnHomeInput.checked = (member.show_on_homepage == 1 || member.show_on_homepage === true);
+
+                // Handle Image Preview
+                if (member.image_link) {
+                    preview.src = `${window.env.API_URL}/images/${member.image_link}`;
+                    preview.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
+                    fileNameDisplay.innerText = "Current: " + member.image_link;
+                } else {
+                    preview.classList.add('hidden');
+                    placeholder.classList.remove('hidden');
+                    fileNameDisplay.innerText = "No image uploaded";
+                }
             } else {
-                preview.classList.add('hidden');
-                placeholder.classList.remove('hidden');
-                fileNameDisplay.innerText = "No image uploaded";
-            }
-        } else {
-            // === ADD MODE ===
-            title.innerHTML = `
+                // === ADD MODE ===
+                title.innerHTML = `
                 <span class="bg-blue-100 text-primary p-2 rounded-lg mr-3">
                     <i class="fa fa-user-plus text-lg"></i>
                 </span>
                 Add Team Member`;
-            
-            btn.innerHTML = '<i class="fa fa-save mr-2"></i> Save Member';
 
-            // Clear Form
-            form.reset();
-            idInput.value = '';
-            showOnHomeInput.checked = false; // Default to unchecked
+                btn.innerHTML = '<i class="fa fa-save mr-2"></i> Save Member';
 
-            // Reset Image UI
-            preview.src = '#';
-            preview.classList.add('hidden');
-            placeholder.classList.remove('hidden');
-            fileNameDisplay.innerText = '';
-        }
-    }
+                // Clear Form
+                form.reset();
+                idInput.value = '';
+                showOnHomeInput.checked = false; // Default to unchecked
 
-    // 2. FETCH TEAMS (Dynamic Dropdown)
-    async function fetchTeams() {
-        const select = document.getElementById('memberTeam');
-        const API_URL = `${window.env.API_URL}/team/list`;
-
-        try {
-            const response = await fetch(API_URL);
-            if (!response.ok) throw new Error('Failed to fetch');
-            const teams = await response.json();
-
-            let html = '<option value="">Select Team</option>';
-            teams.forEach(d => {
-                html += `<option value="${d.id}">${d.title}</option>`;
-            });
-            select.innerHTML = html;
-        } catch (error) {
-            console.error("Error loading teams:", error);
-            select.innerHTML = '<option value="">Error loading options</option>';
-        }
-    }
-
-    // 3. HANDLE FILE SELECTION & PREVIEW
-    document.getElementById('memberImage').addEventListener('change', function (event) {
-        const file = event.target.files[0];
-        const preview = document.getElementById('previewImage');
-        const placeholder = document.getElementById('uploadPlaceholder');
-        const fileNameDisplay = document.getElementById('fileNameDisplay');
-
-        if (file) {
-            fileNameDisplay.innerText = 'Selected: ' + file.name;
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                preview.src = e.target.result;
-                preview.classList.remove('hidden');
-                placeholder.classList.add('hidden');
+                // Reset Image UI
+                preview.src = '#';
+                preview.classList.add('hidden');
+                placeholder.classList.remove('hidden');
+                fileNameDisplay.innerText = '';
             }
-            reader.readAsDataURL(file);
-        }
-    });
-
-    function closeMemberModal() {
-        memberModal.classList.add('hidden');
-    }
-
-    // 4. SUBMIT FORM (Create or Update)
-    async function submitMemberForm() {
-        const btn = document.getElementById('btnSaveMember');
-        const form = document.getElementById('memberForm');
-        const id = document.getElementById('memberId').value;
-        const isEdit = !!id; 
-
-        let API_URL = `${window.env.API_URL}/member`;
-        let method = 'POST';
-
-        if (isEdit) {
-            API_URL = `${window.env.API_URL}/member?id=${id}`;
-            method = 'PUT'; // Usually POST with _method=PUT or just POST for FormData
         }
 
-        try {
-            btn.innerText = isEdit ? "Updating..." : "Saving...";
-            btn.disabled = true;
+        // 2. FETCH TEAMS (Dynamic Dropdown)
+        async function fetchTeams() {
+            const select = document.getElementById('memberTeam');
+            const API_URL = `${window.env.API_URL}/team/list`;
 
-            const formData = new FormData(form);
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error('Failed to fetch');
+                const teams = await response.json();
 
-            // FIX: Manually handle the checkbox
-            // If checked, send '1', else send '0'
-            const showOnHomeInput = document.getElementById('showOnHome');
-            formData.set('show_on_home', showOnHomeInput.checked ? '1' : '0');
-
-            const token = getToken();
-
-            const response = await fetch(API_URL, {
-                method: method,
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-                body: formData
-            });
-
-            if (response.ok) {
-                showStatusModal('Success', isEdit ? 'Member updated successfully' : 'Member added successfully', 'success');
-                closeMemberModal();
-                fetchMembers();
-            } else {
-                const result = await response.json();
-                showStatusModal('Error', result.message || "Failed to save member.", 'error');
+                let html = '<option value="">Select Team</option>';
+                teams.forEach(d => {
+                    html += `<option value="${d.id}">${d.title}</option>`;
+                });
+                select.innerHTML = html;
+            } catch (error) {
+                console.error("Error loading teams:", error);
+                select.innerHTML = '<option value="">Error loading options</option>';
             }
-        } catch (error) {
-            console.error("Submit Error:", error);
-            showStatusModal('Error', "Network error.", 'error');
-        } finally {
-            btn.innerHTML = isEdit ? '<i class="fa fa-save mr-2"></i> Update Member' : '<i class="fa fa-save mr-2"></i> Save Member';
-            btn.disabled = false;
-        }
-    }
-
-    // --- FETCH & RENDER MEMBERS ---
-    async function fetchMembers() {
-        const tableBody = document.getElementById('members-table-body');
-        const API_URL = `${window.env.API_URL}/member/list`;
-
-        try {
-            tableBody.innerHTML = `<tr><td colspan="6" class="text-center p-8 text-gray-500"><i class="fa fa-spinner fa-spin fa-2x mb-2"></i><br>Loading...</td></tr>`;
-
-            const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-            const response = await fetch(API_URL, {
-                method: 'GET',
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-
-            if (!response.ok) throw new Error("Failed to fetch members");
-
-            const data = await response.json();
-            fetchedMembers = Array.isArray(data) ? data : (data.members || []);
-
-            renderMembersTable(fetchedMembers);
-
-        } catch (error) {
-            console.error('Error:', error);
-            tableBody.innerHTML = `<tr><td colspan="6" class="text-center p-8 text-red-500">Failed to load members.</td></tr>`;
-        }
-    }
-
-    function renderMembersTable(members) {
-        const tableBody = document.getElementById('members-table-body');
-
-        if (!members || members.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="6" class="text-center p-8 text-gray-500">No team members found.</td></tr>`;
-            return;
         }
 
-        let html = '';
-        members.forEach(member => {
-            // Avatar
-            let avatarHtml = `<div class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500"><i class="fa fa-user"></i></div>`;
-            if (member.image_link) {
-                avatarHtml = `<img src="${window.env.API_URL}/images/${member.image_link}" class="h-10 w-10 rounded-full object-cover border border-gray-200" alt="${member.name}">`;
-            }
+        // 3. HANDLE FILE SELECTION & PREVIEW
+        document.getElementById('memberImage').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('previewImage');
+            const placeholder = document.getElementById('uploadPlaceholder');
+            const fileNameDisplay = document.getElementById('fileNameDisplay');
 
-            // Homepage Badge Logic
-            let homeBadge = '';
-            if(member.show_on_home == 1 || member.show_on_home === true) {
-                homeBadge = `<span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800" title="Visible on Homepage"><i class="fa fa-home mr-1"></i> Home</span>`;
-            }
-
-            html += `
-            <tr class="table-row-hover border-b border-gray-100 transition hover:bg-gray-50">
-                <td class="p-4">
-                    <div class="flex items-center gap-3">
-                        ${avatarHtml}
-                        <div>
-                            <div class="font-medium text-gray-900 flex items-center">
-                                <strong>${member.name}</strong>
-                                ${homeBadge}
-                            </div>
-                            <div class="text-xs text-gray-500 uppercase tracking-wide"><small>${member.designation || 'N/A'}</small></div>
-                        </div>
-                    </div>
-                </td>
-                <td class="p-4">
-                    <div class="text-gray-700"><i class="fa fa-phone text-gray-400 mr-2 text-xs"></i>${member.contact || 'N/A'}</div>
-                </td>
-                <td class="p-4">
-                    <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs font-semibold">
-                       ${member.team_name || 'No Team'}
-                    </span>
-                </td>
-                 <td class="p-4 text-gray-500 text-sm max-w-xs truncate" title="${member.note || ''}">
-                    ${member.note || '-'}
-                </td>
-                <td class="p-4 text-center">
-                    <button onclick="editMember(${member.id})" class="text-gray-400 hover:text-primary mx-1 transition" title="Edit">
-                        <i class="fa fa-edit"></i>
-                    </button>
-                    <button onclick="deleteMember(${member.id})" class="text-gray-400 hover:text-red-500 mx-1 transition" title="Delete">
-                        <i class="fa fa-trash"></i>
-                    </button>
-                </td>
-            </tr>`;
-        });
-        tableBody.innerHTML = html;
-    }
-
-    // 5. HELPER: Edit Member Trigger
-    function editMember(id) {
-        const member = fetchedMembers.find(m => m.id === id);
-        if (member) {
-            openMemberModal(member);
-        } else {
-            showStatusModal('Error', 'Member details not found.', 'error');
-        }
-    }
-
-    // --- DELETE MEMBER LOGIC ---
-    async function deleteMember(id) {
-        if (!confirm(`Are you sure you want to permanently delete this member?`)) {
-            return;
-        }
-        const DELETE_URL = `${window.env.API_URL}/member?id=${id}`;
-        try {
-            const token = getToken();
-            const response = await fetch(DELETE_URL, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+            if (file) {
+                fileNameDisplay.innerText = 'Selected: ' + file.name;
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
                 }
-            });
-
-            if (response.ok) {
-                fetchMembers();
-                showStatusModal('Deleted', 'Member removed successfully.', 'success');
-            } else {
-                showStatusModal('Error', 'Failed to delete member.', 'error');
+                reader.readAsDataURL(file);
             }
-        } catch (error) {
-            console.error('Delete Error:', error);
-            showStatusModal('Error', 'Network error.', 'error');
+        });
+
+        function closeMemberModal() {
+            memberModal.classList.add('hidden');
         }
-    }
-</script>
+
+        // 4. SUBMIT FORM (Create or Update)
+        async function submitMemberForm() {
+            const btn = document.getElementById('btnSaveMember');
+            const form = document.getElementById('memberForm');
+            const id = document.getElementById('memberId').value;
+            const isEdit = !!id;
+
+            let API_URL = `${window.env.API_URL}/member`;
+            let method = 'POST';
+
+            if (isEdit) {
+                API_URL = `${window.env.API_URL}/member?id=${id}`;
+                method = 'PUT'; // Usually POST with _method=PUT or just POST for FormData
+            }
+
+            try {
+                btn.innerText = isEdit ? "Updating..." : "Saving...";
+                btn.disabled = true;
+
+                const formData = new FormData(form);
+
+                // FIX: Manually handle the checkbox
+                // If checked, send '1', else send '0'
+                const showOnHomeInput = document.getElementById('showOnHome');
+                formData.set('show_on_home', showOnHomeInput.checked ? '1' : '0');
+
+                const token = getToken();
+
+                const response = await fetch(API_URL, {
+                    method: method,
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formData
+                });
+
+                if (response.ok) {
+                    showStatusModal('Success', isEdit ? 'Member updated successfully' : 'Member added successfully', 'success');
+                    closeMemberModal();
+                    fetchMembers();
+                } else {
+                    const result = await response.json();
+                    showStatusModal('Error', result.message || "Failed to save member.", 'error');
+                }
+            } catch (error) {
+                console.error("Submit Error:", error);
+                showStatusModal('Error', "Network error.", 'error');
+            } finally {
+                btn.innerHTML = isEdit ? '<i class="fa fa-save mr-2"></i> Update Member' : '<i class="fa fa-save mr-2"></i> Save Member';
+                btn.disabled = false;
+            }
+        }
+
+        // --- FETCH & RENDER MEMBERS ---
+        async function fetchMembers() {
+            const tableBody = document.getElementById('members-table-body');
+            const API_URL = `${window.env.API_URL}/member/list`;
+
+            try {
+                tableBody.innerHTML = `<tr><td colspan="6" class="text-center p-8 text-gray-500"><i class="fa fa-spinner fa-spin fa-2x mb-2"></i><br>Loading...</td></tr>`;
+
+                const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+                const response = await fetch(API_URL, {
+                    method: 'GET',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!response.ok) throw new Error("Failed to fetch members");
+
+                const data = await response.json();
+                fetchedMembers = Array.isArray(data) ? data : (data.members || []);
+
+                renderMembersTable(fetchedMembers);
+
+            } catch (error) {
+                console.error('Error:', error);
+                tableBody.innerHTML = `<tr><td colspan="6" class="text-center p-8 text-red-500">Failed to load members.</td></tr>`;
+            }
+        }
+
+        function renderMembersTable(members) {
+            const tableBody = document.getElementById('members-table-body');
+
+            if (!members || members.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="6" class="text-center p-8 text-gray-500">No team members found.</td></tr>`;
+                return;
+            }
+
+            let html = '';
+            members.forEach(member => {
+                // Avatar
+                let avatarHtml = `<div class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500"><i class="fa fa-user"></i></div>`;
+                if (member.image_link) {
+                    avatarHtml = `<img src="${window.env.API_URL}/images/${member.image_link}" class="h-10 w-10 rounded-full object-cover border border-gray-200" alt="${member.name}">`;
+                }
+
+                // Homepage Badge Logic
+                let homeBadge = '';
+                if (member.show_on_homepage == 1 || member.show_on_homepage === true) {
+                    homeBadge = `<span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800" title="Visible on Homepage"><i class="fa fa-home mr-1"></i> Home</span>`;
+                }
+
+                html += `
+                    <tr class="table-row-hover border-b border-gray-100 transition hover:bg-gray-50">
+                        <td class="p-4">
+                            <div class="flex items-center gap-3">
+                                ${avatarHtml}
+                                <div>
+                                    <div class="font-medium text-gray-900 flex items-center">
+                                        <strong>${member.name}</strong>
+                                        ${homeBadge}
+                                    </div>
+                                    <div class="text-xs text-gray-500 uppercase tracking-wide"><small>${member.designation || 'N/A'}</small></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="p-4">
+                            <div class="text-gray-700"><i class="fa fa-phone text-gray-400 mr-2 text-xs"></i>${member.contact || 'N/A'}</div>
+                        </td>
+                        <td class="p-4">
+                            <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs font-semibold">
+                            ${member.team_name || 'No Team'}
+                            </span>
+                        </td>
+                        <td class="p-4 text-gray-500 text-sm max-w-xs truncate" title="${member.note || ''}">
+                            ${member.note || '-'}
+                        </td>
+                        <td class="p-4 text-center">
+                            <button onclick="editMember(${member.id})" class="text-gray-400 hover:text-primary mx-1 transition" title="Edit">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            <button onclick="deleteMember(${member.id})" class="text-gray-400 hover:text-red-500 mx-1 transition" title="Delete">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>`;
+            });
+            tableBody.innerHTML = html;
+        }
+
+        // 5. HELPER: Edit Member Trigger
+        function editMember(id) {
+            const member = fetchedMembers.find(m => m.id === id);
+            if (member) {
+                openMemberModal(member);
+            } else {
+                showStatusModal('Error', 'Member details not found.', 'error');
+            }
+        }
+
+        // --- DELETE MEMBER LOGIC ---
+        async function deleteMember(id) {
+            if (!confirm(`Are you sure you want to permanently delete this member?`)) {
+                return;
+            }
+            const DELETE_URL = `${window.env.API_URL}/member?id=${id}`;
+            try {
+                const token = getToken();
+                const response = await fetch(DELETE_URL, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    fetchMembers();
+                    showStatusModal('Deleted', 'Member removed successfully.', 'success');
+                } else {
+                    showStatusModal('Error', 'Failed to delete member.', 'error');
+                }
+            } catch (error) {
+                console.error('Delete Error:', error);
+                showStatusModal('Error', 'Network error.', 'error');
+            }
+        }
+    </script>
 
 
     <script>

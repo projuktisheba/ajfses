@@ -450,19 +450,32 @@
     <!-- About End -->
 
     <!-- Products start -->
-     <div class="container-xxl py-5">
-        <!-- Fire Protection System start -->
+    <div class="container-xxl py-5">
+        <!-- Active Fire Protection System start -->
         <div class="container py-5">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <h6 class="text-secondary text-uppercase">Browse Our Products</h6>
-                <h1 class="mb-5">Fire Protection System</h1>
+                <h1 class="mb-5">Active Fire Protection System</h1>
             </div>
-            <div class="row g-4" id="fire-protection-categories">
+            <div class="row g-4" id="active-fire-protection-categories">
                 <!-- products added by JS -->
             </div>
 
         </div>
-        <!-- Fire Protection System end -->
+        <!-- Active Fire Protection System end -->
+
+        <!-- Passive Fire Protection System start -->
+        <div class="container py-5">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="text-secondary text-uppercase">Browse Our Products</h6>
+                <h1 class="mb-5">Passive Fire Protection System</h1>
+            </div>
+            <div class="row g-4" id="passive-fire-protection-categories">
+                <!-- products added by JS -->
+            </div>
+
+        </div>
+        <!-- Passive Fire Protection System end -->
 
         <!-- Electrical System start -->
         <div class="container py-5">
@@ -478,6 +491,19 @@
 
         </div>
         <!-- Electrical System end -->
+
+        <!-- Special Products start -->
+        <div class="container py-5">
+
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="text-secondary text-uppercase">Browse Our Products</h6>
+                <h1 class="mb-5">Special Products</h1>
+            </div>
+            <div class="row g-4" id="special-categories">
+                <!-- products added by JS -->
+            </div>
+        </div>
+        <!-- Special Products end -->
     </div>
     <!-- Products end -->
 
@@ -1045,66 +1071,66 @@
         }
 
         async function fetchTeamMembers() {
-    const teamSectionWrapper = document.getElementById('team-section');
-    
-    if (!teamSectionWrapper) {
-        console.warn("Team section wrapper (#team-section) not found.");
-        return;
-    }
+            const teamSectionWrapper = document.getElementById('team-section');
 
-    const apiUrl = window.env.API_URL;
-    const imageBaseUrl = `${apiUrl}/images/`;
+            if (!teamSectionWrapper) {
+                console.warn("Team section wrapper (#team-section) not found.");
+                return;
+            }
 
-    // 1. Setup Initial HTML Structure (Loading State)
-    teamSectionWrapper.innerHTML = `
-        <div class="container py-5">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="text-secondary text-uppercase">Our Team</h6>
-                <h1 class="mb-5">Expert Team Members</h1>
-                <div id="team-cards-row" class="row g-4 justify-content-center">
-                    <div class="col-12 text-center p-5 text-gray-500">
-                        <i class="fa fa-spinner fa-spin fa-2x mb-2"></i><br>Loading team members...
+            const apiUrl = window.env.API_URL;
+            const imageBaseUrl = `${apiUrl}/images/`;
+
+            // 1. Setup Initial HTML Structure (Loading State)
+            teamSectionWrapper.innerHTML = `
+                <div class="container py-5">
+                    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                        <h6 class="text-secondary text-uppercase">Our Team</h6>
+                        <h1 class="mb-5">Expert Team Members</h1>
+                        <div id="team-cards-row" class="row g-4 justify-content-center">
+                            <div class="col-12 text-center p-5 text-gray-500">
+                                <i class="fa fa-spinner fa-spin fa-2x mb-2"></i><br>Loading team members...
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    `;
+            `;
 
-    const teamCardsRow = document.getElementById('team-cards-row');
+            const teamCardsRow = document.getElementById('team-cards-row');
 
-    try {
-        // 2. Fetch Data (Single Call)
-        // param: show_on_home=1 (matches the DB boolean column) and max_limit=3
-        const response = await fetch(`${apiUrl}/member/list?max_limit=3&show_on_home=1`);
+            try {
+                // 2. Fetch Data (Single Call)
+                // param: show_on_home=1 (matches the DB boolean column) and max_limit=3
+                const response = await fetch(`${apiUrl}/member/list?max_limit=3&show_on_home=1`);
 
-        if (!response.ok) {
-            throw new Error(`API returned status: ${response.status}`);
-        }
+                if (!response.ok) {
+                    throw new Error(`API returned status: ${response.status}`);
+                }
 
-        const result = await response.json();
-        
-        // Handle response format (array vs object with .members)
-        const members = Array.isArray(result) ? result : (result.members || []);
+                const result = await response.json();
 
-        // 3. Check if we have data
-        if (members.length === 0) {
-            console.log("No homepage members found.");
-            teamSectionWrapper.style.display = 'none'; // Hide section if empty
-            return;
-        }
+                // Handle response format (array vs object with .members)
+                const members = Array.isArray(result) ? result : (result.members || []);
 
-        // 4. Render Members
-        let memberCardsHTML = '';
-        
-        members.forEach((member, index) => {
-            const delay = 0.1 + (index * 0.2); // Stagger animations (0.1s, 0.3s, 0.5s)
-            
-            const imageUrl = member.image_link 
-                ? `${imageBaseUrl}${member.image_link}` 
-                : 'img/user.webp'; // Fallback image
+                // 3. Check if we have data
+                if (members.length === 0) {
+                    console.log("No homepage members found.");
+                    teamSectionWrapper.style.display = 'none'; // Hide section if empty
+                    return;
+                }
 
-            // Note: Used col-lg-4 because 3 items * 4 spans = 12 (Full Width)
-            memberCardsHTML += `
+                // 4. Render Members
+                let memberCardsHTML = '';
+
+                members.forEach((member, index) => {
+                    const delay = 0.1 + (index * 0.2); // Stagger animations (0.1s, 0.3s, 0.5s)
+
+                    const imageUrl = member.image_link
+                        ? `${imageBaseUrl}${member.image_link}`
+                        : 'img/user.webp'; // Fallback image
+
+                    // Note: Used col-lg-4 because 3 items * 4 spans = 12 (Full Width)
+                    memberCardsHTML += `
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="${delay}s">
                     <div class="team-item p-4"> 
                         <div class="overflow-hidden mb-4">
@@ -1116,95 +1142,100 @@
                     </div>
                 </div>
             `;
-        });
-
-        // Inject HTML
-        teamCardsRow.innerHTML = memberCardsHTML;
-
-    } catch (error) {
-        console.error('Failed to load team members:', error);
-        teamSectionWrapper.style.display = 'none'; // Hide section on error
-    }
-}
-        async function updateCountSection() {
-            const apiUrl = (window.env && window.env.API_URL) ? window.env.API_URL : '';
-
-            const defaultMetrics = {
-                completed_projects: 0,
-                active_projects: 0,
-                total_clients: 0,
-                total_employees: 0
-            };
-            let metricsToDisplay = defaultMetrics;
-
-            try {
-                if (!apiUrl) throw new Error("API configuration missing");
-
-                const response = await fetch(`${apiUrl}/client/metrics`, {
-                    method: 'GET'
                 });
 
-                if (!response.ok) {
-                    throw new Error(`Metrics fetch failed with status: ${response.status}`);
-                }
-
-                const result = await response.json();
-
-                // Use the fetched data if it's valid
-                if (result && !result.error) {
-                    metricsToDisplay = {
-                        completed_projects: result.completed_projects || 0,
-                        active_projects: result.active_projects || 0,
-                        total_clients: result.total_clients || 0,
-                        total_employees: result.total_employees || 0,
-                    };
-                }
+                // Inject HTML
+                teamCardsRow.innerHTML = memberCardsHTML;
 
             } catch (error) {
-                console.warn('API fetch failed, loading defaults:', error);
-            }
-
-            // --- 1. Update the DOM with the (fetched or default) values ---
-
-            // Completed Projects
-            document.getElementById("completed-projects").innerText = metricsToDisplay.completed_projects;
-
-            // Ongoing Projects (Fixing the HTML ID typo: 'ongoing-projects')
-            document.getElementById("ongoing-projects").innerText = metricsToDisplay.active_projects;
-
-            // Happy Clients
-            document.getElementById("happy-clients").innerText = metricsToDisplay.total_clients;
-            // Employee Count (Using the hardcoded default)
-            document.getElementById("employee-count").innerText = metricsToDisplay.total_employees;
-
-
-            // --- 2. Re-initialize the counter library ---
-            // The library usually needs to be told to re-run on the updated elements.
-            // Assuming you are using waypoints.min.js and counterup.min.js (which is common 
-            // for Bootstrap themes that use data-toggle="counter-up"):
-
-            // Check if jQuery and the counterUp function exist before calling
-            if (window.jQuery && window.jQuery.fn.counterUp) {
-                // Select all elements with data-toggle="counter-up" and run counterUp
-                window.jQuery('[data-toggle="counter-up"]').counterUp({
-                    delay: 10, // The delay period in ms (e.g., 10)
-                    time: 1000 // The total duration of the count (e.g., 1000ms = 1s)
-                });
-            } else {
-                console.warn("CounterUp or jQuery library not found. Animation skipped.");
+                console.error('Failed to load team members:', error);
+                teamSectionWrapper.style.display = 'none'; // Hide section on error
             }
         }
+        async function updateCountSection() {
+    // 1. Configuration & Initial State
+    const apiUrl = (window.env && window.env.API_URL) ? window.env.API_URL : '';
 
+    const defaultMetrics = {
+        completed_projects: 0,
+        active_projects: 0,
+        total_clients: 0,
+        total_employees: 0
+    };
+    let metricsToDisplay = { ...defaultMetrics }; 
+
+    // 2. Define DOM element references (Defensive check)
+    const elements = {
+        completed: document.getElementById("completed-projects"),
+        ongoing: document.getElementById("ongoing-projects"),
+        clients: document.getElementById("happy-clients"),
+        employees: document.getElementById("employee-count"),
+    };
+
+    // 3. API Fetch Logic
+    try {
+        if (!apiUrl) throw new Error("API configuration missing");
+
+        const response = await fetch(`${apiUrl}/client/metrics`, {
+            method: 'GET'
+        });
+
+        if (!response.ok) {
+            throw new Error(`Metrics fetch failed with status: ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        // Use the fetched data, explicitly falling back to defaults if a key is missing
+        if (result && !result.error) {
+            metricsToDisplay = {
+                completed_projects: result.completed_projects || defaultMetrics.completed_projects,
+                active_projects: result.active_projects || defaultMetrics.active_projects,
+                total_clients: result.total_clients || defaultMetrics.total_clients,
+                total_employees: result.total_employees || defaultMetrics.total_employees,
+            };
+        }
+
+    } catch (error) {
+        console.warn('API fetch failed, loading defaults:', error);
+        // metricsToDisplay remains the default object defined initially.
+    }
+
+    // --- 4. Final DOM Update with Fetched/Fallback Values ---
+
+    // Use the defensive element checks
+    if (elements.completed) elements.completed.innerText = metricsToDisplay.completed_projects;
+    if (elements.ongoing) elements.ongoing.innerText = metricsToDisplay.active_projects;
+    if (elements.clients) elements.clients.innerText = metricsToDisplay.total_clients;
+    if (elements.employees) elements.employees.innerText = metricsToDisplay.total_employees;
+
+
+    // --- 5. Re-initialize the counter library (CRITICAL STEP) ---
+    // This must run ONLY after the innerText values are set.
+    if (window.jQuery && window.jQuery.fn.counterUp) {
+        
+        // This is the key fix for the race condition:
+        // You MUST ensure the initial, potentially failing, global counterUp call is removed 
+        // from your main.js file so that this is the only time it runs.
+        window.jQuery('[data-toggle="counter-up"]').counterUp({
+            delay: 10, 
+            time: 1000 
+        });
+    } else {
+        console.warn("CounterUp or jQuery library not found. Animation skipped.");
+    }
+}
         window.addEventListener("DOMContentLoaded", function () {
+            
+            updateCountSection();
             // Both functions will execute sequentially when the DOM is loaded
             fetchGallery();
             loadClientSlider();
             fetchTeamMembers();
-            updateCountSection();
         });
     </script>
 
-<!-- product categories -->
+    <!-- product categories -->
     <script>
         function renderCategoriesContainer(divID, productCategories, hasChild = true) {
             const container = document.getElementById(divID);
@@ -1237,8 +1268,8 @@
         }
 
         document.addEventListener("DOMContentLoaded", function () {
-            // Updated fireProtectionCategories
-            const fireProtectionCategories = [
+            // Updated activeFireProtectionCategories
+            const activeFireProtectionCategories = [
                 {
                     id: "valves-accessories",
                     name: "Valves & Accessories",
@@ -1289,6 +1320,18 @@
                     image: "img/categories/fire-suppression-system.webp",
                     desc: "Clean agent gas (FM200/Novec) and foam-based automatic suppression systems."
                 },
+            ];
+
+            renderCategoriesContainer('active-fire-protection-categories', activeFireProtectionCategories)
+            // Updated passiveFireProtectionCategories
+            const passiveFireProtectionCategories = [
+                {
+                    id: "passive-fire-protection",
+                    name: "Passive Fire Protection",
+                    // Image: Construction/Safety Coatings
+                    image: "img/categories/passive-fire-protection.webp",
+                    desc: "Structural fire resistance solutions and protective coatings to limit fire spread."
+                },
                 {
                     id: "firestop-protection",
                     name: "Firestop System",
@@ -1296,16 +1339,9 @@
                     image: "img/categories/firestop-protection.webp",
                     desc: "Firestop sealants and barrier systems to seal openings and joints in buildings."
                 },
-{
-                    id: "passive-fire-protection",
-                    name: "Passive Fire Protection",
-                    // Image: Construction/Safety Coatings
-                    image: "img/categories/passive-fire-protection.webp",
-                    desc: "Structural fire resistance solutions and protective coatings to limit fire spread."
-                },
             ];
 
-            renderCategoriesContainer('fire-protection-categories', fireProtectionCategories)
+            renderCategoriesContainer('passive-fire-protection-categories', passiveFireProtectionCategories)
 
             // Updated electricalSystemCategories
             const electricalSystemCategories = [
@@ -1347,6 +1383,74 @@
             ]
 
             renderCategoriesContainer('electrical-system-categories', electricalSystemCategories, false)
+
+            // Updated specialCategories
+            const specialCategories = [
+                {
+                    id: "lightning-protection-system",
+                    name: "Lightning Protection System (LPS)",
+                    image: "img/categories/lightning-protection-system.png",
+                    image_query: "Diagram of a complete Lightning Protection System on a building",
+                    desc: "Comprehensive systems to protect structures and occupants from direct lightning strikes and surges. Includes Air Terminals (Rods), Down Conductors, the Grounding System, Equipotential Bonding, and Surge Protection Devices (SPDs)."
+                },
+                {
+                    id: "solar-power-system",
+                    name: "Solar Power System",
+                    image: "img/categories/solar-power-system.webp",
+                    image_query: "Commercial Rooftop Solar PV System Diagram with Inverter and Battery",
+                    desc: "Design and installation of commercial and industrial photovoltaic (PV) solar systems. Key components are Solar Panels, Inverters (String/Micro/Hybrid), Racking and Mounting, and Energy Storage Systems (ESS)."
+                },
+                {
+                    id: "lift-elevator",
+                    name: "Lift & Elevator Service",
+                    image: "img/categories/lift-elevator.webp",
+                    image_query: "Modern Elevator System Diagram showing Motor and Control Panel",
+                    desc: "Installation, modernization, and maintenance of various lift systems, including passenger, freight, and service elevators, focusing on safety, efficiency, and vertical transport management."
+                },
+                {
+                    id: "building-management-system",
+                    name: "Building Management System (BMS)",
+                    image: "img/categories/building-management-system.webp",
+                    image_query: "3-Layer Architecture Diagram of a Building Management System",
+                    desc: "Centralized, computer-based systems for monitoring and controlling a building's mechanical and electrical equipment (HVAC, lighting, power). Architecture includes the Field Level (Sensors/Actuators), Automation Level (DDC), and Management Level (HMI/SCADA)."
+                },
+                {
+                    id: "public-address-system",
+                    name: "Public Address (PA) System",
+                    image: "img/categories/public-address-system.webp",
+                    image_query: "Public Address System Zoning Diagram for Commercial Building",
+                    desc: "Professional audio systems for broadcasting announcements, emergency messages, and background music across multiple zones in commercial and public spaces, ensuring clear communication and evacuation control."
+                },
+                {
+                    id: "surveillance-system",
+                    name: "Surveillance System (CCTV)",
+                    image: "img/categories/surveillance-system.webp",
+                    image_query: "IP CCTV Surveillance System Network Diagram",
+                    desc: "Installation and integration of Closed-Circuit Television (CCTV) and IP-based video surveillance systems, including HD cameras, Network Video Recorders (NVRs), and video analytics software."
+                },
+                {
+                    id: "access-control-time",
+                    name: "Access Control & Time Attendance System",
+                    image: "img/categories/access-control-time.webp",
+                    image_query: "Diagram of Access Control System with Reader, Lock, and Controller",
+                    desc: "Security systems using biometrics, card readers, and keypads to manage and track authorized entry to secure areas, integrated with time and attendance software for workforce management."
+                },
+                {
+                    id: "industrial-pump-accessories",
+                    name: "Industrial Pump and Accessories",
+                    image: "img/categories/industrial-pump-accessories.webp",
+                    image_query: "Cross-section diagram of a Centrifugal Industrial Pump",
+                    desc: "Supply, installation, and repair of various industrial pumps (Centrifugal, Submersible, Diaphragm) used in fluid transfer and HVAC. Includes mechanical seals, bearings, control panels, and necessary accessories."
+                },
+                {
+                    id: "safety-equipment",
+                    name: "Safety Equipment",
+                    image: "img/categories/safety-equipment.webp",
+                    image_query: "Industrial Safety PPE and Fire Suppression Equipment",
+                    desc: "A range of industrial safety solutions, including Personal Protective Equipment (PPE), Fire Detection and Suppression Systems, Emergency Lighting, and first-aid provisions for site compliance."
+                }
+            ]
+            renderCategoriesContainer('special-categories', specialCategories, false)
 
         });
     </script>
