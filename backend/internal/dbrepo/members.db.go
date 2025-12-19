@@ -27,8 +27,8 @@ func (m *MemberRepository) Create(ctx context.Context, member *models.Member) (i
 	defer cancel()
 
 	stmt := `
-		INSERT INTO members (name, team, designation, contact, note, image_link, created_at, updated_at)
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+		INSERT INTO members (name, team, designation, contact, note, image_link, show_on_homepage, created_at, updated_at)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
 		RETURNING id
 	`
 
@@ -40,6 +40,7 @@ func (m *MemberRepository) Create(ctx context.Context, member *models.Member) (i
 		member.Contact,
 		member.Note,
 		member.ImageLink,
+		member.ShowOnHomepage,
 		time.Now().UTC(),
 		time.Now().UTC(),
 	).Scan(&id)
@@ -58,8 +59,8 @@ func (m *MemberRepository) Update(ctx context.Context, member *models.Member) er
 
 	stmt := `
 		UPDATE members
-		SET name = $1, team = $2, designation=$3, contact = $4, note = $5, image_link = $6, updated_at = $7
-		WHERE id = $8
+		SET name = $1, team = $2, designation=$3, contact = $4, note = $5, image_link = $6, show_on_homepage = $7, updated_at = $8
+		WHERE id = $9
 	`
 
 	_, err := m.DB.Exec(ctx, stmt,
@@ -69,6 +70,7 @@ func (m *MemberRepository) Update(ctx context.Context, member *models.Member) er
 		member.Contact,
 		member.Note,
 		member.ImageLink,
+		member.ShowOnHomepage,
 		time.Now().UTC(),
 		member.ID,
 	)
@@ -124,7 +126,7 @@ func (m *MemberRepository) GetByID(ctx context.Context, id int64) (*models.Membe
 	defer cancel()
 
 	stmt := `
-		SELECT  m.id, m.name, m.team, t.title AS team_name, m.designation, m.contact, m.note, m.image_link, m.created_at, m.updated_at
+		SELECT  m.id, m.name, m.team, t.title AS team_name, m.designation, m.contact, m.note, m.image_link, m.show_on_homepage, m.created_at, m.updated_at
 		FROM members AS m
 		LEFT JOIN teams AS t ON m.team = t.id
 		WHERE m.id = $1
@@ -141,6 +143,7 @@ func (m *MemberRepository) GetByID(ctx context.Context, id int64) (*models.Membe
 		&member.Contact,
 		&member.Note,
 		&member.ImageLink,
+		&member.ShowOnHomepage,
 		&member.CreatedAt,
 		&member.UpdatedAt,
 	)
@@ -156,7 +159,7 @@ func (m *MemberRepository) GetByID(ctx context.Context, id int64) (*models.Membe
 }
 
 // MemberCount counts the employees.
-func (m *MemberRepository) MemberCount(ctx context.Context) (int64) {
+func (m *MemberRepository) MemberCount(ctx context.Context) int64 {
 	ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
 	defer cancel()
 	var totalMembers int64
@@ -167,53 +170,61 @@ func (m *MemberRepository) MemberCount(ctx context.Context) (int64) {
 
 // GetAll retrieves all members, optionally filtered by team ID and designations, and limited by maxLimit.
 // Members are ordered by created_at descending.
-func (m *MemberRepository) GetAll(ctx context.Context, teamID int64, designations []string, maxLimit int64) ([]*models.Member, error) {
-    ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
-    defer cancel()
+func (m *MemberRepository) GetAll(ctx context.Context, teamID, maxLimit int64, showOnHomepage bool, designations []string) ([]*models.Member, error) {
+	ctx, cancel := context.WithTimeout(ctx, 3*time.Second)
+	defer cancel()
 
-    var (
-        whereClauses []string
-        queryArgs    []any
-        argCount     int = 1
-    )
+	var (
+		whereClauses []string
+		queryArgs    []any
+		argCount     int = 1
+	)
 
-    // 1. Build WHERE clause for teamID
-    if teamID > 0 {
-        whereClauses = append(whereClauses, fmt.Sprintf("m.team = $%d", argCount))
-        queryArgs = append(queryArgs, teamID)
-        argCount++
-    }
+	// 1. Build WHERE clause for teamID
+	if teamID > 0 {
+		whereClauses = append(whereClauses, fmt.Sprintf("m.team = $%d", argCount))
+		queryArgs = append(queryArgs, teamID)
+		argCount++
+	}
 
-    // 2. Build WHERE clause for designations (safe handling of IN clause)
-    if len(designations) > 0 {
-        // Create placeholders for the IN clause: $N, $N+1, $N+2, ...
-        placeholders := make([]string, len(designations))
-        for i, designation := range designations {
-            placeholders[i] = fmt.Sprintf("$%d", argCount)
-            queryArgs = append(queryArgs, designation)
-            argCount++
-        }
-        whereClauses = append(whereClauses, fmt.Sprintf("m.designation IN (%s)", strings.Join(placeholders, ", ")))
-    }
+	// 2. Build WHERE clause for designations
+	if len(designations) > 0 {
+		placeholders := make([]string, len(designations))
+		for i, designation := range designations {
+			placeholders[i] = fmt.Sprintf("$%d", argCount)
+			queryArgs = append(queryArgs, designation)
+			argCount++
+		}
+		whereClauses = append(whereClauses, fmt.Sprintf("m.designation IN (%s)", strings.Join(placeholders, ", ")))
+	}
 
-    // 3. Combine WHERE clauses
-    whereClause := ""
-    if len(whereClauses) > 0 {
-        whereClause = "WHERE " + strings.Join(whereClauses, " AND ")
-    }
+	// 3. Build WHERE clause for Show On Homepage
+	// Only filter if true. If false, we usually fetch all (unless you specifically want only hidden ones).
+	if showOnHomepage {
+		whereClauses = append(whereClauses, fmt.Sprintf("m.show_on_homepage = $%d", argCount))
+		queryArgs = append(queryArgs, true)
+		argCount++
+	}
 
-    // 4. Build LIMIT clause
-    limitClause := ""
-    if maxLimit > 0 {
-        // Use the next available argument number for LIMIT
-        limitClause = fmt.Sprintf("LIMIT $%d", argCount)
-        queryArgs = append(queryArgs, maxLimit)
-        argCount++
-    }
+	// 4. Combine WHERE clauses
+	whereClause := ""
+	if len(whereClauses) > 0 {
+		whereClause = "WHERE " + strings.Join(whereClauses, " AND ")
+	}
 
-    // 5. Construct the final statement
-    stmt := fmt.Sprintf(`
-        SELECT m.id, m.name, m.team, t.title AS team_name, m.designation, m.contact, m.note, m.image_link, m.created_at, m.updated_at
+	// 5. Build LIMIT clause
+	limitClause := ""
+	if maxLimit > 0 {
+		limitClause = fmt.Sprintf("LIMIT $%d", argCount)
+		queryArgs = append(queryArgs, maxLimit)
+		argCount++
+	}
+
+	// 6. Construct the final statement
+	// NOTE: Ensure the column name 'show_on_homepage' matches your DB.
+	// If your DB column is 'show_on_home', change it below in the SELECT and WHERE generation.
+	stmt := fmt.Sprintf(`
+        SELECT m.id, m.name, m.team, t.title AS team_name, m.designation, m.contact, m.note, m.image_link, m.show_on_homepage, m.created_at, m.updated_at
         FROM members AS m
         LEFT JOIN teams AS t ON m.team = t.id
         %s 
@@ -221,38 +232,41 @@ func (m *MemberRepository) GetAll(ctx context.Context, teamID int64, designation
         %s;
     `, whereClause, limitClause)
 
-    var members []*models.Member
-    
-    // 6. Execute the parameterized query
-    rows, err := m.DB.Query(ctx, stmt, queryArgs...)
-    if err != nil {
-        return members, fmt.Errorf("failed to query members: %w", err)
-    }
-    defer rows.Close()
+	// fmt.Println(stmt) // Debug if needed
 
-    for rows.Next() {
-        var member models.Member
-        err := rows.Scan(
-            &member.ID,
-            &member.Name,
-            &member.TeamID, // Use TeamID instead of Team
-            &member.TeamName,
-            &member.Designation,
-            &member.Contact,
-            &member.Note,
-            &member.ImageLink,
-            &member.CreatedAt,
-            &member.UpdatedAt,
-        )
-        if err != nil {
-            return members, fmt.Errorf("failed to scan member row: %w", err)
-        }
-        members = append(members, &member)
-    }
+	var members []*models.Member
 
-    if err = rows.Err(); err != nil {
-        return nil, fmt.Errorf("error iterating member rows: %w", err)
-    }
+	// 7. Execute the parameterized query
+	rows, err := m.DB.Query(ctx, stmt, queryArgs...)
+	if err != nil {
+		return members, fmt.Errorf("failed to query members: %w", err)
+	}
+	defer rows.Close()
 
-    return members, nil
+	for rows.Next() {
+		var member models.Member
+		err := rows.Scan(
+			&member.ID,
+			&member.Name,
+			&member.TeamID,
+			&member.TeamName,
+			&member.Designation,
+			&member.Contact,
+			&member.Note,
+			&member.ImageLink,
+			&member.ShowOnHomepage,
+			&member.CreatedAt,
+			&member.UpdatedAt,
+		)
+		if err != nil {
+			return members, fmt.Errorf("failed to scan member row: %w", err)
+		}
+		members = append(members, &member)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, fmt.Errorf("error iterating member rows: %w", err)
+	}
+
+	return members, nil
 }

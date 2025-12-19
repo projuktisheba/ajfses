@@ -26,6 +26,7 @@ CREATE TABLE members (
     designation TEXT DEFAULT '',
     note TEXT DEFAULT '',
     image_link TEXT DEFAULT '',
+    show_on_homepage BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

@@ -694,106 +694,148 @@
             <div id="memberModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title"
                 role="dialog" aria-modal="true">
                 <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+
                     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
 
                     <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
                     <div
-                        class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full">
-                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6">
-                            <div class="sm:flex sm:items-start">
-                                <div class="w-full">
-                                    <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modal-title">
-                                        <i class="fa fa-user-plus text-primary mr-2"></i>Add Team Member
-                                    </h3>
+                        class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl w-full">
 
-                                    <form id="memberForm">
-                                        <input type="hidden" id="memberId" name="id">
-                                        <div class="mb-4">
-                                            <label for="memberName" class="block text-sm font-medium text-gray-700">Full
-                                                Name</label>
+                        <div class="bg-white px-6 pt-6 pb-4">
+                            <div class="flex items-start justify-between mb-6">
+                                <h3 class="text-xl font-bold text-gray-900 flex items-center" id="modal-title">
+                                    <span class="bg-blue-100 text-primary p-2 rounded-lg mr-3">
+                                        <i class="fa fa-user-plus text-lg"></i>
+                                    </span>
+                                    Add Team Member
+                                </h3>
+                                <button type="button" onclick="closeMemberModal()"
+                                    class="text-gray-400 hover:text-red-500 transition-colors focus:outline-none">
+                                    <i class="fa fa-times text-xl"></i>
+                                </button>
+                            </div>
+
+                            <form id="memberForm">
+                                <input type="hidden" id="memberId" name="id">
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label for="memberName"
+                                                class="block text-sm font-semibold text-gray-700 mb-1">Full Name <span
+                                                    class="text-red-500">*</span></label>
                                             <input type="text" id="memberName" name="name" required
-                                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                                placeholder="e.g. John Doe"
+                                                class="block w-full border border-gray-300 rounded-lg shadow-sm py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent sm:text-sm transition-shadow">
                                         </div>
 
-                                        <div class="mb-4">
+                                        <div>
                                             <label for="memberTeam"
-                                                class="block text-sm font-medium text-gray-700">Team</label>
+                                                class="block text-sm font-medium text-gray-700 mb-1">Team <span
+                                                    class="text-red-500">*</span></label>
                                             <select id="memberTeam" name="team" required
-                                                class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
-                                                <option value="">Loading teams...</option>
+                                                class="block w-full bg-white border border-gray-300 rounded-lg shadow-sm py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent sm:text-sm transition-shadow">
+                                                <option value="">Select Team</option>
                                             </select>
                                         </div>
 
-                                        <div class="mb-4">
+                                        <div>
                                             <label for="memberDesignation"
-                                                class="block text-sm font-medium text-gray-700">Designation/Role</label>
+                                                class="block text-sm font-medium text-gray-700 mb-1">Designation</label>
                                             <input type="text" id="memberDesignation" name="designation"
-                                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                                placeholder="e.g. Managing Director"
+                                                class="block w-full border border-gray-300 rounded-lg shadow-sm py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent sm:text-sm transition-shadow">
                                         </div>
-                                        <div class="mb-4">
+
+                                        <div>
                                             <label for="memberContact"
-                                                class="block text-sm font-medium text-gray-700">Contact Number</label>
-                                            <input type="text" id="memberContact" name="contact"
-                                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                                class="block text-sm font-medium text-gray-700 mb-1">Contact
+                                                Number</label>
+                                            <input type="text" id="memberContact" name="contact" placeholder="+880..."
+                                                class="block w-full border border-gray-300 rounded-lg shadow-sm py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent sm:text-sm transition-shadow">
                                         </div>
 
-                                        <div class="mb-4">
-                                            <label for="memberNote" class="block text-sm font-medium text-gray-700">Note
-                                                / Bio</label>
+                                        <div>
+                                            <label for="memberNote"
+                                                class="block text-sm font-medium text-gray-700 mb-1">Note / Bio</label>
                                             <textarea id="memberNote" name="note" rows="3"
-                                                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"></textarea>
+                                                placeholder="Short description..."
+                                                class="block w-full border border-gray-300 rounded-lg shadow-sm py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent sm:text-sm transition-shadow resize-none"></textarea>
                                         </div>
+                                    </div>
 
-                                        <div class="mb-4">
-                                            <label class="block text-sm font-medium text-gray-700">Profile
+                                    <div class="flex flex-col gap-4">
+
+                                        <div class="flex-grow flex flex-col">
+                                            <label class="block text-sm font-semibold text-gray-700 mb-1">Profile
                                                 Picture</label>
-                                            <div
-                                                class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md relative">
-                                                <div class="space-y-1 text-center w-full flex flex-col items-center">
+                                            <label for="memberImage"
+                                                class="group flex flex-col justify-center items-center flex-grow w-full bg-gray-50 rounded-xl border-2 border-gray-300 border-dashed cursor-pointer hover:bg-blue-50 hover:border-primary transition-all duration-300 relative min-h-[200px]">
 
-                                                    <i id="uploadPlaceholder"
-                                                        class="fa fa-image text-gray-400 text-5xl mb-3"></i>
+                                                <div
+                                                    class="flex flex-col justify-center items-center pt-5 pb-6 text-center px-4">
+                                                    <div
+                                                        class="bg-white p-3 rounded-full shadow-sm mb-3 group-hover:shadow-md transition-shadow">
+                                                        <i id="uploadPlaceholder"
+                                                            class="fa fa-cloud-upload-alt text-3xl text-gray-400 group-hover:text-primary transition-colors"></i>
+                                                    </div>
 
                                                     <img id="previewImage" src="#" alt="Preview"
-                                                        class="hidden h-32 w-32 object-cover rounded-full border-4 border-gray-100 shadow-sm mb-3">
+                                                        class="hidden w-32 h-32 rounded-full object-cover shadow-lg border-4 border-white mb-3">
 
-                                                    <div class="flex text-sm text-gray-600 justify-center">
-                                                        <label for="memberImage"
-                                                            class="relative cursor-pointer bg-white rounded-md font-medium text-primary hover:text-red-500 focus-within:outline-none">
-                                                            <span
-                                                                class="bg-secondary text-white px-4 py-1 rounded-lg">Upload
-                                                                a file</span>
-                                                            <input id="memberImage" name="profileImage" type="file"
-                                                                class="sr-only" accept="image/*">
-                                                        </label>
-                                                    </div>
-                                                    <p class="text-xs text-gray-500">PNG, JPG, GIF up to 5MB</p>
-                                                    <p class="text-xs text-gray-500">540px X 540px</p>
+                                                    <p class="mb-1 text-sm text-gray-600">
+                                                        <span class="font-semibold text-primary">Click to upload</span>
+                                                    </p>
+                                                    <p class="text-xs text-gray-400">PNG, JPG (Max 5MB)</p>
                                                     <p id="fileNameDisplay"
-                                                        class="text-xs text-green-600 mt-2 font-semibold"></p>
+                                                        class="text-xs text-green-600 mt-2 font-semibold min-h-[1rem] truncate max-w-full">
+                                                    </p>
                                                 </div>
+
+                                                <input id="memberImage" name="profileImage" type="file" class="hidden"
+                                                    accept="image/*">
+                                            </label>
+                                        </div>
+
+                                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex flex-col">
+                                                    <span class="text-sm font-bold text-gray-900">Show On
+                                                        Homepage</span>
+                                                    <span class="text-xs text-gray-500 mt-0.5">Feature this member on
+                                                        the main
+                                                        page</span>
+                                                </div>
+                                                <label class="relative inline-flex items-center cursor-pointer">
+                                                    <input type="checkbox" id="showOnHome" name="showOnHome"
+                                                        value="1" class="sr-only peer">
+                                                    <div
+                                                        class="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary shadow-inner">
+                                                    </div>
+                                                </label>
                                             </div>
                                         </div>
-                                    </form>
+
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
 
-                        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                        <div class="bg-gray-50 px-6 py-4 sm:flex sm:flex-row-reverse border-t border-gray-100">
                             <button type="button" onclick="submitMemberForm()" id="btnSaveMember"
-                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-medium text-white hover:bg-red-600 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
-                                Save Member
+                                class="w-full inline-flex justify-center items-center rounded-lg border border-transparent shadow-sm px-5 py-2.5 bg-primary text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:ml-3 sm:w-auto sm:text-sm transition-colors">
+                                <i class="fa fa-save mr-2"></i> Save Member
                             </button>
                             <button type="button" onclick="closeMemberModal()"
-                                class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                                class="mt-3 w-full inline-flex justify-center items-center rounded-lg border border-gray-300 shadow-sm px-5 py-2.5 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm transition-colors">
                                 Cancel
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-
             <!-- =========================
                  Clients VIEW
                  ========================= -->
@@ -877,7 +919,7 @@
                                             <input type="text" id="clientServiceName" name="service_name"
                                                 class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
                                         </div>
-                                        
+
                                         <div class="mb-4">
                                             <label for="clientStatus"
                                                 class="block text-sm font-medium text-gray-700">Status</label>
@@ -1770,281 +1812,309 @@
     </script>
 
     <!-- Team Members script -->
-    <script>
-        const memberModal = document.getElementById('memberModal');
-        let fetchedMembers = []; // Store members globally to access for editing
+   <script>
+    const memberModal = document.getElementById('memberModal');
+    let fetchedMembers = []; // Store members globally for edit access
 
-        // 1. OPEN MODAL (Handles both Add and Edit)
-        async function openMemberModal(member = null) {
-            memberModal.classList.remove('hidden');
+    // 1. OPEN MODAL (Handles both Add and Edit)
+    async function openMemberModal(member = null) {
+        memberModal.classList.remove('hidden');
 
-            // UI Elements
-            const title = document.getElementById('modal-title');
-            const btn = document.getElementById('btnSaveMember');
-            const form = document.getElementById('memberForm');
-            const idInput = document.getElementById('memberId');
+        // UI Elements
+        const title = document.getElementById('modal-title');
+        const btn = document.getElementById('btnSaveMember');
+        const form = document.getElementById('memberForm');
+        const idInput = document.getElementById('memberId');
+        
+        // Toggle Switch
+        const showOnHomeInput = document.getElementById('showOnHome');
 
-            // Image Elements
-            const preview = document.getElementById('previewImage');
-            const placeholder = document.getElementById('uploadPlaceholder');
-            const fileNameDisplay = document.getElementById('fileNameDisplay');
+        // Image Elements
+        const preview = document.getElementById('previewImage');
+        const placeholder = document.getElementById('uploadPlaceholder');
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
 
-            // Always fetch latest teams for the dropdown
-            await fetchTeams();
+        // Always fetch latest teams for the dropdown
+        await fetchTeams();
 
-            if (member) {
-                // === EDIT MODE ===
-                title.innerHTML = '<i class="fa fa-user-edit text-primary mr-2"></i>Edit Team Member';
-                btn.innerText = "Update Member";
+        if (member) {
+            // === EDIT MODE ===
+            // Update Title
+            title.innerHTML = `
+                <span class="bg-blue-100 text-primary p-2 rounded-lg mr-3">
+                    <i class="fa fa-user-edit text-lg"></i>
+                </span>
+                Edit Team Member`;
+            
+            btn.innerHTML = '<i class="fa fa-save mr-2"></i> Update Member';
 
-                // Fill Form
-                idInput.value = member.id;
-                document.getElementById('memberName').value = member.name || '';
-                document.getElementById('memberTeam').value = member.team_id || ''; // Ensure your API returns team_id
-                document.getElementById('memberDesignation').value = member.designation || '';
-                document.getElementById('memberContact').value = member.contact || '';
-                document.getElementById('memberNote').value = member.note || '';
+            // Fill Form Inputs
+            idInput.value = member.id;
+            document.getElementById('memberName').value = member.name || '';
+            document.getElementById('memberTeam').value = member.team_id || ''; 
+            document.getElementById('memberDesignation').value = member.designation || '';
+            document.getElementById('memberContact').value = member.contact || '';
+            document.getElementById('memberNote').value = member.note || '';
 
-                // Handle Image Preview
-                if (member.image_link) {
-                    preview.src = `${window.env.API_URL}/images/${member.image_link}`;
-                    preview.classList.remove('hidden');
-                    placeholder.classList.add('hidden');
-                    fileNameDisplay.innerText = "Current Image: " + member.image_link;
-                } else {
-                    preview.classList.add('hidden');
-                    placeholder.classList.remove('hidden');
-                    fileNameDisplay.innerText = "No image uploaded";
-                }
+            // Handle Toggle Switch (Convert 1/0/true/false to Checked state)
+            showOnHomeInput.checked = (member.show_on_homepage == 1 || member.show_on_homepage === true);
+
+            // Handle Image Preview
+            if (member.image_link) {
+                preview.src = `${window.env.API_URL}/images/${member.image_link}`;
+                preview.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+                fileNameDisplay.innerText = "Current: " + member.image_link;
             } else {
-                // === ADD MODE ===
-                title.innerHTML = '<i class="fa fa-user-plus text-primary mr-2"></i>Add Team Member';
-                btn.innerText = "Save Member";
-
-                // Clear Form
-                form.reset();
-                idInput.value = '';
-
-                // Reset Image
-                preview.src = '#';
                 preview.classList.add('hidden');
                 placeholder.classList.remove('hidden');
-                fileNameDisplay.innerText = '';
+                fileNameDisplay.innerText = "No image uploaded";
             }
+        } else {
+            // === ADD MODE ===
+            title.innerHTML = `
+                <span class="bg-blue-100 text-primary p-2 rounded-lg mr-3">
+                    <i class="fa fa-user-plus text-lg"></i>
+                </span>
+                Add Team Member`;
+            
+            btn.innerHTML = '<i class="fa fa-save mr-2"></i> Save Member';
+
+            // Clear Form
+            form.reset();
+            idInput.value = '';
+            showOnHomeInput.checked = false; // Default to unchecked
+
+            // Reset Image UI
+            preview.src = '#';
+            preview.classList.add('hidden');
+            placeholder.classList.remove('hidden');
+            fileNameDisplay.innerText = '';
         }
+    }
 
-        // 2. FETCH TEAMS (Dynamic Dropdown)
-        async function fetchTeams() {
-            const select = document.getElementById('memberTeam');
-            const API_URL = `${window.env.API_URL}/team/list`;
+    // 2. FETCH TEAMS (Dynamic Dropdown)
+    async function fetchTeams() {
+        const select = document.getElementById('memberTeam');
+        const API_URL = `${window.env.API_URL}/team/list`;
 
-            try {
-                const response = await fetch(API_URL);
-                if (!response.ok) throw new Error('Failed to fetch');
-                const teams = await response.json();
+        try {
+            const response = await fetch(API_URL);
+            if (!response.ok) throw new Error('Failed to fetch');
+            const teams = await response.json();
 
-                let html = '<option value="">Select Team</option>';
-                teams.forEach(d => {
-                    html += `<option value="${d.id}">${d.title}</option>`;
-                });
-                select.innerHTML = html;
-            } catch (error) {
-                console.error("Error loading teams:", error);
-                select.innerHTML = '<option value="">Error loading options</option>';
-            }
-        }
-
-        // 3. HANDLE FILE SELECTION & PREVIEW
-        document.getElementById('memberImage').addEventListener('change', function (event) {
-            const file = event.target.files[0];
-            const preview = document.getElementById('previewImage');
-            const placeholder = document.getElementById('uploadPlaceholder');
-            const fileNameDisplay = document.getElementById('fileNameDisplay');
-
-            if (file) {
-                fileNameDisplay.innerText = 'Selected: ' + file.name;
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    preview.src = e.target.result;
-                    preview.classList.remove('hidden');
-                    placeholder.classList.add('hidden');
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-
-        function closeMemberModal() {
-            memberModal.classList.add('hidden');
-        }
-
-        // 4. SUBMIT FORM (Create or Update)
-        async function submitMemberForm() {
-            const btn = document.getElementById('btnSaveMember');
-            const form = document.getElementById('memberForm');
-            const id = document.getElementById('memberId').value;
-            const isEdit = !!id; // Boolean: true if ID exists
-
-            // Construct URL and Method based on mode
-            let API_URL = `${window.env.API_URL}/member`;
-            let method = 'POST';
-
-            if (isEdit) {
-                API_URL = `${window.env.API_URL}/member?id=${id}`;
-                method = 'PUT'; // Assuming your backend supports PUT for updates
-            }
-
-            try {
-                btn.innerText = isEdit ? "Updating " : "Saving ";
-                btn.disabled = true;
-
-                const formData = new FormData(form);
-                const token = getToken();
-
-                const response = await fetch(API_URL, {
-                    method: method,
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: formData
-                });
-
-                if (response.ok) {
-                    showStatusModal('Success', isEdit ? 'Member updated successfully' : 'Member added successfully', 'success');
-                    closeMemberModal();
-                    fetchMembers();
-                } else {
-                    const result = await response.json();
-                    showStatusModal('Error', result.message || "Failed to save member.", 'error');
-                }
-            } catch (error) {
-                console.error("Submit Error:", error);
-                showStatusModal('Error', "Network error.", 'error');
-            } finally {
-                btn.innerText = isEdit ? "Update Member" : "Save Member";
-                btn.disabled = false;
-            }
-        }
-
-        // --- FETCH & RENDER MEMBERS ---
-        async function fetchMembers() {
-            const tableBody = document.getElementById('members-table-body');
-            const API_URL = `${window.env.API_URL}/member/list`;
-
-            try {
-                tableBody.innerHTML = `<tr><td colspan="6" class="text-center p-8 text-gray-500"><i class="fa fa-spinner fa-spin fa-2x mb-2"></i><br>Loading...</td></tr>`;
-
-                const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-                const response = await fetch(API_URL, {
-                    method: 'GET',
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-
-                if (!response.ok) throw new Error("Failed to fetch members");
-
-                const data = await response.json();
-                fetchedMembers = Array.isArray(data) ? data : (data.members || []); // Update global store
-
-                renderMembersTable(fetchedMembers);
-
-            } catch (error) {
-                console.error('Error:', error);
-                tableBody.innerHTML = `<tr><td colspan="6" class="text-center p-8 text-red-500">Failed to load members.</td></tr>`;
-            }
-        }
-
-        function renderMembersTable(members) {
-            const tableBody = document.getElementById('members-table-body');
-
-            if (!members || members.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="6" class="text-center p-8 text-gray-500">No team members found.</td></tr>`;
-                return;
-            }
-
-            let html = '';
-            members.forEach(member => {
-                // Profile Image Logic
-                let avatarHtml = `<div class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500"><i class="fa fa-user"></i></div>`;
-                if (member.image_link) {
-                    avatarHtml = `<img src="${window.env.API_URL}/images/${member.image_link}" class="h-10 w-10 rounded-full object-cover border border-gray-200" alt="${member.name}">`;
-                }
-
-                html += `
-                <tr class="table-row-hover border-b border-gray-100 transition hover:bg-gray-50">
-                    <td class="p-4">
-                        <div class="flex items-center gap-3">
-                            ${avatarHtml}
-                            <div>
-                                <div class="font-medium text-gray-900"><strong>${member.name}</strong></div>
-                                <div class="text-xs text-gray-500 uppercase tracking-wide"><small>${member.designation || 'N/A'}</small></div>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="p-4">
-                        <div class="text-gray-700"><i class="fa fa-phone text-gray-400 mr-2 text-xs"></i>${member.contact || 'N/A'}</div>
-                    </td>
-                    <td class="p-4">
-                         <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs font-semibold">
-                            ${member.designation || ""}
-                        </span>
-                    </td>
-                    <td class="p-4 text-gray-500 text-sm max-w-xs truncate" title="${member.team_name || ''}">
-                        ${member.team_name || '-'}
-                    </td>
-                    <td class="p-4 text-gray-500 text-sm max-w-xs truncate" title="${member.note || ''}">
-                        ${member.note || '-'}
-                    </td>
-                    <td class="p-4 text-center">
-                        <button onclick="editMember(${member.id})" class="text-gray-400 hover:text-primary mx-1 transition" title="Edit">
-                            <i class="fa fa-edit"></i>
-                        </button>
-                        <button onclick="deleteMember(${member.id})" class="text-gray-400 hover:text-red-500 mx-1 transition" title="Delete">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>`;
+            let html = '<option value="">Select Team</option>';
+            teams.forEach(d => {
+                html += `<option value="${d.id}">${d.title}</option>`;
             });
-            tableBody.innerHTML = html;
+            select.innerHTML = html;
+        } catch (error) {
+            console.error("Error loading teams:", error);
+            select.innerHTML = '<option value="">Error loading options</option>';
+        }
+    }
+
+    // 3. HANDLE FILE SELECTION & PREVIEW
+    document.getElementById('memberImage').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById('previewImage');
+        const placeholder = document.getElementById('uploadPlaceholder');
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
+
+        if (file) {
+            fileNameDisplay.innerText = 'Selected: ' + file.name;
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    function closeMemberModal() {
+        memberModal.classList.add('hidden');
+    }
+
+    // 4. SUBMIT FORM (Create or Update)
+    async function submitMemberForm() {
+        const btn = document.getElementById('btnSaveMember');
+        const form = document.getElementById('memberForm');
+        const id = document.getElementById('memberId').value;
+        const isEdit = !!id; 
+
+        let API_URL = `${window.env.API_URL}/member`;
+        let method = 'POST';
+
+        if (isEdit) {
+            API_URL = `${window.env.API_URL}/member?id=${id}`;
+            method = 'PUT'; // Usually POST with _method=PUT or just POST for FormData
         }
 
-        // 5. HELPER: Edit Member Trigger
-        function editMember(id) {
-            // Find the member object from the global array
-            const member = fetchedMembers.find(m => m.id === id);
-            if (member) {
-                openMemberModal(member);
+        try {
+            btn.innerText = isEdit ? "Updating..." : "Saving...";
+            btn.disabled = true;
+
+            const formData = new FormData(form);
+
+            // FIX: Manually handle the checkbox
+            // If checked, send '1', else send '0'
+            const showOnHomeInput = document.getElementById('showOnHome');
+            formData.set('show_on_home', showOnHomeInput.checked ? '1' : '0');
+
+            const token = getToken();
+
+            const response = await fetch(API_URL, {
+                method: method,
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                body: formData
+            });
+
+            if (response.ok) {
+                showStatusModal('Success', isEdit ? 'Member updated successfully' : 'Member added successfully', 'success');
+                closeMemberModal();
+                fetchMembers();
             } else {
-                showStatusModal('Error', 'Member details not found.', 'error');
+                const result = await response.json();
+                showStatusModal('Error', result.message || "Failed to save member.", 'error');
             }
+        } catch (error) {
+            console.error("Submit Error:", error);
+            showStatusModal('Error', "Network error.", 'error');
+        } finally {
+            btn.innerHTML = isEdit ? '<i class="fa fa-save mr-2"></i> Update Member' : '<i class="fa fa-save mr-2"></i> Save Member';
+            btn.disabled = false;
+        }
+    }
+
+    // --- FETCH & RENDER MEMBERS ---
+    async function fetchMembers() {
+        const tableBody = document.getElementById('members-table-body');
+        const API_URL = `${window.env.API_URL}/member/list`;
+
+        try {
+            tableBody.innerHTML = `<tr><td colspan="6" class="text-center p-8 text-gray-500"><i class="fa fa-spinner fa-spin fa-2x mb-2"></i><br>Loading...</td></tr>`;
+
+            const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+            const response = await fetch(API_URL, {
+                method: 'GET',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+
+            if (!response.ok) throw new Error("Failed to fetch members");
+
+            const data = await response.json();
+            fetchedMembers = Array.isArray(data) ? data : (data.members || []);
+
+            renderMembersTable(fetchedMembers);
+
+        } catch (error) {
+            console.error('Error:', error);
+            tableBody.innerHTML = `<tr><td colspan="6" class="text-center p-8 text-red-500">Failed to load members.</td></tr>`;
+        }
+    }
+
+    function renderMembersTable(members) {
+        const tableBody = document.getElementById('members-table-body');
+
+        if (!members || members.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="6" class="text-center p-8 text-gray-500">No team members found.</td></tr>`;
+            return;
         }
 
-        // --- DELETE MEMBER LOGIC ---
-        async function deleteMember(id) {
-            if (!confirm(`Are you sure you want to permanently delete this member?`)) {
-                return;
+        let html = '';
+        members.forEach(member => {
+            // Avatar
+            let avatarHtml = `<div class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500"><i class="fa fa-user"></i></div>`;
+            if (member.image_link) {
+                avatarHtml = `<img src="${window.env.API_URL}/images/${member.image_link}" class="h-10 w-10 rounded-full object-cover border border-gray-200" alt="${member.name}">`;
             }
-            const DELETE_URL = `${window.env.API_URL}/member?id=${id}`;
-            try {
-                const token = getToken();
-                const response = await fetch(DELETE_URL, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
 
-                if (response.ok) {
-                    fetchMembers();
-                    showStatusModal('Deleted', 'Member removed successfully.', 'success');
-                } else {
-                    showStatusModal('Error', 'Failed to delete member.', 'error');
+            // Homepage Badge Logic
+            let homeBadge = '';
+            if(member.show_on_home == 1 || member.show_on_home === true) {
+                homeBadge = `<span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800" title="Visible on Homepage"><i class="fa fa-home mr-1"></i> Home</span>`;
+            }
+
+            html += `
+            <tr class="table-row-hover border-b border-gray-100 transition hover:bg-gray-50">
+                <td class="p-4">
+                    <div class="flex items-center gap-3">
+                        ${avatarHtml}
+                        <div>
+                            <div class="font-medium text-gray-900 flex items-center">
+                                <strong>${member.name}</strong>
+                                ${homeBadge}
+                            </div>
+                            <div class="text-xs text-gray-500 uppercase tracking-wide"><small>${member.designation || 'N/A'}</small></div>
+                        </div>
+                    </div>
+                </td>
+                <td class="p-4">
+                    <div class="text-gray-700"><i class="fa fa-phone text-gray-400 mr-2 text-xs"></i>${member.contact || 'N/A'}</div>
+                </td>
+                <td class="p-4">
+                    <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs font-semibold">
+                       ${member.team_name || 'No Team'}
+                    </span>
+                </td>
+                 <td class="p-4 text-gray-500 text-sm max-w-xs truncate" title="${member.note || ''}">
+                    ${member.note || '-'}
+                </td>
+                <td class="p-4 text-center">
+                    <button onclick="editMember(${member.id})" class="text-gray-400 hover:text-primary mx-1 transition" title="Edit">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                    <button onclick="deleteMember(${member.id})" class="text-gray-400 hover:text-red-500 mx-1 transition" title="Delete">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </td>
+            </tr>`;
+        });
+        tableBody.innerHTML = html;
+    }
+
+    // 5. HELPER: Edit Member Trigger
+    function editMember(id) {
+        const member = fetchedMembers.find(m => m.id === id);
+        if (member) {
+            openMemberModal(member);
+        } else {
+            showStatusModal('Error', 'Member details not found.', 'error');
+        }
+    }
+
+    // --- DELETE MEMBER LOGIC ---
+    async function deleteMember(id) {
+        if (!confirm(`Are you sure you want to permanently delete this member?`)) {
+            return;
+        }
+        const DELETE_URL = `${window.env.API_URL}/member?id=${id}`;
+        try {
+            const token = getToken();
+            const response = await fetch(DELETE_URL, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 }
-            } catch (error) {
-                console.error('Delete Error:', error);
-                showStatusModal('Error', 'Network error.', 'error');
+            });
+
+            if (response.ok) {
+                fetchMembers();
+                showStatusModal('Deleted', 'Member removed successfully.', 'success');
+            } else {
+                showStatusModal('Error', 'Failed to delete member.', 'error');
             }
+        } catch (error) {
+            console.error('Delete Error:', error);
+            showStatusModal('Error', 'Network error.', 'error');
         }
-    </script>
+    }
+</script>
 
 
     <script>

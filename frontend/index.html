@@ -1045,117 +1045,87 @@
         }
 
         async function fetchTeamMembers() {
-            // NOTE: Assuming your HTML has a main wrapper with ID 'team-section'
-            const teamSectionWrapper = document.getElementById('team-section');
-            const apiUrl = window.env.API_URL;
-            const imageBaseUrl = `${apiUrl}/images/`;
+    const teamSectionWrapper = document.getElementById('team-section');
+    
+    if (!teamSectionWrapper) {
+        console.warn("Team section wrapper (#team-section) not found.");
+        return;
+    }
 
-            // Configuration
-            const teamIDsToFetch = [5, 6, 4];
-            const maxMembersToRender = 3;
-            let allFetchedMembers = [];
+    const apiUrl = window.env.API_URL;
+    const imageBaseUrl = `${apiUrl}/images/`;
 
-            // --- Utility Functions ---
-            const hideContainerOnError = (error) => {
-                console.error('Failed to load team members:', error);
-                teamSectionWrapper.innerHTML = '';
-                teamSectionWrapper.style.display = 'none';
-            };
+    // 1. Setup Initial HTML Structure (Loading State)
+    teamSectionWrapper.innerHTML = `
+        <div class="container py-5">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="text-secondary text-uppercase">Our Team</h6>
+                <h1 class="mb-5">Expert Team Members</h1>
+                <div id="team-cards-row" class="row g-4 justify-content-center">
+                    <div class="col-12 text-center p-5 text-gray-500">
+                        <i class="fa fa-spinner fa-spin fa-2x mb-2"></i><br>Loading team members...
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
 
-            if (!teamSectionWrapper) {
-                console.error("Team section wrapper (#team-section) not found.");
-                return;
-            }
+    const teamCardsRow = document.getElementById('team-cards-row');
 
-            // Initial structure setup (including loading state)
-            teamSectionWrapper.innerHTML = `
-                <div class="container py-5">
-                    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                        <h6 class="text-secondary text-uppercase">Our Team</h6>
-                        <h1 class="mb-5">Expert Team Members</h1>
-                        <div id="team-cards-row" class="row g-4 justify-content-center">
-                            <div class="col-12 text-center p-5">Loading team members...</div>
+    try {
+        // 2. Fetch Data (Single Call)
+        // param: show_on_home=1 (matches the DB boolean column) and max_limit=3
+        const response = await fetch(`${apiUrl}/member/list?max_limit=3&show_on_home=1`);
+
+        if (!response.ok) {
+            throw new Error(`API returned status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        
+        // Handle response format (array vs object with .members)
+        const members = Array.isArray(result) ? result : (result.members || []);
+
+        // 3. Check if we have data
+        if (members.length === 0) {
+            console.log("No homepage members found.");
+            teamSectionWrapper.style.display = 'none'; // Hide section if empty
+            return;
+        }
+
+        // 4. Render Members
+        let memberCardsHTML = '';
+        
+        members.forEach((member, index) => {
+            const delay = 0.1 + (index * 0.2); // Stagger animations (0.1s, 0.3s, 0.5s)
+            
+            const imageUrl = member.image_link 
+                ? `${imageBaseUrl}${member.image_link}` 
+                : 'img/user.webp'; // Fallback image
+
+            // Note: Used col-lg-4 because 3 items * 4 spans = 12 (Full Width)
+            memberCardsHTML += `
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="${delay}s">
+                    <div class="team-item p-4"> 
+                        <div class="overflow-hidden mb-4">
+                            <img class="img-fluid" src="${imageUrl}" alt="${member.name}" 
+                                style="width: 100%; height: 250px; object-fit: contain;">
                         </div>
+                        <h5 class="mb-0">${member.name}</h5>
+                        <p>${member.designation || ''}</p>
                     </div>
                 </div>
             `;
-            const teamCardsRow = document.getElementById('team-cards-row'); // Element to receive the member cards
+        });
 
+        // Inject HTML
+        teamCardsRow.innerHTML = memberCardsHTML;
 
-            // --- Step 1: Sequential Fetching ---
-            for (const teamId of teamIDsToFetch) {
-                if (allFetchedMembers.length >= maxMembersToRender) {
-                    break;
-                }
-
-                const remainingLimit = maxMembersToRender - allFetchedMembers.length;
-
-                try {
-                    const response = await fetch(`${apiUrl}/member/list?team_id=${teamId}&max_limit=${remainingLimit}`, {
-                        method: 'GET',
-                    });
-
-                    if (!response.ok) {
-                        console.warn(`API call failed for Team ID ${teamId}: Status ${response.status}`);
-                        continue;
-                    }
-
-                    const result = await response.json();
-
-                    if (result.error || !Array.isArray(result.members)) {
-                        console.warn(`API returned error or invalid data for Team ID ${teamId}:`, result.message);
-                        continue;
-                    }
-
-                    allFetchedMembers.push(...result.members);
-
-                } catch (error) {
-                    console.error(`Network error fetching members for Team ID ${teamId}:`, error);
-                }
-            } // End of for loop
-
-            // --- Step 2: Final Check and Rendering ---
-
-            if (allFetchedMembers.length === 0) {
-                hideContainerOnError("No members could be retrieved from the specified teams.");
-                return;
-            }
-
-            const membersToRender = allFetchedMembers.slice(0, maxMembersToRender);
-
-            let memberCardsHTML = '';
-            // 1. Generate Member Cards
-            membersToRender.forEach((member, index) => {
-                const delay = 0.1 + (index * 0.2);
-
-                const imageUrl = member.image_link
-                    ? imageBaseUrl + member.image_link
-                    : 'img/user.webp';
-
-                memberCardsHTML += `
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="${delay}s">
-                        <div class="team-item p-4"> 
-                            <div class="overflow-hidden mb-4">
-                                <img class="img-fluid" src="${imageUrl}" alt="${member.name}" 
-                                    style="width: 100%; height: 250px; object-fit: contain;">
-                            </div>
-                            <h5 class="mb-0">${member.name}</h5>
-                            <p>${member.designation}</p>
-                        </div>
-                    </div>
-                `;
-            });
-
-            // Final Rendering: Replace the content of the card row only
-            // Note: Changed col-lg-3 to col-lg-4 since we only render 3 members, making them equal width (3 * 4 = 12)
-            if (teamCardsRow) {
-                teamCardsRow.innerHTML = memberCardsHTML;
-            } else {
-                // Fallback error if the inner row wasn't found (shouldn't happen with the initial structure)
-                hideContainerOnError("Internal rendering error: Row element missing.");
-            }
-        }
-        
+    } catch (error) {
+        console.error('Failed to load team members:', error);
+        teamSectionWrapper.style.display = 'none'; // Hide section on error
+    }
+}
         async function updateCountSection() {
             const apiUrl = (window.env && window.env.API_URL) ? window.env.API_URL : '';
 
