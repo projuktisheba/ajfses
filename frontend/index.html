@@ -711,34 +711,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="row g-4 align-items-center">
-                        <div class="col-sm-6">
-                            <div class="bg-primary p-4 mb-4 wow fadeIn" data-wow-delay="0.3s">
-                                <i class="fa fa-building fa-2x text-white mb-3"></i>
-                                <h2 class="text-white mb-2" id="completed-projects" data-toggle="counter-up">0</h2>
-                                <p class="text-white mb-0">Completed Projects</p>
-                            </div>
-                            <div class="bg-secondary p-4 wow fadeIn" data-wow-delay="0.5s">
-                                <i class="fa fa-check-double fa-2x text-white mb-3"></i>
-                                <h2 class="text-white mb-2" id="ongoing-projects" data-toggle="counter-up">0</h2>
-                                <p class="text-white mb-0">Ongoing Projects</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="bg-success p-4 mb-4 wow fadeIn" data-wow-delay="0.3s">
-                                <i class="fa fa-users fa-2x text-white mb-3"></i>
-                                <h2 class="text-white mb-2" id="happy-clients" data-toggle="counter-up">0</h2>
-                                <p class="text-white mb-0">Happy Clients</p>
-                            </div>
-                            <div class="bg-dark p-4 wow fadeIn" data-wow-delay="0.5s">
-                                <i class="fa fa-users fa-2x text-white mb-3"></i>
-                                <h2 class="text-white mb-2" id="employee-count" data-toggle="counter-up">0</h2>
-                                <p class="text-white mb-0">Employees</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-lg-6" id="count-section-container">
                 </div>
+
             </div>
         </div>
     </div>
@@ -1152,81 +1127,99 @@
                 teamSectionWrapper.style.display = 'none'; // Hide section on error
             }
         }
+
         async function updateCountSection() {
-    // 1. Configuration & Initial State
-    const apiUrl = (window.env && window.env.API_URL) ? window.env.API_URL : '';
+            const apiUrl = (window.env && window.env.API_URL) ? window.env.API_URL : '';
 
-    const defaultMetrics = {
-        completed_projects: 0,
-        active_projects: 0,
-        total_clients: 0,
-        total_employees: 0
-    };
-    let metricsToDisplay = { ...defaultMetrics }; 
-
-    // 2. Define DOM element references (Defensive check)
-    const elements = {
-        completed: document.getElementById("completed-projects"),
-        ongoing: document.getElementById("ongoing-projects"),
-        clients: document.getElementById("happy-clients"),
-        employees: document.getElementById("employee-count"),
-    };
-
-    // 3. API Fetch Logic
-    try {
-        if (!apiUrl) throw new Error("API configuration missing");
-
-        const response = await fetch(`${apiUrl}/client/metrics`, {
-            method: 'GET'
-        });
-
-        if (!response.ok) {
-            throw new Error(`Metrics fetch failed with status: ${response.status}`);
-        }
-
-        const result = await response.json();
-
-        // Use the fetched data, explicitly falling back to defaults if a key is missing
-        if (result && !result.error) {
-            metricsToDisplay = {
-                completed_projects: result.completed_projects || defaultMetrics.completed_projects,
-                active_projects: result.active_projects || defaultMetrics.active_projects,
-                total_clients: result.total_clients || defaultMetrics.total_clients,
-                total_employees: result.total_employees || defaultMetrics.total_employees,
+            const defaultMetrics = {
+                completed_projects: 0,
+                active_projects: 0,
+                total_clients: 0,
+                total_employees: 0
             };
+            let metricsToDisplay = { ...defaultMetrics };
+
+            // 1. Fetch Data
+            try {
+                if (!apiUrl) throw new Error("API configuration missing");
+
+                const response = await fetch(`${apiUrl}/client/metrics`, { method: 'GET' });
+                if (!response.ok) throw new Error(`Metrics fetch failed with status: ${response.status}`);
+
+                const result = await response.json();
+
+                // Assign fetched data, using defaults as fallback
+                if (result && !result.error) {
+                    metricsToDisplay = {
+                        completed_projects: result.completed_projects || defaultMetrics.completed_projects,
+                        active_projects: result.active_projects || defaultMetrics.active_projects,
+                        total_clients: result.total_clients || defaultMetrics.total_clients,
+                        total_employees: result.total_employees || defaultMetrics.total_employees,
+                    };
+                }
+            } catch (error) {
+                console.warn('API fetch failed, loading defaults:', error);
+            }
+
+            // --- 2. Construct the HTML with the final values ---
+
+            const htmlContent = `
+                <div class="row g-4 align-items-center">
+                    <div class="col-sm-6">
+                        <div class="bg-primary p-4 mb-4 wow fadeIn" data-wow-delay="0.3s">
+                            <i class="fa fa-building fa-2x text-white mb-3"></i>
+                            <h2 class="text-white mb-2" data-toggle="counter-up">${metricsToDisplay.completed_projects}</h2>
+                            <p class="text-white mb-0">Completed Projects</p>
+                        </div>
+                        <div class="bg-secondary p-4 wow fadeIn" data-wow-delay="0.5s">
+                            <i class="fa fa-check-double fa-2x text-white mb-3"></i>
+                            <h2 class="text-white mb-2" data-toggle="counter-up">${metricsToDisplay.active_projects}</h2>
+                            <p class="text-white mb-0">Ongoing Projects</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="bg-success p-4 mb-4 wow fadeIn" data-wow-delay="0.3s">
+                            <i class="fa fa-users fa-2x text-white mb-3"></i>
+                            <h2 class="text-white mb-2" data-toggle="counter-up">${metricsToDisplay.total_clients}</h2>
+                            <p class="text-white mb-0">Happy Clients</p>
+                        </div>
+                        <div class="bg-dark p-4 wow fadeIn" data-wow-delay="0.5s">
+                            <i class="fa fa-users fa-2x text-white mb-3"></i>
+                            <h2 class="text-white mb-2" data-toggle="counter-up">${metricsToDisplay.total_employees}</h2>
+                            <p class="text-white mb-0">Employees</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // --- 3. Inject the HTML and Initialize Counter ---
+
+            const container = document.getElementById("count-section-container");
+
+            if (container) {
+                // Inject the HTML into the container
+                container.innerHTML = htmlContent;
+
+                // CRITICAL STEP: Initialize the counter immediately after injection
+                if (window.jQuery && window.jQuery.fn.counterUp) {
+                    // Note: Since you are using data-wow-delay, you might also need to initialize 
+                    // the WOW.js library if this section is loaded dynamically.
+
+                    // Run counterUp on the newly injected elements
+                    window.jQuery(container).find('[data-toggle="counter-up"]').counterUp({
+                        delay: 10,
+                        time: 1000
+                    });
+                } else {
+                    console.warn("CounterUp or jQuery library not found. Animation skipped.");
+                }
+            } else {
+                console.error("Count section container element not found.");
+            }
         }
 
-    } catch (error) {
-        console.warn('API fetch failed, loading defaults:', error);
-        // metricsToDisplay remains the default object defined initially.
-    }
-
-    // --- 4. Final DOM Update with Fetched/Fallback Values ---
-
-    // Use the defensive element checks
-    if (elements.completed) elements.completed.innerText = metricsToDisplay.completed_projects;
-    if (elements.ongoing) elements.ongoing.innerText = metricsToDisplay.active_projects;
-    if (elements.clients) elements.clients.innerText = metricsToDisplay.total_clients;
-    if (elements.employees) elements.employees.innerText = metricsToDisplay.total_employees;
-
-
-    // --- 5. Re-initialize the counter library (CRITICAL STEP) ---
-    // This must run ONLY after the innerText values are set.
-    if (window.jQuery && window.jQuery.fn.counterUp) {
-        
-        // This is the key fix for the race condition:
-        // You MUST ensure the initial, potentially failing, global counterUp call is removed 
-        // from your main.js file so that this is the only time it runs.
-        window.jQuery('[data-toggle="counter-up"]').counterUp({
-            delay: 10, 
-            time: 1000 
-        });
-    } else {
-        console.warn("CounterUp or jQuery library not found. Animation skipped.");
-    }
-}
         window.addEventListener("DOMContentLoaded", function () {
-            
+
             updateCountSection();
             // Both functions will execute sequentially when the DOM is loaded
             fetchGallery();
