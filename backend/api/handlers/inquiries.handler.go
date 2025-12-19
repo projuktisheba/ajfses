@@ -43,7 +43,6 @@ func (h *InquiryHandler) CreateInquiry(w http.ResponseWriter, r *http.Request) {
 	req.Email = strings.TrimSpace(req.Email)
 	req.Subject = strings.TrimSpace(req.Subject)
 	req.Message = strings.TrimSpace(req.Message)
-	fmt.Println("Inq Data: ", req)
 	if req.Name == "" || req.Mobile == "" || req.Email == "" || req.Subject == "" || req.Message == "" {
 		utils.BadRequest(w, errors.New("All fields are required"))
 		return

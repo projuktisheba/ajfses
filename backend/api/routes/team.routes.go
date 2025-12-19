@@ -10,7 +10,10 @@ func teamRoutes() *chi.Mux {
 	// ======== Team Routes ========
 
 	// The handler we created specifically for multipart/form-data
-	mux.Post("/", handlerRepo.Team.CreateTeam)
+	mux.Group(func(r chi.Router) {
+		r.Use(authAdmin)
+		r.Post("/", handlerRepo.Team.CreateTeam)
+	})
 	mux.Get("/list", handlerRepo.Team.GetAllTeams)
 	mux.Get("/list/details", handlerRepo.Team.GetAllTeamsAndMembers)
 	return mux

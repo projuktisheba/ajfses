@@ -232,8 +232,6 @@ func (m *MemberRepository) GetAll(ctx context.Context, teamID, maxLimit int64, s
         %s;
     `, whereClause, limitClause)
 
-	// fmt.Println(stmt) // Debug if needed
-
 	var members []*models.Member
 
 	// 7. Execute the parameterized query

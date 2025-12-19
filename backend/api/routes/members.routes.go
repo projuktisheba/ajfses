@@ -11,11 +11,17 @@ func memberRoutes() *chi.Mux {
 	// Members
 
 	// The handler we created specifically for multipart/form-data
-	mux.Post("/", handlerRepo.Member.CreateMember)
+
 	mux.Get("/chairman", handlerRepo.Member.GetChairmanInfo)
 	mux.Get("/list", handlerRepo.Member.GetAllMembers)
-	mux.Delete("/", handlerRepo.Member.DeleteMember) //	query parament {id}
-	// mux.Get("/{id}", handlerRepo.Member.GetMember)
-	mux.Put("/", handlerRepo.Member.UpdateMember) // query parameter {id}
+
+	mux.Group(func(r chi.Router) {
+		r.Use(authAdmin)
+		r.Post("/", handlerRepo.Member.CreateMember)
+		r.Delete("/", handlerRepo.Member.DeleteMember) //	query parament {id}
+		// mux.Get("/{id}", handlerRepo.Member.GetMember)
+		r.Put("/", handlerRepo.Member.UpdateMember) // query parameter {id}
+
+	})
 	return mux
 }

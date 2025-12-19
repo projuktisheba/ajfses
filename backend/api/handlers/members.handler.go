@@ -50,7 +50,7 @@ func (h *MemberHandler) CreateMember(w http.ResponseWriter, r *http.Request) {
 	if strings.TrimSpace(r.FormValue("showOnHome")) == "1" {
 		showOnHomepage = true
 	}
-	fmt.Println("showOnHome: ", strings.TrimSpace(r.FormValue("showOnHome")))
+
 	if name == "" || team == "" {
 		utils.BadRequest(w, errors.New("name and team are required"))
 		return
@@ -72,7 +72,7 @@ func (h *MemberHandler) CreateMember(w http.ResponseWriter, r *http.Request) {
 		ImageLink:      "", // Empty initially
 		ShowOnHomepage: showOnHomepage,
 	}
-	fmt.Println(newMember)
+	
 	id, err := h.DB.MemberRepo.Create(r.Context(), newMember)
 	if err != nil {
 		h.errorLog.Println("ERROR_CreateMember_03: db create:", err)
@@ -395,7 +395,6 @@ func (h *MemberHandler) UpdateMember(w http.ResponseWriter, r *http.Request) {
 		utils.BadRequest(w, errors.New("failed to process image upload"))
 		return
 	}
-	fmt.Println(existing.TeamID)
 
 	// 5. Update Database
 	err = h.DB.MemberRepo.Update(r.Context(), existing)

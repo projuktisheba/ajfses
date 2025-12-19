@@ -16,6 +16,7 @@ import (
 )
 
 var handlerRepo *handlers.HandlerRepo
+var authAdmin func(http.Handler) http.Handler
 
 func Routes(host, env string, db *dbrepo.DBRepository, jwt models.JWTConfig, infoLogger, errorLogger *log.Logger) http.Handler {
 	mux := chi.NewRouter()
@@ -29,8 +30,8 @@ func Routes(host, env string, db *dbrepo.DBRepository, jwt models.JWTConfig, inf
 		AllowCredentials: false,
 		MaxAge:           300,
 	}))
-	mux.Use(middlewares.Logger)                    // logger
-	
+	mux.Use(middlewares.Logger) // logger
+
 	// --- Static file serving for images ---
 	imageDir := filepath.Join(".", "data", "images")
 	fs := http.StripPrefix("/api/v1/images/", http.FileServer(http.Dir(imageDir)))
@@ -52,7 +53,8 @@ func Routes(host, env string, db *dbrepo.DBRepository, jwt models.JWTConfig, inf
 
 	//get the handler repo
 	handlerRepo = handlers.NewHandlerRepo(host, db, jwt, infoLogger, errorLogger)
-
+	// Initialize the AuthJWT middleware factory
+	authAdmin = middlewares.AuthJWT(handlerRepo.JWT, handlerRepo.ErrorLog)
 	// Mount Auth routes
 	mux.Mount("/api/v1/auth", authRoutes())
 

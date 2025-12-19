@@ -12,19 +12,19 @@ func galleryRoutes() *chi.Mux {
 
 	// Protected Routes (Apply Auth Middleware here if needed)
 	mux.Group(func(r chi.Router) {
-		// mux.Use(app.Auth) // Uncomment if you have auth middleware
+		r.Use(authAdmin)
 
 		// Create: POST /gallery
-		mux.Post("/", handlerRepo.Gallery.CreateGallery)
+		r.Post("/", handlerRepo.Gallery.CreateGallery)
 
 		// Update: POST /gallery/{id} (Form Data with ID) or PUT /gallery
 		// The JS frontend sends POST to /gallery/{id} with _method=PUT,
 		// but the handler reads ID from FormValue("id"), so this works.
-		mux.Post("/{id}", handlerRepo.Gallery.UpdateGallery)
-		mux.Put("/", handlerRepo.Gallery.UpdateGallery)
+		r.Post("/{id}", handlerRepo.Gallery.UpdateGallery)
+		r.Put("/", handlerRepo.Gallery.UpdateGallery)
 
 		// Delete: DELETE /gallery?id=...
-		mux.Delete("/", handlerRepo.Gallery.DeleteGallery)
+		r.Delete("/", handlerRepo.Gallery.DeleteGallery)
 	})
 
 	return mux
