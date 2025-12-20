@@ -206,7 +206,7 @@
                                     <img id="viewProfileImage" src="img/logo-circle.jpg" alt="Profile Picture"
                                         class="h-16 w-16 object-cover rounded-full shadow-md">
                                     <div class="flex flex-col">
-                                        <p id="viewProfileName" class="text-lg font-bold text-gray-900">Admin</p>
+                                        <p id="viewProfileName" class="text-mf font-bold text-gray-900">AJ FIRE SAFETY & ENGINEERING SOLUTIONS</p>
                                         <p id="viewProfileEmail" class="text-sm text-gray-500">
                                             ajfiresolutions@hotmail.com</p>
                                     </div>
@@ -1157,83 +1157,6 @@
 
 
         function openProfileViewModal() {
-            // Helper to format ISO date strings (shorter, e.g., "Dec 03, 2025")
-            const formatDate = (isoString) => {
-                if (!isoString) return 'N/A';
-                try {
-                    const date = new Date(isoString);
-                    // Options for human-readable date only
-                    const options = { year: 'numeric', month: 'short', day: 'numeric' };
-                    return date.toLocaleDateString('en-US', options);
-                } catch (e) {
-                    return 'Invalid Date';
-                }
-            };
-
-            // --- TOP SUMMARY SECTION ---
-
-            // 1. Name in the summary (Top Left)
-            const nameEl = document.getElementById('viewProfileName');
-            if (nameEl) nameEl.textContent = userData.name || 'N/A';
-
-            // 2. Email in the summary (Top Left)
-            const emailSummaryEl = document.getElementById('viewProfileEmail');
-            if (emailSummaryEl) emailSummaryEl.textContent = userData.email || 'N/A';
-
-            // // 3. Avatar Image Source
-            // const avatarEl = document.getElementById('viewProfileImage');
-            // // NOTE: The HTML uses src="img/user.webp", so we update it here if avatarLink is available
-            // if (avatarEl) avatarEl.src = userData.avatarLink || 'img/user.webp';
-
-
-            // --- DETAIL GRID SECTION ---
-
-            // 4. Full Name Display (Inside the grid, next to status)
-            const nameDisplayEl = document.getElementById('viewProfileNameDisplay');
-            if (nameDisplayEl) nameDisplayEl.textContent = userData.name || 'N/A';
-
-            // 5. Role
-            const roleEl = document.getElementById('viewProfileRoleDisplay');
-            if (roleEl) roleEl.textContent = userData.role || 'N/A';
-
-            // 6. Mobile
-            const mobileEl = document.getElementById('viewProfileMobile');
-            if (mobileEl) mobileEl.textContent = userData.mobile || 'N/A';
-
-            // 7. Joining Date
-            const joiningDateEl = document.getElementById('viewProfileJoiningDate');
-            if (joiningDateEl) joiningDateEl.textContent = formatDate(userData.joiningDate);
-
-            // 8. Created At (Mapped to a date field)
-            const createdAtEl = document.getElementById('viewProfileCreatedAt');
-            if (createdAtEl) createdAtEl.textContent = formatDate(userData.createdAt);
-
-            // 9. Last Updated (FIXED THE TYPO HERE)
-            const updatedAtEl = document.getElementById('viewProfileUpdatedAt');
-            if (updatedAtEl) updatedAtEl.textContent = formatDate(userData.updatedAt);
-
-            // 10. Address (Full Width Block)
-            const addressEl = document.getElementById('viewProfileAddress');
-            if (addressEl) addressEl.textContent = userData.address || 'N/A';
-
-            // --- STATUS HANDLING ---
-
-            // 11. Handle Status 
-            const statusEl = document.getElementById('viewProfileStatus');
-            if (statusEl) {
-                statusEl.textContent = userData.status || 'Unknown';
-                // Reset classes first
-                statusEl.className = 'inline-flex items-center rounded-full px-3 py-0.5 text-xs font-medium';
-
-                if (userData.status === 'Active') {
-                    statusEl.classList.add('bg-green-100', 'text-green-800');
-                } else if (userData.status === 'Inactive' || userData.status === 'Suspended') {
-                    statusEl.classList.add('bg-red-100', 'text-red-800');
-                } else {
-                    statusEl.classList.add('bg-gray-100', 'text-gray-800');
-                }
-            }
-
             // 12. Display the modal
             document.getElementById('profileViewModal').classList.remove('hidden');
         }
