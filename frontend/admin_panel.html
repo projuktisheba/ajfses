@@ -128,7 +128,7 @@
                 </button>
                 <div class="flex items-center gap-2 font-heading font-bold text-xl tracking-wider text-primary">
                     <i class="fa fa-shield-alt"></i>
-                    <span>AJFSES ADMIN</span>
+                    <span>ADMIN</span>
                 </div>
             </div>
 
@@ -143,7 +143,7 @@
                 <div class="relative ml-2">
                     <button onclick="toggleProfileMenu()"
                         class="flex items-center gap-2 focus:outline-none hover:bg-gray-100 p-2 rounded-lg transition">
-                        <img src="https://ui-avatars.com/api/?name=Admin+User&background=0d6efd&color=fff" alt="Admin"
+                        <img src="img/logo-circle.jpg" alt="Admin"
                             class="h-8 w-8 rounded-full border-2 border-gray-100 shadow-sm">
                         <span id="user-name"
                             class="hidden md:block font-medium text-sm text-gray-700">Administrator</span>
@@ -155,7 +155,7 @@
                         class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 ring-1 ring-black ring-opacity-5 origin-top-right">
                         <div class="px-4 py-3 border-b border-gray-100">
                             <p class="text-sm">Signed in as</p>
-                            <p id="user-email" class="text-sm font-bold text-gray-900 truncate">admin@ajfses.com</p>
+                            <p id="user-email" class="text-sm font-bold text-gray-900 truncate">ajfiresolutions@hotmail.com</p>
                         </div>
                         <a onclick="openProfileViewModal()"
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i
@@ -203,10 +203,10 @@
                         <div class="w-full space-y-5">
                             <div class="flex items-center justify-between border-b border-gray-100 pb-3">
                                 <div class="flex items-center space-x-4">
-                                    <img id="viewProfileImage" src="img/user.webp" alt="Profile Picture"
+                                    <img id="viewProfileImage" src="img/logo-circle.jpg" alt="Profile Picture"
                                         class="h-16 w-16 object-cover rounded-full shadow-md">
                                     <div class="flex flex-col">
-                                        <p id="viewProfileName" class="text-lg font-bold text-gray-900">ajfses Admin</p>
+                                        <p id="viewProfileName" class="text-lg font-bold text-gray-900">Admin</p>
                                         <p id="viewProfileEmail" class="text-sm text-gray-500">
                                             ajfiresolutions@hotmail.com</p>
                                     </div>
@@ -217,13 +217,10 @@
                             <div class="grid grid-cols-2 gap-x-4 gap-y-3">
                                 <div
                                     class="p-3 border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition duration-200 bg-white">
-                                    <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Full
+                                    <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Company
                                         Name</span>
                                     <div class="flex items-center mt-1 space-x-2">
-                                        <p class="text-gray-900 text-sm font-medium" id="viewProfileNameDisplay">ajfses
-                                            Admin</p>
-                                        <span id="viewProfileStatus"
-                                            class="inline-flex items-center rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">Active</span>
+                                        <p class="text-gray-900 text-sm font-medium" id="viewProfileNameDisplay">AJ FIRE SAFETY & ENGINEERING SOLUTIONS</p>
                                     </div>
                                 </div>
 
@@ -245,32 +242,13 @@
 
                                 <div
                                     class="p-3 border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition duration-200 bg-white">
-                                    <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Joining
-                                        Date</span>
-                                    <p class="text-gray-900 text-sm font-medium mt-1" id="viewProfileJoiningDate">Dec
-                                        03, 2025</p>
+                                    <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Established at</span>
+                                    <p class="text-gray-900 text-sm font-medium mt-1" id="viewProfileJoiningDate">2019</p>
                                 </div>
-
-                                <div
-                                    class="p-3 border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition duration-200 bg-white">
-                                    <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Created
-                                        At</span>
-                                    <p class="text-gray-900 text-sm font-medium mt-1" id="viewProfileCreatedAt">Dec 03,
-                                        2025</p>
-                                </div>
-
-                                <div
-                                    class="p-3 border border-gray-100 rounded-lg shadow-md hover:shadow-lg transition duration-200 bg-white">
-                                    <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Last
-                                        Updated</span>
-                                    <p class="text-gray-900 text-sm font-medium mt-1" id="viewProfileUpdatedAt">Dec 14,
-                                        2025</p>
-                                </div>
-
                             </div>
 
                             <div class="mt-4 pt-3 border-t border-gray-100"> <span
-                                    class="text-sm font-semibold text-gray-700 block mb-1">Full Address</span>
+                                    class="text-sm font-semibold text-gray-700 block mb-1">Company Address</span>
                                 <div
                                     class="p-3 border border-gray-100 rounded-lg shadow-md bg-white hover:shadow-lg transition duration-200">
                                     <p id="viewProfileAddress" class="text-gray-700 text-sm">
@@ -1154,7 +1132,7 @@
             <!-- Footer -->
             <footer class="w-full text-center text-gray-500 text-sm pb-4 mt-8">
                 &copy;
-                <script>document.write(new Date().getFullYear())</script> AJFSES Admin Panel. Designed by <a
+                <script>document.write(new Date().getFullYear())</script> Admin Panel. Designed by <a
                     href="https://projuktisheba.com/" target="_blank">Projuktisheba</a>
             </footer>
         </div>
@@ -1509,6 +1487,9 @@
                         closeResetPasswordModal();
                     }, 2000);
 
+                } else if (response.status == 401){
+                    window.location.href="signin.html"
+                    return
                 } else {
                     const errorMessage = data.message || 'Failed to reset password. Please try again.';
                     alertElement.classList.remove('hidden');
@@ -1552,7 +1533,10 @@
                 });
 
                 const result = await response.json();
-
+                if (response.status == 401){
+                    window.location.href="signin.html"
+                    return
+                } 
                 // 1. Extract Inquiries and store globally
                 // The API now returns { inquiries: [...], counts: {...} }
                 fetchedInquiries = result.inquiries || [];
@@ -1745,6 +1729,9 @@
                     await fetchInquiries();
 
                     showStatusModal('Congratulations', 'Inquiry marked as resolved successfully!', 'success');
+                } else if (response.status == 401){
+                    window.location.href="signin.html"
+                    return
                 } else {
                     const data = await response.json();
                     showStatusModal('Error', data.message || 'Failed to update status.', 'error');
@@ -1789,6 +1776,9 @@
                     //Refresh Data
                     // Reload the table to reflect changes (removes the row from UI)
                     await fetchInquiries();
+                } else if (response.status == 401){
+                    window.location.href="signin.html"
+                    return
                 } else {
                     // Handle Server Errors
                     const data = await response.json();
@@ -1899,6 +1889,10 @@
 
             try {
                 const response = await fetch(API_URL);
+                if (response.status == 401){
+                    window.location.href="signin.html"
+                    return
+                } 
                 if (!response.ok) throw new Error('Failed to fetch');
                 const teams = await response.json();
 
@@ -1976,6 +1970,9 @@
                     showStatusModal('Success', isEdit ? 'Member updated successfully' : 'Member added successfully', 'success');
                     closeMemberModal();
                     fetchMembers();
+                } else if (response.status == 401){
+                    window.location.href="signin.html"
+                    return
                 } else {
                     const result = await response.json();
                     showStatusModal('Error', result.message || "Failed to save member.", 'error');
@@ -2002,7 +1999,10 @@
                     method: 'GET',
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
-
+                if (response.status == 401){
+                    window.location.href="signin.html"
+                    return
+                } 
                 if (!response.ok) throw new Error("Failed to fetch members");
 
                 const data = await response.json();
@@ -2105,6 +2105,9 @@
                 if (response.ok) {
                     fetchMembers();
                     showStatusModal('Deleted', 'Member removed successfully.', 'success');
+                } else if (response.status == 401){
+                    window.location.href="signin.html"
+                    return
                 } else {
                     showStatusModal('Error', 'Failed to delete member.', 'error');
                 }
@@ -2255,6 +2258,9 @@
                     showStatusModal('Success', isEdit ? 'Client updated successfully' : 'Client added successfully', 'success');
                     closeClientModal();
                     fetchClients(); // Refresh the table
+                } else if (response.status == 401){
+                    window.location.href="signin.html"
+                    return
                 } else {
                     const result = await response.json();
                     showStatusModal('Error', result.message || "Failed to save client.", 'error');
@@ -2284,6 +2290,10 @@
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
+                if (response.status == 401){
+                    window.location.href="signin.html"
+                    return
+                } 
                 if (!response.ok) throw new Error("Failed to fetch clients");
 
                 const data = await response.json();
@@ -2389,6 +2399,9 @@
                 if (response.ok) {
                     fetchClients();
                     showStatusModal('Deleted', 'Client removed successfully.', 'success');
+                } else if (response.status == 401){
+                    window.location.href="signin.html"
+                    return
                 } else {
                     showStatusModal('Error', 'Failed to delete client.', 'error');
                 }
@@ -2433,7 +2446,10 @@
                             data.push(item);
                         }
                     });
-                }
+                } else if (response.status == 401){
+                    window.location.href="signin.html"
+                    return
+                } 
 
                 // Update stats if element exists
                 const statEl = document.getElementById('stat-projects-count');
@@ -2593,7 +2609,10 @@
                     closeGalleryModal();
                     fetchProjects();
                     showStatusModal('Success', 'Gallery updated successfully!');
-                } else {
+                } else if (response.status == 401){
+                    window.location.href="signin.html"
+                    return
+                }  else {
                     const err = await response.json();
                     showStatusModal('Error', err.message || 'Failed to save', 'error');
                 }
@@ -2618,6 +2637,9 @@
                 if (response.ok) {
                     fetchProjects();
                     showStatusModal('Deleted', 'Image removed.');
+                } else if (response.status == 401){
+                    window.location.href="signin.html"
+                    return
                 } else {
                     showStatusModal('Error', 'Failed to delete.', 'error');
                 }

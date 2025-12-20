@@ -58,8 +58,6 @@ func AuthJWT(jwtConfig models.JWTConfig, errorLog *log.Logger) func(http.Handler
 			// The key must match the one used in the handler (ContextKey("authClaims"))
 			ctx := context.WithValue(r.Context(), models.AuthClaimsContextKey, *claims)
 
-			errorLog.Printf("AuthJWT: Token verified for User ID: %d, Role: %s", claims.ID, claims.Role)
-
 			// 6. Serve the next handler with the updated context
 			next.ServeHTTP(w, r.WithContext(ctx))
 		})
