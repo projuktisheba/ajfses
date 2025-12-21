@@ -31,7 +31,6 @@
         }
 
         /* Custom CSS to hide the navigation arrows specifically for the client slider */
-        /* Targets the .owl-nav element inside the #client-slider container */
         #client-slider .owl-nav {
             display: none !important;
             visibility: hidden !important;
@@ -56,9 +55,9 @@
         /* GENERAL LOGO ITEM STYLING (Used by both brands-carousel and client-carousel) */
         .brands-carousel .logo-item,
         .client-carousel .logo-item {
-            /* Added .client-carousel selector */
             background: #fff;
-            padding: 20px;
+            padding: 15px;
+            /* Reduced padding slightly to give image more room */
             border-radius: 10px;
             transition: all 0.3s ease;
             opacity: 0.5;
@@ -67,35 +66,28 @@
             align-items: center;
             justify-content: center;
 
-            /* 🌟 FIX: SET A CONSTRAINED HEIGHT HERE 🌟 */
-            max-height: 150px;
-            max-height: 120px;
+            /* FIX: Set fixed height and overflow hidden */
+            height: 120px;
+            width: 100%;
             overflow: hidden;
-            /* Ensure nothing can leave this container */
+            /* Ensures nothing spills out */
         }
 
         /* GENERAL IMAGE STYLING */
         .brands-carousel .logo-item img,
         .client-carousel .logo-item img {
-            /* Added .client-carousel selector */
-            max-width: 100%;
-
-            /* 🌟 FIX: SCALE IMAGE PROPERLY 🌟 */
-            max-height: 100%;
-            /* Limit image height to the logo-item height (150px) */
-            width: auto !important;
-            height: auto;
+            /* FIX: Force image to fill container but 'contain' aspect ratio */
+            width: 100% !important;
+            height: 100% !important;
             object-fit: contain;
-            /* Crucial: Scales the image down to fit without cropping */
+            /* Prevents clipping and distortion */
 
             transition: all 0.3s ease;
-            /* filter: grayscale(100%); */
         }
 
         /* Center Focus Styles */
         .brands-carousel .owl-item.center .logo-item,
         .client-carousel .owl-item.center .logo-item {
-            /* Added .client-carousel selector */
             opacity: 1;
             transform: scale(1.1);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -105,7 +97,6 @@
 
         .brands-carousel .owl-item.center .logo-item img,
         .client-carousel .owl-item.center .logo-item img {
-            /* Added .client-carousel selector */
             filter: grayscale(0%);
         }
 
@@ -115,16 +106,14 @@
             display: block;
         }
 
-        /* NEW PORTFOLIO BANNER STYLES (Based on Reference) */
+        /* NEW PORTFOLIO BANNER STYLES */
         .portfolio-banner {
             background-color: #0b1221;
-            /* Dark Blue Background */
             position: relative;
             overflow: hidden;
             padding: 80px 0;
         }
 
-        /* Concentric Circles Background Effect */
         .portfolio-circle-bg {
             position: absolute;
             top: 50%;
@@ -143,7 +132,6 @@
             pointer-events: none;
         }
 
-        /* Ensure content is above background */
         .portfolio-banner .container {
             position: relative;
             z-index: 2;
@@ -157,16 +145,13 @@
 
         .portfolio-highlight {
             color: #dc3545;
-            /* Red Highlight Color */
         }
 
-        /* Portfolio Image Grid Items */
         .portfolio-grid-img {
             border: 3px solid #fff;
             transition: transform 0.3s ease;
             overflow: hidden;
             height: 140px;
-            /* Fixed height for uniformity */
         }
 
         .portfolio-grid-img img {
@@ -417,7 +402,8 @@
 
         <div style="background-color: #F7F7F7;" class="row g-0 align-items-center justify-content-center">
             <div class="col-6 col-md-4 col-lg-3 col-xl-1 text-center">
-                <img class="img-fluid p-2 certificate-logo" src="img/certificates/certification-1.webp" alt="Certificated">
+                <img class="img-fluid p-2 certificate-logo" src="img/certificates/certification-1.webp"
+                    alt="Certificated">
             </div>
             <div class="col-6 col-md-4 col-lg-3 col-xl-1 text-center">
                 <img class="img-fluid p-2 certificate-logo" src="img/certificates/certification-2.png" alt="RSC Logo">
@@ -433,13 +419,15 @@
                 <img class="img-fluid p-2 certificate-logo" src="img/certificates/certification-5.webp" alt="UL Listed">
             </div>
             <div class="col-6 col-md-4 col-lg-3 col-xl-1 text-center">
-                <img class="img-fluid p-2 certificate-logo" src="img/certificates/certification-6.webp" alt="FM Certified Logo">
+                <img class="img-fluid p-2 certificate-logo" src="img/certificates/certification-6.webp"
+                    alt="FM Certified Logo">
             </div>
             <div class="col-6 col-md-4 col-lg-3 col-xl-1 text-center">
                 <img class="img-fluid p-2 certificate-logo" src="img/certificates/certification-7.webp" alt="VDS Logo">
             </div>
             <div class="col-6 col-md-4 col-lg-3 col-xl-1 text-center">
-                <img class="img-fluid p-2 certificate-logo" src="img/certificates/certification-8.webp" alt="Certificated">
+                <img class="img-fluid p-2 certificate-logo" src="img/certificates/certification-8.webp"
+                    alt="Certificated">
             </div>
             <div class="col-6 col-md-4 col-lg-3 col-xl-1 text-center">
                 <img class="img-fluid p-2 certificate-logo" src="img/certificates/certification-9.webp" alt="LPCB Logo">
@@ -851,8 +839,10 @@
                     <div class="d-flex mb-3">
                         <i class="fa fa-envelope text-light me-3 mt-1"></i>
                         <div>
-                            <p class="mb-1"><a class="text-light" href="mailto:ajfiresolutions@hotmail.com">ajfiresolutions@hotmail.com</a></p>
-                            <p class="mb-1"><a class="text-light" href="mailto:info@ajfses.com.bd">info@ajfses.com.bd</a></p>
+                            <p class="mb-1"><a class="text-light"
+                                    href="mailto:ajfiresolutions@hotmail.com">ajfiresolutions@hotmail.com</a></p>
+                            <p class="mb-1"><a class="text-light"
+                                    href="mailto:info@ajfses.com.bd">info@ajfses.com.bd</a></p>
                         </div>
                     </div>
                 </div>
