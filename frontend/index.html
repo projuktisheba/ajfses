@@ -22,82 +22,12 @@
 
     <!-- CUSTOM STYLES -->
     <style>
-        /* Certificate logo */
+        /* --- 1. UTILITIES & LOGOS --- */
         .certificate-logo {
-            min-height: 50px;
-            max-height: 100px;
             min-width: 80px;
             max-width: 100px;
-        }
-
-        /* Custom CSS to hide the navigation arrows specifically for the client slider */
-        #client-slider .owl-nav {
-            display: none !important;
-            visibility: hidden !important;
-        }
-
-        /* --- brands BRAND SLIDER STYLES --- */
-        .brands-section-area {
-            background: #ffffff;
-            padding: 80px 0;
-            overflow: hidden;
-        }
-
-        /* GENERAL CAROUSEL STYLING */
-        .brands-carousel .owl-stage {
-            display: flex;
-            align-items: center;
-            padding: 20px;
-            border-top: 1px solid #eee;
-            border-bottom: 1px solid #eee;
-        }
-
-        /* GENERAL LOGO ITEM STYLING (Used by both brands-carousel and client-carousel) */
-        .brands-carousel .logo-item,
-        .client-carousel .logo-item {
-            background: #fff;
-            padding: 15px;
-            /* Reduced padding slightly to give image more room */
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            opacity: 0.5;
-            transform: scale(0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            /* FIX: Set fixed height and overflow hidden */
-            height: 120px;
-            width: 100%;
-            overflow: hidden;
-            /* Ensures nothing spills out */
-        }
-
-        /* GENERAL IMAGE STYLING */
-        .brands-carousel .logo-item img,
-        .client-carousel .logo-item img {
-            /* FIX: Force image to fill container but 'contain' aspect ratio */
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: contain;
-            /* Prevents clipping and distortion */
-
-            transition: all 0.3s ease;
-        }
-
-        /* Center Focus Styles */
-        .brands-carousel .owl-item.center .logo-item,
-        .client-carousel .owl-item.center .logo-item {
-            opacity: 1;
-            transform: scale(1.1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border-color: transparent;
-            z-index: 2;
-        }
-
-        .brands-carousel .owl-item.center .logo-item img,
-        .client-carousel .owl-item.center .logo-item img {
-            filter: grayscale(0%);
+            min-height: 50px;
+            max-height: 100px;
         }
 
         .separator-img {
@@ -106,12 +36,96 @@
             display: block;
         }
 
-        /* NEW PORTFOLIO BANNER STYLES */
+        /* --- 2. CAROUSEL SHARED STYLES (Brands & Clients) --- */
+        .brands-section-area {
+            background: #ffffff;
+            padding: 80px 0;
+            overflow: hidden;
+        }
+
+        /* Hide Navigation Buttons */
+        #client-slider .owl-nav {
+            display: none !important;
+        }
+
+        .brands-carousel .owl-stage {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Logo Item Container - FIXED for Clipping */
+        .brands-carousel .logo-item,
+        .client-carousel .logo-item {
+            background: #fff;
+            padding: 10px;
+            /* Reduced padding to maximize image space */
+            border-radius: 8px;
+            border: 1px solid #f8f9fa;
+            /* Subtle border */
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            /* Fixed dimensions to ensure uniformity */
+            height: 120px;
+            width: 100%;
+            overflow: hidden;
+            /* Contains the image so it doesn't spill out */
+            transition: all 0.3s ease;
+        }
+
+        /* Logo Images - Object Fit Contain */
+        .brands-carousel .logo-item img,
+        .client-carousel .logo-item img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto !important;
+            /* Override library defaults */
+            height: auto;
+            object-fit: contain;
+            /* Ensures image fits entirely inside without clipping */
+            display: block;
+
+            opacity: 0.6;
+            /* Default dimmed state */
+            filter: grayscale(100%);
+            /* Default grayscale */
+            transition: all 0.3s ease;
+        }
+
+        /* Active/Hover/Center Item Styling */
+        .brands-carousel .owl-item.center .logo-item,
+        .client-carousel .owl-item.center .logo-item,
+        .client-carousel .logo-item:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border-color: #eee;
+            transform: translateY(-2px);
+            z-index: 2;
+        }
+
+        .brands-carousel .owl-item.center .logo-item img,
+        .client-carousel .owl-item.center .logo-item img,
+        .client-carousel .logo-item:hover img {
+            opacity: 1;
+            filter: grayscale(0%);
+            /* Color on hover/active */
+        }
+
+        /* --- 3. PORTFOLIO BANNER --- */
         .portfolio-banner {
             background-color: #0b1221;
             position: relative;
             overflow: hidden;
             padding: 80px 0;
+        }
+
+        .portfolio-banner .container {
+            position: relative;
+            z-index: 2;
         }
 
         .portfolio-circle-bg {
@@ -123,18 +137,13 @@
             height: 100px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.05);
+            pointer-events: none;
+            z-index: 0;
             box-shadow:
                 0 0 0 60px rgba(255, 255, 255, 0.03),
                 0 0 0 120px rgba(255, 255, 255, 0.03),
                 0 0 0 180px rgba(255, 255, 255, 0.02),
                 0 0 0 240px rgba(255, 255, 255, 0.01);
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .portfolio-banner .container {
-            position: relative;
-            z-index: 2;
         }
 
         .portfolio-heading h1 {
@@ -149,7 +158,6 @@
 
         .portfolio-grid-img {
             border: 3px solid #fff;
-            transition: transform 0.3s ease;
             overflow: hidden;
             height: 140px;
         }
@@ -165,6 +173,70 @@
             transform: scale(1.1);
         }
 
+        /* --- 4. COMPACT CONTACT CARDS --- */
+        .contact-card {
+            background: #ffffff;
+            padding: 25px 15px;
+            /* Compact padding */
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-bottom: 3px solid #dc3545;
+        }
+
+        .contact-icon-box {
+            width: 50px;
+            height: 50px;
+            background: rgba(13, 110, 253, 0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px auto;
+            transition: all 0.3s ease;
+            color: #0d6efd;
+            font-size: 1.2rem;
+        }
+
+        .contact-card:hover .contact-icon-box {
+            background: #dc3545;
+            color: #ffffff;
+        }
+
+        .contact-card h5 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #0b1221;
+            text-transform: uppercase;
+        }
+
+        .contact-card p,
+        .contact-card p a {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 2px;
+            display: block;
+            line-height: 1.5;
+        }
+
+        .contact-card p a:hover {
+            color: #dc3545;
+        }
+
+        /* --- 5. CUSTOM BUTTONS --- */
         .btn-custom-red {
             background-color: #dc3545;
             border: none;
@@ -172,12 +244,14 @@
             padding: 12px 30px;
             transition: all 0.3s;
             box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
+            color: white;
         }
 
         .btn-custom-red:hover {
             background-color: #bb2d3b;
             transform: translateY(-2px);
             box-shadow: 0 6px 15px rgba(220, 53, 69, 0.4);
+            color: white;
         }
     </style>
 </head>
@@ -1064,7 +1138,7 @@
                         autoplayTimeout: 3000,
                         center: true,
                         responsive: {
-                            0: { items: 1 },
+                            0: { items: 2 },
                             576: { items: 3 },
                             992: { items: 5 }
                         }
