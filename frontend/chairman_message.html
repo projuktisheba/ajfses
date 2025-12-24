@@ -420,10 +420,14 @@
     <!-- Navbar end -->
 
     <div class="container-fluid chairman-section-wrapper">
-        <div class="container" id="leadership-container">
+        <div class="container" id="chairman-container">
             <div class="text-center py-5">
                 <i class="fa fa-spinner fa-spin fa-3x text-primary"></i>
             </div>
+        </div>
+    </div>
+    <div class="container-fluid chairman-section-wrapper">
+        <div class="container" id="ceo-container">
         </div>
     </div>
     <!-- Footer start -->
@@ -519,8 +523,10 @@
                     <div class="d-flex mb-3">
                         <i class="fa fa-envelope text-light me-3 mt-1"></i>
                         <div>
-                            <p class="mb-1"><a class="text-light" href="mailto:info@ajfses.com.bd">info@ajfses.com.bd</a></p>
-                            <p class="mb-1"><a class="text-light" href="mailto:ajfiresolutions@hotmail.com">ajfiresolutions@hotmail.com</a></p>
+                            <p class="mb-1"><a class="text-light"
+                                    href="mailto:info@ajfses.com.bd">info@ajfses.com.bd</a></p>
+                            <p class="mb-1"><a class="text-light"
+                                    href="mailto:ajfiresolutions@hotmail.com">ajfiresolutions@hotmail.com</a></p>
                         </div>
                     </div>
                 </div>
@@ -596,87 +602,121 @@
 
         // 2. MAIN: Fetch All Leadership Data
         async function fetchLeadership() {
-            const container = document.getElementById('leadership-container');
-            const API_URL = `${window.env.API_URL}/member/chairman`;
+            // Get the two separate containers
+            const ceoContainer = document.getElementById('ceo-container');
+            const chairmanContainer = document.getElementById('chairman-container');
+
+            // Clear any existing content and handle cases where containers might not exist
+            if (ceoContainer) ceoContainer.innerHTML = '';
+            if (chairmanContainer) chairmanContainer.innerHTML = '';
+
+            const API_URL = `${window.env.API_URL}/member/messages`;
 
             try {
                 const response = await fetch(API_URL);
                 if (!response.ok) throw new Error('Failed to fetch data');
 
                 const result = await response.json();
-                const leaders = result.Chairman || [];
+                const leaders = result.leaders || [];
 
                 if (leaders.length === 0) {
-                    container.innerHTML = '<div class="text-center">No messages found.</div>';
+                    // if (ceoContainer) ceoContainer.innerHTML = '<div class="text-center">No CEO message found.</div>';
+                    // if (chairmanContainer) chairmanContainer.innerHTML = '<div class="text-center">No Chairman message found.</div>';
                     return;
                 }
 
-                let htmlContent = '';
+                // 1. Filter the leaders into two arrays
+                const chairmanLeaders = leaders.filter(person => person.designation === 'CHAIRMAN');
+                const ceoLeaders = leaders.filter(person => person.designation === 'CEO & MANAGING DIRECTOR');
 
-                leaders.forEach((person, index) => {
-                    const parsed = parseContent(person.note);
+                // 2. Function to generate HTML for a list of leaders
+                const generateHtml = (personList) => {
+                    let htmlContent = '';
+                    personList.forEach((person, index) => {
+                        // Ensure parseContent function is defined and available
+                        const parsed = typeof parseContent === 'function' ? parseContent(person.note) : { title: person.note, bodyHtml: `<p>${person.note}</p>`, subtitle: 'Message' };
 
-                    let imgUrl = '';
-                    if (person.image_link) {
-                        imgUrl = `${window.env.API_URL}/images/${person.image_link}`;
-                    } else {
-                        imgUrl = 'img/user.webp';
-                    }
+                        let imgUrl = '';
+                        if (person.image_link) {
+                            imgUrl = `${window.env.API_URL}/images/${person.image_link}`;
+                        } else {
+                            imgUrl = 'img/user.webp';
+                        }
 
-                    // Separator for multiple leaders
-                    const separatorClass = (index !== leaders.length - 1) ? 'border-bottom pb-5 mb-5' : '';
+                        // Separator for multiple leaders of the SAME type (e.g., multiple Chairmen)
+                        const separatorClass = (index !== personList.length - 1) ? 'border-bottom pb-5 mb-5' : '';
 
-                    // STRUCTURE CHANGED: Single Column containing a Card. Image floated inside the card.
-                    htmlContent += `
-                        <div class="row ${separatorClass}">
-                            <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s">
-                                <div class="chairman-card">
-                                    <div class="leader-badge">Management</div>
-                                    <i class="fa fa-quote-left quote-icon-top"></i>
+                        // Add to the HTML content
+                        htmlContent += `
+                            <div class="row ${separatorClass}">
+                                <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s">
+                                    <div class="chairman-card">
+                                        <div class="leader-badge">${person.designation || 'Management'}</div>
+                                        <i class="fa fa-quote-left quote-icon-top"></i>
 
-                                    <div class="chairman-float-wrapper">
-                                        <div class="chairman-img-bg-shape"></div>
-                                        <div class="chairman-img-frame">
-                                            <img class="img-fluid w-100" src="${imgUrl}" alt="${person.name}" style="object-fit: cover;">
-                                        </div>
-                                    </div>
-
-                                    <div class="text-content">
-                                        <h6 class="message-subtitle text-uppercase">${parsed.subtitle || 'Message'}</h6>
-                                        <h1 class="message-title">${parsed.title}</h1>
-                                        
-                                        <div class="mt-4">
-                                            ${parsed.bodyHtml}
-                                        </div>
-
-                                        <div class="signature-box">
-                                            <div class="signature-line"></div>
-                                            <div class="signature-details">
-                                                <div>With warm regards,</div>
-                                                <h6 class="text-uppercase">${person.name || ""}</h6>
-                                                <div>AJ Fire Safety & Engineering Solutions</div>
+                                        <div class="chairman-float-wrapper">
+                                            <div class="chairman-img-bg-shape"></div>
+                                            <div class="chairman-img-frame">
+                                                <img class="img-fluid w-100" src="${imgUrl}" alt="${person.name}" style="object-fit: cover;">
                                             </div>
                                         </div>
+
+                                        <div class="text-content">
+                                            <h6 class="message-subtitle text-uppercase">${parsed.subtitle || 'Message'}</h6>
+                                            <h1 class="message-title">${parsed.title}</h1>
+                                            
+                                            <div class="mt-4">
+                                                ${parsed.bodyHtml}
+                                            </div>
+
+                                            <div class="signature-box">
+                                                <div class="signature-line"></div>
+                                                <div class="signature-details">
+                                                    <div>With warm regards,</div>
+                                                    <h6 class="text-uppercase">${person.name || ""}</h6>
+                                                    <div>AJ Fire Safety & Engineering Solutions</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
                                     </div>
-                                    
                                 </div>
                             </div>
-                        </div>
                         `;
-                });
+                    });
+                    return htmlContent;
+                };
 
-                container.innerHTML = htmlContent;
+                // 3. Populate the CEO container
+                if (ceoContainer) {
+                    if (ceoLeaders.length > 0) {
+                        ceoContainer.innerHTML = generateHtml(ceoLeaders);
+                    } else {
+                        ceoContainer.innerHTML = '<div class="text-center">No CEO & Managing Director message found.</div>';
+                    }
+                }
 
+                // 4. Populate the Chairman container
+                if (chairmanContainer) {
+                    if (chairmanLeaders.length > 0) {
+                        chairmanContainer.innerHTML = generateHtml(chairmanLeaders);
+                    } else {
+                        chairmanContainer.innerHTML = '<div class="text-center">No Chairman message found.</div>';
+                    }
+                }
+
+
+                // Re-initialize WOW.js after DOM update
                 if (typeof WOW === 'function') {
                     new WOW().init();
                 }
 
             } catch (error) {
                 console.error('Error loading leadership:', error);
-                container.innerHTML = '<div class="text-center text-danger">Failed to load content.</div>';
+                if (ceoContainer) ceoContainer.innerHTML = '<div class="text-center text-danger">Failed to load CEO content.</div>';
+                if (chairmanContainer) chairmanContainer.innerHTML = '<div class="text-center text-danger">Failed to load Chairman content.</div>';
             }
         }
-
         document.addEventListener('DOMContentLoaded', fetchLeadership);
     </script>
 </body>

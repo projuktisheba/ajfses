@@ -72,7 +72,7 @@ func (h *MemberHandler) CreateMember(w http.ResponseWriter, r *http.Request) {
 		ImageLink:      "", // Empty initially
 		ShowOnHomepage: showOnHomepage,
 	}
-	
+
 	id, err := h.DB.MemberRepo.Create(r.Context(), newMember)
 	if err != nil {
 		h.errorLog.Println("ERROR_CreateMember_03: db create:", err)
@@ -203,22 +203,22 @@ func (h *MemberHandler) GetAllMembers(w http.ResponseWriter, r *http.Request) {
 	utils.WriteJSON(w, http.StatusOK, response)
 }
 
-// GetAllMembers retrieves a list of all members.
-func (h *MemberHandler) GetChairmanInfo(w http.ResponseWriter, r *http.Request) {
-	members, err := h.DB.MemberRepo.GetAll(r.Context(), 0, 0, false, []string{"Chairman"})
+// GetLeadershipMessages retrieves messages from company leaders.
+func (h *MemberHandler) GetLeadershipMessages(w http.ResponseWriter, r *http.Request) {
+	members, err := h.DB.MemberRepo.GetAll(r.Context(), 0, 0, false, []string{"CHAIRMAN", "CEO & MANAGING DIRECTOR"})
 	if err != nil {
-		h.errorLog.Println("ERROR_GetChairmanInfo_01: db error:", err)
+		h.errorLog.Println("ERROR_GetLeadershipMessages_01: db error:", err)
 		utils.ServerError(w, errors.New("failed to retrieve chairman info"))
 		return
 	}
 	var response struct {
 		Error    bool             `json:"error"`
 		Message  string           `json:"message"`
-		Chairman []*models.Member `json:"Chairman"`
+		Leaders []*models.Member `json:"leaders"`
 	}
 	response.Error = false
-	response.Message = "Chairman info retrieved successfully"
-	response.Chairman = members
+	response.Message = "Leadership messages retrieved successfully"
+	response.Leaders = members
 	utils.WriteJSON(w, http.StatusOK, response)
 }
 
