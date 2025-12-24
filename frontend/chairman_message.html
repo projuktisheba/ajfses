@@ -196,16 +196,32 @@
         }
 
         .signature-details h6 {
-            /* Name Style */
+            /* Name Style - Critical override to stack name and designation */
             font-weight: 800;
-            margin-bottom: 2px;
+            margin-bottom: 0 !important;
+            /* Forces the designation to sit tight below the name */
             color: #0b1221;
             letter-spacing: 0.5px;
             font-size: 1.1rem;
+            line-height: 1.2;
         }
 
+        /* Styling for the leader's designation in the signature box */
+        .signature-details .designation-line {
+            font-size: 0.85rem;
+            /* Noticeably smaller than the H6 name */
+            font-weight: 400;
+            /* Regular weight (less bold) */
+            color: #007bff;
+            /* *** COLOR CHANGE: Use corporate primary color *** */
+            text-transform: none;
+            display: block;
+            margin-top: 2px;
+            margin-bottom: 8px;
+        }
+
+        /* Updated company name style to use the primary color from existing code */
         .signature-details div:last-child {
-            /* Company Name Style */
             color: var(--primary);
             font-weight: 600;
             font-size: 0.9rem;
@@ -215,8 +231,10 @@
             position: absolute;
             top: 0;
             right: 0;
-            background: rgba(11, 18, 33, 0.04);
-            color: #0b1221;
+            /* *** COLOR CHANGE: Use corporate primary color for background and white text *** */
+            background: var(--primary);
+            color: #ffffff;
+
             padding: 10px 25px;
             border-bottom-left-radius: 15px;
             border-top-right-radius: 15px;
@@ -674,6 +692,7 @@
                                                 <div class="signature-details">
                                                     <div>With warm regards,</div>
                                                     <h6 class="text-uppercase">${person.name || ""}</h6>
+                                                    <div class="designation-line">${person.designation || "Leadership"}</div>
                                                     <div>AJ Fire Safety & Engineering Solutions</div>
                                                 </div>
                                             </div>
