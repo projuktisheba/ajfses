@@ -66,7 +66,7 @@
         /* The container for the floated image */
         .chairman-float-wrapper {
             float: left;
-            width: 400px;
+            width: 300px;
             /* Fixed width for the image area */
             margin-right: 50px;
             /* Space between image and text */
@@ -416,6 +416,7 @@
                     <div class="dropdown-menu fade-up m-0">
                         <a href="about.html" class="dropdown-item">Company Overview</a>
                         <a href="chairman_message.html" class="dropdown-item active">Chairman's Message</a>
+                        <a href="ceo_message.html" class="dropdown-item">CEO's Message</a>
                         <a href="team.html" class="dropdown-item">Team</a>
                         <a href="gallery.html" class="dropdown-item">Gallery</a>
                     </div>
@@ -442,10 +443,6 @@
             <div class="text-center py-5">
                 <i class="fa fa-spinner fa-spin fa-3x text-primary"></i>
             </div>
-        </div>
-    </div>
-    <div class="container-fluid chairman-section-wrapper">
-        <div class="container" id="ceo-container">
         </div>
     </div>
     <!-- Footer start -->
@@ -618,54 +615,43 @@
             return { subtitle, title, bodyHtml };
         }
 
-        // 2. MAIN: Fetch All Leadership Data
-        async function fetchLeadership() {
-            // Get the two separate containers
-            const ceoContainer = document.getElementById('ceo-container');
-            const chairmanContainer = document.getElementById('chairman-container');
+        async function fetchChairmanMessage() {
+            const container = document.getElementById('chairman-container');
+            const API_ENDPOINT = 'messages/chairman';
+            const API_URL = `${window.env.API_URL}/member/${API_ENDPOINT}`;
+            const designationName = 'Chairman';
 
-            // Clear any existing content and handle cases where containers might not exist
-            if (ceoContainer) ceoContainer.innerHTML = '';
-            if (chairmanContainer) chairmanContainer.innerHTML = '';
-
-            const API_URL = `${window.env.API_URL}/member/messages`;
+            // 0. Setup: Clear container and validate
+            if (container) container.innerHTML = '';
+            if (!container) return;
 
             try {
+                // 1. Fetch Data
                 const response = await fetch(API_URL);
-                if (!response.ok) throw new Error('Failed to fetch data');
+                if (!response.ok) throw new Error(`Failed to fetch Chairman data from ${API_ENDPOINT}`);
 
                 const result = await response.json();
-                const leaders = result.leaders || [];
+                const leaders = result.chairman || [];
 
-                if (leaders.length === 0) {
-                    // if (ceoContainer) ceoContainer.innerHTML = '<div class="text-center">No CEO message found.</div>';
-                    // if (chairmanContainer) chairmanContainer.innerHTML = '<div class="text-center">No Chairman message found.</div>';
-                    return;
-                }
-
-                // 1. Filter the leaders into two arrays
-                const chairmanLeaders = leaders.filter(person => person.designation === 'CHAIRMAN');
-                const ceoLeaders = leaders.filter(person => person.designation === 'CEO & MANAGING DIRECTOR');
-
-                // 2. Function to generate HTML for a list of leaders
-                const generateHtml = (personList) => {
+                // 2. Handle Content
+                if (leaders.length > 0) {
                     let htmlContent = '';
-                    personList.forEach((person, index) => {
-                        // Ensure parseContent function is defined and available
-                        const parsed = typeof parseContent === 'function' ? parseContent(person.note) : { title: person.note, bodyHtml: `<p>${person.note}</p>`, subtitle: 'Message' };
 
-                        let imgUrl = '';
-                        if (person.image_link) {
-                            imgUrl = `${window.env.API_URL}/images/${person.image_link}`;
-                        } else {
-                            imgUrl = 'img/user.webp';
-                        }
+                    leaders.forEach((person, index) => {
+                        if (person.note !== "") {
+                            // Inline HTML Generation Logic for one leader (as requested)
+                            const listLength = leaders.length;
 
-                        // Separator for multiple leaders of the SAME type (e.g., multiple Chairmen)
-                        const separatorClass = (index !== personList.length - 1) ? 'border-bottom pb-5 mb-5' : '';
+                            const parsed = typeof parseContent === 'function' ? parseContent(person.note) : { title: person.note, bodyHtml: `<p>${person.note}</p>`, subtitle: 'Message' };
 
-                        // Add to the HTML content
-                        htmlContent += `
+                            let imgUrl = 'img/user.webp';
+                            if (person.image_link && window.env && window.env.API_URL) {
+                                imgUrl = `${window.env.API_URL}/images/${person.image_link}`;
+                            }
+
+                            const separatorClass = (index !== listLength - 1) ? 'border-bottom pb-5 mb-5' : '';
+
+                            htmlContent += `
                             <div class="row ${separatorClass}">
                                 <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s">
                                     <div class="chairman-card">
@@ -697,46 +683,29 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
                                     </div>
                                 </div>
                             </div>
                         `;
+                        }
                     });
-                    return htmlContent;
-                };
-
-                // 3. Populate the CEO container
-                if (ceoContainer) {
-                    if (ceoLeaders.length > 0) {
-                        ceoContainer.innerHTML = generateHtml(ceoLeaders);
-                    } else {
-                        ceoContainer.innerHTML = '<div class="text-center">No CEO & Managing Director message found.</div>';
-                    }
-                }
-
-                // 4. Populate the Chairman container
-                if (chairmanContainer) {
-                    if (chairmanLeaders.length > 0) {
-                        chairmanContainer.innerHTML = generateHtml(chairmanLeaders);
-                    } else {
-                        chairmanContainer.innerHTML = '<div class="text-center">No Chairman message found.</div>';
-                    }
-                }
-
-
-                // Re-initialize WOW.js after DOM update
-                if (typeof WOW === 'function') {
-                    new WOW().init();
+                    container.innerHTML = htmlContent;
+                } else {
+                    container.innerHTML = `<div class="text-center">No ${designationName} message found.</div>`;
                 }
 
             } catch (error) {
-                console.error('Error loading leadership:', error);
-                if (ceoContainer) ceoContainer.innerHTML = '<div class="text-center text-danger">Failed to load CEO content.</div>';
-                if (chairmanContainer) chairmanContainer.innerHTML = '<div class="text-center text-danger">Failed to load Chairman content.</div>';
+                console.error(`Error loading ${designationName}:`, error);
+                container.innerHTML = `<div class="text-center text-danger">Failed to load ${designationName} content.</div>`;
+            }
+
+            // Re-initialize WOW.js for new content
+            if (typeof WOW === 'function') {
+                new WOW().init();
             }
         }
-        document.addEventListener('DOMContentLoaded', fetchLeadership);
+        // 2. MAIN: Fetch All chairman message
+        document.addEventListener('DOMContentLoaded', fetchChairmanMessage);
     </script>
 </body>
 

@@ -19,172 +19,323 @@
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-
     <style>
-        /* --- 1. CLIENT CARD CONTAINER --- */
-        .client-card-vertical {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid #d8dadb;
-            border-radius: 8px;
-            /* Slightly tighter radius */
-            overflow: hidden;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            background-color: #fff;
-        }
+        /* --- UPDATED PREMIUM CEO STYLES --- */
 
-        .client-card-vertical:hover {
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08) !important;
-            border-color: rgba(255, 62, 65, 0.3);
-        }
-
-        /* --- 2. IMAGE STYLING (Compact) --- */
-        .client-logo-wrapper {
-            overflow: hidden;
-            border-bottom: 1px solid #f0f0f0;
-            padding: 10px;
-            /* Reduced padding */
+        .ceo-section-wrapper {
             position: relative;
+            background-color: #f8f9fa;
+            /* Technical Dot Pattern */
+            background-image: radial-gradient(#cbd5e0 1px, transparent 1px);
+            background-size: 20px 20px;
+            overflow: hidden;
+            padding-top: 80px;
+            padding-bottom: 80px;
+        }
+
+        .ceo-section-wrapper::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.7) 100%);
+            z-index: 0;
+        }
+
+        #leadership-container {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- NEW LAYOUT STYLES --- */
+
+        /* The main card containing both image and text */
+        .ceo-card {
+            background: #fff;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            position: relative;
+            /* Ensures floats are contained */
+            overflow: visible;
+            display: flow-root;
+        }
+
+        /* The container for the floated image */
+        .ceo-float-wrapper {
+            float: left;
+            width: 300px;
+            /* Fixed width for the image area */
+            margin-right: 50px;
+            /* Space between image and text */
+            margin-bottom: 30px;
+            /* Space below image if text wraps */
+            position: relative;
+            z-index: 5;
+        }
+
+        .ceo-img-frame {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 20px 20px 0px rgba(11, 18, 33, 0.1);
+            border: 8px solid #ffffff;
+            animation: floatImage 5s ease-in-out infinite;
+            transform-origin: center center;
             background: #fff;
         }
 
-        .client-logo-wrapper img {
-            height: 120px;
-            /* Reduced height for compactness */
-            width: 100%;
-            object-fit: contain;
-            transition: transform 0.5s;
+        /* Decorative Shape behind image */
+        .ceo-img-bg-shape {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 150px;
+            height: 150px;
+            background: repeating-linear-gradient(45deg,
+                    var(--primary),
+                    var(--primary) 2px,
+                    transparent 2px,
+                    transparent 10px);
+            opacity: 0.15;
+            z-index: -1;
+            border-radius: 50%;
         }
 
-        .client-card-vertical:hover .client-logo-wrapper img {
-            transform: scale(1.05);
+        @keyframes floatImage {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
         }
 
-        /* --- 3. BADGES & BODY --- */
-        .client-card-body {
-            flex-grow: 1;
+        /* Text Styling */
+        .quote-icon-top {
+            font-size: 60px;
+            color: var(--primary);
+            opacity: 0.1;
+            position: absolute;
+            top: 40px;
+            right: 50px;
+        }
+
+        .message-subtitle {
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--primary);
+            display: inline-block;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .message-subtitle::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .message-title {
+            font-weight: 800;
+            margin-bottom: 25px;
+            font-family: 'Roboto', sans-serif;
+            color: #0b1221;
+        }
+
+        .message-body {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: #555;
+            text-align: justify;
+        }
+
+        /* --- SIGNATURE STYLES --- */
+        .signature-box {
+            margin-top: 40px;
+            display: flex;
+            gap: 20px;
+            clear: both;
+        }
+
+        .signature-line {
+            height: auto;
+            min-height: 60px;
+            width: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+            flex-shrink: 0;
+            /* Prevent line from shrinking */
+        }
+
+        .signature-details {
             display: flex;
             flex-direction: column;
-            /* Note: The JS adds p-4, we can override or keep it. 
-           For compact design, p-3 (1rem) is usually better. */
-        }
-
-        .badge {
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 0.4em 0.8em;
-        }
-
-        .bg-warning {
-            color: #000 !important;
-        }
-
-        /* --- 4. DETAILS BOXES (Compact & Aligned) --- */
-
-        .client-info-box {
-            background-color: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 6px;
-            padding: 8px 10px;
-            /* Compact padding */
-            margin-bottom: 6px;
-            /* Tighter margin */
-
-            display: flex;
-            align-items: flex-start;
-            transition: all 0.2s ease;
-
-            /* Fixed Height for Perfect Alignment */
-            height: 72px;
-            overflow: hidden;
-        }
-
-        .client-info-box:hover {
-            background-color: #fff;
-            border-color: #FF3E41;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        /* Icon Container - Smaller */
-        .info-icon {
-            min-width: 30px;
-            height: 30px;
-            background-color: rgba(255, 62, 65, 0.08);
-            color: #FF3E41;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            margin-right: 10px;
-            font-size: 0.8rem;
-            flex-shrink: 0;
-            transition: all 0.3s ease;
-            margin-top: 2px;
-            /* Align with text top */
         }
 
-        .client-info-box:hover .info-icon {
-            background-color: #FF3E41;
-            color: #ffffff;
+        .signature-details div:first-child {
+            /* "With warm regards" style */
+            font-style: italic;
+            color: #666;
+            margin-bottom: 5px;
+            font-family: 'Inter', sans-serif;
         }
 
-        /* Content Wrapper */
-        .info-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        /* Label - Compact */
-        .info-label {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            color: #888;
+        .signature-details h6 {
+            /* Name Style - Critical override to stack name and designation */
+            font-weight: 800;
+            margin-bottom: 0 !important;
+            /* Forces the designation to sit tight below the name */
+            color: #0b1221;
             letter-spacing: 0.5px;
-            margin-bottom: 1px;
-            font-weight: 700;
-            flex-shrink: 0;
-            line-height: 1.1;
+            font-size: 1.1rem;
+            line-height: 1.2;
         }
 
-        /* Value Text - Scrollable & Compact */
-        .info-value {
-            font-size: 0.8rem;
+        /* Styling for the leader's designation in the signature box */
+        .signature-details .designation-line {
+            font-size: 0.85rem;
+            /* Noticeably smaller than the H6 name */
+            font-weight: 400;
+            /* Regular weight (less bold) */
+            color: #007bff;
+            /* *** COLOR CHANGE: Use corporate primary color *** */
+            text-transform: none;
+            display: block;
+            margin-top: 2px;
+            margin-bottom: 8px;
+        }
+
+        /* Updated company name style to use the primary color from existing code */
+        .signature-details div:last-child {
+            color: var(--primary);
             font-weight: 600;
-            color: #333;
-            line-height: 1.35;
-
-            overflow-y: auto;
-            height: 100%;
-            padding-right: 2px;
+            font-size: 0.9rem;
         }
 
-        /* --- THIN SCROLLBAR --- */
-        .info-value::-webkit-scrollbar {
-            width: 3px;
+        .leader-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            /* *** COLOR CHANGE: Use corporate primary color for background and white text *** */
+            background: var(--primary);
+            color: #ffffff;
+
+            padding: 10px 25px;
+            border-bottom-left-radius: 15px;
+            border-top-right-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .info-value::-webkit-scrollbar-track {
-            background: #f1f1f1;
+        /* --- RESPONSIVE TWEAKS --- */
+
+        /* Tablet & Laptop (Below 992px) */
+        @media (max-width: 991px) {
+            .ceo-card {
+                padding: 40px 30px;
+                text-align: left;
+            }
+
+            .ceo-float-wrapper {
+                float: none;
+                /* Disable float to stack elements */
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto 40px auto;
+                /* Center image */
+                display: block;
+            }
+
+            .quote-icon-top {
+                font-size: 50px;
+                top: 20px;
+                right: 20px;
+            }
         }
 
-        .info-value::-webkit-scrollbar-thumb {
-            background: #ccc;
-            border-radius: 3px;
-        }
+        /* Mobile Devices (Below 576px) */
+        @media (max-width: 575px) {
+            .ceo-section-wrapper {
+                padding-top: 50px;
+                padding-bottom: 50px;
+            }
 
-        .info-value::-webkit-scrollbar-thumb:hover {
-            background: #FF3E41;
+            .ceo-card {
+                padding: 25px 20px;
+                /* Less padding on small screens */
+            }
+
+            .ceo-float-wrapper {
+                max-width: 100%;
+                /* Allow image to take full width */
+                margin-right: 0;
+                margin-bottom: 30px;
+            }
+
+            .ceo-img-bg-shape {
+                width: 100px;
+                height: 100px;
+                right: -10px;
+                bottom: -10px;
+            }
+
+            .message-title {
+                font-size: 1.6rem;
+                /* Smaller title font */
+                margin-bottom: 20px;
+            }
+
+            .message-subtitle {
+                font-size: 0.8rem;
+                padding-left: 40px;
+                letter-spacing: 2px;
+            }
+
+            .message-subtitle::before {
+                width: 30px;
+            }
+
+            .message-body {
+                font-size: 0.95rem;
+                /* Slightly smaller body text */
+                line-height: 1.7;
+            }
+
+            .signature-box {
+                margin-top: 30px;
+                gap: 15px;
+            }
+
+            .signature-line {
+                min-height: 50px;
+            }
+
+            .leader-badge {
+                padding: 8px 15px;
+                font-size: 0.65rem;
+            }
         }
     </style>
 </head>
 
-<body onload="fetchClients()">
+<body>
     <div id="spinner"
         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -246,6 +397,7 @@
 
         </div>
     </div>
+    <!-- Navbar start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow border-top border-5 border-primary sticky-top p-0">
         <a href="index.html" class="navbar-brand d-flex align-items-center">
             <img src="img/logo.png" class="nav-logo" style="transition: opacity 0.5s ease-in-out;" id="navLogo"
@@ -260,11 +412,11 @@
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href="index.html" class="nav-item nav-link">Home</a>
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">About Us</a>
+                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">About Us</a>
                     <div class="dropdown-menu fade-up m-0">
                         <a href="about.html" class="dropdown-item">Company Overview</a>
                         <a href="chairman_message.html" class="dropdown-item">Chairman's Message</a>
-                        <a href="ceo_message.html" class="dropdown-item">CEO's Message</a>
+                        <a href="ceo_message.html" class="dropdown-item active">CEO's Message</a>
                         <a href="team.html" class="dropdown-item">Team</a>
                         <a href="gallery.html" class="dropdown-item">Gallery</a>
                     </div>
@@ -277,32 +429,19 @@
                     </div>
                 </div>
                 <a href="brands.html" class="nav-item nav-link">Brands</a>
-                <a href="clients.html" class="nav-item nav-link active">Clients</a>
+                <a href="clients.html" class="nav-item nav-link">Clients</a>
                 <a href="contact.html" class="nav-item nav-link">Contact Us</a>
             </div>
+            <!-- <h4 class="m-0 pe-lg-5 d-none d-lg-block"><i class="fa fa-headphones text-primary me-3"></i>+880 9611-699282 (24/7) -->
             </h4>
         </div>
     </nav>
-    <div class="container-fluid page-header py-5" style="margin-bottom: 2rem;">>
-        <div class="container py-5">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">Our Clients</h1>
-            <nav aria-label="breadcrumb animated slideInDown">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">Clients</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-    <div id="clients-section" class="container-xxl py-5">
-        <div class="container py-5">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="text-secondary text-uppercase">Our Clients</h6>
-                <h1 class="mb-5">Our Valued Clients</h1>
-            </div>
-            <div class="row g-4" id="client_catalog">
-            </div>
-            <div id="client_message" class="text-center mt-5 fs-5 text-danger" style="display: none;">
+    <!-- Navbar end -->
+
+    <div class="container-fluid ceo-section-wrapper">
+        <div class="container" id="ceo-container">
+            <div class="text-center py-5">
+                <i class="fa fa-spinner fa-spin fa-3x text-primary"></i>
             </div>
         </div>
     </div>
@@ -400,9 +539,9 @@
                         <i class="fa fa-envelope text-light me-3 mt-1"></i>
                         <div>
                             <p class="mb-1"><a class="text-light"
-                                    href="mailto:ajfiresolutions@hotmail.com">ajfiresolutions@hotmail.com</a></p>
-                            <p class="mb-1"><a class="text-light"
                                     href="mailto:info@ajfses.com.bd">info@ajfses.com.bd</a></p>
+                            <p class="mb-1"><a class="text-light"
+                                    href="mailto:ajfiresolutions@hotmail.com">ajfiresolutions@hotmail.com</a></p>
                         </div>
                     </div>
                 </div>
@@ -451,156 +590,122 @@
     <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
+    <script src="js/config.js"></script>
     <script src="js/main.js"></script>
     <script src="js/common.js"></script>
-    <script src="js/config.js"></script>
-
     <script>
-        // Assuming window.env.API_URL is available from config.js
-        const apiURL = window.env.API_URL;
-        // Set up the base path for client images
-        const CLIENT_IMAGE_BASE_PATH = `${apiURL}/images/clients`;
+        // 1. HELPER: Parser Function
+        function parseContent(rawText) {
+            if (!rawText) return { subtitle: '', title: '', bodyHtml: '' };
 
-        function showSpinner() {
-            document.getElementById('spinner').classList.add('show');
-        }
+            const h6Match = rawText.match(/\[h6\](.*?)(\[|$)/s);
+            const subtitle = h6Match ? h6Match[1].trim() : '';
 
-        function hideSpinner() {
-            document.getElementById('spinner').classList.remove('show');
-        }
+            const h1Match = rawText.match(/\[h1\](.*?)(\[|$)/s);
+            const title = h1Match ? h1Match[1].trim() : '';
 
-        /**
-         * Renders the client cards into the list container using efficient string buffering.
-         * @param {Array<Object>} clients - Array of client objects from the API.
-         */
-        function renderClients(clients) {
-            const container = document.getElementById('client_catalog');
-            const messageElement = document.getElementById('client_message');
-
-            container.innerHTML = ''; // Clear container first
-            messageElement.style.display = 'none';
-
-            // Ensure clients is an array and not empty
-            if (!Array.isArray(clients) || clients.length === 0) {
-                messageElement.textContent = 'No clients found.';
-                messageElement.style.display = 'block';
-                container.innerHTML = '';
-                return;
+            const pMatches = [...rawText.matchAll(/\[p\](.*?)(?=\[|$)/gs)];
+            let bodyHtml = '';
+            if (pMatches.length > 0) {
+                bodyHtml = pMatches.map(m => `<p class="message-body">${m[1].trim()}</p>`).join('');
+            } else {
+                const cleanText = rawText.replace(/\[h6\].*?(\[|$)/s, '').replace(/\[h1\].*?(\[|$)/s, '').trim();
+                if (cleanText) bodyHtml = `<p class="message-body">${cleanText}</p>`;
             }
-
-            let htmlContent = ''; // Start an HTML string buffer
-
-            clients.forEach((client, index) => {
-                // Added a short delay increment for WoW.js animation
-                const delay = (index * 0.1).toFixed(1);
-
-                // --- Logic for status badge ---
-                let statusText = client.status || 'Running';
-
-                // Status Badge Logic
-                let statusClass = 'bg-primary text-white';
-
-                if (statusText === 'Completed') {
-                    statusClass = 'bg-success text-white';
-                } else {
-                    statusText = 'Running'
-                }
-
-                const statusBadgeHtml = `<span class="badge ${statusClass} rounded-pill px-3 py-2 fw-normal">${statusText}</span>`;
-
-                // Construct the full image path.
-                const imagePath = client.image_link && client.image_link.trim() !== ""
-                    ? `${CLIENT_IMAGE_BASE_PATH}/${client.image_link}`
-                    : 'img/no-img.webp';
-
-                // Details structure
-                const detailsHtml = `
-                    <div class="mt-3">
-                        <div class="client-info-box" title="${client.service_name || ''}">
-                            <div class="info-icon">
-                                <i class="fa-solid fa-briefcase"></i>
-                            </div>
-                            <div class="info-content">
-                                <span class="info-label">Service Provided</span>
-                                <div class="info-value">${client.service_name || 'N/A'}</div>
-                            </div>
-                        </div>
-
-                        <div class="client-info-box" title="${client.area || ''}">
-                            <div class="info-icon">
-                                <i class="fa-solid fa-location-dot"></i>
-                            </div>
-                            <div class="info-content">
-                                <span class="info-label">Project Location</span>
-                                <div class="info-value">${client.area || 'N/A'}</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-
-                // NEW CARD STRUCTURE (Vertical, 3/2/1 Layout)
-                htmlContent += `
-                    <div class="col-12 col-md-6 col-lg-4 d-flex"> 
-                        <div class="client-card-vertical p-0 shadow-sm wow fadeInUp w-100" data-wow-delay="${delay}s">
-                            
-                            <div class="client-logo-wrapper">
-                                <img src="${imagePath}" class="client-logo" alt="${client.name || 'Client Logo'}" loading="lazy">
-                            </div>
-
-                            <div class="client-card-body p-4">
-                                <div class="d-flex justify-content-between align-items-start mb-2">
-                                    <h5 class="card-title fw-bold mb-0 text-dark">${client.name || 'N/A'}</h5>
-                                    ${statusBadgeHtml}
-                                </div>
-                                <p class="card-text text-muted small">${client.note || 'No specific note for this client.'}</p>
-                                
-                                <div class="mt-auto">
-                                    ${detailsHtml}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-
-            // Insert all collected HTML at once
-            container.innerHTML = htmlContent;
-
-            // Initialize WOW.js for animations
-            new WOW().init();
+            return { subtitle, title, bodyHtml };
         }
 
-        /**
-         * Fetches client data from the backend API.
-         */
-        async function fetchClients() {
-            showSpinner();
-            const messageElement = document.getElementById('client_message');
-            messageElement.style.display = 'none';
+        async function fetchCEOMessage() {
+            const container = document.getElementById('ceo-container');
+            const API_ENDPOINT = 'messages/ceo';
+            const API_URL = `${window.env.API_URL}/member/${API_ENDPOINT}`;
+            const designationName = 'CEO';
+
+            // 0. Setup: Clear container and validate
+            if (container) container.innerHTML = '';
+            if (!container) return;
 
             try {
-                // Assuming the client list endpoint is /client
-                const response = await fetch(`${apiURL}/client`);
+                // 1. Fetch Data
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error(`Failed to fetch CEO data from ${API_ENDPOINT}`);
 
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    throw new Error(`HTTP error! Status: ${response.status}. Response: ${errorText.substring(0, 100)}...`);
+                const result = await response.json();
+                const leaders = result.ceo || [];
+
+                // 2. Handle Content
+                if (leaders.length > 0) {
+                    let htmlContent = '';
+
+                    leaders.forEach((person, index) => {
+                        if (person.note !== "") {
+                            // Inline HTML Generation Logic for one leader (as requested)
+                            const listLength = leaders.length;
+
+                            const parsed = typeof parseContent === 'function' ? parseContent(person.note) : { title: person.note, bodyHtml: `<p>${person.note}</p>`, subtitle: 'Message' };
+
+                            let imgUrl = 'img/user.webp';
+                            if (person.image_link && window.env && window.env.API_URL) {
+                                imgUrl = `${window.env.API_URL}/images/${person.image_link}`;
+                            }
+
+                            const separatorClass = (index !== listLength - 1) ? 'border-bottom pb-5 mb-5' : '';
+
+                            htmlContent += `
+                            <div class="row ${separatorClass}">
+                                <div class="col-lg-12 wow fadeInUp" data-wow-delay="0.1s">
+                                    <div class="ceo-card">
+                                        <div class="leader-badge">${person.designation || 'Management'}</div>
+                                        <i class="fa fa-quote-left quote-icon-top"></i>
+
+                                        <div class="ceo-float-wrapper">
+                                            <div class="ceo-img-bg-shape"></div>
+                                            <div class="ceo-img-frame">
+                                                <img class="img-fluid w-100" src="${imgUrl}" alt="${person.name}" style="object-fit: cover;">
+                                            </div>
+                                        </div>
+
+                                        <div class="text-content">
+                                            <h6 class="message-subtitle text-uppercase">${parsed.subtitle || 'Message'}</h6>
+                                            <h1 class="message-title">${parsed.title}</h1>
+                                            
+                                            <div class="mt-4">
+                                                ${parsed.bodyHtml}
+                                            </div>
+
+                                            <div class="signature-box">
+                                                <div class="signature-line"></div>
+                                                <div class="signature-details">
+                                                    <div>With warm regards,</div>
+                                                    <h6 class="text-uppercase">${person.name || ""}</h6>
+                                                    <div class="designation-line">${person.designation || "Leadership"}</div>
+                                                    <div>AJ Fire Safety & Engineering Solutions</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        }
+                    });
+                    container.innerHTML = htmlContent;
+                } else {
+                    container.innerHTML = `<div class="text-center">No ${designationName} message found.</div>`;
                 }
 
-                const data = await response.json();
-
-                renderClients(data.clients);
-
             } catch (error) {
-                console.error("Failed to fetch or render clients:", error);
-                messageElement.textContent = 'Error loading client data. Please check the browser console for network and JSON parsing errors.';
-                messageElement.style.display = 'block';
+                console.error(`Error loading ${designationName}:`, error);
+                container.innerHTML = `<div class="text-center text-danger">Failed to load ${designationName} content.</div>`;
+            }
 
-                document.getElementById('client_catalog').innerHTML = '';
-            } finally {
-                hideSpinner();
+            // Re-initialize WOW.js for new content
+            if (typeof WOW === 'function') {
+                new WOW().init();
             }
         }
+        // 2. MAIN: Fetch All ceo message
+        document.addEventListener('DOMContentLoaded', fetchCEOMessage);
     </script>
 </body>
 

@@ -203,22 +203,41 @@ func (h *MemberHandler) GetAllMembers(w http.ResponseWriter, r *http.Request) {
 	utils.WriteJSON(w, http.StatusOK, response)
 }
 
-// GetLeadershipMessages retrieves messages from company leaders.
-func (h *MemberHandler) GetLeadershipMessages(w http.ResponseWriter, r *http.Request) {
-	members, err := h.DB.MemberRepo.GetAll(r.Context(), 0, 0, false, []string{"CHAIRMAN", "CEO & MANAGING DIRECTOR"})
+// GetChairmanMessage retrieves chairman's message of the company.
+func (h *MemberHandler) GetChairmanMessage(w http.ResponseWriter, r *http.Request) {
+	members, err := h.DB.MemberRepo.GetAll(r.Context(), 0, 0, false, []string{"CHAIRMAN"})
 	if err != nil {
-		h.errorLog.Println("ERROR_GetLeadershipMessages_01: db error:", err)
+		h.errorLog.Println("ERROR_GetChairmanMessage_01: db error:", err)
 		utils.ServerError(w, errors.New("failed to retrieve chairman info"))
 		return
 	}
 	var response struct {
 		Error    bool             `json:"error"`
 		Message  string           `json:"message"`
-		Leaders []*models.Member `json:"leaders"`
+		Chairman []*models.Member `json:"chairman"`
 	}
 	response.Error = false
-	response.Message = "Leadership messages retrieved successfully"
-	response.Leaders = members
+	response.Message = "Chairman messages retrieved successfully"
+	response.Chairman = members
+	utils.WriteJSON(w, http.StatusOK, response)
+}
+
+// GetCEOMessage retrieves CEO's message of the company.
+func (h *MemberHandler) GetCEOMessage(w http.ResponseWriter, r *http.Request) {
+	members, err := h.DB.MemberRepo.GetAll(r.Context(), 0, 0, false, []string{"CEO & MANAGING DIRECTOR"})
+	if err != nil {
+		h.errorLog.Println("ERROR_GetCEOMessage_01: db error:", err)
+		utils.ServerError(w, errors.New("failed to retrieve ceo info"))
+		return
+	}
+	var response struct {
+		Error   bool             `json:"error"`
+		Message string           `json:"message"`
+		CEO     []*models.Member `json:"ceo"`
+	}
+	response.Error = false
+	response.Message = "CEO messages retrieved successfully"
+	response.CEO = members
 	utils.WriteJSON(w, http.StatusOK, response)
 }
 

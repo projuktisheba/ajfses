@@ -12,7 +12,8 @@ func memberRoutes() *chi.Mux {
 
 	// The handler we created specifically for multipart/form-data
 
-	mux.Get("/messages", handlerRepo.Member.GetLeadershipMessages)
+	mux.Get("/messages/chairman", handlerRepo.Member.GetChairmanMessage)
+	mux.Get("/messages/ceo", handlerRepo.Member.GetCEOMessage)
 	mux.Get("/list", handlerRepo.Member.GetAllMembers)
 
 	mux.Group(func(r chi.Router) {
